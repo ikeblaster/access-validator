@@ -1,8 +1,11 @@
 package cz.zcu.kiv.accessvalidator.configurator;
 
-import cz.zcu.kiv.accessvalidator.configurator.rules.RuleProperty;
+import cz.zcu.kiv.accessvalidator.validator.rules.properties.ChoiceProperty;
+import cz.zcu.kiv.accessvalidator.validator.rules.properties.Property;
 import javafx.beans.value.ObservableValue;
 import org.controlsfx.control.PropertySheet;
+import org.controlsfx.property.editor.Editors;
+import org.controlsfx.property.editor.PropertyEditor;
 
 import java.util.Optional;
 
@@ -11,44 +14,68 @@ import java.util.Optional;
  */
 public class PropertySheetRuleAdaptor implements PropertySheet.Item {
 
-    private RuleProperty ruleProperty;
+    private Property property;
 
-    public PropertySheetRuleAdaptor(RuleProperty ruleProperty) {
-        this.ruleProperty = ruleProperty;
+    public PropertySheetRuleAdaptor(Property property) {
+        this.property = property;
     }
 
     @Override
     public Class<?> getType() {
-        return this.ruleProperty.getValue().getClass();
+        return this.property.getValue().getClass();
     }
 
     @Override
     public String getCategory() {
-        return this.ruleProperty.getCategory();
+        return this.property.getCategory();
     }
 
     @Override
     public String getName() {
-        return this.ruleProperty.getName();
+        return this.property.getName();
     }
 
     @Override
     public String getDescription() {
-        return this.ruleProperty.getDescription();
+        return this.property.getDescription();
     }
 
     @Override
     public Object getValue() {
-        return this.ruleProperty.getValue();
+        return this.property.getValue();
     }
 
     @Override
     public void setValue(Object value) {
-        this.ruleProperty.setValue(value);
+        try {
+            this.property.setValue(value);
+        } catch(RuntimeException e) {
+            e.printStackTrace();
+        }
     }
 
+
     @Override
+    @Deprecated
     public Optional<ObservableValue<? extends Object>> getObservableValue() {
         return Optional.empty();
     }
+
+    public PropertyEditor<?> getPropertyEditor() {
+        if(this.property instanceof ChoiceProperty) {
+            ChoiceProperty property = (ChoiceProperty) this.property;
+            return Editors.createChoiceEditor(this, property.getChoices());
+        }
+
+        if (this.getValue() instanceof Boolean) {
+            return Editors.createCheckEditor(this);
+        }
+
+        if (this.getValue() instanceof Integer) {
+            return Editors.createNumericEditor(this);
+        }
+
+        return Editors.createTextEditor(this);
+    }
+
 }

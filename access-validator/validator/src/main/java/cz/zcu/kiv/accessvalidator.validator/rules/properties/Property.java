@@ -1,20 +1,25 @@
-package cz.zcu.kiv.accessvalidator.configurator.rules;
+package cz.zcu.kiv.accessvalidator.validator.rules.properties;
+
+import javafx.beans.InvalidationListener;
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleObjectProperty;
 
 /**
  * @author ike
  */
-public class RuleProperty {
+public class Property {
 
     private final String id;
-    private Object value;
+    private ObjectProperty<Object> value;
 
     private String name;
     private String description;
     private String category;
 
-    public RuleProperty(String id, Object value, String name, String description, String category) {
+
+    public Property(String id, Object value, String name, String description, String category) {
         this.id = id;
-        this.value = value;
+        this.value = new SimpleObjectProperty<>(value);
         this.name = name;
         this.description = description;
         this.category = category;
@@ -37,13 +42,16 @@ public class RuleProperty {
         return category;
     }
 
-
     public Object getValue() {
-        return value;
+        return value.getValue();
     }
 
     public void setValue(Object value) {
-        this.value = value;
+        this.value.setValue(value);
+    }
+
+    public void onChange(InvalidationListener listener) {
+        this.value.addListener(listener);
     }
 
 }

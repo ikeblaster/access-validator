@@ -1,6 +1,10 @@
 package cz.zcu.kiv.accessvalidator.configurator;
 
-import cz.zcu.kiv.accessvalidator.configurator.rules.*;
+import cz.zcu.kiv.accessvalidator.validator.rules.ComplexRule;
+import cz.zcu.kiv.accessvalidator.validator.rules.GroupRule;
+import cz.zcu.kiv.accessvalidator.validator.rules.Rule;
+import cz.zcu.kiv.accessvalidator.validator.rules.annotations.Monitorable;
+import cz.zcu.kiv.accessvalidator.validator.rules.serialization.RulesSerializer;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -9,9 +13,11 @@ import javafx.scene.control.*;
 import javafx.scene.input.MouseButton;
 import javafx.stage.Stage;
 import org.controlsfx.control.PropertySheet;
-import org.controlsfx.property.editor.Editors;
 
-import java.util.Collection;
+import javax.xml.stream.XMLStreamException;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.Comparator;
 import java.util.function.UnaryOperator;
 
@@ -27,19 +33,70 @@ public class Controller {
     @FXML
     private PropertySheet details;
 
+    @FXML
+    private MenuItem buttonNew;
+
+    @FXML
+    private MenuItem buttonOpen;
+
+    @FXML
+    private MenuItem buttonSave;
+
+    @FXML
+    private MenuItem buttonSaveAs;
+
+    @FXML
+    private MenuItem buttonExit;
+
+
+    private TreeItemRuleAdaptor activeRulesRoot;
+
+
+
+    //region================== GUI initialization ==================
 
     @FXML
     public void initialize() {
+        this.initializeRulesLibrary();
+        this.initializeActiveRules();
+        this.initializeMenuButtons();
+        this.initializeDetails();
 
+        //platform.runLater(this::refreshInputFiles);
+    }
+    private void initializeMenuButtons() {
+
+        this.buttonNew.setOnAction(e -> this.initEmptyRules());
+
+        this.buttonOpen.setOnAction(e -> {
+            try {
+                RulesSerializer serializer = new RulesSerializer();
+                Rule root = serializer.deserialize(new FileInputStream("rules.xml"));
+                this.initLoadedRules(root);
+            } catch(XMLStreamException | IOException ex) {
+                ex.printStackTrace();
+            }
+        });
+
+        this.buttonSave.setOnAction(e -> {
+            try {
+                RulesSerializer serializer = new RulesSerializer();
+                serializer.serialize(activeRulesRoot.getValue(), new FileOutputStream("rules.xml"));
+            } catch(XMLStreamException | IOException ex) {
+                ex.printStackTrace();
+            }
+        });
+
+        this.buttonExit.setOnAction(e -> Platform.exit());
+
+    }
+
+
+    private void initializeRulesLibrary() {
         ObservableList<Rule> rulesLibraryItems = FXCollections.observableArrayList();
 
-        rulesLibraryItems.add(new TableExistsRule());
-        rulesLibraryItems.add(new TableCountRule());
-        rulesLibraryItems.add(new ExistRule());
-
-
-        this.activeRules.setShowRoot(false);
-        this.activeRules.setRoot(new TreeItem<>(new AndGroupRule()));
+        rulesLibraryItems.add(new GroupRule(false));
+        rulesLibraryItems.add(new ComplexRule());
 
         FXCollections.sort(rulesLibraryItems, Comparator.comparing(Rule::toString));
         this.rulesLibrary.setItems(rulesLibraryItems);
@@ -47,39 +104,71 @@ public class Controller {
         this.rulesLibrary.setOnMouseClicked(event -> {
             if(event.getButton() == MouseButton.PRIMARY && event.getClickCount() == 2) {
 
-                Rule selectedRule = this.rulesLibrary.getSelectionModel().getSelectedItem();
-                if(selectedRule != null) {
-                    this.activeRules.getRoot().getChildren().add(new TreeItem<>(selectedRule.newInstance()));
+                Rule origin = this.rulesLibrary.getSelectionModel().getSelectedItem();
+                if(origin == null) {
+                    return;
                 }
+
+                Rule toBeAdded = origin.newInstance();
+                this.addRulesListeners(toBeAdded);
+
+                TreeItemRuleAdaptor parent = (TreeItemRuleAdaptor) this.activeRules.getSelectionModel().getSelectedItem();
+                if(parent == null || !parent.isGroup()) {
+                    parent = this.activeRulesRoot;
+                }
+
+                parent.addChild(toBeAdded);
             }
         });
-
-        this.details.setPropertyEditorFactory(param -> {
-            if(param.getValue() instanceof Collection) {
-                return Editors.createChoiceEditor(param, (Collection) param.getValue());
-            } else if (param.getValue() instanceof Boolean) {
-                return Editors.createCheckEditor(param);
-            } else if (param.getValue() instanceof Integer) {
-                return Editors.createNumericEditor(param);
-            } else {
-                return Editors.createTextEditor(param);
-            }
-        });
-
-        this.activeRules.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
-            Rule rule = newValue.getValue();
-            this.details.getItems().clear();
-
-            for (RuleProperty property : rule.getProperties()) {
-                this.details.getItems().add(new PropertySheetRuleAdaptor(property));
-            }
-        });
-
-
-
-        //platform.runLater(this::refreshInputFiles);
     }
 
+
+    private void initializeActiveRules() {
+        this.initEmptyRules();
+
+        this.activeRules.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            this.details.getItems().clear();
+
+            if(newValue instanceof TreeItemRuleAdaptor) {
+                TreeItemRuleAdaptor treeItem = (TreeItemRuleAdaptor) newValue;
+                this.details.getItems().addAll(treeItem.getPropertySheetItems());
+            }
+        });
+    }
+
+    private void initializeDetails() {
+        this.details.setPropertyEditorFactory(param -> ((PropertySheetRuleAdaptor) param).getPropertyEditor());
+    }
+
+
+    //endregion
+
+
+
+    private void initEmptyRules() {
+        this.initLoadedRules(new GroupRule());
+    }
+
+    private void initLoadedRules(Rule root) {
+        this.activeRulesRoot = new TreeItemRuleAdaptor(root);
+        this.activeRules.setRoot(this.activeRulesRoot);
+        this.addRulesListeners(this.activeRulesRoot.getValue());
+    }
+
+    private void addRulesListeners(Rule rule) {
+        if(rule instanceof Monitorable) {
+            rule.onChange(o -> this.activeRules.refresh());
+        }
+        if(rule instanceof GroupRule) {
+            GroupRule groupRule = (GroupRule) rule;
+            for(Rule child : groupRule.getRules()) {
+                this.addRulesListeners(child);
+            }
+        }
+    }
+
+
+    //region Old stuff
     private Integer checkTimeValue(Spinner<Integer> spinner, Object newValue) {
         if (newValue == null) {
             spinner.getValueFactory().setValue(0);
@@ -109,7 +198,7 @@ public class Controller {
 
 
     public void onLoad(Stage primaryStage) {
-        Platform.runLater(() -> primaryStage.focusedProperty().addListener((observable, oldValue, newValue) -> onWindowFocusChange(newValue)));
+        Platform.runLater(() -> primaryStage.focusedProperty().addListener((observable, oldValue, newValue) -> this.onWindowFocusChange(newValue)));
     }
 
     private void onWindowFocusChange(Boolean isFocused) {
@@ -154,6 +243,7 @@ public class Controller {
         }
 */
     }
+    //endregion
 
 
 }

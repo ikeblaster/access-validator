@@ -10,9 +10,6 @@ import javafx.stage.Stage;
 /**
  * Heart of the application where every necessary variable is initialized,
  * including GUI. The application starts from here.
- *
- * @author Team(Vana)
- * @version 1.0
  */
 public class main extends Application {
 
@@ -40,12 +37,11 @@ public class main extends Application {
     public void start(Stage primaryStage) throws Exception {
         //log.info("Start");
 
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/editor.fxml"));
+        FXMLLoader loader = new FXMLLoader(this.getClass().getResource("/editor.fxml"));
         Parent root = loader.load();
-        //String css = getClass().getResource("/sample.css").toExternalForm();
 
         Scene scene = new Scene(root);
-        //scene.getStylesheets().add(css);
+        //scene.getStylesheets().add(getClass().getResource("/editor.css").toExternalForm());
 
         //Controller controller = loader.getController();
         //controller.onLoad(primaryStage);
