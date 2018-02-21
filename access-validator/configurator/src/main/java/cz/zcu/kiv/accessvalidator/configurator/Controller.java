@@ -64,6 +64,8 @@ public class Controller {
 
         //platform.runLater(this::refreshInputFiles);
     }
+
+
     private void initializeMenuButtons() {
 
         this.buttonNew.setOnAction(e -> this.initEmptyRules());

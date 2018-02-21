@@ -54,7 +54,6 @@ public class PropertySheetRuleAdaptor implements PropertySheet.Item {
         }
     }
 
-
     @Override
     @Deprecated
     public Optional<ObservableValue<? extends Object>> getObservableValue() {
