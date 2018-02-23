@@ -45,6 +45,7 @@ public class PropertySheetRuleAdaptor implements PropertySheet.Item {
         return this.property.getValue();
     }
 
+    @SuppressWarnings("unchecked")
     @Override
     public void setValue(Object value) {
         try {
@@ -56,10 +57,11 @@ public class PropertySheetRuleAdaptor implements PropertySheet.Item {
 
     @Override
     @Deprecated
-    public Optional<ObservableValue<? extends Object>> getObservableValue() {
+    public Optional<ObservableValue<?>> getObservableValue() {
         return Optional.empty();
     }
 
+    @SuppressWarnings("unchecked")
     public PropertyEditor<?> getPropertyEditor() {
         if(this.property instanceof ChoiceProperty) {
             ChoiceProperty property = (ChoiceProperty) this.property;

@@ -39,12 +39,10 @@ public class main extends Application {
 
         FXMLLoader loader = new FXMLLoader(this.getClass().getResource("/editor.fxml"));
         Parent root = loader.load();
-
         Scene scene = new Scene(root);
-        //scene.getStylesheets().add(getClass().getResource("/editor.css").toExternalForm());
 
-        //Controller controller = loader.getController();
-        //controller.onLoad(primaryStage);
+        Controller controller = loader.getController();
+        controller.setStage(primaryStage);
 
         //primaryStage.getIcons().add(new Image(getClass().getResourceAsStream("/app.png")));
         primaryStage.setTitle("AccessValidator - konfigurátor pravidel");

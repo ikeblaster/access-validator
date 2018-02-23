@@ -33,8 +33,8 @@
                         <MenuItem mnemonicParsing="false" onAction="#actionSaveFile" text="Uložit" />
                         <MenuItem mnemonicParsing="false" onAction="#actionSaveAs" text="Uložit jako..." />
                         <SeparatorMenuItem mnemonicParsing="false" />
-                        <MenuItem mnemonicParsing="false" onAction="#actionSetTestFile" text="Otestovat aktuální sadu pravidel" />
-                        <MenuItem mnemonicParsing="false" onAction="#actionTestRules" text="Vybrat testovací databázi" />
+                        <MenuItem mnemonicParsing="false" onAction="#actionTestRules" text="Otestovat aktuální sadu pravidel" />
+                        <MenuItem mnemonicParsing="false" onAction="#actionSetTestFile" text="Vybrat testovací databázi" />
                         <SeparatorMenuItem mnemonicParsing="false" />
                         <MenuItem mnemonicParsing="false" onAction="#actionExitApp" text="Ukončit" />
                     </items>
