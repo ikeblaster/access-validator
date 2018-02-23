@@ -1,5 +1,6 @@
 package cz.zcu.kiv.accessvalidator.validator.rules;
 
+import cz.zcu.kiv.accessvalidator.validator.Accdb;
 import cz.zcu.kiv.accessvalidator.validator.rules.properties.ChoiceProperty;
 import cz.zcu.kiv.accessvalidator.validator.rules.annotations.Monitorable;
 import javafx.beans.InvalidationListener;
@@ -13,26 +14,26 @@ import java.util.List;
  */
 public class GroupRule extends Rule implements Monitorable {
 
-    private ChoiceProperty modeProperty;
-    private List<Rule> rules = new ArrayList<>();
-    private boolean modeInTitle = true;
-
     public enum Mode {
         AND, OR
     }
 
+    private ChoiceProperty<Mode> modeProperty;
+    private List<Rule> rules = new ArrayList<>();
+    private boolean modeInTitle = true;
+
     public GroupRule() {
         super();
 
-        this.modeProperty = new ChoiceProperty(
+        this.modeProperty = new ChoiceProperty<>(
                 "mode",
                 Mode.AND,
-                Arrays.asList((Object[]) Mode.values()),
+                Arrays.asList(Mode.values()),
                 "Režim validace",
                 "Podmínka pro splnění skupiny pravidel.\nAND = nutné splnit všechna pravidla.\nOR = nutné splnit alespoň jedno pravidlo.",
                 "Režim validace");
 
-        this.properties.add(modeProperty);
+        this.properties.add(this.modeProperty);
     }
 
     public GroupRule(boolean activeRule) {
@@ -47,6 +48,24 @@ public class GroupRule extends Rule implements Monitorable {
     @Override
     public void onChange(InvalidationListener listener) {
         this.modeProperty.onChange(listener);
+    }
+
+    @Override
+    public boolean check(Accdb accdb) {
+
+        if(this.modeProperty.getValue().equals(Mode.AND)) {
+            for (Rule rule : this.rules) {
+                if(!rule.check(accdb)) return false; // at least one is NOT successful
+            }
+            return true;
+        }
+        else {
+            for (Rule rule : this.rules) {
+                if(rule.check(accdb)) return true; // at least one is successful
+            }
+            return false;
+        }
+
     }
 
     @Override

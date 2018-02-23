@@ -8,28 +8,35 @@
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.SeparatorMenuItem?>
 <?import javafx.scene.control.SplitPane?>
-<?import javafx.scene.control.Tooltip?>
+<?import javafx.scene.control.ToolBar?>
 <?import javafx.scene.control.TreeView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.paint.Color?>
 <?import javafx.scene.text.Font?>
 <?import org.controlsfx.control.PropertySheet?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="656.0" prefWidth="943.0" stylesheets="editor.css" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cz.zcu.kiv.accessvalidator.configurator.Controller">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="656.0" prefWidth="943.0" stylesheets="editor.css" xmlns="http://javafx.com/javafx/9.0.4" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cz.zcu.kiv.accessvalidator.configurator.Controller">
     <children>
         <MenuBar VBox.vgrow="NEVER">
             <menus>
                 <Menu mnemonicParsing="false" text="Soubor">
                     <items>
-                        <MenuItem mnemonicParsing="false" text="Nový" fx:id="buttonNew" />
-                        <MenuItem mnemonicParsing="false" text="Otevřít..." fx:id="buttonOpen" />
-                        <MenuItem mnemonicParsing="false" text="Uložit" fx:id="buttonSave" />
-                        <MenuItem mnemonicParsing="false" text="Uložit jako..." fx:id="buttonSaveAs" />
+                        <MenuItem mnemonicParsing="false" onAction="#actionNewFile" text="Nový" />
+                        <MenuItem mnemonicParsing="false" onAction="#actionOpenFile" text="Otevřít..." />
+                        <MenuItem mnemonicParsing="false" onAction="#actionSaveFile" text="Uložit" />
+                        <MenuItem mnemonicParsing="false" onAction="#actionSaveAs" text="Uložit jako..." />
                         <SeparatorMenuItem mnemonicParsing="false" />
-                        <MenuItem mnemonicParsing="false" text="Ukončit" fx:id="buttonExit" />
+                        <MenuItem mnemonicParsing="false" onAction="#actionSetTestFile" text="Otestovat aktuální sadu pravidel" />
+                        <MenuItem mnemonicParsing="false" onAction="#actionTestRules" text="Vybrat testovací databázi" />
+                        <SeparatorMenuItem mnemonicParsing="false" />
+                        <MenuItem mnemonicParsing="false" onAction="#actionExitApp" text="Ukončit" />
                     </items>
                 </Menu>
                 <Menu mnemonicParsing="false" text="Nápověda">
@@ -39,13 +46,64 @@
                 </Menu>
             </menus>
         </MenuBar>
-        <SplitPane dividerPositions="0.2507970244420829, 0.6014877789585548" focusTraversable="true" prefHeight="-1.0" prefWidth="-1.0" VBox.vgrow="ALWAYS">
+      <ToolBar prefHeight="40.0" prefWidth="200.0">
+        <items>
+          <Button mnemonicParsing="false" onAction="#actionNewFile" text="Nový">
+               <graphic>
+                  <ImageView fitHeight="22.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@icons/if_file-empty_285688.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+            <Button mnemonicParsing="false" onAction="#actionOpenFile" text="Otevřít">
+               <graphic>
+                  <ImageView fitHeight="22.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@icons/if_folder_299060.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+            <Button mnemonicParsing="false" onAction="#actionSaveFile" text="Uložit">
+               <graphic>
+                  <ImageView fitHeight="22.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@icons/if_floppy_285657.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+            <Separator orientation="VERTICAL" prefHeight="23.0" prefWidth="0.0" visible="false" />
+            <Button mnemonicParsing="false" onAction="#actionDeleteRule" text="Smazat pravidlo">
+               <graphic>
+                  <ImageView fitHeight="22.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@icons/if_sign-error_299045.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+            <Pane prefHeight="0.0" HBox.hgrow="SOMETIMES" />
+            <Button mnemonicParsing="false" onAction="#actionTestRules" text="Otestovat pravidla">
+               <graphic>
+                  <ImageView fitHeight="22.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@icons/if_sign-check_299110.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+        </items>
+      </ToolBar>
+        <SplitPane dividerPositions="0.2576882290562036, 0.601272534464475" focusTraversable="true" prefHeight="-1.0" prefWidth="-1.0" VBox.vgrow="ALWAYS">
             <items>
                 <AnchorPane>
                     <children>
                         <Label alignment="CENTER" layoutX="14.0" layoutY="14.0" minWidth="60.0" prefWidth="-1.0" text="Knihovna pravidel" textAlignment="CENTER" wrapText="false">
                             <font>
-                            <Font size="18.0" fx:id="fontHeaders"/>
+                            <Font fx:id="fontHeaders" size="18.0" />
                         </font>
                         </Label>
                         <ListView fx:id="rulesLibrary" layoutX="11.0" layoutY="76.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="50.0">
@@ -69,11 +127,6 @@
                 <AnchorPane>
                     <children>
                         <Label alignment="CENTER" font="$fontHeaders" layoutX="14.0" layoutY="14.0" text="Detaily pravidla" textAlignment="CENTER" wrapText="false" />
-                        <Button layoutX="208.0" layoutY="15.0" mnemonicParsing="false" text="X" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="15.0">
-                            <tooltip>
-                                <Tooltip text="Smazat pravidlo" />
-                            </tooltip>
-                        </Button>
                         <PropertySheet fx:id="details" layoutX="9.0" layoutY="65.0" mode="CATEGORY" modeSwitcherVisible="true" searchBoxVisible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="50.0" />
                     </children>
                 </AnchorPane>

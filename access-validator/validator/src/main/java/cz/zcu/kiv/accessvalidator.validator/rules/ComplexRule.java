@@ -1,49 +1,75 @@
 package cz.zcu.kiv.accessvalidator.validator.rules;
 
+import cz.zcu.kiv.accessvalidator.validator.Accdb;
 import cz.zcu.kiv.accessvalidator.validator.rules.properties.ChoiceProperty;
 import cz.zcu.kiv.accessvalidator.validator.rules.properties.Property;
 
-import java.util.Arrays;
-import java.util.List;
+import java.util.Set;
 
 /**
  * @author ike
  */
 public class ComplexRule extends Rule {
-
-    public enum ComparisonOperator {
-        GTE("=>"), EQ("="), LTE("<=");
-
-        private String label;
-
-        ComparisonOperator(String label) {
-            this.label = label;
-        }
-
-        @Override
-        public String toString() {
-            return this.label;
-        }
-
-        public static List<Object> asList() {
-            return Arrays.asList((Object[]) values());
-        }
-
-    }
-
+    private ChoiceProperty<ComparisonOperator> propTablesCountOp;
+    private Property<Integer> propTablesCount;
+    private Property<String> propTablesByName;
+    private ChoiceProperty<ComparisonOperator> propColumnsCountOp;
+    private Property<Integer> propColumnsCount;
+    private Property<String> propColumnsByName;
+    private Property<String> propColumnsByType;
 
     public ComplexRule() {
         super();
 
-        this.properties.add(new ChoiceProperty("tables_count_op", ComparisonOperator.GTE, ComparisonOperator.asList(), "Počet tabulek", "Operátor pro ověření počtu tabulek", "1. Počet tabulek"));
-        this.properties.add(new Property("tables_count", Integer.valueOf(1), "...", "Počet hledaných tabulek", "1. Počet tabulek"));
+        this.propTablesCountOp = new ChoiceProperty<>(
+                "tables_count_op", ComparisonOperator.GTE, ComparisonOperator.asList(),
+                "Počet tabulek", "Operátor pro ověření počtu tabulek", "1. Počet nalezených tabulek");
 
-        this.properties.add(new Property("tables_byname", "", "Název tabulky", "Název tabulky", "2. Filtrování dle názvu tabulky"));
+        this.propTablesCount = new Property<>(
+                "tables_count", Integer.valueOf(1),
+                "...", "Počet hledaných tabulek", "1. Počet nalezených tabulek");
 
-        this.properties.add(new ChoiceProperty("columns_count_op", ComparisonOperator.GTE, ComparisonOperator.asList(), "Počet sloupců v tabulce", "Operátor pro ověření počtu tabulek", "3. Počet sloupců"));
-        this.properties.add(new Property("columns_count", Integer.valueOf(1), "...", "Alespoň jedna nalezená tabulka má zadaný počet sloupců", "3. Počet sloupců"));
-        this.properties.add(new Property("columns_byname", "", "Název sloupce", "Existuje tabulka se sloupcem dle zadaného názvu.", "4. Existence sloupce"));
-        this.properties.add(new Property("columns_bytype", "", "Datový typ sloupce", "Existuje tabulka se sloupcem dle zadaného datového typu.", "4. Existence sloupce"));
+        this.propTablesByName = new Property<>(
+                "tables_byname", "",
+                "Název tabulky", "Název tabulky", "2. Filtrování dle názvu tabulky");
+
+        this.propColumnsCountOp = new ChoiceProperty<>(
+                "columns_count_op", ComparisonOperator.GTE, ComparisonOperator.asList(),
+                "Počet sloupců v tabulce", "Operátor pro ověření počtu tabulek", "3. Filtrování dle počtu sloupců");
+
+        this.propColumnsCount = new Property<>(
+                "columns_count", Integer.valueOf(1),
+                "...", "Alespoň jedna nalezená tabulka má zadaný počet sloupců", "3. Filtrování dle počtu sloupců");
+
+        this.propColumnsByName = new Property<>(
+                "columns_byname", "",
+                "Název sloupce", "Existuje tabulka se sloupcem dle zadaného názvu.", "4. Filtrování dle existence sloupce");
+
+        this.propColumnsByType = new Property<>(
+                "columns_bytype", "",
+                "Datový typ sloupce", "Existuje tabulka se sloupcem dle zadaného datového typu.", "4. Filtrování dle existence sloupce");
+
+        this.properties.add(this.propTablesCountOp);
+        this.properties.add(this.propTablesCount);
+        this.properties.add(this.propTablesByName);
+        this.properties.add(this.propColumnsCountOp);
+        this.properties.add(this.propColumnsCount);
+        this.properties.add(this.propColumnsByName);
+        this.properties.add(this.propColumnsByType);
+    }
+
+    @Override
+    public boolean check(Accdb accdb) {
+        Accdb.Checker checker = accdb.getChecker();
+
+        if(!this.propTablesByName.getValue().isEmpty()) checker.filterByName(this.propTablesByName.getValue());
+        checker.filterByColumnCount(this.propColumnsCount.getValue(), this.propColumnsCountOp.getValue());
+        if(!this.propColumnsByName.getValue().isEmpty()) checker.filterByColumnName(this.propColumnsByName.getValue());
+        if(!this.propColumnsByType.getValue().isEmpty()) checker.filterByColumnType(this.propColumnsByType.getValue());
+
+        Set<String> foundTables = checker.getFoundTables();
+
+        return this.propTablesCountOp.getValue().compare(foundTables.size(), this.propTablesCount.getValue());
     }
 
     @Override

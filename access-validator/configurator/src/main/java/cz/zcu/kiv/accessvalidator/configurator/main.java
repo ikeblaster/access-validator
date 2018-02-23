@@ -50,7 +50,7 @@ public class main extends Application {
         primaryStage.setTitle("AccessValidator - konfigurátor pravidel");
         primaryStage.setScene(scene);
         primaryStage.setMinWidth(820);
-        primaryStage.setMinHeight(200);
+        primaryStage.setMinHeight(300);
         primaryStage.show();
     }
 }

@@ -5,21 +5,21 @@ import java.util.Collection;
 /**
  * @author ike
  */
-public class ChoiceProperty extends Property {
+public class ChoiceProperty<T> extends Property<T> {
 
-    private final Collection<Object> choices;
+    private final Collection<T> choices;
 
-    public ChoiceProperty(String id, Object value, Collection<Object> choices, String name, String description, String category) {
+    public ChoiceProperty(String id, T value, Collection<T> choices, String name, String description, String category) {
         super(id, value, name, description, category);
         this.choices = choices;
     }
 
-    public Collection<Object> getChoices() {
+    public Collection<T> getChoices() {
         return this.choices;
     }
 
     @Override
-    public void setValue(Object value) {
+    public void setValue(T value) {
         if(!this.choices.contains(value)) {
             throw new RuntimeException("Unknown choice");
         }

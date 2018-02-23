@@ -80,31 +80,39 @@ public class RulesSerializer {
             case "ComplexRule": rule = new ComplexRule(); break;
         }
 
-        // parse attributes
+        // parse properties (attributes)
         for(int i = 0; i < reader.getAttributeCount(); i++) {
             Property property = rule.getProperty(reader.getAttributeLocalName(i));
+            Class<?> type = property.getType();
             String value = reader.getAttributeValue(i);
 
-            if(property == null) continue;
+            if(property == null) {
+                continue; // TODO: handle deserialization error?
+            }
 
             // parse enums (find exact choice by string name)
-            if(property instanceof ChoiceProperty) {
-                Collection<Object> choices = ((ChoiceProperty) property).getChoices();
+            if(property instanceof ChoiceProperty && type.isEnum()) {
+                Collection<Enum> choices = ((ChoiceProperty) property).getChoices();
 
-                if(choices.iterator().next() instanceof Enum) {
-                    for(Object choice : choices) {
-                        if(((Enum) choice).name().equals(value)) {
-                            property.setValue(choice);
-                            break;
-                        }
+                for(Enum choice : choices) {
+                    if(choice.name().equals(value)) {
+                        property.setValue(choice);
+                        break;
                     }
                 }
             }
-            else {
+            else if(type == Integer.class) {
+                property.setValue(Integer.valueOf(value));
+            }
+            else if(type == String.class) {
                 property.setValue(value);
+            }
+            else {
+                // TODO: handle deserialization error?
             }
         }
 
+        // parse children
         while(reader.hasNext()){
             reader.next();
             if(reader.getEventType() == XMLStreamReader.START_ELEMENT && rule instanceof GroupRule){

@@ -1,23 +1,22 @@
 package cz.zcu.kiv.accessvalidator.validator.rules.properties;
 
 import javafx.beans.InvalidationListener;
-import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 
 /**
  * @author ike
  */
-public class Property {
+public class Property<T> {
 
     private final String id;
-    private ObjectProperty<Object> value;
+    private javafx.beans.property.Property<T> value;
 
     private String name;
     private String description;
     private String category;
 
 
-    public Property(String id, Object value, String name, String description, String category) {
+    public Property(String id, T value, String name, String description, String category) {
         this.id = id;
         this.value = new SimpleObjectProperty<>(value);
         this.name = name;
@@ -25,28 +24,31 @@ public class Property {
         this.category = category;
     }
 
+    public Class<?> getType() {
+        return this.getValue().getClass();
+    }
 
     public String getId() {
-        return id;
+        return this.id;
     }
 
     public String getName() {
-        return name;
+        return this.name;
     }
 
     public String getDescription() {
-        return description;
+        return this.description;
     }
 
     public String getCategory() {
-        return category;
+        return this.category;
     }
 
-    public Object getValue() {
-        return value.getValue();
+    public T getValue() {
+        return this.value.getValue();
     }
 
-    public void setValue(Object value) {
+    public void setValue(T value) {
         this.value.setValue(value);
     }
 

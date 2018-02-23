@@ -1,5 +1,6 @@
 package cz.zcu.kiv.accessvalidator.configurator;
 
+import cz.zcu.kiv.accessvalidator.validator.AccdbValidator;
 import cz.zcu.kiv.accessvalidator.validator.rules.ComplexRule;
 import cz.zcu.kiv.accessvalidator.validator.rules.GroupRule;
 import cz.zcu.kiv.accessvalidator.validator.rules.Rule;
@@ -9,17 +10,19 @@ import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.control.*;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.ListView;
+import javafx.scene.control.TreeView;
 import javafx.scene.input.MouseButton;
-import javafx.stage.Stage;
 import org.controlsfx.control.PropertySheet;
 
 import javax.xml.stream.XMLStreamException;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Comparator;
-import java.util.function.UnaryOperator;
 
 
 public class Controller {
@@ -33,20 +36,6 @@ public class Controller {
     @FXML
     private PropertySheet details;
 
-    @FXML
-    private MenuItem buttonNew;
-
-    @FXML
-    private MenuItem buttonOpen;
-
-    @FXML
-    private MenuItem buttonSave;
-
-    @FXML
-    private MenuItem buttonSaveAs;
-
-    @FXML
-    private MenuItem buttonExit;
 
 
     private TreeItemRuleAdaptor activeRulesRoot;
@@ -59,38 +48,9 @@ public class Controller {
     public void initialize() {
         this.initializeRulesLibrary();
         this.initializeActiveRules();
-        this.initializeMenuButtons();
         this.initializeDetails();
 
         //platform.runLater(this::refreshInputFiles);
-    }
-
-
-    private void initializeMenuButtons() {
-
-        this.buttonNew.setOnAction(e -> this.initEmptyRules());
-
-        this.buttonOpen.setOnAction(e -> {
-            try {
-                RulesSerializer serializer = new RulesSerializer();
-                Rule root = serializer.deserialize(new FileInputStream("rules.xml"));
-                this.initLoadedRules(root);
-            } catch(XMLStreamException | IOException ex) {
-                ex.printStackTrace();
-            }
-        });
-
-        this.buttonSave.setOnAction(e -> {
-            try {
-                RulesSerializer serializer = new RulesSerializer();
-                serializer.serialize(activeRulesRoot.getValue(), new FileOutputStream("rules.xml"));
-            } catch(XMLStreamException | IOException ex) {
-                ex.printStackTrace();
-            }
-        });
-
-        this.buttonExit.setOnAction(e -> Platform.exit());
-
     }
 
 
@@ -147,6 +107,74 @@ public class Controller {
 
 
 
+    //region================== Actions (buttons) ==================
+    public void actionNewFile() {
+        this.initEmptyRules();
+    }
+
+    public void actionOpenFile() {
+        try {
+            RulesSerializer serializer = new RulesSerializer();
+            Rule root = serializer.deserialize(new FileInputStream("rules.xml"));
+            this.initLoadedRules(root);
+        } catch(XMLStreamException | IOException ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    public void actionSaveFile() {
+        try {
+            RulesSerializer serializer = new RulesSerializer();
+            serializer.serialize(this.activeRulesRoot.getValue(), new FileOutputStream("rules.xml"));
+        } catch(XMLStreamException | IOException ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    public void actionSaveAs() {
+    }
+
+    public void actionExitApp() {
+        Platform.exit();
+    }
+
+    public void actionSetTestFile() {
+    }
+
+    public void actionTestRules() {
+
+        try {
+            AccdbValidator validator = new AccdbValidator(new File("data/databaze.accdb"));
+
+            if(validator.validate(this.activeRulesRoot.getValue())) {
+                Alert alert = new Alert(Alert.AlertType.INFORMATION, "", ButtonType.OK);
+                alert.setTitle("Výsledek kontroly");
+                alert.setHeaderText("");
+                alert.setContentText("Databáze splňuje pravidla");
+                alert.showAndWait();
+            }
+            else {
+                Alert alert = new Alert(Alert.AlertType.ERROR, "", ButtonType.OK);
+                alert.setTitle("Výsledek kontroly");
+                alert.setHeaderText("");
+                alert.setContentText("Databáze nesplňuje pravidla");
+                alert.showAndWait();
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    public void actionDeleteRule() {
+    }
+
+    //endregion
+
+
+
+
     private void initEmptyRules() {
         this.initLoadedRules(new GroupRule());
     }
@@ -170,82 +198,8 @@ public class Controller {
     }
 
 
-    //region Old stuff
-    private Integer checkTimeValue(Spinner<Integer> spinner, Object newValue) {
-        if (newValue == null) {
-            spinner.getValueFactory().setValue(0);
-            return 0;
-        }
-        return (int) newValue;
-    }
-
-    private TextFormatter<String> textNumberFormatter() {
-        UnaryOperator<TextFormatter.Change> filter = change -> {
-            String text = change.getText();
-
-            /* max 2 digit */
-            if (change.getCaretPosition() > 2) {
-                return null;
-            }
-
-            /* only digits */
-            if (text.matches("[0-9]*")) {
-                return change;
-            }
-
-            return null;
-        };
-        return new TextFormatter<>(filter);
-    }
 
 
-    public void onLoad(Stage primaryStage) {
-        Platform.runLater(() -> primaryStage.focusedProperty().addListener((observable, oldValue, newValue) -> this.onWindowFocusChange(newValue)));
-    }
-
-    private void onWindowFocusChange(Boolean isFocused) {
-        if (isFocused) {
-
-        }
-    }
-
-    @FXML
-    public void onInputFileChange() {
-//        if (inputFile.getSelectionModel().isEmpty()) {
-//            return; // also triggered during file menu update
-//        }
-/*
-        try {
-            FileWrapper file = inputFile.getSelectionModel().getSelectedItem();
-
-            if(Objects.equals(file, loadedFile)) {
-                return; // cancel, same file
-            }
-
-            InputStreamReader reader = new InputStreamReader(
-                    new FileInputStream(file.getFile()),
-                    Charset.forName("windows-1250")
-            );
-
-            CsvReader csvReader = new CsvReader(new BufferedReader(reader));
-            busStop = csvReader.getBusStop(); // get loaded bus stop data from cscReader
-            loadedFile = file;
-
-            reader.close();
-
-            // Show title for current file
-            DateTimeFormatter dtf = DateTimeFormatter.ofPattern("d. M. y"); // time format
-            tableTitle.setText(busStop.getName() + " (" + busStop.getDateRange().getFrom().getDate().format(dtf) + " - " + busStop.getDateRange().getTo().getDate().format(dtf) + ")");
-
-            log.info("CSV file parsed.");
-        } catch(Exception e) {
-            resetLoadedData();
-            tablePlaceholder.setText(placeholderTexts.CSV_ERROR.toString());
-            log.error("CSV parser error", e);
-        }
-*/
-    }
-    //endregion
 
 
 }

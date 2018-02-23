@@ -1,6 +1,7 @@
 package cz.zcu.kiv.accessvalidator.validator.rules;
 
 
+import cz.zcu.kiv.accessvalidator.validator.Accdb;
 import cz.zcu.kiv.accessvalidator.validator.rules.properties.Property;
 import javafx.beans.InvalidationListener;
 
@@ -14,7 +15,7 @@ import java.util.Collections;
  */
 public abstract class Rule {
 
-    protected Collection<Property> properties = new ArrayList<>();
+    protected Collection<Property<?>> properties = new ArrayList<>();
 
     public Rule newInstance() {
         try {
@@ -24,21 +25,13 @@ public abstract class Rule {
         }
     }
 
-    public Collection<Property> getProperties() {
+    public Collection<Property<?>> getProperties() {
         return Collections.unmodifiableCollection(this.properties);
     }
 
-    public void setProperty(String id, Object value) {
-        for(Property property : properties) {
-            if(id.equals(property.getId())) {
-                property.setValue(value);
-                break;
-            }
-        }
-    }
 
-    public Property getProperty(String id) {
-        for(Property property : properties) {
+    public Property<?> getProperty(String id) {
+        for(Property<?> property : this.properties) {
             if(id.equals(property.getId())) {
                 return property;
             }
@@ -49,6 +42,8 @@ public abstract class Rule {
     public void onChange(InvalidationListener listener) {
         throw new UnsupportedOperationException();
     }
+
+    public abstract boolean check(Accdb accdb);
 
     public abstract String toString();
 
