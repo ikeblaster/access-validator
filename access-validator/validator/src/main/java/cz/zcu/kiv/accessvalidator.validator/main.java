@@ -1,11 +1,11 @@
 package cz.zcu.kiv.accessvalidator.validator;
 
-import cz.zcu.kiv.accessvalidator.validator.rules.ComparisonOperator;
 import cz.zcu.kiv.accessvalidator.validator.rules.Rule;
 import cz.zcu.kiv.accessvalidator.validator.rules.serialization.RulesSerializer;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.IOException;
 
 /**
  * @author ike
@@ -13,21 +13,29 @@ import java.io.FileInputStream;
 public class main {
     public static void main(String[] args) throws Exception {
 
+        if(args.length < 2) {
+            System.out.println("Usage: app <rules XML file> <Access database file>");
+        }
+
+        File fileRules = new File(args[0]);
+        File fileDatabase = new File(args[1]);
+
         RulesSerializer serializer = new RulesSerializer();
-        Rule root = serializer.deserialize(new FileInputStream("rules.xml"));
+        Rule root = serializer.deserialize(new FileInputStream(fileRules));
 
-        ComparisonOperator cmpr = ComparisonOperator.GTE;
+        try {
+            AccdbValidator validator = new AccdbValidator(fileDatabase);
 
-        System.out.println(cmpr.getClass().isEnum());
+            if (validator.validate(root)) {
+                System.out.println("VALID");
+            } else {
+                System.out.println("INVALID");
+            }
 
-        Accdb adb = new Accdb(new File("data/databaze.accdb"));
-
-        //System.out.println(adb.hasTable("Klient"));
-//
-        //if(!adb.hasTable("Klient")) throw new Exception("Table Klient missing");
-        //if(!adb.hasTable("Pracovnik CK")) throw new Exception("Table Pracovnik CK missing");
-        //if(adb.tableColumnCount("Klient") != 7) throw new Exception("Table Klient doesn't have 7 columns");
-        //if(!adb.tableHasColumn("Klient", "Jmeno")) throw new Exception("Table Klient doesn't have column");
+        } catch (IOException e) {
+            System.out.println("ERROR");
+            e.printStackTrace();
+        }
 
 
         /*

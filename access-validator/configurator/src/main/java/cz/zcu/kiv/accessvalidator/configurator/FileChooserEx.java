@@ -18,11 +18,6 @@ public class FileChooserEx {
     public FileChooserEx() {
     }
 
-    public FileChooserEx(Stage stage, File file) {
-        this.stage = stage;
-        this.file = file;
-    }
-
     public ObservableList<FileChooser.ExtensionFilter> getExtensionFilters() {
         return this.fileChooser.getExtensionFilters();
     }

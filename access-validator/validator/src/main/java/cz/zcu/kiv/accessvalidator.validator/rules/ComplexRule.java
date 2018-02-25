@@ -60,14 +60,14 @@ public class ComplexRule extends Rule {
 
     @Override
     public boolean check(Accdb accdb) {
-        Accdb.Checker checker = accdb.getChecker();
+        Accdb.TableRepository repository = accdb.getTableRepository();
 
-        if(!this.propTablesByName.getValue().isEmpty()) checker.filterByName(this.propTablesByName.getValue());
-        checker.filterByColumnCount(this.propColumnsCount.getValue(), this.propColumnsCountOp.getValue());
-        if(!this.propColumnsByName.getValue().isEmpty()) checker.filterByColumnName(this.propColumnsByName.getValue());
-        if(!this.propColumnsByType.getValue().isEmpty()) checker.filterByColumnType(this.propColumnsByType.getValue());
+        if(!this.propTablesByName.getValue().isEmpty()) repository.filterByName(this.propTablesByName.getValue());
+        repository.filterByColumnCount(this.propColumnsCount.getValue(), this.propColumnsCountOp.getValue());
+        if(!this.propColumnsByName.getValue().isEmpty()) repository.filterByColumnName(this.propColumnsByName.getValue());
+        if(!this.propColumnsByType.getValue().isEmpty()) repository.filterByColumnType(this.propColumnsByType.getValue());
 
-        Set<String> foundTables = checker.getFoundTables();
+        Set<String> foundTables = repository.getTables();
 
         return this.propTablesCountOp.getValue().compare(foundTables.size(), this.propTablesCount.getValue());
     }

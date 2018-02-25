@@ -33,8 +33,8 @@ public class TreeItemRuleAdaptor extends TreeItem<Rule> {
                 super.getChildren().add(new TreeItemRuleAdaptor(child));
             }
         }
-
     }
+
 
     @Override
     @Deprecated
@@ -46,6 +46,13 @@ public class TreeItemRuleAdaptor extends TreeItem<Rule> {
         if(this.isGroup()) {
             ((GroupRule) this.getValue()).getRules().add(rule); // add into GroupRule rules
             super.getChildren().add(new TreeItemRuleAdaptor(rule)); // add into tree
+        }
+    }
+
+    public void removeChild(TreeItem<Rule> child) {
+        if(this.isGroup()) {
+            ((GroupRule) this.getValue()).getRules().remove(child.getValue());
+            super.getChildren().remove(child);
         }
     }
 

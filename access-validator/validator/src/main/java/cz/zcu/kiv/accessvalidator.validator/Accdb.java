@@ -17,12 +17,12 @@ import java.util.Set;
  */
 public class Accdb {
 
-    public class Checker {
+    public class TableRepository {
 
         private Database db;
         private Set<String> tables = Collections.emptySet();
 
-        private Checker(Database db) {
+        private TableRepository(Database db) {
             this.db = db;
             try {
                 this.tables = new HashSet<>(db.getTableNames());
@@ -48,7 +48,7 @@ public class Accdb {
             //this.tables.removeIf(name -> !((TableImpl) this.getTable(name)).getColumn(columnName).getType().);
         }
 
-        public Set<String> getFoundTables() {
+        public Set<String> getTables() {
             return this.tables;
         }
 
@@ -69,8 +69,8 @@ public class Accdb {
         this.db = DatabaseBuilder.open(file);
     }
 
-    public Checker getChecker() {
-        return new Checker(this.db);
+    public TableRepository getTableRepository() {
+        return new TableRepository(this.db);
     }
 
 

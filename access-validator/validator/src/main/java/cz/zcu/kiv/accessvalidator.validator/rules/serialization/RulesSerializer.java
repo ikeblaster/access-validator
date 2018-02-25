@@ -73,6 +73,7 @@ public class RulesSerializer {
         return rule;
     }
 
+    @SuppressWarnings("unchecked")
     private Rule readRule(XMLStreamReader reader) throws XMLStreamException {
         Rule rule = new GroupRule();
 
@@ -87,7 +88,7 @@ public class RulesSerializer {
             String value = reader.getAttributeValue(i);
 
             if(property == null) {
-                continue; // TODO: handle deserialization error?
+                continue; // TODO: handle deserialization error? (unknown property)
             }
 
             // parse enums (find exact choice by string name)
@@ -108,7 +109,7 @@ public class RulesSerializer {
                 property.setValue(value);
             }
             else {
-                // TODO: handle deserialization error?
+                System.err.println("Deserialization: Unknown property type");
             }
         }
 

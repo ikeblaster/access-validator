@@ -10,10 +10,7 @@ import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.ListView;
-import javafx.scene.control.TreeView;
+import javafx.scene.control.*;
 import javafx.scene.input.MouseButton;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
@@ -214,6 +211,13 @@ public class Controller {
 
     @FXML
     public void actionDeleteRule() {
+        TreeItem<Rule> selected = this.activeRules.getSelectionModel().getSelectedItem();
+        if (selected == null || !(selected.getParent() instanceof TreeItemRuleAdaptor)) {
+            return;
+        }
+
+        TreeItemRuleAdaptor parent = (TreeItemRuleAdaptor) selected.getParent();
+        parent.removeChild(selected);
     }
 
 

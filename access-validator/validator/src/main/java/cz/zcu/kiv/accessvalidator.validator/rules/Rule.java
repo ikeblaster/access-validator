@@ -29,7 +29,6 @@ public abstract class Rule {
         return Collections.unmodifiableCollection(this.properties);
     }
 
-
     public Property<?> getProperty(String id) {
         for(Property<?> property : this.properties) {
             if(id.equals(property.getId())) {
