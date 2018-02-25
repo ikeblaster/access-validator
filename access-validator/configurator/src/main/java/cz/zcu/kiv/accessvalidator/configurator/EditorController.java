@@ -1,5 +1,8 @@
 package cz.zcu.kiv.accessvalidator.configurator;
 
+import cz.zcu.kiv.accessvalidator.batch.Batch;
+import cz.zcu.kiv.accessvalidator.common.Dialogs;
+import cz.zcu.kiv.accessvalidator.common.FileChooserEx;
 import cz.zcu.kiv.accessvalidator.validator.AccdbValidator;
 import cz.zcu.kiv.accessvalidator.validator.rules.ComplexRule;
 import cz.zcu.kiv.accessvalidator.validator.rules.GroupRule;
@@ -24,7 +27,7 @@ import java.util.Comparator;
 import java.util.Optional;
 
 
-public class Controller {
+public class EditorController {
 
     @FXML
     private ListView<Rule> rulesLibrary;
@@ -33,7 +36,9 @@ public class Controller {
     @FXML
     private PropertySheet details;
 
+
     private Stage stage;
+
     private TreeItemRuleAdaptor activeRulesRoot;
     private ObservableList<Rule> rulesLibraryItems = FXCollections.observableArrayList();
 
@@ -45,7 +50,7 @@ public class Controller {
     //region================== GUI initialization ==================
 
 
-    public void setStage(Stage stage) {
+    public void onLoad(Stage stage) {
         this.stage = stage;
         this.rulesFileChooser.setStage(stage);
         this.testDatabaseFileChooser.setStage(stage);
@@ -160,7 +165,7 @@ public class Controller {
             serializer.serialize(this.activeRulesRoot.getValue(), new FileOutputStream(this.rulesFileChooser.getFile()));
             this.rulesChanged = false;
         } catch (XMLStreamException | IOException e) {
-            this.showErrorBox("Soubor se nepodařilo uložit", e.getLocalizedMessage());
+            Dialogs.showErrorBox("Soubor se nepodařilo uložit", e.getLocalizedMessage());
             e.printStackTrace();
         }
     }
@@ -203,7 +208,7 @@ public class Controller {
             }
 
         } catch (IOException e) {
-            this.showErrorBox("Kontrolu se nepodařilo zahájit", e.getLocalizedMessage());
+            Dialogs.showErrorBox("Kontrolu se nepodařilo zahájit", e.getLocalizedMessage());
             e.printStackTrace();
         }
 
@@ -220,6 +225,15 @@ public class Controller {
         parent.removeChild(selected);
     }
 
+
+    public void actionBatchValidator() {
+        try {
+            Batch batch = new Batch();
+            batch.start(this.activeRulesRoot.getValue(), this.stage);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
     //endregion
 
@@ -265,14 +279,5 @@ public class Controller {
 
 
 
-    //region================== Dialog helpers ==================
-    private void showErrorBox(String header, String message) {
-        Alert alert = new Alert(Alert.AlertType.ERROR, "", ButtonType.OK);
-        alert.setTitle("Chyba");
-        alert.setHeaderText(header);
-        alert.setContentText(message);
-        alert.showAndWait();
-    }
-    //endregion
 
 }

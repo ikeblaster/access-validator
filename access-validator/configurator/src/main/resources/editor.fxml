@@ -22,7 +22,7 @@
 <?import javafx.scene.text.Font?>
 <?import org.controlsfx.control.PropertySheet?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="656.0" prefWidth="943.0" stylesheets="editor.css" xmlns="http://javafx.com/javafx/9.0.4" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cz.zcu.kiv.accessvalidator.configurator.Controller">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="656.0" prefWidth="943.0" stylesheets="editor.css" xmlns="http://javafx.com/javafx/9.0.4" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cz.zcu.kiv.accessvalidator.configurator.EditorController">
     <children>
         <MenuBar VBox.vgrow="NEVER">
             <menus>
@@ -82,13 +82,22 @@
             </Button>
             <Pane prefHeight="0.0" HBox.hgrow="SOMETIMES" />
             <Button mnemonicParsing="false" onAction="#actionTestRules" text="Otestovat pravidla">
-               <graphic>
-                  <ImageView fitHeight="22.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@icons/if_sign-check_299110.png" />
-                     </image>
-                  </ImageView>
-               </graphic>
+                <graphic>
+                    <ImageView fitHeight="22.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true">
+                        <image>
+                            <Image url="@icons/if_sign-check_299110.png" />
+                        </image>
+                    </ImageView>
+                </graphic>
+            </Button>
+            <Button mnemonicParsing="false" onAction="#actionBatchValidator" text="Hromadná kontrola">
+                <graphic>
+                    <ImageView fitHeight="22.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true">
+                        <image>
+                            <Image url="@icons/if_sign-check_299110.png" />
+                        </image>
+                    </ImageView>
+                </graphic>
             </Button>
         </items>
       </ToolBar>

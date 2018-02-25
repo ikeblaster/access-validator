@@ -1,10 +1,12 @@
-package cz.zcu.kiv.accessvalidator.configurator;
+package cz.zcu.kiv.accessvalidator.common;
 
 import javafx.collections.ObservableList;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 import java.io.File;
+import java.util.Collections;
+import java.util.List;
 
 /**
  * @author ike
@@ -34,6 +36,18 @@ public class FileChooserEx {
         return true;
     }
 
+    public List<File> openMultipleFiles() {
+        List<File> files = this.fileChooser.showOpenMultipleDialog(this.stage);
+
+        if(files == null || files.isEmpty()) {
+            return Collections.emptyList();
+        }
+
+        this.file = files.get(0);
+        this.fileChooser.setInitialDirectory(this.file.getParentFile());
+        return files;
+    }
+
     public boolean saveFile() {
         File file = this.fileChooser.showSaveDialog(this.stage);
 
@@ -41,8 +55,8 @@ public class FileChooserEx {
             return false;
         }
 
-        this.fileChooser.setInitialDirectory(file.getParentFile());
         this.file = file;
+        this.fileChooser.setInitialDirectory(this.file.getParentFile());
         return true;
     }
 
