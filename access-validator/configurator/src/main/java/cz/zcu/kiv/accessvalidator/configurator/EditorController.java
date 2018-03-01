@@ -12,6 +12,7 @@ import cz.zcu.kiv.accessvalidator.validator.rules.serialization.RulesSerializer;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseButton;
@@ -177,13 +178,15 @@ public class EditorController {
         }
     }
 
-    @FXML
-    public void actionSetTestFile() {
-        this.testDatabaseFileChooser.openFile();
+
+    public void actionAddDB(ActionEvent actionEvent) {
+    }
+
+    public void actionRemoveDB(ActionEvent actionEvent) {
     }
 
     @FXML
-    public void actionTestRules() {
+    public void actionTestDBs() {
         if (!this.testDatabaseFileChooser.hasFile()) {
             if (!this.testDatabaseFileChooser.openFile()) {
                 return;
@@ -275,6 +278,7 @@ public class EditorController {
         Optional<ButtonType> result = alert.showAndWait();
         return result.isPresent() && result.get() == ButtonType.OK;
     }
+
     //endregion
 
 
