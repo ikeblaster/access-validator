@@ -1,3 +1,7 @@
+.label-header {
+	-fx-font-size: 18;
+}
+
 .scroll-pane,
 .tree-view,
 .list-view {

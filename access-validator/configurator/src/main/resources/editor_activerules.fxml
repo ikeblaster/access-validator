@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TreeView?>
+<?import javafx.scene.layout.*?>
+<AnchorPane xmlns="http://javafx.com/javafx"
+        xmlns:fx="http://javafx.com/fxml"
+        fx:controller="cz.zcu.kiv.accessvalidator.components.ActiveRulesController">
+
+    <Label alignment="CENTER" styleClass="label-header" layoutX="14.0" layoutY="14.0" minWidth="60.0"
+           prefWidth="-1.0" text="Aktivní pravidla" textAlignment="CENTER" wrapText="false"/>
+    <ScrollPane fitToHeight="true" fitToWidth="true" prefHeight="-1.0" prefWidth="-1.0"
+                AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+                AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="50.0">
+        <content>
+            <TreeView fx:id="activeRules"/>
+        </content>
+    </ScrollPane>
+</AnchorPane>
