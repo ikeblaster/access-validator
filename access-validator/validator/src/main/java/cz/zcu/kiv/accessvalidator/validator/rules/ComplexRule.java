@@ -1,6 +1,7 @@
 package cz.zcu.kiv.accessvalidator.validator.rules;
 
-import cz.zcu.kiv.accessvalidator.validator.Accdb;
+import cz.zcu.kiv.accessvalidator.validator.database.Accdb;
+import cz.zcu.kiv.accessvalidator.validator.database.AccdbTableRepository;
 import cz.zcu.kiv.accessvalidator.validator.rules.properties.ChoiceProperty;
 import cz.zcu.kiv.accessvalidator.validator.rules.properties.ComparisonOperator;
 import cz.zcu.kiv.accessvalidator.validator.rules.properties.Property;
@@ -61,7 +62,7 @@ public class ComplexRule extends Rule {
 
     @Override
     public boolean check(Accdb accdb) {
-        Accdb.TableRepository repository = accdb.getTableRepository();
+        AccdbTableRepository repository = accdb.getTableRepository();
 
         if(!this.propTablesByName.getValue().isEmpty()) repository.filterByName(this.propTablesByName.getValue());
         repository.filterByColumnCount(this.propColumnsCount.getValue(), this.propColumnsCountOp.getValue());

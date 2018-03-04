@@ -1,5 +1,6 @@
 package cz.zcu.kiv.accessvalidator.validator;
 
+import cz.zcu.kiv.accessvalidator.validator.database.Accdb;
 import cz.zcu.kiv.accessvalidator.validator.rules.Rule;
 
 import java.io.File;

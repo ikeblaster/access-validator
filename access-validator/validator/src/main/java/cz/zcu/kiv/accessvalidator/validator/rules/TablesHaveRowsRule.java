@@ -1,6 +1,7 @@
 package cz.zcu.kiv.accessvalidator.validator.rules;
 
-import cz.zcu.kiv.accessvalidator.validator.Accdb;
+import cz.zcu.kiv.accessvalidator.validator.database.Accdb;
+import cz.zcu.kiv.accessvalidator.validator.database.AccdbTableRepository;
 import cz.zcu.kiv.accessvalidator.validator.rules.properties.ChoiceProperty;
 import cz.zcu.kiv.accessvalidator.validator.rules.properties.ComparisonOperator;
 import cz.zcu.kiv.accessvalidator.validator.rules.properties.Property;
@@ -30,7 +31,7 @@ public class TablesHaveRowsRule extends Rule {
 
     @Override
     public boolean check(Accdb accdb) {
-        Accdb.TableRepository repository = accdb.getTableRepository();
+        AccdbTableRepository repository = accdb.getTableRepository();
 
         int tablesInDb = repository.getTables().size();
         repository.filterByRowsCount(this.count.getValue(), this.countOp.getValue());

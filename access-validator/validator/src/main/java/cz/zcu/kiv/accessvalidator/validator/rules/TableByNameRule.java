@@ -1,6 +1,7 @@
 package cz.zcu.kiv.accessvalidator.validator.rules;
 
-import cz.zcu.kiv.accessvalidator.validator.Accdb;
+import cz.zcu.kiv.accessvalidator.validator.database.Accdb;
+import cz.zcu.kiv.accessvalidator.validator.database.AccdbTableRepository;
 import cz.zcu.kiv.accessvalidator.validator.rules.properties.Property;
 
 /**
@@ -22,7 +23,7 @@ public class TableByNameRule extends Rule {
 
     @Override
     public boolean check(Accdb accdb) {
-        Accdb.TableRepository repository = accdb.getTableRepository();
+        AccdbTableRepository repository = accdb.getTableRepository();
 
         repository.filterByName(this.propName.getValue());
 

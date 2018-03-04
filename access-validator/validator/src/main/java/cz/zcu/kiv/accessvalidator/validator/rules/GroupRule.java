@@ -1,6 +1,6 @@
 package cz.zcu.kiv.accessvalidator.validator.rules;
 
-import cz.zcu.kiv.accessvalidator.validator.Accdb;
+import cz.zcu.kiv.accessvalidator.validator.database.Accdb;
 import cz.zcu.kiv.accessvalidator.validator.rules.properties.ChoiceProperty;
 import cz.zcu.kiv.accessvalidator.validator.rules.annotations.Monitorable;
 import javafx.beans.InvalidationListener;
