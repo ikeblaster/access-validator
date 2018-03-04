@@ -19,13 +19,13 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 
-public class BatchController {
+public class ValidatorController {
 
     @FXML
     private ListView<ListViewFileAdaptor> dbFiles;
     private ObservableList<ListViewFileAdaptor> files = FXCollections.observableArrayList();
 
-    private FileChooserEx fileChooser = new FileChooserEx();
+    private FileChooserEx fileChooser = new FileChooserEx(this.getClass().getSimpleName());
 
 
 
@@ -37,7 +37,7 @@ public class BatchController {
 
     @FXML
     public void initialize() {
-        this.fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Access databáze", "*.accdb", "*.mdb"));
+        this.fileChooser.addExtensionFilter(new FileChooser.ExtensionFilter("Access databáze", "*.accdb", "*.mdb"));
         this.dbFiles.setItems(this.files);
     }
 

@@ -7,21 +7,44 @@ import javafx.stage.Stage;
 import java.io.File;
 import java.util.Collections;
 import java.util.List;
+import java.util.prefs.Preferences;
 
 /**
  * @author ike
  */
 public class FileChooserEx {
 
+    private static final String PREF_INITIAL_DIRECTORY = "initial_directory";
+
     private FileChooser fileChooser = new FileChooser();
     private Stage stage;
     private File file;
 
+    private Preferences prefs;
+
     public FileChooserEx() {
+    }
+
+    public FileChooserEx(String persistenceKey) {
+
+        // load initial directory from preferences
+        Preferences prefs = Preferences.userNodeForPackage(this.getClass()).node(persistenceKey); // HKCU\Software\JavaSoft\Prefs
+
+        String initial = prefs.get(PREF_INITIAL_DIRECTORY, null);
+        if(initial != null) {
+            this.setInitialDirectory(new File(initial));
+        }
+
+        this.prefs = prefs;
+
     }
 
     public ObservableList<FileChooser.ExtensionFilter> getExtensionFilters() {
         return this.fileChooser.getExtensionFilters();
+    }
+
+    public void addExtensionFilter(FileChooser.ExtensionFilter extensionFilter) {
+        this.fileChooser.getExtensionFilters().add(extensionFilter);
     }
 
     public boolean openFile() {
@@ -31,8 +54,8 @@ public class FileChooserEx {
             return false;
         }
 
-        this.fileChooser.setInitialDirectory(file.getParentFile());
         this.file = file;
+        this.setInitialDirectory(file.getParentFile());
         return true;
     }
 
@@ -44,7 +67,7 @@ public class FileChooserEx {
         }
 
         this.file = files.get(0);
-        this.fileChooser.setInitialDirectory(this.file.getParentFile());
+        this.setInitialDirectory(this.file.getParentFile());
         return files;
     }
 
@@ -56,7 +79,7 @@ public class FileChooserEx {
         }
 
         this.file = file;
-        this.fileChooser.setInitialDirectory(this.file.getParentFile());
+        this.setInitialDirectory(this.file.getParentFile());
         return true;
     }
 
@@ -75,4 +98,12 @@ public class FileChooserEx {
     public void setStage(Stage stage) {
         this.stage = stage;
     }
+
+    private void setInitialDirectory(File path) {
+        this.fileChooser.setInitialDirectory(path);
+        if(this.prefs != null) {
+            this.prefs.put(PREF_INITIAL_DIRECTORY, path.getAbsolutePath());
+        }
+    }
+
 }

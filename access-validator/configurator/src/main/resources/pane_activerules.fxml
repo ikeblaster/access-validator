@@ -9,12 +9,10 @@
         fx:controller="cz.zcu.kiv.accessvalidator.components.ActiveRulesController">
 
     <Label alignment="CENTER" styleClass="label-header" layoutX="14.0" layoutY="14.0" minWidth="60.0"
-           prefWidth="-1.0" text="Aktivní pravidla" textAlignment="CENTER" wrapText="false"/>
-    <ScrollPane fitToHeight="true" fitToWidth="true" prefHeight="-1.0" prefWidth="-1.0"
+           text="Aktivní pravidla" textAlignment="CENTER"/>
+    <ScrollPane fitToHeight="true" fitToWidth="true"
                 AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
                 AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="50.0">
-        <content>
-            <TreeView fx:id="activeRules"/>
-        </content>
+        <TreeView fx:id="activeRules"/>
     </ScrollPane>
 </AnchorPane>

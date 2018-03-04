@@ -29,7 +29,7 @@ public class ActiveRulesController {
     @FXML
     private TreeView<Rule> activeRules;
 
-    private FileChooserEx rulesFileChooser = new FileChooserEx();
+    private FileChooserEx rulesFileChooser = new FileChooserEx(this.getClass().getSimpleName());
     private boolean rulesChanged = false;
     private DetailsController detailsController;
     private TreeItemRuleAdaptor activeRulesRoot;
@@ -55,7 +55,7 @@ public class ActiveRulesController {
             }
         });
 
-        this.rulesFileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Soubor pravidel", "*.xml"));
+        this.rulesFileChooser.addExtensionFilter(new FileChooser.ExtensionFilter("Soubor pravidel", "*.xml"));
     }
     //endregion
 

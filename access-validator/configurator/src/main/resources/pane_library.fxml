@@ -13,7 +13,7 @@
     <Label alignment="CENTER" styleClass="label-header" layoutX="14.0" layoutY="14.0" minWidth="60.0"
            prefWidth="-1.0"
            text="Knihovna pravidel" textAlignment="CENTER" wrapText="false"/>
-    <ListView fx:id="rulesLibrary" layoutX="11.0" layoutY="76.0" prefHeight="200.0"
+    <ListView fx:id="rules" layoutX="11.0" layoutY="76.0" prefHeight="200.0"
               prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
               AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="50.0"/>
 </AnchorPane>

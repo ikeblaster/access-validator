@@ -37,11 +37,11 @@ public class Configurator extends Application {
     public void start(Stage primaryStage) throws Exception {
         //log.info("Start");
 
-        FXMLLoader loader = new FXMLLoader(this.getClass().getResource("/editor.fxml"));
+        FXMLLoader loader = new FXMLLoader(this.getClass().getResource("/main.fxml"));
         Parent root = loader.load();
         Scene scene = new Scene(root);
 
-        EditorController controller = loader.getController();
+        Controller controller = loader.getController();
         controller.onLoad(primaryStage);
 
         //primaryStage.getIcons().add(new Image(getClass().getResourceAsStream("/app.png")));

@@ -1,16 +1,11 @@
 package cz.zcu.kiv.accessvalidator.components;
 
-import cz.zcu.kiv.accessvalidator.validator.rules.ComplexRule;
-import cz.zcu.kiv.accessvalidator.validator.rules.GroupRule;
+import cz.zcu.kiv.accessvalidator.validator.RulesRepository;
 import cz.zcu.kiv.accessvalidator.validator.rules.Rule;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.ListView;
 import javafx.scene.input.MouseButton;
 import javafx.stage.Stage;
-
-import java.util.Comparator;
 
 /**
  * @author ike
@@ -18,11 +13,9 @@ import java.util.Comparator;
 public class LibraryController {
 
     @FXML
-    public ListView<Rule> rulesLibrary;
+    public ListView<Rule> rules;
 
-    private ObservableList<Rule> rulesLibraryItems = FXCollections.observableArrayList();
     private ActiveRulesController activeRulesController;
-
 
 
     //region================== GUI initialization ==================
@@ -33,22 +26,17 @@ public class LibraryController {
 
     @FXML
     public void initialize() {
-        this.rulesLibraryItems.add(new GroupRule(false));
-        this.rulesLibraryItems.add(new ComplexRule());
+        this.rules.getItems().addAll(RulesRepository.getAll());
+        //FXCollections.sort(this.rules.getItems(), Comparator.comparing(Rule::toString));
 
-        FXCollections.sort(this.rulesLibraryItems, Comparator.comparing(Rule::toString));
-        this.rulesLibrary.setItems(this.rulesLibraryItems);
-
-        this.rulesLibrary.setOnMouseClicked(event -> {
+        this.rules.setOnMouseClicked(event -> {
             if (event.getButton() == MouseButton.PRIMARY && event.getClickCount() == 2) {
-
-                Rule origin = this.rulesLibrary.getSelectionModel().getSelectedItem();
+                Rule origin = this.rules.getSelectionModel().getSelectedItem();
                 if (origin == null) {
                     return;
                 }
 
                 this.activeRulesController.addRule(origin.newInstance());
-
             }
         });
     }
