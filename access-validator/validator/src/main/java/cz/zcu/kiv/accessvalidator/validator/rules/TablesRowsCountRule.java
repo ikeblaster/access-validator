@@ -9,12 +9,12 @@ import cz.zcu.kiv.accessvalidator.validator.rules.properties.Property;
 /**
  * @author ike
  */
-public class TablesHaveRowsRule extends Rule {
+public class TablesRowsCountRule extends Rule {
 
     private ChoiceProperty<ComparisonOperator> countOp;
     private Property<Integer> count;
 
-    public TablesHaveRowsRule() {
+    public TablesRowsCountRule() {
         super();
 
         this.countOp = new ChoiceProperty<>(

@@ -1,14 +1,15 @@
 package cz.zcu.kiv.accessvalidator.components;
 
+import cz.zcu.kiv.accessvalidator.adaptors.ListViewFileAdaptor;
 import cz.zcu.kiv.accessvalidator.common.Dialogs;
 import cz.zcu.kiv.accessvalidator.common.FileChooserEx;
-import cz.zcu.kiv.accessvalidator.adaptors.ListViewFileAdaptor;
 import cz.zcu.kiv.accessvalidator.validator.AccdbValidator;
 import cz.zcu.kiv.accessvalidator.validator.rules.Rule;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.ListView;
+import javafx.scene.control.SelectionMode;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
@@ -39,6 +40,7 @@ public class ValidatorController {
     public void initialize() {
         this.fileChooser.addExtensionFilter(new FileChooser.ExtensionFilter("Access databáze", "*.accdb", "*.mdb"));
         this.dbFiles.setItems(this.files);
+        this.dbFiles.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
     }
 
     //endregion

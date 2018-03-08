@@ -7,11 +7,11 @@ import cz.zcu.kiv.accessvalidator.validator.rules.properties.Property;
 /**
  * @author ike
  */
-public class TableByNameRule extends Rule {
+public class TableByNameExistsRule extends Rule {
 
     private Property<String> propName;
 
-    public TableByNameRule() {
+    public TableByNameExistsRule() {
         super();
 
         this.propName = new Property<>(

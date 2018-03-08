@@ -17,7 +17,7 @@ import java.util.Collection;
  */
 public class RulesSerializer {
 
-    private final String packagePrefix = Rule.class.getPackageName() + ".";
+    private final String packagePrefix = Rule.class.getPackage().getName() + ".";
 
     //region Serializer
     public void serialize(Rule root, OutputStream outputStream) throws XMLStreamException, IOException {

@@ -13,8 +13,8 @@ public class RulesRepository {
     private static final Collection<Rule> RULES = Arrays.asList(
             new GroupRule(false),
             new ComplexRule(),
-            new TableByNameRule(),
-            new TablesHaveRowsRule()
+            new TableByNameExistsRule(),
+            new TablesRowsCountRule()
     );
 
     public static Collection<Rule> getAll() {

@@ -1,6 +1,5 @@
 package cz.zcu.kiv.accessvalidator.validator;
 
-import com.healthmarketscience.jackcess.*;
 import cz.zcu.kiv.accessvalidator.validator.rules.Rule;
 import cz.zcu.kiv.accessvalidator.validator.rules.serialization.RulesSerializer;
 
@@ -13,29 +12,6 @@ import java.io.IOException;
  */
 public class Validator {
     public static void main(String[] args) throws Exception {
-
-        if(true) {
-            Database db = DatabaseBuilder.open(new File("data/databaze.accdb"));
-
-            Table table = db.getSystemTable("MSysObjects");
-
-            for (Column column : table.getColumns()) {
-                System.out.format("%-50s", column.getName());
-            }
-
-            System.out.println();
-
-            for (Row row : table) {
-
-                for (Column column : table.getColumns()) {
-                    System.out.format("%-50.38s", row.get(column.getName()));
-                }
-                System.out.println();
-
-            }
-
-            return;
-        }
 
         if(args.length < 2) {
             System.out.println("Usage: app <rules XML file> <Access database file>");
