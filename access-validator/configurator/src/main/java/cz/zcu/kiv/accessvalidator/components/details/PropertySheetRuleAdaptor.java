@@ -1,4 +1,4 @@
-package cz.zcu.kiv.accessvalidator.adaptors;
+package cz.zcu.kiv.accessvalidator.components.details;
 
 import cz.zcu.kiv.accessvalidator.validator.rules.properties.ChoiceProperty;
 import cz.zcu.kiv.accessvalidator.validator.rules.properties.Property;

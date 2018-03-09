@@ -1,5 +1,6 @@
-package cz.zcu.kiv.accessvalidator.components;
+package cz.zcu.kiv.accessvalidator.components.library;
 
+import cz.zcu.kiv.accessvalidator.components.activerules.ActiveRulesController;
 import cz.zcu.kiv.accessvalidator.validator.RulesRepository;
 import cz.zcu.kiv.accessvalidator.validator.rules.Rule;
 import javafx.fxml.FXML;

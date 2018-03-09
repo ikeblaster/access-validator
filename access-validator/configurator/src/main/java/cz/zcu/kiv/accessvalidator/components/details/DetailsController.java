@@ -1,6 +1,5 @@
-package cz.zcu.kiv.accessvalidator.components;
+package cz.zcu.kiv.accessvalidator.components.details;
 
-import cz.zcu.kiv.accessvalidator.adaptors.PropertySheetRuleAdaptor;
 import javafx.fxml.FXML;
 import javafx.stage.Stage;
 import org.controlsfx.control.PropertySheet;

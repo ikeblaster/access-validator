@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.*?>
 <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="656.0"
       prefWidth="1038.0" stylesheets="main.css" xmlns="http://javafx.com/javafx/8.0.162"
-      xmlns:fx="http://javafx.com/fxml/1" fx:controller="cz.zcu.kiv.accessvalidator.configurator.Controller">
+      xmlns:fx="http://javafx.com/fxml/1" fx:controller="cz.zcu.kiv.accessvalidator.configurator.ConfiguratorController">
     <MenuBar VBox.vgrow="NEVER">
         <Menu mnemonicParsing="false" text="Soubor">
             <MenuItem mnemonicParsing="false" onAction="#actionNewFile" text="Nový"/>

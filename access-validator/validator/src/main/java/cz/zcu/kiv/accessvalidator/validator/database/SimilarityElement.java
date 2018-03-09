@@ -25,9 +25,7 @@ public class SimilarityElement {
 
     @Override
     public String toString() {
-        return "SimilarityElement{" +
-                "label='" + label + '\'' +
-                '}';
+        return this.label + " (" + this.value + ")";
     }
 
     @Override

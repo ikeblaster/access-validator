@@ -1,5 +1,6 @@
-package cz.zcu.kiv.accessvalidator.adaptors;
+package cz.zcu.kiv.accessvalidator.components.activerules;
 
+import cz.zcu.kiv.accessvalidator.components.details.PropertySheetRuleAdaptor;
 import cz.zcu.kiv.accessvalidator.validator.rules.GroupRule;
 import cz.zcu.kiv.accessvalidator.validator.rules.Rule;
 import cz.zcu.kiv.accessvalidator.validator.rules.properties.Property;

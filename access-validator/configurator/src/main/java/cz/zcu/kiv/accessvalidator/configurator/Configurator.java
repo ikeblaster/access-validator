@@ -41,7 +41,7 @@ public class Configurator extends Application {
         Parent root = loader.load();
         Scene scene = new Scene(root);
 
-        Controller controller = loader.getController();
+        ConfiguratorController controller = loader.getController();
         controller.onLoad(primaryStage);
 
         //primaryStage.getIcons().add(new Image(getClass().getResourceAsStream("/app.png")));

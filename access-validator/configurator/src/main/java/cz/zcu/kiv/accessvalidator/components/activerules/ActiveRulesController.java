@@ -1,8 +1,8 @@
-package cz.zcu.kiv.accessvalidator.components;
+package cz.zcu.kiv.accessvalidator.components.activerules;
 
 import cz.zcu.kiv.accessvalidator.common.Dialogs;
 import cz.zcu.kiv.accessvalidator.common.FileChooserEx;
-import cz.zcu.kiv.accessvalidator.adaptors.TreeItemRuleAdaptor;
+import cz.zcu.kiv.accessvalidator.components.details.DetailsController;
 import cz.zcu.kiv.accessvalidator.validator.rules.GroupRule;
 import cz.zcu.kiv.accessvalidator.validator.rules.Rule;
 import cz.zcu.kiv.accessvalidator.validator.rules.annotations.Monitorable;

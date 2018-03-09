@@ -1,15 +1,15 @@
 package cz.zcu.kiv.accessvalidator.configurator;
 
-import cz.zcu.kiv.accessvalidator.components.ActiveRulesController;
-import cz.zcu.kiv.accessvalidator.components.ValidatorController;
-import cz.zcu.kiv.accessvalidator.components.DetailsController;
-import cz.zcu.kiv.accessvalidator.components.LibraryController;
+import cz.zcu.kiv.accessvalidator.components.activerules.ActiveRulesController;
+import cz.zcu.kiv.accessvalidator.components.validator.ValidatorController;
+import cz.zcu.kiv.accessvalidator.components.details.DetailsController;
+import cz.zcu.kiv.accessvalidator.components.library.LibraryController;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.stage.Stage;
 
 
-public class Controller {
+public class ConfiguratorController {
 
     @FXML
     public LibraryController libraryController;

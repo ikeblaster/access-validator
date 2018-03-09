@@ -26,8 +26,9 @@ public class Accdb {
     }
 
     public File getFile() {
-        return file;
+        return this.file;
     }
+
 
     public Set<SimilarityElement> findSimilarities(Accdb that) {
         Set<SimilarityElement> similarities = new HashSet<>();

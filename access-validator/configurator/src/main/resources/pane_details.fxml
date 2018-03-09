@@ -5,7 +5,7 @@
 <?import org.controlsfx.control.PropertySheet?>
 <AnchorPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
-            fx:controller="cz.zcu.kiv.accessvalidator.components.DetailsController">
+            fx:controller="cz.zcu.kiv.accessvalidator.components.details.DetailsController">
     <PropertySheet fx:id="details" layoutX="14.0" layoutY="14.0" mode="CATEGORY" prefWidth="200.0"
                    searchBoxVisible="false" AnchorPane.bottomAnchor="0.0"
                    AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
