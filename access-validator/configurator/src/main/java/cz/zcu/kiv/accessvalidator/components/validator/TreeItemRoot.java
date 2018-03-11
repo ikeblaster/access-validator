@@ -20,7 +20,6 @@ public class TreeItemRoot extends TreeItem<TreeObject> {
     public List<FileTreeObject> getFileWrappers() {
         return this.getChildren()
                 .stream()
-                //.filter(treeItem -> (treeItem.getValue() instanceof FileTreeObject))
                 .map(treeItem -> (FileTreeObject) treeItem.getValue())
                 .collect(Collectors.toList());
     }
@@ -28,7 +27,6 @@ public class TreeItemRoot extends TreeItem<TreeObject> {
     public List<File> getFiles() {
         return this.getChildren()
                 .stream()
-                //.filter(treeItem -> (treeItem.getValue() instanceof FileTreeObject))
                 .map(treeItem -> ((FileTreeObject) treeItem.getValue()).getFile())
                 .collect(Collectors.toList());
     }

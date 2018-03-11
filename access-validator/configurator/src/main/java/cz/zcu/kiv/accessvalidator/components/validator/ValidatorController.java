@@ -6,8 +6,7 @@ import cz.zcu.kiv.accessvalidator.components.validator.treeobjects.FileTreeObjec
 import cz.zcu.kiv.accessvalidator.components.validator.treeobjects.TreeObject;
 import cz.zcu.kiv.accessvalidator.validator.AccdbSimilarityChecker;
 import cz.zcu.kiv.accessvalidator.validator.AccdbValidator;
-import cz.zcu.kiv.accessvalidator.validator.database.Accdb;
-import cz.zcu.kiv.accessvalidator.validator.database.SimilarityElement;
+import cz.zcu.kiv.accessvalidator.validator.database.SimilarFiles;
 import cz.zcu.kiv.accessvalidator.validator.rules.Rule;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -16,7 +15,10 @@ import javafx.stage.Stage;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.*;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
+import java.util.Map;
 
 
 public class ValidatorController {
@@ -37,6 +39,8 @@ public class ValidatorController {
             final Tooltip tooltip = new Tooltip();
 
             TreeCell<TreeObject> cell = new TreeCell<TreeObject>() {
+                String styleClass = null;
+
                 @Override
                 public void updateItem(TreeObject item, boolean empty) {
                     super.updateItem(item, empty);
@@ -44,8 +48,15 @@ public class ValidatorController {
                     if (empty || item == null) {
                         this.setText(null);
                         this.setGraphic(null);
+                        this.getStyleClass().remove(this.styleClass);
+                        this.styleClass = null;
                     } else {
                         this.setText(item.toString());
+
+                        this.getStyleClass().remove(this.styleClass);
+                        this.styleClass = item.getStyleclass();
+                        this.getStyleClass().add(this.styleClass);
+                        //this.setGraphic(new ImageView(this.getClass().getResource("/icons/if_sign-check_299110.png").toExternalForm()));
                     }
                 }
             };
@@ -106,8 +117,7 @@ public class ValidatorController {
 
 
     public void actionTestDBs(Rule rule) {
-
-        Map<File, List<Map.Entry<SimilarityElement, Set<Accdb>>>> duplicates = this.findDuplicates(this.dbFiles.getFiles());
+        Map<File, List<SimilarFiles>> duplicates = this.findDuplicates(this.dbFiles.getFiles());
 
         for (FileTreeObject file : this.dbFiles.getFileWrappers()) {
             try {
@@ -115,16 +125,13 @@ public class ValidatorController {
                 AccdbValidator validator = new AccdbValidator(file.getFile());
                 file.setValid(validator.validate(rule));
 
-                file.setDuplicates(duplicates.getOrDefault(file.getFile(), Collections.emptyList()));
+                file.setSimilarFiles(duplicates.getOrDefault(file.getFile(), Collections.emptyList()));
 
             } catch (IOException e) {
-                Dialogs.showErrorBox("Kontrolu se nepodařilo zahájit", e.getLocalizedMessage());
                 e.printStackTrace();
+                Dialogs.showErrorBox("Kontrolu se nepodařilo zahájit", e.getLocalizedMessage());
             }
         }
-
-
-
 
         this.treeView.refresh();
     }
@@ -133,26 +140,19 @@ public class ValidatorController {
 
 
 
-    private Map<File, List<Map.Entry<SimilarityElement, Set<Accdb>>>> findDuplicates(List<File> files) {
-
-        Map<File, List<Map.Entry<SimilarityElement, Set<Accdb>>>> revGroups = new HashMap<>();
+    private Map<File, List<SimilarFiles>> findDuplicates(List<File> files) {
 
         try {
-            AccdbSimilarityChecker simchecker = new AccdbSimilarityChecker(files);
-            Map<SimilarityElement, Set<Accdb>> groups = simchecker.getGroups();
 
-            for(Map.Entry<SimilarityElement, Set<Accdb>> entry : groups.entrySet()) {
-                for(Accdb dbs : entry.getValue()) {
-                    List<Map.Entry<SimilarityElement, Set<Accdb>>> grp = revGroups.computeIfAbsent(dbs.getFile(), f -> new ArrayList<>());
-                    grp.add(entry);
-                }
-            }
+            AccdbSimilarityChecker simchecker = new AccdbSimilarityChecker(files);
+            return simchecker.getSimilarFiles();
 
         } catch (IOException e) {
             e.printStackTrace();
+            Dialogs.showErrorBox("Kontrolu plagiátů/duplikátů se nepodařilo zahájit", e.getLocalizedMessage());
         }
 
-        return revGroups;
+        return Collections.emptyMap();
     }
 
 }

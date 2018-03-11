@@ -1,14 +1,6 @@
 package cz.zcu.kiv.accessvalidator.validator;
 
-import cz.zcu.kiv.accessvalidator.validator.database.Accdb;
-import cz.zcu.kiv.accessvalidator.validator.database.SimilarityElement;
-
-import java.io.File;
 import java.io.IOException;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
 
 /**
  * @author ike
@@ -39,22 +31,22 @@ public class TestBench {
             return;
         }*/
 
-        List<File> files = Arrays.asList(new File("data/databaze.accdb"), new File("data/databaze.accdb"), new File("data/db2.accdb"), new File("data/db3.accdb"));
-
-        AccdbSimilarityChecker simchecker = new AccdbSimilarityChecker(files);
-
-        Map<SimilarityElement, Set<Accdb>> groups = simchecker.getGroups();
-
-        for(Map.Entry<SimilarityElement, Set<Accdb>> entry : groups.entrySet()) {
-            SimilarityElement element = entry.getKey();
-
-            System.out.println(element.getLabel() + "(" + element.getValue().toString() + ")");
-
-            for(Accdb dbs : entry.getValue()) {
-                System.out.println(" - " + dbs.getFile().getName());
-            }
-            System.out.println();
-        }
+        //List<File> files = Arrays.asList(new File("data/databaze.accdb"), new File("data/databaze.accdb"), new File("data/db2.accdb"), new File("data/db3.accdb"));
+//
+        //AccdbSimilarityChecker simchecker = new AccdbSimilarityChecker(files);
+//
+        //Map<SimilarityElement, Set<Accdb>> groups = simchecker.getGroups();
+//
+        //for(Map.Entry<SimilarityElement, Set<Accdb>> entry : groups.entrySet()) {
+        //    SimilarityElement element = entry.getKey();
+//
+        //    System.out.println(element.getLabel() + "(" + element.getValue().toString() + ")");
+//
+        //    for(Accdb dbs : entry.getValue()) {
+        //        System.out.println(" - " + dbs.getFile().getName());
+        //    }
+        //    System.out.println();
+        //}
 
     }
 }

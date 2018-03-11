@@ -14,8 +14,13 @@ public abstract class TreeObject {
     public boolean hasTooltipText() {
         return false;
     }
+
     public String getTooltipText() {
         return null;
+    }
+
+    public String getStyleclass() {
+        return "";
     }
 
     public void setChildren(ObservableList<TreeItem<TreeObject>> children) {
@@ -25,5 +30,7 @@ public abstract class TreeObject {
     protected void addChild(TreeObject treeObject) {
         this.children.add(new TreeItemObjectAdaptor(treeObject));
     }
+
+
 
 }

@@ -1,13 +1,10 @@
 package cz.zcu.kiv.accessvalidator.components.validator.treeobjects;
 
-import cz.zcu.kiv.accessvalidator.validator.database.Accdb;
-import cz.zcu.kiv.accessvalidator.validator.database.SimilarityElement;
+import cz.zcu.kiv.accessvalidator.validator.database.SimilarFiles;
 import javafx.beans.property.SimpleBooleanProperty;
 
 import java.io.File;
 import java.util.List;
-import java.util.Map;
-import java.util.Set;
 
 /**
  * @author ike
@@ -50,6 +47,10 @@ public class FileTreeObject extends TreeObject {
         return this.file.getPath();
     }
 
+    @Override
+    public String getStyleclass() {
+        return (this.isChecked() ? (this.isValid() ? "icon-valid" : "icon-invalid") : "icon-empty");
+    }
 
     @Override
     public String toString() {
@@ -62,15 +63,17 @@ public class FileTreeObject extends TreeObject {
         return ret;
     }
 
-    public void setDuplicates(List<Map.Entry<SimilarityElement, Set<Accdb>>> duplicates) {
+    public void setSimilarFiles(List<SimilarFiles> similarFiles) {
         this.children.clear();
 
-        for (Map.Entry<SimilarityElement, Set<Accdb>> entry : duplicates) {
-            StringTreeObject node = new StringTreeObject(entry.getKey().toString());
-            this.addChild(node);
+        if(similarFiles != null) {
+            for (SimilarFiles similar : similarFiles) {
+                StringTreeObject node = new StringTreeObject(similar.toString());
+                this.addChild(node);
 
-            for (Accdb accdb : entry.getValue()) {
-                node.addChild(new FileTreeObject(accdb.getFile()));
+                for (File file : similar.getFiles()) {
+                    node.addChild(new FileTreeObject(file));
+                }
             }
         }
     }

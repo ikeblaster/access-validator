@@ -9,7 +9,7 @@
     <PropertySheet fx:id="details" layoutX="14.0" layoutY="14.0" mode="CATEGORY" prefWidth="200.0"
                    searchBoxVisible="false" AnchorPane.bottomAnchor="0.0"
                    AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
-                   AnchorPane.topAnchor="0.0"/>
+                   AnchorPane.topAnchor="0.0" minWidth="220" />
     <Label alignment="CENTER" styleClass="label-header" layoutX="14.0" layoutY="13.0"
            text="Detaily pravidla" textAlignment="CENTER" wrapText="false"/>
 </AnchorPane>
