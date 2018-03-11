@@ -26,7 +26,6 @@ public class ComplexRule extends Rule {
         this.propTablesCountOp = new ChoiceProperty<>(
                 "tables_count_op", ComparisonOperator.GTE, ComparisonOperator.asList(),
                 "Počet tabulek", "Operátor pro ověření počtu tabulek", "1. Počet nalezených tabulek");
-
         this.propTablesCount = new Property<>(
                 "tables_count", Integer.valueOf(1),
                 "...", "Počet hledaných tabulek", "1. Počet nalezených tabulek");
@@ -37,8 +36,7 @@ public class ComplexRule extends Rule {
 
         this.propColumnsCountOp = new ChoiceProperty<>(
                 "columns_count_op", ComparisonOperator.GTE, ComparisonOperator.asList(),
-                "Počet sloupců v tabulce", "Operátor pro ověření počtu tabulek", "3. Filtrování dle počtu sloupců");
-
+                "Počet sloupců v tabulce", "Operátor pro ověření počtu sloupců", "3. Filtrování dle počtu sloupců");
         this.propColumnsCount = new Property<>(
                 "columns_count", Integer.valueOf(1),
                 "...", "Alespoň jedna nalezená tabulka má zadaný počet sloupců", "3. Filtrování dle počtu sloupců");
@@ -46,7 +44,6 @@ public class ComplexRule extends Rule {
         this.propColumnsByName = new Property<>(
                 "columns_byname", "",
                 "Název sloupce", "Existuje tabulka se sloupcem dle zadaného názvu.", "4. Filtrování dle existence sloupce");
-
         this.propColumnsByType = new Property<>(
                 "columns_bytype", "",
                 "Datový typ sloupce", "Existuje tabulka se sloupcem dle zadaného datového typu.", "4. Filtrování dle existence sloupce");

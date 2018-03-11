@@ -15,10 +15,7 @@ import javafx.stage.Stage;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 
 public class ValidatorController {
@@ -39,7 +36,7 @@ public class ValidatorController {
             final Tooltip tooltip = new Tooltip();
 
             TreeCell<TreeObject> cell = new TreeCell<TreeObject>() {
-                String styleClass = null;
+                Collection<String> styleClass = Collections.emptyList();
 
                 @Override
                 public void updateItem(TreeObject item, boolean empty) {
@@ -47,16 +44,13 @@ public class ValidatorController {
 
                     if (empty || item == null) {
                         this.setText(null);
-                        this.setGraphic(null);
-                        this.getStyleClass().remove(this.styleClass);
-                        this.styleClass = null;
+                        this.getStyleClass().removeAll(this.styleClass);
+                        this.styleClass = Collections.emptyList();
                     } else {
                         this.setText(item.toString());
-
-                        this.getStyleClass().remove(this.styleClass);
+                        this.getStyleClass().removeAll(this.styleClass);
                         this.styleClass = item.getStyleclass();
-                        this.getStyleClass().add(this.styleClass);
-                        //this.setGraphic(new ImageView(this.getClass().getResource("/icons/if_sign-check_299110.png").toExternalForm()));
+                        this.getStyleClass().addAll(this.styleClass);
                     }
                 }
             };

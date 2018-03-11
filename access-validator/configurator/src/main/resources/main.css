@@ -41,19 +41,26 @@
 	-fx-opacity: 0; /* visually hides it */
 }
 
-
-.icon-empty {
-
-}
-.icon-valid {
-	-fx-background-image: url("/icons/if_sign-check_299110.png");
+.icon-valid, .icon-invalid, .icon-similar {
 	-fx-background-repeat: no-repeat;
-	-fx-background-size: auto 80%;
+	-fx-background-size: auto 16;
 	-fx-background-position: 98% center;
+}
+
+.icon-valid {
+	-fx-background-image: url("/icons/if_sign-check_299110_32.png");
 }
 .icon-invalid {
-	-fx-background-image: url("/icons/if_sign-error_299045.png");
-	-fx-background-repeat: no-repeat;
-	-fx-background-size: auto 80%;
-	-fx-background-position: 98% center;
+	-fx-background-image: url("/icons/if_sign-error_299045_32.png");
+}
+.icon-similar {
+	-fx-background-image: url("/icons/if_sign-add_299068_32.png");
+}
+.icon-valid.icon-similar {
+	-fx-background-image: url("/icons/if_sign-check_299110_32.png"), url("/icons/if_sign-add_299068_32.png");
+	-fx-background-position: 94% center, 98% center;
+}
+.icon-invalid.icon-similar {
+	-fx-background-image: url("/icons/if_sign-error_299045_32.png"), url("/icons/if_sign-add_299068_32.png");
+	-fx-background-position: 94% center, 98% center;
 }

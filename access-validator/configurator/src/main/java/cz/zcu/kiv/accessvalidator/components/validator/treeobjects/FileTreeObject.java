@@ -4,6 +4,9 @@ import cz.zcu.kiv.accessvalidator.validator.database.SimilarFiles;
 import javafx.beans.property.SimpleBooleanProperty;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -14,6 +17,7 @@ public class FileTreeObject extends TreeObject {
     private File file;
     private boolean checked = false;
     private SimpleBooleanProperty valid = new SimpleBooleanProperty();
+    private List<SimilarFiles> similarFiles = Collections.emptyList();
 
 
     public FileTreeObject(File file) {
@@ -48,8 +52,17 @@ public class FileTreeObject extends TreeObject {
     }
 
     @Override
-    public String getStyleclass() {
-        return (this.isChecked() ? (this.isValid() ? "icon-valid" : "icon-invalid") : "icon-empty");
+    public Collection<String> getStyleclass() {
+        List<String> classes = new ArrayList<>();
+
+        if(this.isChecked()) {
+            classes.add(this.isValid() ? "icon-valid" : "icon-invalid");
+        }
+        if(this.similarFiles.size() > 0) {
+            classes.add("icon-similar");
+        }
+
+        return classes;
     }
 
     @Override
@@ -64,6 +77,7 @@ public class FileTreeObject extends TreeObject {
     }
 
     public void setSimilarFiles(List<SimilarFiles> similarFiles) {
+        this.similarFiles = similarFiles;
         this.children.clear();
 
         if(similarFiles != null) {
