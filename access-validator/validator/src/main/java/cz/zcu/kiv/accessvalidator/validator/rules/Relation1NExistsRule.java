@@ -1,6 +1,8 @@
 package cz.zcu.kiv.accessvalidator.validator.rules;
 
+import com.healthmarketscience.jackcess.Relationship;
 import cz.zcu.kiv.accessvalidator.validator.database.Accdb;
+import cz.zcu.kiv.accessvalidator.validator.database.AccdbRelationRepository;
 import cz.zcu.kiv.accessvalidator.validator.database.AccdbTableRepository;
 import cz.zcu.kiv.accessvalidator.validator.rules.properties.ChoiceProperty;
 import cz.zcu.kiv.accessvalidator.validator.rules.properties.ComparisonOperator;
@@ -11,21 +13,20 @@ import java.util.Set;
 /**
  * @author ike
  */
-public class RelationMNExistsRule extends Rule {
+public class Relation1NExistsRule extends Rule {
 
     private ChoiceProperty<ComparisonOperator> countOp;
     private Property<Integer> count;
 
-    public RelationMNExistsRule() {
+    public Relation1NExistsRule() {
         super();
 
-        String group = "Počet relací M:N";
-        String desc = "Vyhledá všechny spojovací mezitabulky tvořící M:N relace" +
-                "(tj. tabulky, které mají 2 relace 1:N mířící na primární klíče)";
+        String group = "Počet relací 1:N";
+        String desc = "Vyhledá všechny 1:N relace, vynechá relace na mezitabulky tvořící M:N relace.";
 
         this.countOp = new ChoiceProperty<>(
                 "count_op", ComparisonOperator.GTE, ComparisonOperator.getChoices(),
-                "Počet M:N relací", desc, group);
+                "Počet 1:N relací", desc, group);
 
         this.count = new Property<>(
                 "count", Integer.valueOf(1),
@@ -37,17 +38,22 @@ public class RelationMNExistsRule extends Rule {
 
     @Override
     public boolean check(Accdb accdb) {
-        AccdbTableRepository repository = accdb.getTableRepository();
-        repository.filterMNJunctionTables();
+        AccdbTableRepository tableRepository = accdb.getTableRepository();
+        tableRepository.filterMNJunctionTables();
+        Set<String> junctionTables = tableRepository.getTables();
 
-        Set<String> foundTables = repository.getTables();
+        AccdbRelationRepository repository = accdb.getRelationRepository();
+        repository.filter1NRelations();
 
-        return this.countOp.getValue().compare(foundTables.size(), this.count.getValue());
+        Set<Relationship> foundRelations = repository.getRelations();
+        foundRelations.removeIf(relationship -> junctionTables.contains(relationship.getToTable().getName()));
+
+        return this.countOp.getValue().compare(foundRelations.size(), this.count.getValue());
     }
 
     @Override
     public String toString() {
-        return "Počet relací M:N";
+        return "Počet relací 1:N";
     }
 
 }

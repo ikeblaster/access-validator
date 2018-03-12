@@ -39,9 +39,9 @@ public class Relation11ExistsRule extends Rule {
         AccdbRelationRepository repository = accdb.getRelationRepository();
         repository.filter11Relations();
 
-        Set<Relationship> foundTables = repository.getRelations();
+        Set<Relationship> foundRelations = repository.getRelations();
 
-        return this.countOp.getValue().compare(foundTables.size(), this.count.getValue());
+        return this.countOp.getValue().compare(foundRelations.size(), this.count.getValue());
     }
 
     @Override

@@ -15,8 +15,9 @@ public class RulesRepository {
             new ComplexRule(),
             new TableByNameExistsRule(),
             new TablesRowsCountRule(),
-            new RelationMNExistsRule(),
-            new Relation11ExistsRule()
+            new Relation11ExistsRule(),
+            new Relation1NExistsRule(),
+            new RelationMNExistsRule()
     );
 
     public static Collection<Rule> getAll() {

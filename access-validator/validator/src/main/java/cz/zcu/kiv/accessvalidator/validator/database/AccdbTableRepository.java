@@ -55,7 +55,7 @@ public class AccdbTableRepository {
             int junction = 0;
 
             for(Relationship relationship : relationships) {
-                if(relationship.isOneToOne()) {
+                if(relationship.isOneToOne() || relationship.getFromTable().getName().equals(tableName)) {
                     continue;
                 }
 

@@ -29,6 +29,9 @@ public class AccdbRelationRepository {
         this.relations.removeIf(relationship -> !relationship.isOneToOne());
     }
 
+    public void filter1NRelations() {
+        this.relations.removeIf(relationship -> relationship.isOneToOne());
+    }
 
     public Set<Relationship> getRelations() {
         return this.relations;
