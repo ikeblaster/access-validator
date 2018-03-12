@@ -73,7 +73,7 @@ public class PropertySheetRuleAdaptor implements PropertySheet.Item {
         }
 
         if (this.getValue() instanceof Integer) {
-            return Editors.createNumericEditor(this);
+            return NumericField.createNumericEditor(this);
         }
 
         return Editors.createTextEditor(this);

@@ -25,6 +25,10 @@ public class Accdb {
         return new AccdbTableRepository(this.db);
     }
 
+    public AccdbRelationRepository getRelationRepository() {
+        return new AccdbRelationRepository(this.db);
+    }
+
     public File getFile() {
         return this.file;
     }

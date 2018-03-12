@@ -1,5 +1,8 @@
 package cz.zcu.kiv.accessvalidator.validator;
 
+import com.healthmarketscience.jackcess.*;
+
+import java.io.File;
 import java.io.IOException;
 
 /**
@@ -8,8 +11,8 @@ import java.io.IOException;
 public class TestBench {
     public static void main(String[] args) throws IOException {
 
-        /*if(true) {
-            Database db = DatabaseBuilder.open(new File("data/databaze.accdb"));
+        if(true) {
+            Database db = DatabaseBuilder.open(new File("data/databaze - kopie_11_mn.accdb"));
 
             Table table = db.getSystemTable("MSysObjects");
 
@@ -29,7 +32,7 @@ public class TestBench {
             }
 
             return;
-        }*/
+        }
 
         //List<File> files = Arrays.asList(new File("data/databaze.accdb"), new File("data/databaze.accdb"), new File("data/db2.accdb"), new File("data/db3.accdb"));
 //

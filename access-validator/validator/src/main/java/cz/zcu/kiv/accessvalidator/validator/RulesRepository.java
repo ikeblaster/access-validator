@@ -14,7 +14,9 @@ public class RulesRepository {
             new GroupRule(false),
             new ComplexRule(),
             new TableByNameExistsRule(),
-            new TablesRowsCountRule()
+            new TablesRowsCountRule(),
+            new RelationMNExistsRule(),
+            new Relation11ExistsRule()
     );
 
     public static Collection<Rule> getAll() {

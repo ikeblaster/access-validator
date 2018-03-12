@@ -18,7 +18,7 @@ public class TablesRowsCountRule extends Rule {
         super();
 
         this.countOp = new ChoiceProperty<>(
-                "count_op", ComparisonOperator.GTE, ComparisonOperator.asList(),
+                "count_op", ComparisonOperator.GTE, ComparisonOperator.getChoices(),
                 "Tabulky obsahují řádků", "Operátor pro ověření počtu řádků v tabulkách", "Počet řádků v tabulkách");
 
         this.count = new Property<>(

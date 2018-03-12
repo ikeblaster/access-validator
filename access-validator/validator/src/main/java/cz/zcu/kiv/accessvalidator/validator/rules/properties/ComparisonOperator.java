@@ -27,7 +27,7 @@ public enum ComparisonOperator {
         return a == b;
     }
 
-    public static List<ComparisonOperator> asList() {
+    public static List<ComparisonOperator> getChoices() {
         return Arrays.asList(values());
     }
 

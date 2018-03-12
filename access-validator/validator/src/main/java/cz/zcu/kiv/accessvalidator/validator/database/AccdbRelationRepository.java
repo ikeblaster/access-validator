@@ -11,23 +11,27 @@ import java.util.Set;
 /**
  * @author ike
  */
-public class AccdbRelationsRepository {
+public class AccdbRelationRepository {
 
     private Database db;
-    private Set<Relationship> relationships = Collections.emptySet();
+    private Set<Relationship> relations = Collections.emptySet();
 
-    AccdbRelationsRepository(Database db) {
+    AccdbRelationRepository(Database db) {
         this.db = db;
         try {
-            this.relationships = new HashSet<>(db.getRelationships());
+            this.relations = new HashSet<>(db.getRelationships());
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
+    public void filter11Relations() {
+        this.relations.removeIf(relationship -> !relationship.isOneToOne());
+    }
 
-    public Set<Relationship> getRelationships() {
-        return this.relationships;
+
+    public Set<Relationship> getRelations() {
+        return this.relations;
     }
 
 
