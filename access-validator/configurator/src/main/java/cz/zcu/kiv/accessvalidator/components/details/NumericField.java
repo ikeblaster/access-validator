@@ -1,7 +1,7 @@
 package cz.zcu.kiv.accessvalidator.components.details;
 
 import javafx.beans.binding.NumberExpression;
-import javafx.beans.property.SimpleLongProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.scene.control.IndexRange;
 import javafx.scene.control.TextField;
@@ -31,7 +31,7 @@ class NumericField extends TextField {
     }
 
     public NumericField() {
-        this.value = new NumericField.LongValidator(this);
+        this.value = new IntegerValidator(this);
 
         this.focusedProperty().addListener((observable, oldValue, newValue) -> {
             if (!newValue) {
@@ -71,24 +71,24 @@ class NumericField extends TextField {
         }
     }
 
-    static class LongValidator extends SimpleLongProperty implements NumericField.NumericValidator<Long> {
+    static class IntegerValidator extends SimpleIntegerProperty implements NumericField.NumericValidator<Integer> {
         private NumericField field;
 
-        public LongValidator(NumericField field) {
-            super(field, "value", Long.MIN_VALUE);
+        public IntegerValidator(NumericField field) {
+            super(field, "value", Integer.MIN_VALUE);
             this.field = field;
         }
 
         protected void invalidated() {
-            this.field.setText(Long.toString(this.get()));
+            this.field.setText(Integer.toString(this.get()));
         }
 
-        public Long toNumber(String s) {
+        public Integer toNumber(String s) {
             if (s != null && !s.trim().isEmpty()) {
                 String d = s.trim();
-                return new Long(d);
+                return new Integer(d);
             } else {
-                return 0L;
+                return 0;
             }
         }
     }

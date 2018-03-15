@@ -50,8 +50,6 @@ public class Property<T> {
 
     public void setValue(T value) {
         this.value.setValue(value);
-
-        System.out.println("Setting " + this.value.getValue());
     }
 
     public void onChange(InvalidationListener listener) {
