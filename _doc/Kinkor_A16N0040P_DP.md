@@ -6,13 +6,25 @@ Katedra informatiky a výpočetní techniky
 
 Diplomová práce
 
-\<Title\>
+Systém pro automatickou kontrolu samostatných prací vytvořených v MS
+Access
 
 Plzeň, 2018 Vojtěch Kinkor
 
 Zadání
 
-1)  \...
+1)  Seznamte se s formátem souboru MS Access .accdb a možnostmi jeho
+    čtení.
+
+2)  Seznamte se validátorem na portálu ZČU.
+
+3)  Vytvořte konfigurovatelný systém pro kontrolu samostatných prací
+    vytvořených v MS Access se zaměřením na splnění zadání a
+    plagiarismus.
+
+4)  Část systému pro kontrolu splnění zadání adaptujte pro validátor.
+
+5)  Celý systém pečlivě otestujte.
 
 **\< tato strana bude nahrazena originálním zadáním / kopií ! \>**
 
@@ -27,13 +39,14 @@ Vojtěch Kinkor
 
 Abstract
 
-**Title**
+**Systém pro automatickou kontrolu samostatných prací vytvořených\
+v MS Access**
 
 text
 
 Abstrakt
 
-**Title**
+**System for Automatic Checking of Student Works Created in MS Access**
 
 text
 
