@@ -30,12 +30,14 @@ public class Validator {
             if (validator.validate(root)) {
                 System.out.println("VALID");
             } else {
-                System.out.println("INVALID");
+                System.err.println("INVALID");
+                System.exit(100);
             }
 
         } catch (IOException e) {
-            System.out.println("ERROR");
+            System.err.println("ERROR");
             e.printStackTrace();
+            System.exit(101);
         }
 
 

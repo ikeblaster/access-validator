@@ -14,11 +14,6 @@ import javafx.stage.Stage;
 public class Configurator extends Application {
 
     /**
-     * Constant variable that tracks events that happened during the run.
-     */
-    //private static final Logger log = LogManager.getLogger();
-
-    /**
      * Main method that starts the application.
      *
      * @param args Starting arguments (currently none are supported).
@@ -35,8 +30,6 @@ public class Configurator extends Application {
      */
     @Override
     public void start(Stage primaryStage) throws Exception {
-        //log.info("Start");
-
         FXMLLoader loader = new FXMLLoader(this.getClass().getResource("/main.fxml"));
         Parent root = loader.load();
         Scene scene = new Scene(root);
