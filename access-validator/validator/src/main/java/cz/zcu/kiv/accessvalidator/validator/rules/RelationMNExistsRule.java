@@ -24,10 +24,12 @@ public class RelationMNExistsRule extends Rule {
                 "(tj. tabulky, které mají 2 relace 1:N mířící na primární klíče)";
 
         this.countOp = new ChoiceProperty<>(
+                ComparisonOperator.class,
                 "count_op", ComparisonOperator.GTE, ComparisonOperator.getChoices(),
                 "Počet M:N relací", desc, group);
 
         this.count = new Property<>(
+                Integer.class,
                 "count", Integer.valueOf(1),
                 "...", desc, group);
 

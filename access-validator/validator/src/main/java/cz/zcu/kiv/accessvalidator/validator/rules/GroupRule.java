@@ -8,6 +8,7 @@ import javafx.beans.InvalidationListener;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * @author ike
@@ -26,6 +27,7 @@ public class GroupRule extends Rule implements Monitorable {
         super();
 
         this.modeProperty = new ChoiceProperty<>(
+                Mode.class,
                 "mode",
                 Mode.AND,
                 Arrays.asList(Mode.values()),
@@ -36,9 +38,9 @@ public class GroupRule extends Rule implements Monitorable {
         this.properties.add(this.modeProperty);
     }
 
-    public GroupRule(boolean activeRule) {
+    public GroupRule(boolean isActiveRule) {
         this();
-        this.modeInTitle = activeRule;
+        this.modeInTitle = isActiveRule;
     }
 
     public List<Rule> getRules() {
@@ -73,4 +75,19 @@ public class GroupRule extends Rule implements Monitorable {
         return "Skupina pravidel" + (this.modeInTitle ? " (" + this.modeProperty.getValue().toString() + ")" : "");
     }
 
+
+    @Override
+    public boolean equals(Object o) {
+        if(this == o) return true;
+        if(o == null || this.getClass() != o.getClass()) return false;
+        if(!super.equals(o)) return false;
+        GroupRule groupRule = (GroupRule) o;
+        return this.modeInTitle == groupRule.modeInTitle &&
+                Objects.equals(this.rules, groupRule.rules);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(super.hashCode(), this.rules, this.modeInTitle);
+    }
 }

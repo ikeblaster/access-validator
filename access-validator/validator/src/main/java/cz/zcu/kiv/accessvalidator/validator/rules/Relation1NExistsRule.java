@@ -25,10 +25,12 @@ public class Relation1NExistsRule extends Rule {
         String desc = "Vyhledá všechny 1:N relace, vynechá relace na mezitabulky tvořící M:N relace.";
 
         this.countOp = new ChoiceProperty<>(
+                ComparisonOperator.class,
                 "count_op", ComparisonOperator.GTE, ComparisonOperator.getChoices(),
                 "Počet 1:N relací", desc, group);
 
         this.count = new Property<>(
+                Integer.class,
                 "count", Integer.valueOf(1),
                 "...", desc, group);
 

@@ -7,6 +7,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Objects;
 
 /**
  * @author ike
@@ -14,6 +15,10 @@ import java.util.Collections;
 public abstract class Rule {
 
     protected Collection<Property<?>> properties = new ArrayList<>();
+
+    public Rule() {
+
+    }
 
     public Rule newInstance() {
         try {
@@ -29,7 +34,7 @@ public abstract class Rule {
 
     public Property<?> getProperty(String id) {
         for(Property<?> property : this.properties) {
-            if(id.equals(property.getId())) {
+            if(Objects.equals(id, property.getId())) {
                 return property;
             }
         }
@@ -44,4 +49,18 @@ public abstract class Rule {
 
     public abstract String toString();
 
+    @Override
+    public boolean equals(Object o) {
+        if(this == o) return true;
+        if(o == null || this.getClass() != o.getClass()) return false;
+        Rule rule = (Rule) o;
+
+        return Objects.equals(this.properties, rule.properties) &&
+                Objects.equals(this.toString(), rule.toString());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(this.toString(), this.properties);
+    }
 }

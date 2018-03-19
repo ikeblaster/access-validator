@@ -14,9 +14,9 @@ import java.util.Optional;
  */
 public class PropertySheetRuleAdaptor implements PropertySheet.Item {
 
-    private Property property;
+    private Property<?> property;
 
-    public PropertySheetRuleAdaptor(Property property) {
+    public PropertySheetRuleAdaptor(Property<?> property) {
         this.property = property;
     }
 
@@ -45,11 +45,10 @@ public class PropertySheetRuleAdaptor implements PropertySheet.Item {
         return this.property.getValue();
     }
 
-    @SuppressWarnings("unchecked")
     @Override
     public void setValue(Object value) {
         try {
-            this.property.setValue(value);
+            this.property.setRawValue(value);
         } catch(RuntimeException e) {
             e.printStackTrace();
         }
@@ -61,10 +60,9 @@ public class PropertySheetRuleAdaptor implements PropertySheet.Item {
         return Optional.empty();
     }
 
-    @SuppressWarnings("unchecked")
     public PropertyEditor<?> getPropertyEditor() {
         if(this.property instanceof ChoiceProperty) {
-            ChoiceProperty property = (ChoiceProperty) this.property;
+            ChoiceProperty<?> property = (ChoiceProperty<?>) this.property;
             return Editors.createChoiceEditor(this, property.getChoices());
         }
 

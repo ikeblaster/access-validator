@@ -14,7 +14,7 @@ import org.controlsfx.property.editor.AbstractPropertyEditor;
 class NumericField extends TextField {
     private final NumericField.NumericValidator<? extends Number> value;
 
-    public static AbstractPropertyEditor createNumericEditor(PropertySheet.Item property) {
+    public static AbstractPropertyEditor<Number, NumericField> createNumericEditor(PropertySheet.Item property) {
         return new AbstractPropertyEditor<Number, NumericField>(property, new NumericField()) {
             protected ObservableValue<Number> getObservableValue() {
                 return this.getEditor().valueProperty();

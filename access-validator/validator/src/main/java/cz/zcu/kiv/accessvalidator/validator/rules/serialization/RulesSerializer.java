@@ -6,7 +6,6 @@ import cz.zcu.kiv.accessvalidator.validator.rules.properties.ChoiceProperty;
 import cz.zcu.kiv.accessvalidator.validator.rules.properties.Property;
 
 import javax.xml.stream.*;
-import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.lang.reflect.InvocationTargetException;
@@ -17,10 +16,10 @@ import java.util.Collection;
  */
 public class RulesSerializer {
 
-    private final String packagePrefix = Rule.class.getPackage().getName() + ".";
+    private static final String packagePrefix = Rule.class.getPackage().getName() + ".";
 
     //region Serializer
-    public void serialize(Rule root, OutputStream outputStream) throws XMLStreamException, IOException {
+    public void serialize(Rule root, OutputStream outputStream) throws XMLStreamException {
         XMLOutputFactory factory = XMLOutputFactory.newInstance();
         XMLStreamWriter writer = factory.createXMLStreamWriter(outputStream);
 
@@ -35,16 +34,21 @@ public class RulesSerializer {
     private void writeRule(Rule rule, XMLStreamWriter writer) throws XMLStreamException {
         writer.writeStartElement(rule.getClass().getSimpleName());
 
-        for(Property property : rule.getProperties()) {
-            String value = property.getValue().toString();
+        // write all properties as attributes
+        for(Property<?> property : rule.getProperties()) {
+            String value;
 
             if(property.getValue() instanceof Enum) {
-                value = ((Enum) property.getValue()).name();
+                value = ((Enum<?>) property.getValue()).name();
+            }
+            else {
+                value = property.getValue().toString();
             }
 
             writer.writeAttribute(property.getId(), value);
         }
 
+        // for group rules recursively write all children
         if(rule instanceof GroupRule) {
             GroupRule groupRule = (GroupRule) rule;
             for(Rule child : groupRule.getRules()) {
@@ -57,7 +61,7 @@ public class RulesSerializer {
     //endregion
 
     //region Deserializer
-    public Rule deserialize(InputStream inputStream) throws XMLStreamException, IOException {
+    public Rule deserialize(InputStream inputStream) throws XMLStreamException {
         XMLInputFactory factory = XMLInputFactory.newInstance();
         XMLStreamReader reader = factory.createXMLStreamReader(inputStream);
 
@@ -70,23 +74,22 @@ public class RulesSerializer {
             }
         }
 
-
         reader.close();
         return rule;
     }
 
-    @SuppressWarnings("unchecked")
     private Rule readRule(XMLStreamReader reader) throws XMLStreamException {
         Rule rule = null;
+        String ruleClassName = packagePrefix + reader.getLocalName();
 
         try {
-            Object obj = Class.forName(this.packagePrefix + reader.getLocalName()).getConstructor().newInstance();
+            Object obj = Class.forName(ruleClassName).getConstructor().newInstance();
             rule = Rule.class.cast(obj);
 
             // parse properties (attributes)
             for (int i = 0; i < reader.getAttributeCount(); i++) {
                 String propertyName = reader.getAttributeLocalName(i);
-                Property property = rule.getProperty(propertyName);
+                Property<?> property = rule.getProperty(propertyName);
 
                 if (property == null) {
                     System.err.println("Deserialization: Unknown property '" + propertyName + "', skipping");
@@ -99,22 +102,25 @@ public class RulesSerializer {
 
                 // parse enums (find exact choice by string name)
                 if (property instanceof ChoiceProperty && type.isEnum()) {
-                    Collection<Enum> choices = ((ChoiceProperty) property).getChoices();
+                    @SuppressWarnings("unchecked")
+                    ChoiceProperty<Enum<?>> enumChoiceProperty = (ChoiceProperty<Enum<?>>) property;
 
-                    for (Enum choice : choices) {
+                    Collection<Enum<?>> choices = enumChoiceProperty.getChoices();
+
+                    for (Enum<?> choice : choices) {
                         if (choice.name().equals(value)) {
-                            property.setValue(choice);
+                            property.setRawValue(choice);
                             break;
                         }
                     }
                 } else if (type == Integer.class) {
-                    property.setValue(Integer.valueOf(value));
+                    property.setRawValue(Integer.valueOf(value));
                 } else if (type == String.class) {
-                    property.setValue(value);
+                    property.setRawValue(String.valueOf(value));
                 } else if (type == Boolean.class) {
-                    property.setValue(Boolean.valueOf(value));
+                    property.setRawValue(Boolean.valueOf(value));
                 } else {
-                    System.err.println("Deserialization: Unknown property type, unable to set value");
+                    System.err.println("Deserialization: Type of property '" + propertyName + "' is not supported by serializer, unable to set value");
                 }
             }
 
@@ -123,14 +129,17 @@ public class RulesSerializer {
                 reader.next();
                 if (reader.getEventType() == XMLStreamReader.START_ELEMENT && rule instanceof GroupRule) {
 
-                    ((GroupRule) rule).getRules().add(this.readRule(reader));
+                    Rule child = this.readRule(reader);
+                    if(child != null) {
+                        ((GroupRule) rule).getRules().add(child);
+                    }
 
                 } else if (reader.getEventType() == XMLStreamReader.END_ELEMENT) {
                     break;
                 }
             }
         } catch (IllegalAccessException | InstantiationException | ClassNotFoundException | NoSuchMethodException | InvocationTargetException e) {
-            e.printStackTrace();
+            System.err.println("Deserialization: Rule '" + ruleClassName + "' not found or doesn't have default constructor, skipping");
         }
 
         return rule;

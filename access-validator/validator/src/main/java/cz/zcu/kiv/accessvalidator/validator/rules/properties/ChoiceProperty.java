@@ -9,8 +9,8 @@ public class ChoiceProperty<T> extends Property<T> {
 
     private final Collection<T> choices;
 
-    public ChoiceProperty(String id, T value, Collection<T> choices, String name, String description, String category) {
-        super(id, value, name, description, category);
+    public ChoiceProperty(Class<T> type, String id, T value, Collection<T> choices, String name, String description, String category) {
+        super(type, id, value, name, description, category);
         this.choices = choices;
     }
 

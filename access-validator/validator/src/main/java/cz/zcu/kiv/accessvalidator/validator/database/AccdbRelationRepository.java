@@ -18,8 +18,9 @@ public class AccdbRelationRepository {
 
     AccdbRelationRepository(Database db) {
         this.db = db;
+
         try {
-            this.relations = new HashSet<>(db.getRelationships());
+            this.relations = new HashSet<>(this.db.getRelationships());
         } catch (IOException e) {
             e.printStackTrace();
         }

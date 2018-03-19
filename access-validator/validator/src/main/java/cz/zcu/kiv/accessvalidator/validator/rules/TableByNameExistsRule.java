@@ -15,6 +15,7 @@ public class TableByNameExistsRule extends Rule {
         super();
 
         this.propName = new Property<>(
+                String.class,
                 "name", "",
                 "Název tabulky", "Název tabulky", "Název tabulky");
 

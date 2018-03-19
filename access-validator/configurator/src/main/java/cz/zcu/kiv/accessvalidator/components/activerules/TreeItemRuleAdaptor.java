@@ -16,14 +16,13 @@ import java.util.Collections;
  */
 public class TreeItemRuleAdaptor extends TreeItem<Rule> {
 
-    private Collection<PropertySheetRuleAdaptor> propertySheetItems = new ArrayList<>();
+    private final Collection<PropertySheetRuleAdaptor> propertySheetItems = new ArrayList<>();
 
     public TreeItemRuleAdaptor(Rule rule) {
         super(rule);
 
-        for(Property property : rule.getProperties()) {
-            PropertySheetRuleAdaptor ruleAdaptor = new PropertySheetRuleAdaptor(property);
-            this.propertySheetItems.add(ruleAdaptor);
+        for(Property<?> property : rule.getProperties()) {
+            this.propertySheetItems.add(new PropertySheetRuleAdaptor(property));
         }
 
         if(this.isGroup()) {
