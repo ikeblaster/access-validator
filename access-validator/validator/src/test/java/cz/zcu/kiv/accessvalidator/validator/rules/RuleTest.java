@@ -1,6 +1,6 @@
 package cz.zcu.kiv.accessvalidator.validator.rules;
 
-import cz.zcu.kiv.accessvalidator.validator.BaseTestClass;
+import cz.zcu.kiv.accessvalidator.validator.BaseRulesTestClass;
 import javafx.beans.InvalidationListener;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -12,7 +12,7 @@ import static org.mockito.Mockito.mock;
 /**
  * @author ike
  */
-class RuleTest extends BaseTestClass {
+class RuleTest extends BaseRulesTestClass {
 
     private _RuleWithoutDefaultConstructor rule;
 

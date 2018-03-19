@@ -21,7 +21,7 @@ import static org.mockito.Mockito.*;
  */
 class PropertyTest extends BaseTestClass {
 
-    Property<String> stringProperty;
+    private Property<String> stringProperty;
 
     @BeforeEach
     void setUp() {

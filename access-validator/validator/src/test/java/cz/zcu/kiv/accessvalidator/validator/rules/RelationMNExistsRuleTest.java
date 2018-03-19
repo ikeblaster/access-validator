@@ -1,6 +1,6 @@
 package cz.zcu.kiv.accessvalidator.validator.rules;
 
-import cz.zcu.kiv.accessvalidator.validator.BaseTestClass;
+import cz.zcu.kiv.accessvalidator.validator.BaseRulesTestClass;
 import cz.zcu.kiv.accessvalidator.validator.database.Accdb;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -14,7 +14,7 @@ import static org.junit.jupiter.api.Assertions.*;
 /**
  * @author ike
  */
-class RelationMNExistsRuleTest extends BaseTestClass {
+class RelationMNExistsRuleTest extends BaseRulesTestClass {
 
     RelationMNExistsRule rule;
 

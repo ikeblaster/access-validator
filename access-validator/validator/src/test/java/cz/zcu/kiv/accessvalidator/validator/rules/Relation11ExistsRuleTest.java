@@ -1,7 +1,7 @@
 package cz.zcu.kiv.accessvalidator.validator.rules;
 
 import com.healthmarketscience.jackcess.Relationship;
-import cz.zcu.kiv.accessvalidator.validator.BaseTestClass;
+import cz.zcu.kiv.accessvalidator.validator.BaseRulesTestClass;
 import cz.zcu.kiv.accessvalidator.validator.database.Accdb;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -16,7 +16,7 @@ import static org.mockito.Mockito.mock;
 /**
  * @author ike
  */
-class Relation11ExistsRuleTest extends BaseTestClass {
+class Relation11ExistsRuleTest extends BaseRulesTestClass {
 
     Relation11ExistsRule rule;
 

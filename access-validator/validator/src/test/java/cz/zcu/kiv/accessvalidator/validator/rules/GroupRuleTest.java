@@ -1,6 +1,6 @@
 package cz.zcu.kiv.accessvalidator.validator.rules;
 
-import cz.zcu.kiv.accessvalidator.validator.BaseTestClass;
+import cz.zcu.kiv.accessvalidator.validator.BaseRulesTestClass;
 import cz.zcu.kiv.accessvalidator.validator.database.Accdb;
 import cz.zcu.kiv.accessvalidator.validator.rules.properties.ChoiceProperty;
 import javafx.beans.InvalidationListener;
@@ -17,7 +17,7 @@ import static org.mockito.Mockito.*;
 /**
  * @author ike
  */
-class GroupRuleTest extends BaseTestClass {
+class GroupRuleTest extends BaseRulesTestClass {
 
     private GroupRule rule;
 
