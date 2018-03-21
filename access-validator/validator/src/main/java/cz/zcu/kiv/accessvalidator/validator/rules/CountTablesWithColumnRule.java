@@ -54,7 +54,7 @@ public class CountTablesWithColumnRule extends Rule {
     public boolean check(Accdb accdb) {
         AccdbTableRepository repository = accdb.getTableRepository();
 
-        repository.filterByColumnCount(1, ComparisonOperator.GTE, this.columnName.getValue(), this.columnType.getValue(), this.columnIsPrimary.getValue());
+        repository.filterByColumnExistence(this.columnName.getValue(), this.columnType.getValue(), this.columnIsPrimary.getValue());
 
         Set<String> foundTables = repository.getTables();
         return this.countOp.getValue().compare(foundTables.size(), this.count.getValue());
@@ -76,7 +76,7 @@ public class CountTablesWithColumnRule extends Rule {
             details += "s názvem '" + this.columnName.getValue() + "' ";
         }
 
-        return "Počet tabulek se sloupcem " + details + this.countOp.getValue().toString() + " " + this.count.getValue();
+        return "Počet tabulek se sloupcem " + details + this.countOp.getValue() + " " + this.count.getValue();
     }
 
 

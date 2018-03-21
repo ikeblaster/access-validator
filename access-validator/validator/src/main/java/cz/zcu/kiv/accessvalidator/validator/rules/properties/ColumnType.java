@@ -34,8 +34,11 @@ public enum ColumnType {
     public boolean compare(Column column) {
         DataType type = column.getType();
 
+        if(this == _ANY) {
+            return true;
+        }
         if(this == AUTO_NUMBER) {
-            return column.isAutoNumber() && type.mayBeAutoNumber();
+            return column.isAutoNumber();
         }
         if(this == LINK) {
             return column.isHyperlink();

@@ -5,10 +5,7 @@ import cz.zcu.kiv.accessvalidator.validator.rules.properties.Property;
 import javafx.beans.InvalidationListener;
 
 import java.lang.reflect.InvocationTargetException;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Objects;
+import java.util.*;
 
 /**
  * @author ike

@@ -19,7 +19,8 @@ public class RulesRepository {
             new CountTablesWithColumnRule(),
             new CountRelations11Rule(),
             new CountRelations1NRule(),
-            new CountRelationsMNRule()
+            new CountRelationsMNRule(),
+            new CountQueriesRule()
     );
 
     public static Collection<Rule> getAll() {

@@ -20,17 +20,15 @@ public class CountRelations11Rule extends Rule {
     public CountRelations11Rule() {
         super();
 
-        String group = "Počet 1:1 relací";
-
         this.countOp = this.addProperty(new ChoiceProperty<>(
                 ComparisonOperator.class,
                 "count_op", ComparisonOperator.GTE, ComparisonOperator.getChoices(),
-                "Počet 1:1 relací", "Operátor pro ověření počtu nalezených relací", group
+                "Počet 1:1 relací", "Operátor pro ověření počtu nalezených relací", this.getGenericLabel()
         ));
         this.count = this.addProperty(new Property<>(
                 Integer.class,
                 "count", Integer.valueOf(1),
-                "...", "Počet 1:1 relací mezi tabulkami", group
+                "...", "Počet 1:1 relací mezi tabulkami", this.getGenericLabel()
         ));
     }
 
@@ -51,7 +49,7 @@ public class CountRelations11Rule extends Rule {
 
     @Override
     public String toString() {
-        return "Počet relací 1:1 " + this.countOp.getValue().toString() + " " + this.count.getValue();
+        return "Počet relací 1:1 " + this.countOp.getValue() + " " + this.count.getValue();
     }
 
 }

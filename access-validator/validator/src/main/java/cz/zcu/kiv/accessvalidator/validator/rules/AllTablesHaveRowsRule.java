@@ -47,7 +47,7 @@ public class AllTablesHaveRowsRule extends Rule {
 
     @Override
     public String toString() {
-        return "Počet řádků v každé tabulce " + this.countOp.getValue().toString() + " " + this.count.getValue();
+        return "Počet řádků v každé tabulce " + this.countOp.getValue() + " " + this.count.getValue();
     }
 
 }

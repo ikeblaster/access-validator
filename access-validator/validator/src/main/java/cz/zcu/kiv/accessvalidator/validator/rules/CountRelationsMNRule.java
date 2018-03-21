@@ -19,19 +19,18 @@ public class CountRelationsMNRule extends Rule {
     public CountRelationsMNRule() {
         super();
 
-        String group = "Počet relací M:N";
         String desc = "Vyhledá všechny spojovací mezitabulky tvořící M:N relace" +
-                "(tj. tabulky, které mají 2 relace 1:N mířící na primární klíče)";
+                "(tj. tabulky, které mají relace 1:N mířící na primární klíče dvou jiných tabulek)";
 
         this.countOp = this.addProperty(new ChoiceProperty<>(
                 ComparisonOperator.class,
                 "count_op", ComparisonOperator.GTE, ComparisonOperator.getChoices(),
-                "Počet M:N relací", desc, group
+                "Počet M:N relací", desc, this.getGenericLabel()
         ));
         this.count = this.addProperty(new Property<>(
                 Integer.class,
                 "count", Integer.valueOf(1),
-                "...", desc, group
+                "...", desc, this.getGenericLabel()
         ));
     }
 
@@ -52,7 +51,7 @@ public class CountRelationsMNRule extends Rule {
 
     @Override
     public String toString() {
-        return "Počet relací M:N " + this.countOp.getValue().toString() + " " + this.count.getValue();
+        return "Počet relací M:N " + this.countOp.getValue() + " " + this.count.getValue();
     }
 
 }

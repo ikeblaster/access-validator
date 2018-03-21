@@ -116,14 +116,16 @@ public class ValidatorController {
         for (FileTreeObject file : this.dbFiles.getFileWrappers()) {
             try {
 
-                AccdbValidator validator = new AccdbValidator(file.getFile());
-                file.setValid(validator.validate(rule));
+                AccdbValidator validator = new AccdbValidator(file.getFile(), rule);
 
+                file.clearInfo();
+                file.setValid(validator.validate());
+                file.setFailedRules(validator.getFailedRules());
                 file.setSimilarFiles(duplicates.getOrDefault(file.getFile(), Collections.emptyList()));
 
             } catch (IOException e) {
                 e.printStackTrace();
-                Dialogs.showErrorBox("Kontrolu se nepodařilo zahájit", e.getLocalizedMessage());
+                Dialogs.showErrorBox("Kontrola souboru '" + file.getFile() + "' se nezdařila", e.getLocalizedMessage());
             }
         }
 

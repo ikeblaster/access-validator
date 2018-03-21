@@ -25,9 +25,9 @@ public class Validator {
         Rule root = serializer.deserialize(new FileInputStream(fileRules));
 
         try {
-            AccdbValidator validator = new AccdbValidator(fileDatabase);
+            AccdbValidator validator = new AccdbValidator(fileDatabase, root);
 
-            if (validator.validate(root)) {
+            if (validator.validate()) {
                 System.out.println("VALID");
             } else {
                 System.err.println("INVALID");

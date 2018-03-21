@@ -78,7 +78,7 @@ public class ComplexRule extends Rule {
 
         repository.filterByColumnCount(this.columnsCount.getValue(), this.columnsCountOp.getValue());
 
-        repository.filterByColumnCount(1, ComparisonOperator.GTE, this.columnsByName.getValue(), this.columnsByType.getValue(), this.columnIsPrimary.getValue());
+        repository.filterByColumnExistence(this.columnsByName.getValue(), this.columnsByType.getValue(), this.columnIsPrimary.getValue());
 
         Set<String> foundTables = repository.getTables();
         return this.tablesCountOp.getValue().compare(foundTables.size(), this.tablesCount.getValue());

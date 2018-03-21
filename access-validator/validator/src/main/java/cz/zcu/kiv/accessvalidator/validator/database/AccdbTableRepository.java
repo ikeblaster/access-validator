@@ -39,16 +39,8 @@ public class AccdbTableRepository {
         this.tables.removeIf(tableName -> !operator.compare(this.getTableColumnCountByCriteria(tableName, columnName, columnType, isPrimaryKey), columnCount));
     }
 
-    public void filterByColumnName(String columnName) {
-        this.tables.removeIf(tableName -> this.getTableColumnCountByCriteria(tableName, columnName, null, null) == 0);
-    }
-
-    public void filterByColumnType(ColumnType columnType) {
-        this.tables.removeIf(tableName -> this.getTableColumnCountByCriteria(tableName, null, columnType, null) == 0);
-    }
-
-    public void filterByColumnNameAndType(String columnName, ColumnType columnType) {
-        this.tables.removeIf(tableName -> this.getTableColumnCountByCriteria(tableName, columnName, columnType, null) == 0);
+    public void filterByColumnExistence(String columnName, ColumnType columnType, YesNoType isPrimaryKey) {
+        this.tables.removeIf(tableName -> this.getTableColumnCountByCriteria(tableName, columnName, columnType, isPrimaryKey) == 0);
     }
 
     public void filterByRowsCount(int rowsCount, ComparisonOperator operator) {
@@ -56,24 +48,7 @@ public class AccdbTableRepository {
     }
 
     public void filterMNJunctionTables() {
-        this.tables.removeIf(tableName -> {
-            List<Relationship> relationships = this.getRelationships(tableName);
-            int junction = 0;
-
-            for(Relationship relationship : relationships) {
-                if(relationship.isOneToOne() || relationship.getFromTable().getName().equals(tableName)) {
-                    continue;
-                }
-
-                List<Column> primaryKeyColumns = relationship.getFromTable().getPrimaryKeyIndex().getColumns().stream().map(Index.Column::getColumn).collect(Collectors.toList());
-                
-                if(primaryKeyColumns.containsAll(relationship.getFromColumns())) {
-                    junction++;
-                }
-            }
-
-            return junction != 2; // only one M:N relation is ok
-        });
+        this.tables.removeIf(tableName -> !this.isMNJunctionTable(tableName));
     }
 
     public Set<String> getTables() {
@@ -84,8 +59,8 @@ public class AccdbTableRepository {
     private Table getTable(String tableName) {
         try {
             return this.db.getTable(tableName);
-        } catch (Exception e) {
-            // this means that we can't find a table in DB anymore, although we found it at first; maybe DB changed
+        } catch (IOException e) {
+            // this means that we can't find a table in DB anymore, although we found it at first; maybe DB file changed
             throw new NullPointerException();
         }
     }
@@ -93,27 +68,26 @@ public class AccdbTableRepository {
     private List<Relationship> getRelationships(String tableName) {
         try {
             return this.db.getRelationships(this.db.getTable(tableName));
-        } catch (Exception e) {
-            // this means that we can't find a table in DB anymore, although we found it at first; maybe DB changed
+        } catch (IOException e) {
+            // this means that we can't find a table in DB anymore, although we found it at first; maybe DB file changed
             throw new NullPointerException();
         }
     }
-
 
     private int getTableColumnCountByCriteria(String tableName, String columnName, ColumnType columnType, YesNoType isPrimaryKey) {
         try {
             Table table = this.db.getTable(tableName);
             List<? extends Column> columns = new ArrayList<>(table.getColumns());
 
-            if(isPrimaryKey != null && isPrimaryKey != YesNoType._ANY) {
-                List<Column> primaryKeyColumns = table.getPrimaryKeyIndex().getColumns().stream().map(Index.Column::getColumn).collect(Collectors.toList());
-                columns.removeIf(col -> (isPrimaryKey == YesNoType.YES) ^ primaryKeyColumns.contains(col));
-            }
             if(columnName != null && !columnName.isEmpty()) {
-                columns.removeIf(col -> !col.getName().equals(columnName));
+                columns.removeIf(col -> !col.getName().equals(columnName)); // remove columns with different names than columnName
             }
             if(columnType != null && columnType != ColumnType._ANY) {
-                columns.removeIf(col -> !columnType.compare(col));
+                columns.removeIf(col -> !columnType.compare(col));  // remove columns with different types than columnType
+            }
+            if(isPrimaryKey != null && isPrimaryKey != YesNoType._ANY) {
+                List<Column> primaryKeyColumns = table.getPrimaryKeyIndex().getColumns().stream().map(Index.Column::getColumn).collect(Collectors.toList());
+                columns.removeIf(col -> (isPrimaryKey == YesNoType.YES) ^ primaryKeyColumns.contains(col)); // either we are looking for primary key and col isn't one... or the exact opposite
             }
 
             return columns.size();
@@ -122,6 +96,28 @@ public class AccdbTableRepository {
             e.printStackTrace();
         }
         return 0;
+    }
+
+    private boolean isMNJunctionTable(String tableName) {
+        List<Relationship> relationships = this.getRelationships(tableName);
+        int foreignTables = 0;
+
+        for(Relationship relationship : relationships) {
+            // skip 1:1 relations and relations, where current table acts as foreign (then it's not part of M:N relation)
+            if(relationship.isOneToOne() || relationship.getFromTable().getName().equals(tableName)) {
+                continue;
+            }
+
+            // get primary key columns from "From" table (that's not junction table)
+            List<Column> primaryKeyColumns = relationship.getFromTable().getPrimaryKeyIndex().getColumns().stream().map(Index.Column::getColumn).collect(Collectors.toList());
+
+            // check whether foreign key (of junction table) points to all columns of primary key in "From" table (and not just part of it)
+            if(primaryKeyColumns.containsAll(relationship.getFromColumns())) {
+                foreignTables++;
+            }
+        }
+
+        return foreignTables == 2; // Junction table has foreign keys for two other tables (i.e. it points to primary keys of two other tables)
     }
 
 }

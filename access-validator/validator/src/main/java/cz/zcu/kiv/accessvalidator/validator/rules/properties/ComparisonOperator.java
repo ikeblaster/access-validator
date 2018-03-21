@@ -30,5 +30,4 @@ public enum ComparisonOperator {
     public static List<ComparisonOperator> getChoices() {
         return Arrays.asList(values());
     }
-
 }

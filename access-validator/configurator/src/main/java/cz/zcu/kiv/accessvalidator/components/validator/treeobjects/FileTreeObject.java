@@ -1,12 +1,10 @@
 package cz.zcu.kiv.accessvalidator.components.validator.treeobjects;
 
 import cz.zcu.kiv.accessvalidator.validator.database.SimilarFiles;
+import cz.zcu.kiv.accessvalidator.validator.rules.Rule;
 
 import java.io.File;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 /**
  * @author ike
@@ -39,6 +37,39 @@ public class FileTreeObject extends TreeObject {
         this.checked = true;
         this.valid = valid;
     }
+
+    public void clearInfo() {
+        this.children.clear();
+        this.similarFiles = Collections.emptyList();
+    }
+
+    public void setSimilarFiles(List<SimilarFiles> similarFiles) {
+        this.similarFiles = similarFiles;
+
+        for (SimilarFiles similar : similarFiles) {
+            StringTreeObject node = new StringTreeObject(similar.toString());
+            this.addChild(node);
+
+            for (File file : similar.getFiles()) {
+                node.addChild(new FileTreeObject(file));
+            }
+        }
+    }
+
+    public void setFailedRules(Set<Rule> failedRules) {
+        if(failedRules.size() == 0) {
+            return;
+        }
+
+        StringTreeObject parent = new StringTreeObject("Pravidla, která selhala");
+        this.addChild(parent);
+
+        for(Rule rule : failedRules) {
+            StringTreeObject node = new StringTreeObject(rule.toString());
+            parent.addChild(node);
+        }
+    }
+
 
     @Override
     public boolean hasTooltipText() {
@@ -75,19 +106,4 @@ public class FileTreeObject extends TreeObject {
         return ret;
     }
 
-    public void setSimilarFiles(List<SimilarFiles> similarFiles) {
-        this.similarFiles = similarFiles;
-        this.children.clear();
-
-        if(similarFiles != null) {
-            for (SimilarFiles similar : similarFiles) {
-                StringTreeObject node = new StringTreeObject(similar.toString());
-                this.addChild(node);
-
-                for (File file : similar.getFiles()) {
-                    node.addChild(new FileTreeObject(file));
-                }
-            }
-        }
-    }
 }

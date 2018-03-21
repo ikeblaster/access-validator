@@ -45,11 +45,11 @@ public class ActiveRulesController {
     public void initialize() {
         this.loadEmptyRules();
 
-        this.activeRules.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+        this.activeRules.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, selectedItem) -> {
             this.detailsController.clear();
 
-            if (newValue instanceof TreeItemRuleAdaptor) {
-                TreeItemRuleAdaptor treeItem = (TreeItemRuleAdaptor) newValue;
+            if (selectedItem instanceof TreeItemRuleAdaptor) {
+                TreeItemRuleAdaptor treeItem = (TreeItemRuleAdaptor) selectedItem;
                 this.detailsController.addAll(treeItem.getPropertySheetItems());
             }
         });

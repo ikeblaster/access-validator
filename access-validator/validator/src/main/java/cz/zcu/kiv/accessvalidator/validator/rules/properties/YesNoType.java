@@ -6,7 +6,6 @@ import java.util.List;
 /**
  * @author ike
  */
-
 public enum YesNoType {
     _ANY(""), YES("Ano"), NO("Ne");
 
@@ -24,5 +23,4 @@ public enum YesNoType {
     public static List<YesNoType> getChoices() {
         return Arrays.asList(values());
     }
-
 }

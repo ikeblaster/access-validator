@@ -75,7 +75,7 @@ public class AllTablesHaveColumnsRule extends Rule {
             details += "s názvem '" + this.columnName.getValue() + "' ";
         }
 
-        return "Počet sloupců " + details + "v každé tabulce " + this.countOp.getValue().toString() + " " + this.count.getValue();
+        return "Počet sloupců " + details + "v každé tabulce " + this.countOp.getValue() + " " + this.count.getValue();
     }
 
 
