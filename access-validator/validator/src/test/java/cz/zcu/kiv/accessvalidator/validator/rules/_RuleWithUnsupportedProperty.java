@@ -16,6 +16,11 @@ public class _RuleWithUnsupportedProperty extends Rule {
     }
 
     @Override
+    public String getGenericLabel() {
+        return null;
+    }
+
+    @Override
     public String toString() {
         return null;
     }

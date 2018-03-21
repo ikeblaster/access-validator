@@ -15,6 +15,11 @@ public class _RuleWithoutDefaultConstructor extends Rule {
     }
 
     @Override
+    public String getGenericLabel() {
+        return null;
+    }
+
+    @Override
     public String toString() {
         return null;
     }

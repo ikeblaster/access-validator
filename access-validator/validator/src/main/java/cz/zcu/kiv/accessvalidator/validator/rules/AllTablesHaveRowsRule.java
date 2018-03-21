@@ -9,26 +9,25 @@ import cz.zcu.kiv.accessvalidator.validator.rules.properties.Property;
 /**
  * @author ike
  */
-public class TablesRowsCountRule extends Rule {
+public class AllTablesHaveRowsRule extends Rule {
 
     private ChoiceProperty<ComparisonOperator> countOp;
     private Property<Integer> count;
 
-    public TablesRowsCountRule() {
+    public AllTablesHaveRowsRule() {
         super();
 
-        this.countOp = new ChoiceProperty<>(
+        this.countOp = this.addProperty(new ChoiceProperty<>(
                 ComparisonOperator.class,
                 "count_op", ComparisonOperator.GTE, ComparisonOperator.getChoices(),
-                "Tabulky obsahují řádků", "Operátor pro ověření počtu řádků v tabulkách", "Počet řádků v tabulkách");
-
-        this.count = new Property<>(
+                "Počet řádků", "Operátor pro ověření počtu řádků v tabulkách", this.getGenericLabel()
+        ));
+        this.count = this.addProperty(new Property<>(
                 Integer.class,
                 "count", Integer.valueOf(1),
-                "...", "Počet řádků v tabulkách", "Počet řádků v tabulkách");
+                "...", "Všechny tabulky v databázi musí obsahovat zadaný počet řádků", this.getGenericLabel()
+        ));
 
-        this.properties.add(this.countOp);
-        this.properties.add(this.count);
     }
 
     @Override
@@ -42,8 +41,13 @@ public class TablesRowsCountRule extends Rule {
     }
 
     @Override
+    public String getGenericLabel() {
+        return "Počet řádků v každé tabulce";
+    }
+
+    @Override
     public String toString() {
-        return "Počet řádků v tabulkách";
+        return "Počet řádků v každé tabulce " + this.countOp.getValue().toString() + " " + this.count.getValue();
     }
 
 }

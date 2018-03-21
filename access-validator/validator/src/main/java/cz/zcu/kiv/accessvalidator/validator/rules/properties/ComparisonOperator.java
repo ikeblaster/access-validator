@@ -8,7 +8,7 @@ import java.util.List;
  */
 
 public enum ComparisonOperator {
-    GTE("=>"), EQ("="), LTE("<=");
+    GTE("≥"), EQ("="), LTE("≤");
 
     private String label;
 

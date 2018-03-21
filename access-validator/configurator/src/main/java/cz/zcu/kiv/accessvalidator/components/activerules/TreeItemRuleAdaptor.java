@@ -5,6 +5,7 @@ import cz.zcu.kiv.accessvalidator.validator.rules.GroupRule;
 import cz.zcu.kiv.accessvalidator.validator.rules.Rule;
 import cz.zcu.kiv.accessvalidator.validator.rules.properties.Property;
 import javafx.collections.ObservableList;
+import javafx.event.Event;
 import javafx.scene.control.TreeItem;
 
 import java.util.ArrayList;
@@ -33,6 +34,11 @@ public class TreeItemRuleAdaptor extends TreeItem<Rule> {
                 super.getChildren().add(new TreeItemRuleAdaptor(child));
             }
         }
+
+        rule.onChange((observable) -> {
+            TreeModificationEvent<Rule> event = new TreeModificationEvent<>(TreeItem.valueChangedEvent(), this);
+            Event.fireEvent(this, event);
+        });
     }
 
 

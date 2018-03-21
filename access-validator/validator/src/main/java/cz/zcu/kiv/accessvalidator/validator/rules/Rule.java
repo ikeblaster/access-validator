@@ -3,6 +3,7 @@ package cz.zcu.kiv.accessvalidator.validator.rules;
 import cz.zcu.kiv.accessvalidator.validator.database.Accdb;
 import cz.zcu.kiv.accessvalidator.validator.rules.properties.Property;
 import javafx.beans.InvalidationListener;
+
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -42,10 +43,14 @@ public abstract class Rule {
     }
 
     public void onChange(InvalidationListener listener) {
-        throw new UnsupportedOperationException();
+        for(Property<?> property : this.properties) {
+            property.onChange(listener);
+        }
     }
 
     public abstract boolean check(Accdb accdb);
+
+    public abstract String getGenericLabel();
 
     public abstract String toString();
 
@@ -62,5 +67,11 @@ public abstract class Rule {
     @Override
     public int hashCode() {
         return Objects.hash(this.toString(), this.properties);
+    }
+
+
+    protected <T extends Property> T addProperty(T prop) {
+        this.properties.add(prop);
+        return prop;
     }
 }

@@ -5,7 +5,6 @@ import cz.zcu.kiv.accessvalidator.common.FileChooserEx;
 import cz.zcu.kiv.accessvalidator.components.details.DetailsController;
 import cz.zcu.kiv.accessvalidator.validator.rules.GroupRule;
 import cz.zcu.kiv.accessvalidator.validator.rules.Rule;
-import cz.zcu.kiv.accessvalidator.validator.rules.annotations.Monitorable;
 import cz.zcu.kiv.accessvalidator.validator.rules.serialization.RulesSerializer;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
@@ -122,8 +121,6 @@ public class ActiveRulesController {
     }
 
     public void addRule(Rule rule) {
-        this.addRulesListeners(rule);
-
         TreeItemRuleAdaptor parent = (TreeItemRuleAdaptor) this.activeRules.getSelectionModel().getSelectedItem();
         if (parent == null || !parent.isGroup()) {
             parent = this.activeRulesRoot;
@@ -143,20 +140,8 @@ public class ActiveRulesController {
         this.rulesChanged = false;
         this.activeRulesRoot = new TreeItemRuleAdaptor(root);
         this.activeRules.setRoot(this.activeRulesRoot);
-        this.addRulesListeners(this.activeRulesRoot.getValue());
     }
 
-    private void addRulesListeners(Rule rule) {
-        if (rule instanceof Monitorable) {
-            rule.onChange(o -> this.activeRules.refresh());
-        }
-        if (rule instanceof GroupRule) {
-            GroupRule groupRule = (GroupRule) rule;
-            for (Rule child : groupRule.getRules()) {
-                this.addRulesListeners(child);
-            }
-        }
-    }
 
 
     private boolean canDiscardFile(){

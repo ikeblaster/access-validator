@@ -1,13 +1,12 @@
 package cz.zcu.kiv.accessvalidator.validator.database;
 
 import com.healthmarketscience.jackcess.*;
+import cz.zcu.kiv.accessvalidator.validator.rules.properties.ColumnType;
 import cz.zcu.kiv.accessvalidator.validator.rules.properties.ComparisonOperator;
+import cz.zcu.kiv.accessvalidator.validator.rules.properties.YesNoType;
 
 import java.io.IOException;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /**
@@ -36,13 +35,20 @@ public class AccdbTableRepository {
         this.tables.removeIf(tableName -> !operator.compare(this.getTable(tableName).getColumnCount(), columnCount));
     }
 
-    public void filterByColumnName(String columnName) {
-        this.tables.removeIf(tableName -> !this.tableHasColumn(tableName, columnName));
+    public void filterByColumnCount(int columnCount, ComparisonOperator operator, String columnName, ColumnType columnType, YesNoType isPrimaryKey) {
+        this.tables.removeIf(tableName -> !operator.compare(this.getTableColumnCountByCriteria(tableName, columnName, columnType, isPrimaryKey), columnCount));
     }
 
-    public void filterByColumnType(String columnName) {
-        // TODO: implement, ENUM do ComplexRule, zde porovnání
-        //this.tables.removeIf(name -> !((TableImpl) this.getTable(name)).getColumn(columnName).getType().);
+    public void filterByColumnName(String columnName) {
+        this.tables.removeIf(tableName -> this.getTableColumnCountByCriteria(tableName, columnName, null, null) == 0);
+    }
+
+    public void filterByColumnType(ColumnType columnType) {
+        this.tables.removeIf(tableName -> this.getTableColumnCountByCriteria(tableName, null, columnType, null) == 0);
+    }
+
+    public void filterByColumnNameAndType(String columnName, ColumnType columnType) {
+        this.tables.removeIf(tableName -> this.getTableColumnCountByCriteria(tableName, columnName, columnType, null) == 0);
     }
 
     public void filterByRowsCount(int rowsCount, ComparisonOperator operator) {
@@ -75,31 +81,47 @@ public class AccdbTableRepository {
     }
 
 
-    private Table getTable(String name) {
+    private Table getTable(String tableName) {
         try {
-            return this.db.getTable(name);
+            return this.db.getTable(tableName);
         } catch (Exception e) {
             // this means that we can't find a table in DB anymore, although we found it at first; maybe DB changed
             throw new NullPointerException();
         }
     }
 
-    private List<Relationship> getRelationships(String name) {
+    private List<Relationship> getRelationships(String tableName) {
         try {
-            return this.db.getRelationships(this.db.getTable(name));
+            return this.db.getRelationships(this.db.getTable(tableName));
         } catch (Exception e) {
             // this means that we can't find a table in DB anymore, although we found it at first; maybe DB changed
             throw new NullPointerException();
         }
     }
 
-    private boolean tableHasColumn(String table, String column) {
+
+    private int getTableColumnCountByCriteria(String tableName, String columnName, ColumnType columnType, YesNoType isPrimaryKey) {
         try {
-            return this.db.getTable(table).getColumn(column) != null;
+            Table table = this.db.getTable(tableName);
+            List<? extends Column> columns = new ArrayList<>(table.getColumns());
+
+            if(isPrimaryKey != null && isPrimaryKey != YesNoType._ANY) {
+                List<Column> primaryKeyColumns = table.getPrimaryKeyIndex().getColumns().stream().map(Index.Column::getColumn).collect(Collectors.toList());
+                columns.removeIf(col -> (isPrimaryKey == YesNoType.YES) ^ primaryKeyColumns.contains(col));
+            }
+            if(columnName != null && !columnName.isEmpty()) {
+                columns.removeIf(col -> !col.getName().equals(columnName));
+            }
+            if(columnType != null && columnType != ColumnType._ANY) {
+                columns.removeIf(col -> !columnType.compare(col));
+            }
+
+            return columns.size();
         }
         catch (Exception e) {
-            return false;
+            e.printStackTrace();
         }
+        return 0;
     }
 
 }

@@ -7,20 +7,19 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
 import java.util.Collections;
-import java.util.HashSet;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * @author ike
  */
-class TablesRowsCountRuleTest extends BaseRulesTestClass {
+class ExistsTableByNameRuleTest extends BaseRulesTestClass {
 
-    private TablesRowsCountRule rule;
+    private ExistsTableByNameRule rule;
 
     @BeforeEach
     void setUp() {
-        this.rule = new TablesRowsCountRule();
+        this.rule = new ExistsTableByNameRule();
     }
 
     @Test
@@ -34,20 +33,9 @@ class TablesRowsCountRuleTest extends BaseRulesTestClass {
     @Test
     void check_ReturnConditionWhenNoTablesFound_False() {
         Accdb mockAccdb = getMockedAccdb();
+        Mockito.when(mockAccdb.getTableRepository().getTables()).thenReturn(Collections.emptySet());
 
-        HashSet<String> set = new HashSet<>();
-        set.add("1");
-        set.add("2");
-        set.add("3");
-
-        // on every getTables call delete one item and return the rest
-        Mockito.when(mockAccdb.getTableRepository().getTables()).thenReturn(set);
-        Mockito.when(mockAccdb.getTableRepository().getTables()).thenAnswer(invocationOnMock -> {
-            set.remove(set.iterator().next());
-            return set;
-        });
-
-        assertFalse(this.rule.check(mockAccdb)); // false since there was 3 tables in total, but only 2 tables matched the rows count rule
+        assertFalse(this.rule.check(mockAccdb)); // false since only active rule is propTablesCount >= 1
     }
 
     @Test

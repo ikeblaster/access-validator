@@ -10,13 +10,13 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 /**
  * @author ike
  */
-class Relation1NExistsRuleTest extends BaseRulesTestClass {
+class CountRelations1NRuleTest extends BaseRulesTestClass {
 
-    Relation1NExistsRule rule;
+    CountRelations1NRule rule;
 
     @BeforeEach
     void setUp() {
-        this.rule = new Relation1NExistsRule();
+        this.rule = new CountRelations1NRule();
     }
 
     @Test

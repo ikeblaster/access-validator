@@ -14,13 +14,13 @@ import static org.junit.jupiter.api.Assertions.*;
 /**
  * @author ike
  */
-class RelationMNExistsRuleTest extends BaseRulesTestClass {
+class CountRelationsMNRuleTest extends BaseRulesTestClass {
 
-    RelationMNExistsRule rule;
+    CountRelationsMNRule rule;
 
     @BeforeEach
     void setUp() {
-        this.rule = new RelationMNExistsRule();
+        this.rule = new CountRelationsMNRule();
     }
 
     @Test

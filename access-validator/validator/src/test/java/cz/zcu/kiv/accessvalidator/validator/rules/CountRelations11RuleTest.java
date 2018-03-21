@@ -16,13 +16,13 @@ import static org.mockito.Mockito.mock;
 /**
  * @author ike
  */
-class Relation11ExistsRuleTest extends BaseRulesTestClass {
+class CountRelations11RuleTest extends BaseRulesTestClass {
 
-    Relation11ExistsRule rule;
+    CountRelations11Rule rule;
 
     @BeforeEach
     void setUp() {
-        this.rule = new Relation11ExistsRule();
+        this.rule = new CountRelations11Rule();
     }
 
     @Test

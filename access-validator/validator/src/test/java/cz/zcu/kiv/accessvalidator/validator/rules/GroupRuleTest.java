@@ -154,13 +154,6 @@ class GroupRuleTest extends BaseRulesTestClass {
     }
 
     @Test
-    void toString_DifferentCtorParameter_NotEquals(){
-        GroupRule rule1 = new GroupRule(true);
-        GroupRule rule2 = new GroupRule(false);
-        assertNotEquals(rule1.toString(), rule2.toString());
-    }
-
-    @Test
     void hashCode_TwoInstancesSameMode_Equals() {
         GroupRule rule2 = new GroupRule();
 

@@ -14,7 +14,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="656.0" prefWidth="1038.0" stylesheets="main.css" xmlns="http://javafx.com/javafx/8.0.162" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cz.zcu.kiv.accessvalidator.configurator.ConfiguratorController">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="656.0" prefWidth="1200.0" stylesheets="main.css" xmlns="http://javafx.com/javafx/8.0.162" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cz.zcu.kiv.accessvalidator.configurator.ConfiguratorController">
     <MenuBar VBox.vgrow="NEVER">
         <Menu mnemonicParsing="false" text="Soubor">
             <MenuItem mnemonicParsing="false" onAction="#actionNewFile" text="Nový" />
@@ -78,8 +78,7 @@
             </graphic>
         </Button>
     </ToolBar>
-    <SplitPane dividerPositions="0.1994219653179191, 0.4210019267822736, 0.6502890173410405" focusTraversable="true" VBox.vgrow="ALWAYS">
-
+    <SplitPane dividerPositions="0.18, 0.48, 0.72" focusTraversable="true" VBox.vgrow="ALWAYS">
         <fx:include fx:id="library" source="pane_library.fxml" />
         <fx:include fx:id="activeRules" source="pane_activerules.fxml" />
         <fx:include fx:id="details" source="pane_details.fxml" />

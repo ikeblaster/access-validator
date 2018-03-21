@@ -11,13 +11,15 @@ import java.util.Collection;
 public class RulesRepository {
 
     private static final Collection<Rule> RULES = Arrays.asList(
-            new GroupRule(false),
+            new GroupRule(),
             new ComplexRule(),
-            new TableByNameExistsRule(),
-            new TablesRowsCountRule(),
-            new Relation11ExistsRule(),
-            new Relation1NExistsRule(),
-            new RelationMNExistsRule()
+            new AllTablesHaveRowsRule(),
+            new AllTablesHaveColumnsRule(),
+            new ExistsTableByNameRule(),
+            new CountTablesWithColumnRule(),
+            new CountRelations11Rule(),
+            new CountRelations1NRule(),
+            new CountRelationsMNRule()
     );
 
     public static Collection<Rule> getAll() {
