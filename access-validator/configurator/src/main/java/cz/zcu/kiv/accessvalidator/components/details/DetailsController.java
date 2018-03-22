@@ -15,7 +15,6 @@ public class DetailsController {
 
 
     public void onLoad(Stage stage) {
-
     }
 
     @FXML

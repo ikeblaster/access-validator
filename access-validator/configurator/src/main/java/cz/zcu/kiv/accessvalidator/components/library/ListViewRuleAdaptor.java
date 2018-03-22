@@ -13,7 +13,7 @@ public class ListViewRuleAdaptor {
     private final Rule rule;
 
     public static Collection<ListViewRuleAdaptor> wrapAll(Collection<Rule> rules) {
-        return rules.stream().map(rule -> new ListViewRuleAdaptor(rule)).collect(Collectors.toList());
+        return rules.stream().map(ListViewRuleAdaptor::new).collect(Collectors.toList());
     }
 
     public ListViewRuleAdaptor(Rule rule) {

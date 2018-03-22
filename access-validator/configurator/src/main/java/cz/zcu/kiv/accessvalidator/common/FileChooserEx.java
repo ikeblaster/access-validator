@@ -16,7 +16,7 @@ public class FileChooserEx {
 
     private static final String PREF_INITIAL_DIRECTORY = "initial_directory";
 
-    private FileChooser fileChooser = new FileChooser();
+    private final FileChooser fileChooser = new FileChooser();
     private Stage stage;
     private File file;
 

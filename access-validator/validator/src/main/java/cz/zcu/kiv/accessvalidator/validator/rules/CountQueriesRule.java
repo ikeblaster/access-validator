@@ -29,7 +29,7 @@ public class CountQueriesRule extends Rule {
         ));
         this.count = this.addProperty(new Property<>(
                 Integer.class,
-                "count", Integer.valueOf(1),
+                "count", 1,
                 "...", "Počet uložených dotazů v databázi", this.getGenericLabel()
         ));
         this.type = this.addProperty(new ChoiceProperty<>(

@@ -30,7 +30,7 @@ class NumericField extends TextField {
         };
     }
 
-    public NumericField() {
+    private NumericField() {
         this.value = new IntegerValidator(this);
 
         this.focusedProperty().addListener((observable, oldValue, newValue) -> {

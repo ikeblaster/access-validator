@@ -20,7 +20,7 @@ public class AccdbRelationRepository {
         this.db = db;
 
         try {
-            this.relations = new HashSet<>(this.db.getRelationships());
+            this.relations = new HashSet<>(db.getRelationships());
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -31,7 +31,7 @@ public class AccdbRelationRepository {
     }
 
     public void filter1NRelations() {
-        this.relations.removeIf(relationship -> relationship.isOneToOne());
+        this.relations.removeIf(Relationship::isOneToOne);
     }
 
     public Set<Relationship> getRelations() {

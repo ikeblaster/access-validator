@@ -32,7 +32,7 @@ public class AccdbQueryRepository {
     }
 
     public Set<Query> getQueries() {
-        return queries;
+        return this.queries;
     }
 
 }

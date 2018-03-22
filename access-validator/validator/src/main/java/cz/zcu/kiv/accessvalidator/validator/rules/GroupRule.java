@@ -62,14 +62,6 @@ public class GroupRule extends Rule implements Monitorable {
         return this.failedRules;
     }
 
-    public void processFailedRule(Rule rule) {
-        this.failedRules.add(rule);
-        if(rule instanceof GroupRule) {
-            GroupRule groupRule = (GroupRule) rule;
-            this.failedRules.addAll(groupRule.getFailedRules());
-        }
-    }
-
     @Override
     public String getGenericLabel() {
         return "Skupina pravidel";
@@ -93,5 +85,15 @@ public class GroupRule extends Rule implements Monitorable {
     @Override
     public int hashCode() {
         return Objects.hash(super.hashCode(), this.rules);
+    }
+
+
+
+    private void processFailedRule(Rule rule) {
+        this.failedRules.add(rule);
+        if(rule instanceof GroupRule) {
+            GroupRule groupRule = (GroupRule) rule;
+            this.failedRules.addAll(groupRule.getFailedRules());
+        }
     }
 }

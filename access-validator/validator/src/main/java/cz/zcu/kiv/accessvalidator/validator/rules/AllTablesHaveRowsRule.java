@@ -24,7 +24,7 @@ public class AllTablesHaveRowsRule extends Rule {
         ));
         this.count = this.addProperty(new Property<>(
                 Integer.class,
-                "count", Integer.valueOf(1),
+                "count", 1,
                 "...", "Všechny tabulky v databázi musí obsahovat zadaný počet řádků", this.getGenericLabel()
         ));
 

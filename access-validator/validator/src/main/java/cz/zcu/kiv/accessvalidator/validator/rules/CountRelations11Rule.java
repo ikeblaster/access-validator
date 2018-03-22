@@ -27,7 +27,7 @@ public class CountRelations11Rule extends Rule {
         ));
         this.count = this.addProperty(new Property<>(
                 Integer.class,
-                "count", Integer.valueOf(1),
+                "count", 1,
                 "...", "Počet 1:1 relací mezi tabulkami", this.getGenericLabel()
         ));
     }

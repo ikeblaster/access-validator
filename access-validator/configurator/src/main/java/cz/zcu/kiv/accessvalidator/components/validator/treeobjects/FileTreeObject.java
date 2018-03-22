@@ -25,14 +25,6 @@ public class FileTreeObject extends TreeObject {
         return this.file;
     }
 
-    public boolean isChecked() {
-        return this.checked;
-    }
-
-    public boolean isValid() {
-        return this.valid;
-    }
-
     public void setValid(boolean valid) {
         this.checked = true;
         this.valid = valid;
@@ -99,7 +91,7 @@ public class FileTreeObject extends TreeObject {
     public String toString() {
         String ret = this.file.getName();
 
-        if(this.isChecked()) {
+        if(this.checked) {
             ret += " " + (this.valid ? "[OK]" : "[nevalidní]");
         }
 

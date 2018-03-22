@@ -30,7 +30,7 @@ public class CountRelations1NRule extends Rule {
         ));
         this.count = this.addProperty(new Property<>(
                 Integer.class,
-                "count", Integer.valueOf(1),
+                "count", 1,
                 "...", desc, this.getGenericLabel()
         ));
     }

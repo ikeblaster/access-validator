@@ -29,7 +29,7 @@ public class ComplexRule extends Rule {
         ));
         this.tablesCount = this.addProperty(new Property<>(
                 Integer.class,
-                "tables_count", Integer.valueOf(1),
+                "tables_count", 1,
                 "...", "Počet hledaných tabulek", "1. Počet nalezených tabulek"
         ));
 
@@ -46,7 +46,7 @@ public class ComplexRule extends Rule {
         ));
         this.columnsCount = this.addProperty(new Property<>(
                 Integer.class,
-                "columns_count", Integer.valueOf(1),
+                "columns_count", 1,
                 "...", "Alespoň jedna nalezená tabulka má zadaný počet sloupců", "3. Filtrování dle počtu sloupců"
         ));
 
