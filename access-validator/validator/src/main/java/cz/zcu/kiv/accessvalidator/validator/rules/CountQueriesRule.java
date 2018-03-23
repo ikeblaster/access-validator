@@ -23,18 +23,18 @@ public class CountQueriesRule extends Rule {
         super();
 
         this.countOp = this.addProperty(new ChoiceProperty<>(
-                ComparisonOperator.class,
-                "count_op", ComparisonOperator.GTE, ComparisonOperator.getChoices(),
+                "count_op",
+                ComparisonOperator.class, ComparisonOperator.GTE, ComparisonOperator.getChoices(),
                 "Počet dotazů", "Operátor pro ověření počtu nalezených dotazů", this.getGenericLabel()
         ));
         this.count = this.addProperty(new Property<>(
-                Integer.class,
-                "count", 1,
+                "count",
+                Integer.class, 1,
                 "...", "Počet uložených dotazů v databázi", this.getGenericLabel()
         ));
         this.type = this.addProperty(new ChoiceProperty<>(
-                QueryType.class,
-                "type", QueryType._ANY, QueryType.getChoices(),
+                "type",
+                QueryType.class, QueryType._ANY, QueryType.getChoices(),
                 "Typ dotazu", "Ověří, zda existuje dotaz zadaného typu", this.getGenericLabel()
         ));
     }

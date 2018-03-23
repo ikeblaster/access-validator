@@ -18,13 +18,13 @@ public class AllTablesHaveRowsRule extends Rule {
         super();
 
         this.countOp = this.addProperty(new ChoiceProperty<>(
-                ComparisonOperator.class,
-                "count_op", ComparisonOperator.GTE, ComparisonOperator.getChoices(),
+                "count_op",
+                ComparisonOperator.class, ComparisonOperator.GTE, ComparisonOperator.getChoices(),
                 "Počet řádků", "Operátor pro ověření počtu řádků v tabulkách", this.getGenericLabel()
         ));
         this.count = this.addProperty(new Property<>(
-                Integer.class,
-                "count", 1,
+                "count",
+                Integer.class, 1,
                 "...", "Všechny tabulky v databázi musí obsahovat zadaný počet řádků", this.getGenericLabel()
         ));
 

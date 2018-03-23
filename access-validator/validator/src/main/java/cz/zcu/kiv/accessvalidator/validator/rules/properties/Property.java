@@ -12,14 +12,14 @@ public class Property<T> {
 
     private final Class<T> type;
     private final String id;
-    private javafx.beans.property.SimpleObjectProperty<T> value;
+    private final SimpleObjectProperty<T> value;
 
     private String name;
     private String description;
     private String category;
 
 
-    public Property(Class<T> type, String id, T value, String name, String description, String category) {
+    public Property(String id, Class<T> type, T value, String name, String description, String category) {
         this.type = type;
         this.id = id;
         this.value = new SimpleObjectProperty<>(value);

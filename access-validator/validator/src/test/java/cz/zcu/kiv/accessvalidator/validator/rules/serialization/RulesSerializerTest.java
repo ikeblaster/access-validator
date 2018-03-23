@@ -113,7 +113,7 @@ class RulesSerializerTest extends BaseTestClass {
     class _RuleWithUnsupportedProperty extends cz.zcu.kiv.accessvalidator.validator.rules._RuleWithUnsupportedProperty {
         _RuleWithUnsupportedProperty() {
             super();
-            this.properties.add(new Property<>(Boolean.class, "id_unknown", true, "", "", ""));
+            this.properties.add(new Property<>("id_unknown", Boolean.class, true, "", "", ""));
         }
     }
 

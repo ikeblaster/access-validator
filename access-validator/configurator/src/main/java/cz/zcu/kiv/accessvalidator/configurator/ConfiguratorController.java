@@ -1,9 +1,9 @@
 package cz.zcu.kiv.accessvalidator.configurator;
 
 import cz.zcu.kiv.accessvalidator.components.activerules.ActiveRulesController;
-import cz.zcu.kiv.accessvalidator.components.validator.ValidatorController;
 import cz.zcu.kiv.accessvalidator.components.details.DetailsController;
 import cz.zcu.kiv.accessvalidator.components.library.LibraryController;
+import cz.zcu.kiv.accessvalidator.components.validator.ValidatorController;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.stage.Stage;
@@ -27,15 +27,16 @@ public class ConfiguratorController {
 
     //region================== GUI initialization ==================
 
+    @FXML
+    public void initialize() {
+    }
+
     public void onLoad(Stage stage) {
+        System.out.println("onload");
         this.libraryController.onLoad(stage, this.activeRulesController);
         this.activeRulesController.onLoad(stage, this.detailsController);
         this.detailsController.onLoad(stage);
         this.validatorController.onLoad(stage);
-    }
-
-    @FXML
-    public void initialize() {
     }
 
     //endregion
@@ -49,6 +50,10 @@ public class ConfiguratorController {
         Platform.exit();
     }
 
+    @FXML
+    public void actionAddRule() {
+        this.libraryController.actionAddSelectedRule();
+    }
 
     @FXML
     public void actionNewFile() {

@@ -22,10 +22,8 @@ public class GroupRule extends Rule implements Monitorable {
         super();
 
         this.mode = this.addProperty(new ChoiceProperty<>(
-                Mode.class,
                 "mode",
-                Mode.AND,
-                Arrays.asList(Mode.values()),
+                Mode.class, Mode.AND, Arrays.asList(Mode.values()),
                 "Režim validace",
                 "Podmínka pro splnění skupiny pravidel.\nAND = nutné splnit všechna pravidla.\nOR = nutné splnit alespoň jedno pravidlo.",
                 "Režim validace"
@@ -40,10 +38,14 @@ public class GroupRule extends Rule implements Monitorable {
     public boolean check(Accdb accdb) {
         this.failedRules.clear();
 
+        if(this.rules.isEmpty()) {
+            return true;
+        }
+
         if(this.mode.getValue() == Mode.AND) {
             for (Rule rule : this.rules) {
                 if(!rule.check(accdb)) {
-                    this.processFailedRule(rule);
+                    this.addFailedRule(rule);
                     return false; // at least one is NOT successful
                 }
             }
@@ -51,8 +53,10 @@ public class GroupRule extends Rule implements Monitorable {
         }
         else {
             for (Rule rule : this.rules) {
-                if(rule.check(accdb)) return true; // at least one is successful
-                this.processFailedRule(rule);
+                if(rule.check(accdb)) {
+                    return true; // at least one is successful
+                }
+                this.addFailedRule(rule);
             }
             return false;
         }
@@ -89,7 +93,7 @@ public class GroupRule extends Rule implements Monitorable {
 
 
 
-    private void processFailedRule(Rule rule) {
+    private void addFailedRule(Rule rule) {
         this.failedRules.add(rule);
         if(rule instanceof GroupRule) {
             GroupRule groupRule = (GroupRule) rule;

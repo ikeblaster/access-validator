@@ -23,13 +23,13 @@ public class CountRelationsMNRule extends Rule {
                 "(tj. tabulky, které mají relace 1:N mířící na primární klíče dvou jiných tabulek)";
 
         this.countOp = this.addProperty(new ChoiceProperty<>(
-                ComparisonOperator.class,
-                "count_op", ComparisonOperator.GTE, ComparisonOperator.getChoices(),
+                "count_op",
+                ComparisonOperator.class, ComparisonOperator.GTE, ComparisonOperator.getChoices(),
                 "Počet M:N relací", desc, this.getGenericLabel()
         ));
         this.count = this.addProperty(new Property<>(
-                Integer.class,
-                "count", 1,
+                "count",
+                Integer.class, 1,
                 "...", desc, this.getGenericLabel()
         ));
     }

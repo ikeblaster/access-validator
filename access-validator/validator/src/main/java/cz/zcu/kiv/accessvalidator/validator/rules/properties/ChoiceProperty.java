@@ -9,12 +9,12 @@ public class ChoiceProperty<T> extends Property<T> {
 
     private final Collection<T> choices;
 
-    public ChoiceProperty(Class<T> type, String id, T value, Collection<T> choices, String name, String description, String category) {
-        super(type, id, value, name, description, category);
+    public ChoiceProperty(String id, Class<T> type, T value, Collection<T> choices, String name, String description, String category) {
+        super(id, type, value, name, description, category);
         this.choices = choices;
     }
 
-    public Collection<T> getChoices() {
+    public final Collection<T> getChoices() {
         return this.choices;
     }
 

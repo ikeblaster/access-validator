@@ -19,29 +19,29 @@ public class AllTablesHaveColumnsRule extends Rule {
         super();
 
         this.countOp = this.addProperty(new ChoiceProperty<>(
-                ComparisonOperator.class,
-                "count_op", ComparisonOperator.GTE, ComparisonOperator.getChoices(),
+                "count_op",
+                ComparisonOperator.class, ComparisonOperator.GTE, ComparisonOperator.getChoices(),
                 "Počet sloupců", "Operátor pro ověření počtu řádků v tabulkách", this.getGenericLabel()
         ));
         this.count = this.addProperty(new Property<>(
-                Integer.class,
-                "count", 1,
+                "count",
+                Integer.class, 1,
                 "...", "Všechny tabulky v databázi musí obsahovat zadaný počet sloupců", this.getGenericLabel()
         ));
 
         this.columnType = this.addProperty(new ChoiceProperty<>(
-                ColumnType.class,
-                "column_type", ColumnType._ANY, ColumnType.getChoices(),
+                "column_type",
+                ColumnType.class, ColumnType._ANY, ColumnType.getChoices(),
                 "Typ sloupce", "Ověří, zda v tabulce existuje sloupec daného typu a názvu", this.getGenericLabel()
         ));
         this.columnName = this.addProperty(new Property<>(
-                String.class,
-                "column_name", "",
+                "column_name",
+                String.class, "",
                 "Název sloupce", "Ověří, zda v tabulce existuje sloupec daného typu a názvu", this.getGenericLabel()
         ));
         this.columnIsPrimary = this.addProperty(new ChoiceProperty<>(
-                YesNoType.class,
-                "column_primary", YesNoType._ANY, YesNoType.getChoices(),
+                "column_primary",
+                YesNoType.class, YesNoType._ANY, YesNoType.getChoices(),
                 "Primární klíč", "Ověří, zda je sloupec součástí primárního klíče", this.getGenericLabel()
         ));
 
@@ -68,10 +68,10 @@ public class AllTablesHaveColumnsRule extends Rule {
     public String toString() {
         String details = "";
 
-        if(this.columnType.getValue() != ColumnType._ANY) {
+        if (this.columnType.getValue() != ColumnType._ANY) {
             details += "typu '" + this.columnType.getValue().toString() + "' ";
         }
-        if(!this.columnName.getValue().isEmpty()) {
+        if (!this.columnName.getValue().isEmpty()) {
             details += "s názvem '" + this.columnName.getValue() + "' ";
         }
 

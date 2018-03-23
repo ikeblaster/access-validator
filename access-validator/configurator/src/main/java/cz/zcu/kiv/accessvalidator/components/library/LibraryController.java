@@ -31,16 +31,24 @@ public class LibraryController {
 
         this.rules.setOnMouseClicked(event -> {
             if (event.getButton() == MouseButton.PRIMARY && event.getClickCount() == 2) {
-                ListViewRuleAdaptor origin = this.rules.getSelectionModel().getSelectedItem();
-                if (origin == null) {
-                    return;
-                }
-
-                this.activeRulesController.addRule(origin.getRule().newInstance());
+                this.actionAddSelectedRule();
             }
         });
     }
 
     //endregion
 
+
+    //region================== Actions (buttons) ==================
+
+    public void actionAddSelectedRule() {
+        ListViewRuleAdaptor origin = this.rules.getSelectionModel().getSelectedItem();
+        if (origin == null) {
+            return;
+        }
+
+        this.activeRulesController.addRule(origin.getRule().newInstance());
+    }
+
+    //endregion
 }

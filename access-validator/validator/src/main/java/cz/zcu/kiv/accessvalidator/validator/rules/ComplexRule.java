@@ -23,46 +23,46 @@ public class ComplexRule extends Rule {
         super();
 
         this.tablesCountOp = this.addProperty(new ChoiceProperty<>(
-                ComparisonOperator.class,
-                "tables_count_op", ComparisonOperator.GTE, ComparisonOperator.getChoices(),
+                "tables_count_op",
+                ComparisonOperator.class, ComparisonOperator.GTE, ComparisonOperator.getChoices(),
                 "Počet tabulek", "Operátor pro ověření počtu tabulek", "1. Počet nalezených tabulek"
         ));
         this.tablesCount = this.addProperty(new Property<>(
-                Integer.class,
-                "tables_count", 1,
+                "tables_count",
+                Integer.class, 1,
                 "...", "Počet hledaných tabulek", "1. Počet nalezených tabulek"
         ));
 
         this.tablesByName = this.addProperty(new Property<>(
-                String.class,
-                "tables_byname", "",
+                "tables_byname",
+                String.class, "",
                 "Název tabulky", "Název tabulky", "2. Filtrování dle názvu tabulky"
         ));
 
         this.columnsCountOp = this.addProperty(new ChoiceProperty<>(
-                ComparisonOperator.class,
-                "columns_count_op", ComparisonOperator.GTE, ComparisonOperator.getChoices(),
+                "columns_count_op",
+                ComparisonOperator.class, ComparisonOperator.GTE, ComparisonOperator.getChoices(),
                 "Počet sloupců v tabulce", "Operátor pro ověření počtu sloupců", "3. Filtrování dle počtu sloupců"
         ));
         this.columnsCount = this.addProperty(new Property<>(
-                Integer.class,
-                "columns_count", 1,
+                "columns_count",
+                Integer.class, 1,
                 "...", "Alespoň jedna nalezená tabulka má zadaný počet sloupců", "3. Filtrování dle počtu sloupců"
         ));
 
         this.columnsByName = this.addProperty(new Property<>(
-                String.class,
-                "columns_byname", "",
+                "columns_byname",
+                String.class, "",
                 "Název sloupce", "Existuje tabulka se sloupcem dle zadaného názvu.", "4. Filtrování dle existence sloupce"
         ));
         this.columnsByType = this.addProperty(new ChoiceProperty<>(
-                ColumnType.class,
-                "column_type", ColumnType._ANY, ColumnType.getChoices(),
+                "column_type",
+                ColumnType.class, ColumnType._ANY, ColumnType.getChoices(),
                 "Typ sloupce", "Existuje tabulka se sloupcem dle zadaného datového typu.", "4. Filtrování dle existence sloupce"
         ));
         this.columnIsPrimary = this.addProperty(new ChoiceProperty<>(
-                YesNoType.class,
-                "column_primary", YesNoType._ANY, YesNoType.getChoices(),
+                "column_primary",
+                YesNoType.class, YesNoType._ANY, YesNoType.getChoices(),
                 "Primární klíč", "Ověří, zda je sloupec součástí primárního klíče", "4. Filtrování dle existence sloupce"
         ));
 
@@ -77,7 +77,6 @@ public class ComplexRule extends Rule {
         }
 
         repository.filterByColumnCount(this.columnsCount.getValue(), this.columnsCountOp.getValue());
-
         repository.filterByColumnExistence(this.columnsByName.getValue(), this.columnsByType.getValue(), this.columnIsPrimary.getValue());
 
         Set<String> foundTables = repository.getTables();

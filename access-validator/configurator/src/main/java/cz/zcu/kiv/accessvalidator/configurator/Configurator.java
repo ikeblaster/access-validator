@@ -4,6 +4,7 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 
@@ -37,8 +38,8 @@ public class Configurator extends Application {
         ConfiguratorController controller = loader.getController();
         controller.onLoad(primaryStage);
 
-        //primaryStage.getIcons().add(new Image(getClass().getResourceAsStream("/app.png")));
-        primaryStage.setTitle("AccessValidator - konfigurátor pravidel");
+        primaryStage.getIcons().add(new Image(this.getClass().getResourceAsStream("/appicon.png")));
+        primaryStage.setTitle("AccessValidator - formální kontrola ACCDB databází");
         primaryStage.setScene(scene);
         primaryStage.setMinWidth(820);
         primaryStage.setMinHeight(300);

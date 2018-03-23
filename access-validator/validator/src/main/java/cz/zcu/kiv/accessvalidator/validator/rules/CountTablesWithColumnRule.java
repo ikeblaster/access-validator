@@ -22,29 +22,29 @@ public class CountTablesWithColumnRule extends Rule {
         super();
 
         this.countOp = this.addProperty(new ChoiceProperty<>(
-                ComparisonOperator.class,
-                "count_op", ComparisonOperator.GTE, ComparisonOperator.getChoices(),
+                "count_op",
+                ComparisonOperator.class, ComparisonOperator.GTE, ComparisonOperator.getChoices(),
                 "Počet tabulek", "Operátor pro ověření počtu nalezených tabulek", this.getGenericLabel()
         ));
         this.count = this.addProperty(new Property<>(
-                Integer.class,
-                "count", 1,
+                "count",
+                Integer.class, 1,
                 "...", "Počet tabulek se sloupci dle kritérií", this.getGenericLabel()
         ));
 
         this.columnType = this.addProperty(new ChoiceProperty<>(
-                ColumnType.class,
-                "column_type", ColumnType._ANY, ColumnType.getChoices(),
+                "column_type",
+                ColumnType.class, ColumnType._ANY, ColumnType.getChoices(),
                 "Typ sloupce", "Ověří, zda v tabulce existuje sloupec daného typu a názvu", this.getGenericLabel()
         ));
         this.columnName = this.addProperty(new Property<>(
-                String.class,
-                "column_name", "",
+                "column_name",
+                String.class, "",
                 "Název sloupce", "Ověří, zda v tabulce existuje sloupec daného typu a názvu", this.getGenericLabel()
         ));
         this.columnIsPrimary = this.addProperty(new ChoiceProperty<>(
-                YesNoType.class,
-                "column_primary", YesNoType._ANY, YesNoType.getChoices(),
+                "column_primary",
+                YesNoType.class, YesNoType._ANY, YesNoType.getChoices(),
                 "Primární klíč", "Ověří, zda je sloupec součástí primárního klíče", this.getGenericLabel()
         ));
 

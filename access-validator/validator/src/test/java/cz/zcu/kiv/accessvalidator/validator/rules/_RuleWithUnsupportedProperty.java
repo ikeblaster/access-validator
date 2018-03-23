@@ -6,8 +6,8 @@ import cz.zcu.kiv.accessvalidator.validator.rules.properties.Property;
 public class _RuleWithUnsupportedProperty extends Rule {
 
     public _RuleWithUnsupportedProperty() {
-        this.properties.add(new Property<>(Boolean.class, "id_bln", true, "", "", ""));
-        this.properties.add(new Property<>(Double.class, "id_unsupported", 1d, "", "", ""));
+        this.properties.add(new Property<>("id_bln", Boolean.class, true, "", "", ""));
+        this.properties.add(new Property<>("id_unsupported", Double.class, 1d, "", "", ""));
     }
 
     @Override

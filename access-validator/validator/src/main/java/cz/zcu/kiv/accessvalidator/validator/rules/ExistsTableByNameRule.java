@@ -17,8 +17,8 @@ public class ExistsTableByNameRule extends Rule {
         String group = "Název tabulky";
 
         this.name = this.addProperty(new Property<>(
-                String.class,
-                "name", "",
+                "name",
+                String.class, "",
                 group, group, group
         ));
     }

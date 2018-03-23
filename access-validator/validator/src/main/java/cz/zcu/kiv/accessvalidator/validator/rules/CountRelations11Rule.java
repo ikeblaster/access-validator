@@ -21,13 +21,13 @@ public class CountRelations11Rule extends Rule {
         super();
 
         this.countOp = this.addProperty(new ChoiceProperty<>(
-                ComparisonOperator.class,
-                "count_op", ComparisonOperator.GTE, ComparisonOperator.getChoices(),
+                "count_op",
+                ComparisonOperator.class, ComparisonOperator.GTE, ComparisonOperator.getChoices(),
                 "Počet 1:1 relací", "Operátor pro ověření počtu nalezených relací", this.getGenericLabel()
         ));
         this.count = this.addProperty(new Property<>(
-                Integer.class,
-                "count", 1,
+                "count",
+                Integer.class, 1,
                 "...", "Počet 1:1 relací mezi tabulkami", this.getGenericLabel()
         ));
     }

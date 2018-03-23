@@ -27,8 +27,8 @@ class ChoicePropertyTest extends BaseTestClass {
 
     @BeforeEach
     void setUp() {
-        this.stringProperty = new ChoiceProperty<>(String.class, "id", "opt1", this.stringChoices, "name", "desc", "cat");
-        this.enumProperty = new ChoiceProperty<>(TestEnum.class, "id", TestEnum.OPT1, this.enumChoices, "name", "desc", "cat");
+        this.stringProperty = new ChoiceProperty<>("id", String.class, "opt1", this.stringChoices, "name", "desc", "cat");
+        this.enumProperty = new ChoiceProperty<>("id", TestEnum.class, TestEnum.OPT1, this.enumChoices, "name", "desc", "cat");
     }
 
 

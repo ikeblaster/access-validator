@@ -25,7 +25,7 @@ class PropertyTest extends BaseTestClass {
 
     @BeforeEach
     void setUp() {
-        this.stringProperty = new Property<>(String.class, "id", "value", "name", "desc", "cat");
+        this.stringProperty = new Property<>("id", String.class, "value", "name", "desc", "cat");
     }
 
     @Test
@@ -120,6 +120,6 @@ class PropertyTest extends BaseTestClass {
     }
 
     static<T> Arguments generateArgumentProperty(Class<T> type, String id, T value, String name, String desc, String cat) {
-        return Arguments.of(new Property<>(type, id, value, name, desc, cat), value.getClass(), id, value, name, desc, cat);
+        return Arguments.of(new Property<>(id, type, value, name, desc, cat), value.getClass(), id, value, name, desc, cat);
     }
 }
