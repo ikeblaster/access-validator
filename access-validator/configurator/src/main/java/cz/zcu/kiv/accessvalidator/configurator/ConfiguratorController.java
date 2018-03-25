@@ -5,7 +5,9 @@ import cz.zcu.kiv.accessvalidator.components.details.DetailsController;
 import cz.zcu.kiv.accessvalidator.components.library.LibraryController;
 import cz.zcu.kiv.accessvalidator.components.validator.ValidatorController;
 import javafx.application.Platform;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.CheckMenuItem;
 import javafx.stage.Stage;
 
 
@@ -24,7 +26,6 @@ public class ConfiguratorController {
     public ValidatorController validatorController;
 
 
-
     //region================== GUI initialization ==================
 
     @FXML
@@ -32,7 +33,6 @@ public class ConfiguratorController {
     }
 
     public void onLoad(Stage stage) {
-        System.out.println("onload");
         this.libraryController.onLoad(stage, this.activeRulesController);
         this.activeRulesController.onLoad(stage, this.detailsController);
         this.detailsController.onLoad(stage);
@@ -88,6 +88,15 @@ public class ConfiguratorController {
     @FXML
     public void actionTestDBs() {
         this.validatorController.actionTestDBs(this.activeRulesController.getRootRule());
+    }
+    @FXML
+    public void actionResetHiddenSimilarities() {
+        this.validatorController.actionResetHiddenSimilarities();
+    }
+    @FXML
+    public void actionToggleCheckSimilarities(ActionEvent event) {
+        CheckMenuItem menuItem = (CheckMenuItem) event.getSource();
+        this.validatorController.actionSetCheckSimilarities(menuItem.isSelected());
     }
 
 

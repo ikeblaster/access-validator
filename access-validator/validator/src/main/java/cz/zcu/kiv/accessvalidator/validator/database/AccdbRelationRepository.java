@@ -4,7 +4,6 @@ import com.healthmarketscience.jackcess.Database;
 import com.healthmarketscience.jackcess.Relationship;
 
 import java.io.IOException;
-import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -14,15 +13,14 @@ import java.util.Set;
 public class AccdbRelationRepository {
 
     private Database db;
-    private Set<Relationship> relations = Collections.emptySet();
+    private Set<Relationship> relations;
 
     AccdbRelationRepository(Database db) {
         this.db = db;
-
         try {
             this.relations = new HashSet<>(db.getRelationships());
         } catch (IOException e) {
-            e.printStackTrace();
+            throw new RuntimeException(e);
         }
     }
 

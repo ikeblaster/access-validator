@@ -13,8 +13,10 @@ import java.util.stream.Collectors;
  */
 public class TreeItemRoot extends TreeItem<TreeObject> {
 
-    public void addFile(File file) {
-        this.getChildren().add(new TreeItemObjectAdaptor(new FileTreeObject(file)));
+    public FileTreeObject addFile(File file) {
+        FileTreeObject treeObject = new FileTreeObject(file);
+        this.getChildren().add(new TreeItemObjectAdaptor(treeObject));
+        return treeObject;
     }
 
     public List<FileTreeObject> getFileWrappers() {

@@ -7,6 +7,7 @@ import cz.zcu.kiv.accessvalidator.components.validator.treeobjects.TreeObject;
 import cz.zcu.kiv.accessvalidator.validator.AccdbSimilarityChecker;
 import cz.zcu.kiv.accessvalidator.validator.AccdbValidator;
 import cz.zcu.kiv.accessvalidator.validator.database.SimilarFiles;
+import cz.zcu.kiv.accessvalidator.validator.database.SimilarityElement;
 import cz.zcu.kiv.accessvalidator.validator.rules.Rule;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -24,7 +25,11 @@ public class ValidatorController {
     private TreeView<TreeObject> treeView;
     private TreeItemRoot dbFiles;
 
+    private boolean checkSimilarities = true;
+    private Set<SimilarityElement> ignoredSimilarities = new HashSet<>();
+
     private FileChooserEx fileChooser = new FileChooserEx(this.getClass().getSimpleName());
+    private Rule lastCheckedRule;
 
 
     //region================== GUI initialization ==================
@@ -49,8 +54,9 @@ public class ValidatorController {
                     } else {
                         this.setText(item.toString());
                         this.getStyleClass().removeAll(this.styleClass);
-                        this.styleClass = item.getStyleclass();
+                        this.styleClass = item.getStyleClasses();
                         this.getStyleClass().addAll(this.styleClass);
+                        this.setContextMenu(item.getContextMenu());
                     }
                 }
             };
@@ -97,11 +103,12 @@ public class ValidatorController {
 
         for (File file : files) {
             if (!existing.contains(file)) {
-                this.dbFiles.addFile(file);
+                FileTreeObject treeFile = this.dbFiles.addFile(file);
+                treeFile.onHideSimilarity(this::actionHideSimilarity);
             }
         }
 
-        this.dbFiles.getChildren().sort(Comparator.comparing(javafx.scene.control.TreeItem::toString));
+        this.dbFiles.getChildren().sort(Comparator.comparing(javafx.scene.control.TreeItem::toString, String.CASE_INSENSITIVE_ORDER));
     }
 
 
@@ -111,41 +118,62 @@ public class ValidatorController {
 
 
     public void actionTestDBs(Rule rule) {
-        Map<File, List<SimilarFiles>> duplicates = this.findDuplicates(this.dbFiles.getFiles());
+        this.lastCheckedRule = rule;
 
-        for (FileTreeObject file : this.dbFiles.getFileWrappers()) {
+        if(rule == null) {
+            return;
+        }
+
+        Map<File, SimilarFiles> similarFiles = this.findSimilarFiles(this.dbFiles.getFiles());
+
+        for (FileTreeObject treeFile : this.dbFiles.getFileWrappers()) {
             try {
 
-                AccdbValidator validator = new AccdbValidator(file.getFile(), rule);
+                AccdbValidator validator = new AccdbValidator(treeFile.getFile(), rule);
 
-                file.clearInfo();
-                file.setValid(validator.validate());
-                file.setFailedRules(validator.getFailedRules());
-                file.setSimilarFiles(duplicates.getOrDefault(file.getFile(), Collections.emptyList()));
+                treeFile.clearInfo();
+                treeFile.setValid(validator.validate());
+                treeFile.setFailedRules(validator.getFailedRules());
+                treeFile.setSimilarFiles(similarFiles.get(treeFile.getFile()));
 
-            } catch (IOException e) {
+            } catch (Exception e) {
                 e.printStackTrace();
-                Dialogs.showErrorBox("Kontrola souboru '" + file.getFile() + "' se nezdařila", e.getLocalizedMessage());
+                Dialogs.showErrorBox("Kontrola souboru '" + treeFile.getFile() + "' se nezdařila", e.getLocalizedMessage());
             }
         }
 
         this.treeView.refresh();
     }
 
+    public void actionHideSimilarity(SimilarityElement similarityElement) {
+        this.ignoredSimilarities.add(similarityElement);
+        this.actionTestDBs(this.lastCheckedRule);
+    }
+
+    public void actionResetHiddenSimilarities() {
+        this.ignoredSimilarities.clear();
+        this.actionTestDBs(this.lastCheckedRule);
+    }
+
+    public void actionSetCheckSimilarities(boolean checkSimilarities) {
+        this.checkSimilarities = checkSimilarities;
+        this.actionTestDBs(this.lastCheckedRule);
+    }
+
     //endregion
 
 
 
-    private Map<File, List<SimilarFiles>> findDuplicates(List<File> files) {
-
-        try {
-
-            AccdbSimilarityChecker simchecker = new AccdbSimilarityChecker(files);
-            return simchecker.getSimilarFiles();
-
-        } catch (IOException e) {
-            e.printStackTrace();
-            Dialogs.showErrorBox("Kontrolu plagiátů/duplikátů se nepodařilo zahájit", e.getLocalizedMessage());
+    private Map<File, SimilarFiles> findSimilarFiles(List<File> files) {
+        if(this.checkSimilarities) {
+            try {
+                AccdbSimilarityChecker checker = new AccdbSimilarityChecker(files);
+                checker.setIgnoreSimilarities(this.ignoredSimilarities);
+                return checker.getSimilarFiles();
+            } catch (IOException e) {
+                e.printStackTrace();
+                Dialogs.showErrorBox("Kontrolu plagiátů/duplikátů se nepodařilo zahájit", e.getLocalizedMessage());
+            }
         }
 
         return Collections.emptyMap();

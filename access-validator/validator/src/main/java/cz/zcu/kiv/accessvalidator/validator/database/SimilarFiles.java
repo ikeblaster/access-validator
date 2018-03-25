@@ -1,35 +1,47 @@
 package cz.zcu.kiv.accessvalidator.validator.database;
 
 import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 /**
  * @author ike
  */
 public class SimilarFiles {
-    private final SimilarityElement similarityElement;
-    private List<File> files = new ArrayList<>();
+    private File file;
+    private Map<File, List<SimilarityElement>> similarFiles = new HashMap<>();
 
-    public SimilarFiles(SimilarityElement similarityElement) {
-        this.similarityElement = similarityElement;
+    public SimilarFiles(File file) {
+        this.file = file;
     }
 
-    public SimilarityElement getSimilarityElement() {
-        return this.similarityElement;
+    public File getFile() {
+        return this.file;
     }
 
-    public List<File> getFiles() {
-        return this.files;
+    public Set<File> getSimilarFiles() {
+        return this.similarFiles.keySet();
     }
 
-    public void add(File file) {
-        this.files.add(file);
+    public List<SimilarityElement> getFileSimilarities(File file) {
+        return this.similarFiles.getOrDefault(file, Collections.emptyList());
+    }
+
+    public void add(File similarFile, SimilarityElement similarityElement) {
+        List<SimilarityElement> similarities = this.similarFiles.computeIfAbsent(similarFile, f -> new ArrayList<>());
+        similarities.add(similarityElement);
+    }
+
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || this.getClass() != o.getClass()) return false;
+        SimilarFiles that = (SimilarFiles) o;
+        return Objects.equals(this.file, that.file);
     }
 
     @Override
-    public String toString() {
-        return this.similarityElement.toString();
+    public int hashCode() {
+        return Objects.hash(this.file);
     }
-
 }

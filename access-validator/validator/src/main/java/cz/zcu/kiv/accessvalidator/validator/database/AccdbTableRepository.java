@@ -12,18 +12,17 @@ import java.util.stream.Collectors;
 /**
  * @author ike
  */
-
 public class AccdbTableRepository {
 
     private Database db;
-    private Set<String> tables = Collections.emptySet();
+    private Set<String> tables;
 
     AccdbTableRepository(Database db) {
         this.db = db;
         try {
             this.tables = new HashSet<>(db.getTableNames());
         } catch (IOException e) {
-            e.printStackTrace();
+            throw new RuntimeException(e);
         }
     }
 
@@ -61,7 +60,7 @@ public class AccdbTableRepository {
             return this.db.getTable(tableName);
         } catch (IOException e) {
             // this means that we can't find a table in DB anymore, although we found it at first; maybe DB file changed
-            throw new NullPointerException();
+            throw new RuntimeException(e);
         }
     }
 
@@ -70,32 +69,26 @@ public class AccdbTableRepository {
             return this.db.getRelationships(this.db.getTable(tableName));
         } catch (IOException e) {
             // this means that we can't find a table in DB anymore, although we found it at first; maybe DB file changed
-            throw new NullPointerException();
+            throw new RuntimeException(e);
         }
     }
 
     private int getTableColumnCountByCriteria(String tableName, String columnName, ColumnType columnType, YesNoType isPrimaryKey) {
-        try {
-            Table table = this.db.getTable(tableName);
-            List<? extends Column> columns = new ArrayList<>(table.getColumns());
+        Table table = this.getTable(tableName);
+        List<? extends Column> columns = new ArrayList<>(table.getColumns());
 
-            if(columnName != null && !columnName.isEmpty()) {
-                columns.removeIf(col -> !col.getName().equals(columnName)); // remove columns with different names than columnName
-            }
-            if(columnType != null && columnType != ColumnType._ANY) {
-                columns.removeIf(col -> !columnType.compare(col));  // remove columns with different types than columnType
-            }
-            if(isPrimaryKey != null && isPrimaryKey != YesNoType._ANY) {
-                List<Column> primaryKeyColumns = table.getPrimaryKeyIndex().getColumns().stream().map(Index.Column::getColumn).collect(Collectors.toList());
-                columns.removeIf(col -> (isPrimaryKey == YesNoType.YES) ^ primaryKeyColumns.contains(col)); // either we are looking for primary key and col isn't one... or the exact opposite
-            }
+        if(columnName != null && !columnName.isEmpty()) {
+            columns.removeIf(col -> !col.getName().equals(columnName)); // remove columns with different names than columnName
+        }
+        if(columnType != null && columnType != ColumnType._ANY) {
+            columns.removeIf(col -> !columnType.compare(col));  // remove columns with different types than columnType
+        }
+        if(isPrimaryKey != null && isPrimaryKey != YesNoType._ANY) {
+            List<Column> primaryKeyColumns = table.getPrimaryKeyIndex().getColumns().stream().map(Index.Column::getColumn).collect(Collectors.toList());
+            columns.removeIf(col -> (isPrimaryKey == YesNoType.YES) ^ primaryKeyColumns.contains(col)); // either we are looking for primary key and col isn't one... or the exact opposite
+        }
 
-            return columns.size();
-        }
-        catch (Exception e) {
-            e.printStackTrace();
-        }
-        return 0;
+        return columns.size();
     }
 
     private boolean isMNJunctionTable(String tableName) {

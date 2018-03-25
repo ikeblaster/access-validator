@@ -24,16 +24,22 @@ class AllTablesHaveRowsRuleTest extends BaseRulesTestClass {
     }
 
     @Test
-    void check_ReturnConditionWhenTablesFound_True() {
-        Accdb mockAccdb = getMockedAccdb();
-        Mockito.when(mockAccdb.getTableRepository().getTables()).thenReturn(Collections.singleton("tbl"));
-
-        assertTrue(this.rule.check(mockAccdb)); // true since only active rule is propTablesCount >= 1
+    void newInstance__CtorWithoutParametersExists() {
+        this.rule.newInstance();
     }
 
     @Test
-    void check_ReturnConditionWhenNoTablesFound_False() {
-        Accdb mockAccdb = getMockedAccdb();
+    void check_ReturnConditionWhenTableFound_True() {
+        Accdb mockAccdb = this.getMockedAccdb();
+
+        Mockito.when(mockAccdb.getTableRepository().getTables()).thenReturn(Collections.singleton("tbl"));
+
+        assertTrue(this.rule.check(mockAccdb)); // true since even after filtering tables there is still the same amount of tables
+    }
+
+    @Test
+    void check_ReturnConditionWhenLessTablesFound_False() {
+        Accdb mockAccdb = this.getMockedAccdb();
 
         HashSet<String> set = new HashSet<>();
         set.add("1");
@@ -48,6 +54,12 @@ class AllTablesHaveRowsRuleTest extends BaseRulesTestClass {
         });
 
         assertFalse(this.rule.check(mockAccdb)); // false since there was 3 tables in total, but only 2 tables matched the rows count rule
+    }
+
+    @Test
+    void getGenericLabel__NotNullNorEmpty() {
+        assertNotNull(this.rule.getGenericLabel());
+        assertFalse(this.rule.getGenericLabel().isEmpty());
     }
 
     @Test

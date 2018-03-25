@@ -1,6 +1,7 @@
 package cz.zcu.kiv.accessvalidator.validator.database;
 
-import java.util.Objects;
+import java.io.File;
+import java.util.*;
 
 /**
  * @author ike
@@ -9,6 +10,8 @@ public class SimilarityElement {
 
     private String label;
     private Object value;
+
+    private Set<File> files = new HashSet<>();
 
     public SimilarityElement(String label, Object value) {
         this.label = label;
@@ -21,6 +24,14 @@ public class SimilarityElement {
 
     public Object getValue() {
         return this.value;
+    }
+
+    public Collection<File> getFiles() {
+        return this.files;
+    }
+
+    public void add(File file) {
+        this.files.add(file);
     }
 
     @Override

@@ -5,7 +5,6 @@ import com.healthmarketscience.jackcess.query.Query;
 import cz.zcu.kiv.accessvalidator.validator.rules.properties.QueryType;
 
 import java.io.IOException;
-import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -14,16 +13,18 @@ import java.util.Set;
  */
 public class AccdbQueryRepository {
 
+    private static final int FORM_QUERY_OBJECT_FLAG = 3;
+
     private Database db;
-    private Set<Query> queries = Collections.emptySet();
+    private Set<Query> queries;
 
     AccdbQueryRepository(Database db) {
         this.db = db;
-
         try {
             this.queries = new HashSet<>(this.db.getQueries());
+            this.queries.removeIf(query -> query.getObjectFlag() == FORM_QUERY_OBJECT_FLAG); // exclude queries from forms
         } catch (IOException e) {
-            e.printStackTrace();
+            throw new RuntimeException(e);
         }
     }
 

@@ -16,7 +16,7 @@ import static org.junit.jupiter.api.Assertions.*;
  */
 class CountRelationsMNRuleTest extends BaseRulesTestClass {
 
-    CountRelationsMNRule rule;
+    private CountRelationsMNRule rule;
 
     @BeforeEach
     void setUp() {
@@ -29,18 +29,24 @@ class CountRelationsMNRuleTest extends BaseRulesTestClass {
     }
 
     @Test
-    void check_ByDefault_False() {
-        assertFalse(this.rule.check(getMockedAccdb()));
+    void check_EmptyDB_False() {
+        assertFalse(this.rule.check(this.getMockedAccdb()));
     }
 
     @Test
-    void check_ByDefault_True() {
-        Accdb mockAccdb = getMockedAccdb();
+    void check_SingleTable_True() {
+        Accdb mockAccdb = this.getMockedAccdb();
 
         Mockito.when(mockAccdb.getTableRepository().getTables())
                 .thenReturn(new HashSet<>(Collections.singleton("tbl")));
 
         assertTrue(this.rule.check(mockAccdb));
+    }
+
+    @Test
+    void getGenericLabel__NotNullNorEmpty() {
+        assertNotNull(this.rule.getGenericLabel());
+        assertFalse(this.rule.getGenericLabel().isEmpty());
     }
 
     @Test

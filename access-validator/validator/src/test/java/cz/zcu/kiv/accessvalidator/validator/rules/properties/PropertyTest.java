@@ -8,13 +8,12 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
+import org.mockito.Mockito;
 
 import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.*;
 
 /**
  * @author ike
@@ -50,22 +49,22 @@ class PropertyTest extends BaseTestClass {
 
     @Test
     void onChange_ValueChanged_ListenerTriggered() {
-        InvalidationListener listener = mock(InvalidationListener.class);
+        InvalidationListener listener = Mockito.mock(InvalidationListener.class);
         this.stringProperty.onChange(listener);
 
         this.stringProperty.setValue("newValue");
 
-        verify(listener, times(1)).invalidated(any(Observable.class));
+        Mockito.verify(listener, Mockito.times(1)).invalidated(Mockito.any(Observable.class));
     }
 
     @Test
     void onChange_ValueSetToTheSame_ListenerNotTriggered() {
-        InvalidationListener listener = mock(InvalidationListener.class);
+        InvalidationListener listener = Mockito.mock(InvalidationListener.class);
         this.stringProperty.onChange(listener);
 
         this.stringProperty.setValue("value");
 
-        verify(listener, never()).invalidated(any(Observable.class));
+        Mockito.verify(listener, Mockito.never()).invalidated(Mockito.any(Observable.class));
     }
 
 
@@ -111,15 +110,15 @@ class PropertyTest extends BaseTestClass {
 
 
 
-    static Stream<Arguments> generateProperty() {
+    private static Stream<Arguments> generateProperty() {
         return Stream.of(
-                generateArgumentProperty(String.class, "id1", String.valueOf("value1"), "name1", "desc1", "cat1"),
-                generateArgumentProperty(Integer.class, "id2", Integer.valueOf(1), "name2", "desc2", "cat2"),
-                generateArgumentProperty(Boolean.class, "id3", Boolean.valueOf(true), "name3", "desc3", "cat3")
+                generateArgumentProperty(String.class, "id1", "value1", "name1", "desc1", "cat1"),
+                generateArgumentProperty(Integer.class, "id2", 1, "name2", "desc2", "cat2"),
+                generateArgumentProperty(Boolean.class, "id3", Boolean.TRUE, "name3", "desc3", "cat3")
         );
     }
 
-    static<T> Arguments generateArgumentProperty(Class<T> type, String id, T value, String name, String desc, String cat) {
+    private static<T> Arguments generateArgumentProperty(Class<T> type, String id, T value, String name, String desc, String cat) {
         return Arguments.of(new Property<>(id, type, value, name, desc, cat), value.getClass(), id, value, name, desc, cat);
     }
 }

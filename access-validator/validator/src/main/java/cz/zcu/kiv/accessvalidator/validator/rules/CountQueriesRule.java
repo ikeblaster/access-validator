@@ -33,7 +33,7 @@ public class CountQueriesRule extends Rule {
                 "...", "Počet uložených dotazů v databázi", this.getGenericLabel()
         ));
         this.type = this.addProperty(new ChoiceProperty<>(
-                "type",
+                "query_type",
                 QueryType.class, QueryType._ANY, QueryType.getChoices(),
                 "Typ dotazu", "Ověří, zda existuje dotaz zadaného typu", this.getGenericLabel()
         ));

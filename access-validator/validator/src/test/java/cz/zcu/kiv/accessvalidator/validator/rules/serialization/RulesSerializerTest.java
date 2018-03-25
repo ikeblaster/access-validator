@@ -9,14 +9,13 @@ import cz.zcu.kiv.accessvalidator.validator.rules.properties.ComparisonOperator;
 import cz.zcu.kiv.accessvalidator.validator.rules.properties.Property;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
 
 import javax.xml.stream.XMLStreamException;
 import java.io.*;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.mockito.ArgumentMatchers.anyInt;
-import static org.mockito.Mockito.*;
 
 /**
  * @author ike
@@ -50,10 +49,10 @@ class RulesSerializerTest extends BaseTestClass {
 
     @Test
     void serialize_ManyRules_OutputStreamUsed() throws XMLStreamException, IOException {
-        OutputStream stream = mock(OutputStream.class);
+        OutputStream stream = Mockito.mock(OutputStream.class);
         this.serializer.serialize(this.reference, stream);
 
-        verify(stream, atLeastOnce()).write(anyInt());
+        Mockito.verify(stream, Mockito.atLeastOnce()).write(Mockito.anyInt());
     }
 
     @Test

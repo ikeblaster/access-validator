@@ -1,30 +1,35 @@
 package cz.zcu.kiv.accessvalidator.validator.database;
 
+import com.healthmarketscience.jackcess.Database;
 import cz.zcu.kiv.accessvalidator.validator.BaseTestClass;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
+import java.io.PrintStream;
+import java.lang.reflect.Field;
 import java.net.URISyntaxException;
 import java.util.Set;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * @author ike
  */
-class AccdbTest extends BaseTestClass {
+public class AccdbTest extends BaseTestClass {
+
+    public static int FIND_SIMILARITIES_CHECKS_COUNT = 8;
 
     private Accdb accdb;
-    private File db;
+    private File file;
 
     @BeforeEach
     void setUp() throws IOException, URISyntaxException {
-        this.db = new File(this.getClass().getClassLoader().getResource("db_invalid.accdb").toURI());
-        this.accdb = new Accdb(this.db);
+        this.file = this.getTestDBFile();
+        this.accdb = new Accdb(this.file);
     }
 
     @Test
@@ -38,15 +43,40 @@ class AccdbTest extends BaseTestClass {
     }
 
     @Test
-    void getFile__ReturnsParValue() {
-        assertEquals(this.db, this.accdb.getFile());
+    void getQueryRepository__NotNull() {
+        assertNotNull(this.accdb.getQueryRepository());
     }
 
     @Test
-    void findSimilarities_SameDB_Found() throws IOException {
-        Accdb accdb2 = new Accdb(this.db);
+    void getFile__ReturnsParValue() {
+        assertEquals(this.file, this.accdb.getFile());
+    }
+
+    @Test
+    void findSimilarities_SameDB_FoundAllExpected() throws IOException {
+        Accdb accdb2 = new Accdb(this.file);
         Set<SimilarityElement> similarities = this.accdb.findSimilarities(accdb2);
-        assertTrue(similarities.size() > 0);
+        assertEquals(FIND_SIMILARITIES_CHECKS_COUNT, similarities.size());
+    }
+
+    @Test
+    void findSimilarities_BrokenDB_ErrorMessagesPrintedToSystemErr() throws IOException, NoSuchFieldException, IllegalAccessException {
+        Accdb accdb2 = new Accdb(this.file);
+
+        Database brokenDB = Mockito.mock(Database.class);
+        Mockito.when(brokenDB.getSummaryProperties()).thenThrow(IOException.class);
+        Mockito.when(brokenDB.getSystemTable(Mockito.any())).thenThrow(IOException.class);
+
+        Field field = accdb2.getClass().getDeclaredField("db"); // fails here
+        field.setAccessible(true);
+        field.set(accdb2, brokenDB);
+
+        ByteArrayOutputStream errContent = new ByteArrayOutputStream();
+        System.setErr(new PrintStream(errContent));
+
+        this.accdb.findSimilarities(accdb2);
+
+        assertTrue(errContent.size() > 0);
     }
 
 }

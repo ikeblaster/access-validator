@@ -11,14 +11,13 @@ import java.util.Collections;
 import java.util.HashSet;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.mock;
 
 /**
  * @author ike
  */
 class CountRelations11RuleTest extends BaseRulesTestClass {
 
-    CountRelations11Rule rule;
+    private CountRelations11Rule rule;
 
     @BeforeEach
     void setUp() {
@@ -31,18 +30,26 @@ class CountRelations11RuleTest extends BaseRulesTestClass {
     }
 
     @Test
-    void check_ByDefault_False() {
-        assertFalse(this.rule.check(getMockedAccdb()));
+    void check_EmptyDB_False() {
+        Accdb mockAccdb = this.getMockedAccdb();
+
+        assertFalse(this.rule.check(mockAccdb));
     }
 
     @Test
-    void check_ByDefault_True() {
-        Accdb mockAccdb = getMockedAccdb();
+    void check_SingleRelation_True() {
+        Accdb mockAccdb = this.getMockedAccdb();
 
         Mockito.when(mockAccdb.getRelationRepository().getRelations())
-                .thenReturn(new HashSet<>(Collections.singleton(mock(Relationship.class))));
+                .thenReturn(new HashSet<>(Collections.singleton(Mockito.mock(Relationship.class))));
 
         assertTrue(this.rule.check(mockAccdb));
+    }
+
+    @Test
+    void getGenericLabel__NotNullNorEmpty() {
+        assertNotNull(this.rule.getGenericLabel());
+        assertFalse(this.rule.getGenericLabel().isEmpty());
     }
 
     @Test

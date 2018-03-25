@@ -11,8 +11,6 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.*;
 
 /**
  * @author ike
@@ -138,19 +136,43 @@ class GroupRuleTest extends BaseRulesTestClass {
     }
 
     @Test
+    void getFailedRules_EmptyRules_Empty() {
+        this.rule.check(this.mockAccdb);
+        assertTrue(this.rule.getFailedRules().isEmpty());
+    }
+
+    @Test
+    void getFailedRules_NestedGroupRules_ContainsFailedRule() {
+        Rule failed = this.getMockedRule(false);
+        GroupRule failedParent = new GroupRule();
+        failedParent.getRules().add(failed);
+
+        this.rule.getRules().add(failedParent);
+
+        this.rule.check(this.mockAccdb);
+        assertTrue(this.rule.getFailedRules().contains(failed));
+        assertTrue(this.rule.getFailedRules().contains(failedParent));
+    }
+
+    @Test
+    void check_TrueANDFalseRules_ContainsFailedRule() {
+        Rule failed = this.getMockedRule(false);
+
+        this.rule.getRules().add(this.getMockedRule(true));
+        this.rule.getRules().add(failed);
+
+        this.rule.check(this.mockAccdb);
+        assertTrue(this.rule.getFailedRules().contains(failed));
+    }
+
+    @Test
     void onChange_ModeChanged_ListenerTriggered() {
-        InvalidationListener listener = mock(InvalidationListener.class);
+        InvalidationListener listener = Mockito.mock(InvalidationListener.class);
         this.rule.onChange(listener);
 
         this.rule.getProperty("mode").setRawValue(GroupRule.Mode.OR);
 
-        verify(listener, times(1)).invalidated(any(Observable.class));
-    }
-
-    @Test
-    void toString__NotNullNorEmpty() {
-        assertNotNull(this.rule.toString());
-        assertFalse(this.rule.toString().isEmpty());
+        Mockito.verify(listener, Mockito.times(1)).invalidated(Mockito.any(Observable.class));
     }
 
     @Test
@@ -173,10 +195,21 @@ class GroupRuleTest extends BaseRulesTestClass {
         assertNotEquals(this.rule.hashCode(), rule2.hashCode());
     }
 
+    @Test
+    void getGenericLabel__NotNullNorEmpty() {
+        assertNotNull(this.rule.getGenericLabel());
+        assertFalse(this.rule.getGenericLabel().isEmpty());
+    }
+
+    @Test
+    void toString__NotNullNorEmpty() {
+        assertNotNull(this.rule.toString());
+        assertFalse(this.rule.toString().isEmpty());
+    }
 
     private Rule getMockedRule(boolean value) {
-        Rule rule = mock(Rule.class);
-        Mockito.when(rule.check(any(Accdb.class))).thenReturn(value);
+        Rule rule = Mockito.mock(Rule.class);
+        Mockito.when(rule.check(Mockito.any(Accdb.class))).thenReturn(value);
         return rule;
     }
 

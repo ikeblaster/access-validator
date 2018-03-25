@@ -12,7 +12,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
  */
 class CountRelations1NRuleTest extends BaseRulesTestClass {
 
-    CountRelations1NRule rule;
+    private CountRelations1NRule rule;
 
     @BeforeEach
     void setUp() {
@@ -25,8 +25,14 @@ class CountRelations1NRuleTest extends BaseRulesTestClass {
     }
 
     @Test
-    void check_ByDefault_False() {
-        assertFalse(this.rule.check(getMockedAccdb()));
+    void check_EmptyDB_False() {
+        assertFalse(this.rule.check(this.getMockedAccdb()));
+    }
+
+    @Test
+    void getGenericLabel__NotNullNorEmpty() {
+        assertNotNull(this.rule.getGenericLabel());
+        assertFalse(this.rule.getGenericLabel().isEmpty());
     }
 
     @Test

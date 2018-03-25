@@ -34,9 +34,6 @@ public enum ColumnType {
     public boolean compare(Column column) {
         DataType type = column.getType();
 
-        if(this == _ANY) {
-            return true;
-        }
         if(this == AUTO_NUMBER) {
             return column.isAutoNumber();
         }
@@ -63,7 +60,7 @@ public enum ColumnType {
             return type == DataType.BOOLEAN;
         }
 
-        return false;
+        return true;
     }
 
 }

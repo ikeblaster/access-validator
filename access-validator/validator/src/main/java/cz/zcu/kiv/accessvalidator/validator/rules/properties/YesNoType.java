@@ -23,4 +23,5 @@ public enum YesNoType {
     public static List<YesNoType> getChoices() {
         return Arrays.asList(values());
     }
+
 }

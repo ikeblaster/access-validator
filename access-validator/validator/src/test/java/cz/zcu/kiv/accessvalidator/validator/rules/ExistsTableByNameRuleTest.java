@@ -23,8 +23,13 @@ class ExistsTableByNameRuleTest extends BaseRulesTestClass {
     }
 
     @Test
+    void newInstance__CtorWithoutParametersExists() {
+        this.rule.newInstance();
+    }
+
+    @Test
     void check_ReturnConditionWhenTablesFound_True() {
-        Accdb mockAccdb = getMockedAccdb();
+        Accdb mockAccdb = this.getMockedAccdb();
         Mockito.when(mockAccdb.getTableRepository().getTables()).thenReturn(Collections.singleton("tbl"));
 
         assertTrue(this.rule.check(mockAccdb)); // true since only active rule is propTablesCount >= 1
@@ -32,10 +37,16 @@ class ExistsTableByNameRuleTest extends BaseRulesTestClass {
 
     @Test
     void check_ReturnConditionWhenNoTablesFound_False() {
-        Accdb mockAccdb = getMockedAccdb();
+        Accdb mockAccdb = this.getMockedAccdb();
         Mockito.when(mockAccdb.getTableRepository().getTables()).thenReturn(Collections.emptySet());
 
         assertFalse(this.rule.check(mockAccdb)); // false since only active rule is propTablesCount >= 1
+    }
+
+    @Test
+    void getGenericLabel__NotNullNorEmpty() {
+        assertNotNull(this.rule.getGenericLabel());
+        assertFalse(this.rule.getGenericLabel().isEmpty());
     }
 
     @Test
