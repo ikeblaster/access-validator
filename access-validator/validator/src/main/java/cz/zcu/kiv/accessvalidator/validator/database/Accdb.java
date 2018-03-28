@@ -65,9 +65,22 @@ public class Accdb {
             List<String> sameProps = new ArrayList<>();
 
             props1.forEach(property -> {
-                PropertyMap.Property otherProperty = props2.get(property.getName());
+                String propertyName = property.getName();
+
+                if(propertyName.equals("Title") && property.getValue().toString().startsWith("Database")) {
+                    return;
+                }
+                if(propertyName.equals("Author") && property.getValue().toString().contains("Windows")) {
+                    return;
+                }
+                if(propertyName.equals("Company") && property.getValue().toString().contains("Univer")) {
+                    return;
+                }
+
+                PropertyMap.Property otherProperty = props2.get(propertyName);
+
                 if(otherProperty != null && Objects.equals(property.getValue(), otherProperty.getValue())) {
-                    sameProps.add(property.getName() + "=" + property.getValue());
+                    sameProps.add(propertyName + "=" + property.getValue());
                 }
             });
 
