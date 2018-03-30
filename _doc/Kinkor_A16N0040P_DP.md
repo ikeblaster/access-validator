@@ -54,26 +54,100 @@ Obsah
 
 [1 Úvod 1](#úvod)
 
-[2 Základní informace 2](#_Toc508895784)
+[2 Databázový software Microsoft Access
+2](#databázový-software-microsoft-access)
 
-[2.1 Subtitle 2](#_Toc508895785)
+[2.1 Základní informace 2](#základní-informace)
 
-[Reference 3](#reference)
+[2.2 Prvky databáze 2](#prvky-databáze)
+
+[2.2.1 Tabulky 2](#tabulky)
+
+[2.2.2 Vazby mezi tabulkami 2](#vazby-mezi-tabulkami)
+
+[2.2.3 Uložené dotazy 2](#uložené-dotazy)
+
+[2.2.4 Formuláře 2](#formuláře)
+
+[2.2.5 Sestavy 2](#sestavy)
+
+[2.3 Formát MDB a ACCDB 2](#formát-mdb-a-accdb)
+
+[2.3.1 Metadata 2](#metadata)
+
+[2.4 Možnosti čtení souborů ACCDB 2](#možnosti-čtení-souborů-accdb)
+
+[2.4.1 ODBC 2](#odbc)
+
+[2.4.2 Microsoft Office Interop 2](#microsoft-office-interop)
+
+[2.4.3 MDBTools 2](#mdbtools)
+
+[2.4.4 Jackcess 2](#jackcess)
+
+[2.4.5 Další možnosti (JDBC) 2](#další-možnosti-jdbc)
+
+[3 Portál ZČU 3](#portál-zču)
+
+[3.1 Základní informace 3](#základní-informace-1)
+
+[3.2 Validátor studentských prací 3](#validátor-studentských-prací)
+
+[3.3 Vytvoření nové validační domény
+3](#vytvoření-nové-validační-domény)
+
+[4 Analýza řešení 4](#analýza-řešení)
+
+[4.1 Požadavky na řešení 4](#požadavky-na-řešení)
+
+[4.2 Případy užití 4](#případy-užití)
+
+[4.3 Validace databáze 4](#validace-databáze)
+
+[4.4 Vyhodnocení plagiarismu 4](#vyhodnocení-plagiarismu)
+
+[5 Implementace 5](#implementace)
+
+[5.1 Použité technologie 5](#použité-technologie)
+
+[5.2 Struktura aplikace 5](#struktura-aplikace)
+
+[5.3 Validace databáze 5](#validace-databáze-1)
+
+[5.4 Implementovaná validační pravidla
+5](#implementovaná-validační-pravidla)
+
+[5.5 Hledání podobností a detekce plagiarismu
+5](#hledání-podobností-a-detekce-plagiarismu)
+
+[5.6 Grafické rozhraní 5](#grafické-rozhraní)
+
+[5.7 Adaptace pro validátor portálu ZČU
+5](#adaptace-pro-validátor-portálu-zču)
+
+[6 Testování 6](#testování)
+
+[6.1 Validační pravidla 6](#validační-pravidla)
+
+[6.2 Konzolová aplikace pro validátor portálu ZČU
+6](#konzolová-aplikace-pro-validátor-portálu-zču)
+
+[6.3 Grafické rozhraní 6](#grafické-rozhraní-1)
+
+[7 Závěr 7](#závěr)
+
+[Reference 8](#reference)
 
 [Přílohy
-5](#msdn-library.-exporting-from-a-dll.-online-citace-6.1.2015.-dostupné-z-přílohy)
+9](#msdn-library.-exporting-from-a-dll.-online-citace-6.1.2015.-dostupné-z-přílohy)
 
-[A Uživatelská příručka 5](#a-uživatelská-příručka)
+[A Uživatelská příručka 9](#a-uživatelská-příručka)
 
-[Spuštění a kompilace nástroje 5](#spuštění-a-kompilace-nástroje)
+[Spuštění a kompilace nástroje 9](#spuštění-a-kompilace-nástroje)
 
-[Obsluha nástroje 5](#obsluha-nástroje)
+[Obsluha nástroje 9](#obsluha-nástroje)
 
-[Práce s vygenerovaným wrapperem 7](#_Toc508895791)
-
-[Použití wrapperu v C++ aplikaci 7](#_Toc508895792)
-
-[B Obsah přiloženého média 8](#b-obsah-přiloženého-média)
+[B Obsah přiloženého média 9](#b-obsah-přiloženého-média)
 
 Úvod
 ====
@@ -81,17 +155,107 @@ Obsah
 Databázový software Microsoft Access
 ====================================
 
-SŘBD Microsoft Access
----------------------
+Základní informace
+------------------
 
-Formát MDB
-----------
-
-Formát ACCDB
-------------
-
-Možností čtení
+Prvky databáze
 --------------
+
+### Tabulky
+
+Datové typy
+
+### Vazby mezi tabulkami
+
+### Uložené dotazy
+
+### Formuláře
+
+### Sestavy
+
+Formát MDB a ACCDB
+------------------
+
+### Metadata
+
+Možnosti čtení souborů ACCDB
+----------------------------
+
+### ODBC
+
+### Microsoft Office Interop
+
+### MDBTools
+
+### Jackcess
+
+### Další možnosti (JDBC)
+
+Portál ZČU
+==========
+
+Základní informace
+------------------
+
+Validátor studentských prací
+----------------------------
+
+Vytvoření nové validační domény
+-------------------------------
+
+Analýza řešení
+==============
+
+Požadavky na řešení
+-------------------
+
+Případy užití
+-------------
+
+Validace databáze
+-----------------
+
+Vyhodnocení plagiarismu
+-----------------------
+
+Implementace
+============
+
+Použité technologie
+-------------------
+
+Struktura aplikace
+------------------
+
+Validace databáze
+-----------------
+
+Implementovaná validační pravidla
+---------------------------------
+
+Hledání podobností a detekce plagiarismu
+----------------------------------------
+
+Grafické rozhraní
+-----------------
+
+Adaptace pro validátor portálu ZČU
+----------------------------------
+
+Testování
+=========
+
+Validační pravidla
+------------------
+
+Konzolová aplikace pro validátor portálu ZČU
+--------------------------------------------
+
+Grafické rozhraní
+-----------------
+
+Závěr
+=====
 
 Reference {#reference .ListParagraph}
 =========
@@ -118,14 +282,13 @@ B Obsah přiloženého média {#b-obsah-přiloženého-média .ListParagraph}
 Součástí práce je přiložené paměťové médium (DVD) obsahující tyto
 adresáře a soubory:
 
--   Project/ -- adresář obsahující projekt nástroje pro IDE \<TODO:
-    > nazev\>.
+-   Project/ -- adresář obsahující projekt vytvořené aplikace,
 
--   Kinkor\_A16N0040P\_DP.pdf -- text této práce ve formátu PDF.
+-   Kinkor\_A16N0040P\_DP.pdf -- text této práce ve formátu PDF,
 
 -   readme.txt -- textový soubor obsahující popis struktury DVD.
 
 Obsah přiloženého média (včetně aktuální verze nástroje) je možné najít
 též v repozitáři projektu v rámci služby GitHub na adrese:
 
-<https://github.com/ikeblaster/access_validator/>
+<https://github.com/ikeblaster/access-validator/>
