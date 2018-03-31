@@ -63,9 +63,9 @@ Obsah
 
 [2.2.1 Tabulky 2](#tabulky)
 
-[2.2.2 Vazby mezi tabulkami 2](#vazby-mezi-tabulkami)
+[2.2.2 Vazby mezi tabulkami 2](#_Toc510188376)
 
-[2.2.3 Uložené dotazy 2](#uložené-dotazy)
+[2.2.3 Uložené dotazy 2](#dotazy)
 
 [2.2.4 Formuláře 2](#formuláře)
 
@@ -138,8 +138,7 @@ Obsah
 
 [Reference 8](#reference)
 
-[Přílohy
-9](#msdn-library.-exporting-from-a-dll.-online-citace-6.1.2015.-dostupné-z-přílohy)
+[Přílohy 9](#_Toc510188411)
 
 [A Uživatelská příručka 9](#a-uživatelská-příručka)
 
@@ -158,16 +157,59 @@ Databázový software Microsoft Access
 Základní informace
 ------------------
 
+Microsoft Access je nástroj řadící se mezi takzvané systémy řízení báze
+dat (SŘBD či DBMS -- *database management systém*). Jedná se o software,
+který umožňuje práci s relačními databázemi. Je součástí kancelářského
+balíku Microsoft Office, případně prodáván i samostatně.
+
+Aplikace používá pro ukládání dat technologii Microsoft Jet Database
+Engine. Jednotlivé databáze jsou typicky uloženy v jediném souboru ve
+formátu MDB, nebo ACCDB.
+
 Prvky databáze
 --------------
 
+Dále jsou uvedeny různé prvky, které mohou být součástí databáze.
+
 ### Tabulky
+
+Jedná se o stěžejní součást každé databáze. Tabulku lze definovat jako
+strukturovanou kolekci dat. Skládá se ze sloupců a řádků (též záznamů) a
+v rámci databáze má unikátní název.
+
+Struktura tabulky
+
+Struktura je definována pomocí sloupců, které mají specifikovaný název
+(unikátní v rámci tabulky) a datový typ. Microsoft Access[^1] nabízí
+následující datové typy \[1\]:
+
+-   Krátký text (dříve Text) -- text do délky 255 znaků.
+
+-   Dlouhý text (dříve Memo) -- text bez
+
+-   Datum a čas
+
+-   Měna
+
+-   Automatické číslo
+
+-   Ano/ne
+
+-   Objekt OLE
+
+-   Hypertextový odkaz
+
+-   Příloha
+
+-   Počítané
+
+-   Průvodce vyhledáváním
 
 Datové typy
 
-### Vazby mezi tabulkami
+[]{#_Toc510188376 .anchor}Relace mezi tabulkami
 
-### Uložené dotazy
+### Dotazy
 
 ### Formuláře
 
@@ -260,10 +302,14 @@ Závěr
 Reference {#reference .ListParagraph}
 =========
 
-<http://msdn.microsoft.com/en-us/library/z4zxe9k8.aspx>
+<https://support.office.com/en-us/article/data-types-for-access-desktop-databases-df2b83ba-cef6-436d-b679-3418f622e482>
 
-\[1\] MSDN Library. *Exporting from a DLL.* \[Online\] \[Citace: 6. 1. 2015\]. Dostupné z: Přílohy {#msdn-library.-exporting-from-a-dll.-online-citace-6.1.2015.-dostupné-z-přílohy .ListParagraph}
-==================================================================================================
+\[1\] Data types for Access desktop databases. *Microsoft Office help
+and training - Office Support.* \[Online\] \[Citace: 22. 3. 2018\]. a
+aaa Dostupné z:
+
+Přílohy {#přílohy .ListParagraph}
+=======
 
 A Uživatelská příručka {#a-uživatelská-příručka .ListParagraph}
 ----------------------
@@ -292,3 +338,5 @@ Obsah přiloženého média (včetně aktuální verze nástroje) je možné naj
 též v repozitáři projektu v rámci služby GitHub na adrese:
 
 <https://github.com/ikeblaster/access-validator/>
+
+[^1]: Aktuálně ve verzi 2016.
