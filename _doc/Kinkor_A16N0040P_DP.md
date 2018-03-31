@@ -63,90 +63,91 @@ Obsah
 
 [2.2.1 Tabulky 2](#tabulky)
 
-[2.2.2 Vazby mezi tabulkami 2](#_Toc510188376)
+[2.2.2 Vazby mezi tabulkami **Chyba! Záložka není
+definována.**](#_Toc510188376)
 
-[2.2.3 Uložené dotazy 2](#dotazy)
+[2.2.3 Uložené dotazy 6](#dotazy)
 
-[2.2.4 Formuláře 2](#formuláře)
+[2.2.4 Formuláře 6](#formuláře)
 
-[2.2.5 Sestavy 2](#sestavy)
+[2.2.5 Sestavy 6](#sestavy)
 
-[2.3 Formát MDB a ACCDB 2](#formát-mdb-a-accdb)
+[2.3 Formát MDB a ACCDB 6](#formát-mdb-a-accdb)
 
-[2.3.1 Metadata 2](#metadata)
+[2.3.1 Metadata 6](#metadata)
 
-[2.4 Možnosti čtení souborů ACCDB 2](#možnosti-čtení-souborů-accdb)
+[2.4 Možnosti čtení souborů ACCDB 6](#možnosti-čtení-souborů-accdb)
 
-[2.4.1 ODBC 2](#odbc)
+[2.4.1 ODBC 6](#odbc)
 
-[2.4.2 Microsoft Office Interop 2](#microsoft-office-interop)
+[2.4.2 Microsoft Office Interop 6](#microsoft-office-interop)
 
-[2.4.3 MDBTools 2](#mdbtools)
+[2.4.3 MDBTools 6](#mdbtools)
 
-[2.4.4 Jackcess 2](#jackcess)
+[2.4.4 Jackcess 6](#jackcess)
 
-[2.4.5 Další možnosti (JDBC) 2](#další-možnosti-jdbc)
+[2.4.5 Další možnosti (JDBC) 6](#další-možnosti-jdbc)
 
-[3 Portál ZČU 3](#portál-zču)
+[3 Portál ZČU 7](#portál-zču)
 
-[3.1 Základní informace 3](#základní-informace-1)
+[3.1 Základní informace 7](#základní-informace-1)
 
-[3.2 Validátor studentských prací 3](#validátor-studentských-prací)
+[3.2 Validátor studentských prací 7](#validátor-studentských-prací)
 
 [3.3 Vytvoření nové validační domény
-3](#vytvoření-nové-validační-domény)
+7](#vytvoření-nové-validační-domény)
 
-[4 Analýza řešení 4](#analýza-řešení)
+[4 Analýza řešení 8](#analýza-řešení)
 
-[4.1 Požadavky na řešení 4](#požadavky-na-řešení)
+[4.1 Požadavky na řešení 8](#požadavky-na-řešení)
 
-[4.2 Případy užití 4](#případy-užití)
+[4.2 Případy užití 8](#případy-užití)
 
-[4.3 Validace databáze 4](#validace-databáze)
+[4.3 Validace databáze 8](#validace-databáze)
 
-[4.4 Vyhodnocení plagiarismu 4](#vyhodnocení-plagiarismu)
+[4.4 Vyhodnocení plagiarismu 8](#vyhodnocení-plagiarismu)
 
-[5 Implementace 5](#implementace)
+[5 Implementace 9](#implementace)
 
-[5.1 Použité technologie 5](#použité-technologie)
+[5.1 Použité technologie 9](#použité-technologie)
 
-[5.2 Struktura aplikace 5](#struktura-aplikace)
+[5.2 Struktura aplikace 9](#struktura-aplikace)
 
-[5.3 Validace databáze 5](#validace-databáze-1)
+[5.3 Validace databáze 9](#validace-databáze-1)
 
 [5.4 Implementovaná validační pravidla
-5](#implementovaná-validační-pravidla)
+9](#implementovaná-validační-pravidla)
 
 [5.5 Hledání podobností a detekce plagiarismu
-5](#hledání-podobností-a-detekce-plagiarismu)
+9](#hledání-podobností-a-detekce-plagiarismu)
 
-[5.6 Grafické rozhraní 5](#grafické-rozhraní)
+[5.6 Grafické rozhraní 9](#grafické-rozhraní)
 
 [5.7 Adaptace pro validátor portálu ZČU
-5](#adaptace-pro-validátor-portálu-zču)
+9](#adaptace-pro-validátor-portálu-zču)
 
-[6 Testování 6](#testování)
+[6 Testování 10](#testování)
 
-[6.1 Validační pravidla 6](#validační-pravidla)
+[6.1 Validační pravidla 10](#validační-pravidla)
 
 [6.2 Konzolová aplikace pro validátor portálu ZČU
-6](#konzolová-aplikace-pro-validátor-portálu-zču)
+10](#konzolová-aplikace-pro-validátor-portálu-zču)
 
-[6.3 Grafické rozhraní 6](#grafické-rozhraní-1)
+[6.3 Grafické rozhraní 10](#grafické-rozhraní-1)
 
-[7 Závěr 7](#závěr)
+[7 Závěr 11](#závěr)
 
-[Reference 8](#reference)
+[Reference 12](#reference)
 
-[Přílohy 9](#_Toc510188411)
+[Přílohy 12](#_Toc510188411)
 
-[A Uživatelská příručka 9](#a-uživatelská-příručka)
+[A Uživatelská příručka 13](#a-uživatelská-příručka)
 
-[Spuštění a kompilace nástroje 9](#spuštění-a-kompilace-nástroje)
+[Spuštění a kompilace nástroje 13](#spuštění-a-kompilace-nástroje)
 
-[Obsluha nástroje 9](#obsluha-nástroje)
+[Obsluha nástroje 13](#obsluha-nástroje)
 
-[B Obsah přiloženého média 9](#b-obsah-přiloženého-média)
+[B Obsah přiloženého média 13](#b-obsah-přiloženého-média)
 
 Úvod
 ====
@@ -166,6 +167,9 @@ Aplikace používá pro ukládání dat technologii Microsoft Jet Database
 Engine. Jednotlivé databáze jsou typicky uloženy v jediném souboru ve
 formátu MDB, nebo ACCDB.
 
+Pro vytváření a správu databáze je uživateli dostupné přehledné grafické
+rozhraní.
+
 Prvky databáze
 --------------
 
@@ -177,37 +181,107 @@ Jedná se o stěžejní součást každé databáze. Tabulku lze definovat jako
 strukturovanou kolekci dat. Skládá se ze sloupců a řádků (též záznamů) a
 v rámci databáze má unikátní název.
 
-Struktura tabulky
+Sloupce tabulky
 
 Struktura je definována pomocí sloupců, které mají specifikovaný název
-(unikátní v rámci tabulky) a datový typ. Microsoft Access[^1] nabízí
+(unikátní v rámci tabulky) a datový typ. Microsoft Access[^1] podporuje
 následující datové typy[1](#_toc_1) \[\]:
 
--   Krátký text (dříve Text) -- text do délky 255 znaků.
+-   **Automatické číslo** -- typicky používáno jako primární klíč (viz
+    dále), pro každý nový záznam se automaticky nastaví na následující
+    hodnotu posloupnosti, nebo na náhodné číslo (dle nastavení).
 
--   Dlouhý text (dříve Memo) -- text bez
+-   **Číslo** -- rozsah a typ (celočíselné/s desetinnou čárkou) lze
+    zvolit ve vlastnostech sloupce.
 
--   Datum a čas
+-   **Krátký text** (dříve Text) -- text do délky 255 znaků.
 
--   Měna
+-   **Dlouhý text** (dříve Memo) -- text do velikosti 1 GB.
 
--   Automatické číslo
+-   **Datum a čas**.
 
--   Ano/ne
+-   **Měna** -- specializovaný případ číselného datového typu s fixní
+    desetinnou čárkou (uchovává 4 desetinná místa).
 
--   Objekt OLE
+-   **Ano/ne** -- uchovává hodnotu -1 (Ano) nebo 0 (Ne); v rámci
+    Microsoft Accessu zobrazeno jako zaškrtávací pole (*checkbox*).
 
--   Hypertextový odkaz
+-   **Hypertextový odkaz.**
 
--   Příloha
+-   **Objekt OLE** -- umožňuje vložit speciální objekty, například
+    obrázek, jiný dokument, či odkaz na soubor.
 
--   Počítané
+-   **Příloha** -- umožňuje vložit libovolný soubor jako součást
+    záznamu. Jedná se o univerzálnější možnost k předchozímu.
 
--   Průvodce vyhledáváním
+-   **Počítané** -- automatické vložení hodnoty vypočítané na základě
+    zadaného vzorce.
 
-Datové typy
+Každému sloupci lze dále nastavit různé vlastnosti dle vybraného
+datového typu -- typicky se jedná o ověřovací pravidla (validace vstupu
+od uživatele ještě před přidáním záznamu do databáze), výchozí hodnotu a
+dále nastavení zobrazení v tabulce (formátování, zarovnání, titulek po
+najetí myší, atp.).
 
-[]{#_Toc510188376 .anchor}Relace mezi tabulkami
+Primární klíč
+
+Tabulka může mít primární klíč -- typicky se jedná o sloupec, jehož
+hodnoty jsou unikátní a vždy zadané (tzv. *not null*). V případě, že
+vytvoříme primární klíč pomocí více sloupců, nazýváme jej složeným
+primárním klíčem.
+
+Primární klíč slouží pro odkázání na jeden konkrétní záznam v tabulce,
+čehož se využívá při vytváření dotazů nebo tvoření relací mezi
+tabulkami.
+
+Pro vytváření primárních klíčů se obvykle využívá datový typ Automatické
+číslo, který každému záznamu přiřadí unikátní celé číslo. Často bývá
+takový sloupec pojmenován „ID" (*Identification*).
+
+Relace mezi tabulkami a cizí klíče
+
+V případě, že chceme propojit více tabulek mezi sebou, využijeme tzv.
+relačních vazeb. Jedná se o situaci, kdy se záznam v tabulce odkazuje na
+konkrétní záznam (či záznamy) v druhé tabulce.
+
+Existují tři druhy relačních vazeb.
+
+-   **Relace 1:1** -- jednomu záznamu v tabulce A odpovídá žádný či
+    právě jeden záznam v tabulce B. Pro referencování se využívají pouze
+    primární klíče obou tabulek (mají tedy v obou tabulkách shodnou
+    hodnotu).
+
+![](media/image1.emf)
+
+Obrázek 1 -- model relace 1:1
+
+-   **Relace 1:N** -- k více záznamům v tabulce A lze přiřadit jeden
+    záznam v tabulce B. To lze zajistit přidáním tzv. **cizího klíče**
+    do tabulky A -- sloupce, který bude obsahovat hodnoty primárního
+    klíče z tabulky B (příp. skupiny sloupců, pokud se jedná o složený
+    primární klíč). Jedná se o nejčastěji využívanou vazbu.
+
+![](media/image2.emf)
+
+Obrázek 2 -- model relace 1:N
+
+-   **Relace M:N** -- k M záznamům v tabulce A lze přiřadit N záznamů
+    v tabulce B. Relace se realizuje pomocí spojové tabulky (též
+    mezitabulky) a dvojicí relací 1:N. Spojová tabulka obvykle obsahuje
+    pouze sloupce cizích klíčů.
+
+![](media/image3.emf)
+
+Obrázek 3 -- model relace M:N
+
+Relace mezi tabulkami mohou zajišťovat **referenčním integritu**. Cílem
+je zabránit odkazování na neexistující záznam či vzniku osiřelých
+záznamů, na který byly všechny reference zrušeny. Integritní pravidlo
+může zajistit kaskádovou aktualizaci polí -- pokud se změní hodnota
+primárního klíče, změní se automaticky hodnota u všech záznamů, které na
+záznam odkazují. Dále může zajistit kaskádové odstranění souvisejících
+záznamů -- v případě smazání záznamu budou smazány i všechny záznamy,
+které na tento záznam odkazovaly.
 
 ### Dotazy
 
