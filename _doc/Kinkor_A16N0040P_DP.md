@@ -181,7 +181,7 @@ Struktura tabulky
 
 Struktura je definována pomocí sloupců, které mají specifikovaný název
 (unikátní v rámci tabulky) a datový typ. Microsoft Access[^1] nabízí
-následující datové typy \[1\]:
+následující datové typy[1](#_toc_1) \[\]:
 
 -   Krátký text (dříve Text) -- text do délky 255 znaků.
 
@@ -302,11 +302,12 @@ Závěr
 Reference {#reference .ListParagraph}
 =========
 
-<https://support.office.com/en-us/article/data-types-for-access-desktop-databases-df2b83ba-cef6-436d-b679-3418f622e482>
+[]{#_toc_1
+.anchor}<https://support.office.com/en-us/article/data-types-for-access-desktop-databases-df2b83ba-cef6-436d-b679-3418f622e482>
 
 \[1\] Data types for Access desktop databases. *Microsoft Office help
-and training - Office Support.* \[Online\] \[Citace: 22. 3. 2018\]. a
-aaa Dostupné z:
+and training - Office Support.* \[Online\] \[Citace: 22. 3. 2018\].
+Dostupné z:
 
 Přílohy {#přílohy .ListParagraph}
 =======
