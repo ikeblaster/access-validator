@@ -59,7 +59,7 @@ Obsah
 
 [2.1 Základní informace 2](#základní-informace)
 
-[2.2 Prvky databáze 2](#prvky-databáze)
+[2.2 Prvky databáze 2](#objekty-uložené-v-databázi)
 
 [2.2.1 Tabulky 2](#tabulky)
 
@@ -72,9 +72,9 @@ definována.**](#_Toc510188376)
 
 [2.2.5 Sestavy 6](#sestavy)
 
-[2.3 Formát MDB a ACCDB 6](#formát-mdb-a-accdb)
+[2.3 Formát MDB a ACCDB 6](#formáty-accdb-a-mdb)
 
-[2.3.1 Metadata 6](#metadata)
+[2.3.1 Metadata 6](#_Toc510188381)
 
 [2.4 Možnosti čtení souborů ACCDB 6](#možnosti-čtení-souborů-accdb)
 
@@ -165,15 +165,15 @@ balíku Microsoft Office, případně prodáván i samostatně.
 
 Aplikace používá pro ukládání dat technologii Microsoft Jet Database
 Engine. Jednotlivé databáze jsou typicky uloženy v jediném souboru ve
-formátu MDB, nebo ACCDB.
+formátu ACCDB, nebo MDB.
 
 Pro vytváření a správu databáze je uživateli dostupné přehledné grafické
 rozhraní.
 
-Prvky databáze
---------------
+Objekty uložené v databázi
+--------------------------
 
-Dále jsou uvedeny různé prvky, které mohou být součástí databáze.
+Dále jsou uvedeny různé objekty, které mohou být součástí databáze.
 
 ### Tabulky
 
@@ -183,9 +183,9 @@ v rámci databáze má unikátní název.
 
 Sloupce tabulky
 
-Struktura je definována pomocí sloupců, které mají specifikovaný název
-(unikátní v rámci tabulky) a datový typ. Microsoft Access[^1] podporuje
-následující datové typy[1](#_toc_1) \[\]:
+Struktura tabulky je definována pomocí sloupců, které mají specifikovaný
+název (unikátní v rámci tabulky) a datový typ. Microsoft Access[^1]
+podporuje následující datové typy[1](#_toc_1) \[\]:
 
 -   **Automatické číslo** -- typicky používáno jako primární klíč (viz
     dále), pro každý nový záznam se automaticky nastaví na následující
@@ -241,10 +241,10 @@ takový sloupec pojmenován „ID" (*Identification*).
 Relace mezi tabulkami a cizí klíče
 
 V případě, že chceme propojit více tabulek mezi sebou, využijeme tzv.
-relačních vazeb. Jedná se o situaci, kdy se záznam v tabulce odkazuje na
-konkrétní záznam (či záznamy) v druhé tabulce.
+relačních vazeb. Jedná se o situaci, kdy záznam v tabulce odkazuje („má
+referenci") na jeden konkrétní záznam z druhé tabulky.
 
-Existují tři druhy relačních vazeb.
+Rozlišují se tři druhy relačních vazeb.
 
 -   **Relace 1:1** -- jednomu záznamu v tabulce A odpovídá žádný či
     právě jeden záznam v tabulce B. Pro referencování se využívají pouze
@@ -253,51 +253,157 @@ Existují tři druhy relačních vazeb.
 
 ![](media/image1.emf)
 
-Obrázek 1 -- model relace 1:1
+Obrázek -- model relace 1:1
 
 -   **Relace 1:N** -- k více záznamům v tabulce A lze přiřadit jeden
-    záznam v tabulce B. To lze zajistit přidáním tzv. **cizího klíče**
+    záznam z tabulky B. To lze zajistit přidáním tzv. **cizího klíče**
     do tabulky A -- sloupce, který bude obsahovat hodnoty primárního
     klíče z tabulky B (příp. skupiny sloupců, pokud se jedná o složený
     primární klíč). Jedná se o nejčastěji využívanou vazbu.
 
 ![](media/image2.emf)
 
-Obrázek 2 -- model relace 1:N
+Obrázek -- model relace 1:N
 
 -   **Relace M:N** -- k M záznamům v tabulce A lze přiřadit N záznamů
-    v tabulce B. Relace se realizuje pomocí spojové tabulky (též
+    z tabulky B. Relace se realizuje pomocí spojové tabulky (též
     mezitabulky) a dvojicí relací 1:N. Spojová tabulka obvykle obsahuje
     pouze sloupce cizích klíčů.
 
 ![](media/image3.emf)
 
-Obrázek 3 -- model relace M:N
+Obrázek -- model relace M:N
 
 Relace mezi tabulkami mohou zajišťovat **referenčním integritu**. Cílem
-je zabránit odkazování na neexistující záznam či vzniku osiřelých
-záznamů, na který byly všechny reference zrušeny. Integritní pravidlo
-může zajistit kaskádovou aktualizaci polí -- pokud se změní hodnota
-primárního klíče, změní se automaticky hodnota u všech záznamů, které na
-záznam odkazují. Dále může zajistit kaskádové odstranění souvisejících
-záznamů -- v případě smazání záznamu budou smazány i všechny záznamy,
-které na tento záznam odkazovaly.
+je zabránit odkazování na neexistující záznam (a rovněž tedy vzniku
+osiřelých záznamů, na které byly všechny reference zrušeny).
+
+Integritní pravidlo může zajistit kaskádovou aktualizaci polí -- pokud
+se změní hodnota primárního klíče, změní se automaticky hodnota u všech
+záznamů, které na záznam odkazují. Dále může zajistit kaskádové
+odstranění souvisejících záznamů -- v případě smazání záznamu budou
+smazány i všechny další, které na právě tento záznam odkazovaly.
 
 ### Dotazy
 
+Dotazy slouží k získávání, přidávání, mazání či upravování dat
+v databázi. Microsoft Access umožňuje ukládání dotazů do databáze -- lze
+tedy vytvořit dotazy pro usnadnění následné práce s daty.
+
+Dotazy mohou mít parametry, které lze využít např. pro filtrování
+záznamů v rámci tabulky nebo nové hodnoty při vkládání/upravování
+záznamů. Uživatel je pak při spuštění dotazu vyzván k zadání konkrétních
+hodnot parametrů.
+
+Podporovány jsou následující druhy dotazů:
+
+-   **Výběrové (SELECT)** -- jedná se o dotaz, jehož výsledkem je
+    množina vybraných záznamů. Struktura je dána dotazem -- jednotlivé
+    sloupce mohou pocházet z různých tabulek, či být spočítané „za
+    běhu". Obecně lze považovat výběrový dotaz za analogii k databázovým
+    pohledům.
+
+-   **Vytvářecí (MAKE TABLE)** -- pracuje na stejném principu jako
+    výběrový, výsledek dotazu však není ihned zobrazen uživateli, ale
+    uložen do nové tabulky.
+
+-   **Přidávací (INSERT)** -- slouží pro vkládání nových záznamů do
+    existujících tabulek.
+
+-   **Aktualizační (UPDATE)** -- umožňuje úpravu hodnot již existujících
+    záznamů v tabulkách.
+
+-   **Křížový (CROSSTAB)** -- výsledkem dotazu je tzv. kontingenční
+    tabulka zobrazující data v kompaktní podobě. Typicky se používá
+    například pro sumarizaci hodnot, nalezení průměrů, maximálních
+    hodnot, atp.
+
 ### Formuláře
+
+Formuláře poskytují přívětivé rozhraní pro vkládání či editaci záznamů
+v tabulkách. Grafické rozhraní je plně konfigurovatelné a umožňuje tedy
+jednotlivá pole záznamů různě seskupovat, přidat popisky, či některá
+úplně skrýt. Formuláře jsou v databázi opět uloženy pod unikátním
+názvem.
+
+Access umožňují vytvořit formuláře různých druhů:
+
+-   Formuláře pro editaci jednotlivých záznamů (dále označované jako
+    standardní).
+
+-   Navigační formuláře, které poskytují možnost přepínání mezi různými
+    formuláři a umožňují tak vytvořit komplexní rozhraní pro správu celé
+    databáze.
+
+-   Formuláře zobrazující více položek (záznamů) najednou.
+
+-   Datové listy, které vypadají podobně jako zobrazení tabulky (tedy
+    tabulka, kde každý řádek odpovídá jednomu záznamu), ale zachovávají
+    možnost upravovat zobrazená pole.
+
+-   Rozdělené formuláře, které jsou kombinaci standardních formulářů
+    v jedné části a datového listu v druhé části obrazovky.
+
+-   Modální dialogová okna, která mají stejné možnosti jako standardní
+    formuláře, ale zobrazují se v samostatném okně a jsou
 
 ### Sestavy
 
-Formát MDB a ACCDB
-------------------
+Sestavy slouží pro vytváření výpisů dat z databáze v přívětivé podobě,
+zobrazující typicky více záznamů na jedné straně, na rozdíl od formulářů
+ale neumožňuje editaci dat. Často se využívá pro následné vytisknutí.
+Při návrhu se definuje záhlaví a zápatí stránek a rozložení prvků pro
+každý záznam („řádek" sestavy).
 
-### Metadata
+### Skryté systémové tabulky
+
+Formáty ACCDB a MDB
+-------------------
+
+Nativním formátem pro ukládání databází je od verze 2007 ACCDB,
+v předchozích verzích byl hlavním formátem MDB. Oba jsou založeny na
+technologii Jet (u formátu ACCDB také označované jako Access Database
+Engine) a jsou si tedy technologicky podobné. Z uživatelského hlediska
+jsou rozdíly zejména v různých možnostech zabezpečení dat.
 
 Možnosti čtení souborů ACCDB
 ----------------------------
 
+Jedná se o proprietární binární formát vyvíjený společností Microsoft
+bez dostupné specifikace. Jediným oficiálním nástrojem pro správu je
+právě Microsoft Access, pro přístup k datům je dostupné ODBC.
+
+To velmi omezuje možnosti programového přístupu k databázím -- pokud
+bychom vzali v potaz pouze oficiální nástroje, jsme limitováni na
+systémy s nainstalovanou aplikací Microsoft Access (a tím pádem i
+operačním systémem). V současné době jsou však dostupné i nástroje
+vzniklé na základě reverzního inženýrství formátů MDB/ACCDB bez
+závislosti na programovém vybavení počítače.
+
+Dále jsou zmíněny všechny možnosti čtení souborů ACCDB včetně výhod a
+nevýhod, jaké přináší.
+
 ### ODBC
+
+ODBC (Open Database Connectivity) je standardizované API pro přístup
+k datům uloženým v databázích. Připojení ke konkrétním databázím je
+zajištěno speciálními ovladači, které lze do systému doinstalovat. Pro
+komunikaci skrze ODBC se typicky využívá jazyk SQL (Standard Query
+Language), ovladač poté zajistí přeložení na příkazy, kterým konkrétní
+databáze „rozumí".
+
+Pro přístup k ACCDB databázím v rámci OS Microsoft Windows se využívají
+ovladače Access Database Engine nainstalované spolu s aplikací Microsoft
+Access, případně ze samostatného distribučního balíku. Pro další
+platformy existují komerční ODBC ovladače. Vzniká zde tedy závislost na
+dostupnosti ovladače a v určitých případech může být problém jej do
+systému doplnit.
+
+Zásadní nevýhodou přístupu k datům přes ODBC API jsou omezení
+vyplývající z univerzálnosti metody. Jednoduše lze pracovat pouze s daty
+v tabulkách a není možné přímo přistupovat k dalším uloženým objektům.
+Jedinou možnost je využít skryté systémové tabulky, pomocí kterých lze
+zjistit alespoň existenci objektů.
 
 ### Microsoft Office Interop
 
@@ -306,6 +412,9 @@ Možnosti čtení souborů ACCDB
 ### Jackcess
 
 ### Další možnosti (JDBC)
+
+Metadata databázových souborů
+-----------------------------
 
 Portál ZČU
 ==========
