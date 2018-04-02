@@ -395,9 +395,9 @@ databáze „rozumí".
 Pro přístup k ACCDB databázím v rámci OS Microsoft Windows se využívají
 ovladače Access Database Engine nainstalované spolu s aplikací Microsoft
 Access, případně ze samostatného distribučního balíku. Pro další
-platformy existují komerční ODBC ovladače. Vzniká zde tedy závislost na
-dostupnosti ovladače a v určitých případech může být problém jej do
-systému doplnit.
+platformy existují komerční Access ODBC ovladače. Vzniká zde tedy
+závislost na dostupnosti ovladače, přičemž v určitých případech může být
+problém jej do systému doplnit.
 
 Zásadní nevýhodou přístupu k datům přes ODBC API jsou omezení
 vyplývající z univerzálnosti metody. Jednoduše lze pracovat pouze s daty
@@ -406,6 +406,23 @@ Jedinou možnost je využít skryté systémové tabulky, pomocí kterých lze
 zjistit alespoň existenci objektů.
 
 ### Microsoft Office Interop
+
+Aplikace z balíku Microsoft Office lze programově ovládat pomocí technik
+obecně označovaných jako *interoperability* (zkráceně *interop*).
+Typicky se využívají proprietární technologie COM (Common Object Model)
+a OLE (Object Linking and Embedding) vyvinuté firmou Microsoft. Dále
+jsou poskytovány *Primary Interop Assemblies* -- knihovny určené pro
+použití na platformě .NET (tedy v tzv. řízeném kódu) obalující COM
+volání do objektového rozhraní. V současné době poskytují nejjednodušší
+možnost pro programové ovládání aplikací Microsoft Office (mj. se
+využívají i pro psaní doplňku, *plug-inů*, pro jednotlivé Office
+aplikace).
+
+Tato technika oproti ODBC umožňuje kompletní správu databáze vč. všech
+dostupných objektů a bez nutnosti analyzovat obsah systémových tabulek.
+Avšak zůstává zde nutnost spouštět kód v systému, kde je nainstalovaný
+Microsoft Access. Jedná se rovněž o poměrně pomalý přístup, jelikož
+interop kód de-facto jen ovládá Microsoft Access spuštěný na pozadí.
 
 ### MDBTools
 
