@@ -1,9 +1,9 @@
 package cz.zcu.kiv.accessvalidator.components.validator.treeobjects;
 
+import cz.zcu.kiv.accessvalidator.common.DesktopHelper;
 import cz.zcu.kiv.accessvalidator.validator.database.SimilarFiles;
 import cz.zcu.kiv.accessvalidator.validator.database.SimilarityElement;
 import cz.zcu.kiv.accessvalidator.validator.rules.Rule;
-import javafx.collections.FXCollections;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TreeItem;
@@ -25,6 +25,7 @@ public class FileTreeObject extends TreeObject {
 
     public FileTreeObject(File file) {
         this.file = file;
+        this.contextMenu = this.getDefaultFileContextMenu();
     }
 
     public File getFile() {
@@ -46,47 +47,45 @@ public class FileTreeObject extends TreeObject {
         this.hideSimilarityHandler = hideSimilarityHandler;
     }
 
+
     public void setSimilarFiles(SimilarFiles similarFiles) {
         this.foundSimilarFiles = false;
 
-        if(similarFiles == null || similarFiles.getSimilarFiles().isEmpty()) {
+        if (similarFiles == null || similarFiles.getSimilarFiles().isEmpty()) {
             return;
         }
 
         this.foundSimilarFiles = true;
 
-        StringTreeObject parent = new StringTreeObject("Nalezené podobné databáze");
-        this.addChild(parent);
+        StringTreeObject parent = this.addChild(new StringTreeObject("Nalezené podobné databáze"));
 
         for (File similar : similarFiles.getSimilarFiles()) {
-            FileTreeObject node = new FileTreeObject(similar);
-            parent.addChild(node);
+            FileTreeObject node = parent.addChild(new FileTreeObject(similar));
 
             for (SimilarityElement similarity : similarFiles.getFileSimilarities(similar)) {
-                StringTreeObject simObject = new StringTreeObject(similarity.toString());
-                simObject.contextMenu = new ContextMenu(new MenuItem("Skrýt tento druh podobnosti"){{
-                    this.setOnAction(event -> FileTreeObject.this.hideSimilarityHandler.accept(similarity));
-                }});
-                node.addChild(simObject);
+                StringTreeObject simObject = node.addChild(new StringTreeObject(similarity.toString()));
+                simObject.contextMenu = this.createHideSimilarityContextMenu(similarity);
             }
 
-            FXCollections.sort(node.children, Comparator.comparing(TreeItem::toString, String.CASE_INSENSITIVE_ORDER));
+            node.children.sort(Comparator.comparing(TreeItem::toString, String.CASE_INSENSITIVE_ORDER));
         }
+        parent.children.sort(Comparator.comparing(TreeItem::toString, String.CASE_INSENSITIVE_ORDER));
     }
 
+
     public void setFailedRules(Set<Rule> failedRules) {
-        if(failedRules.size() == 0) {
+        if (failedRules.size() == 0) {
             return;
         }
 
-        StringTreeObject parent = new StringTreeObject("Pravidla, která selhala");
-        this.addChild(parent);
+        StringTreeObject parent = this.addChild(new StringTreeObject("Pravidla, která selhala"));
 
-        for(Rule rule : failedRules) {
+        for (Rule rule : failedRules) {
             StringTreeObject node = new StringTreeObject(rule.toString());
             parent.addChild(node);
         }
     }
+
 
     @Override
     public boolean hasTooltipText() {
@@ -102,10 +101,10 @@ public class FileTreeObject extends TreeObject {
     public Collection<String> getStyleClasses() {
         List<String> classes = new ArrayList<>();
 
-        if(this.checked) {
+        if (this.checked) {
             classes.add(this.valid ? "icon-valid" : "icon-invalid");
         }
-        if(this.foundSimilarFiles) {
+        if (this.foundSimilarFiles) {
             classes.add("icon-similar");
         }
 
@@ -116,7 +115,7 @@ public class FileTreeObject extends TreeObject {
     public String toString() {
         String ret = this.file.getName();
 
-        if(this.checked && !this.foundSimilarFiles) {
+        if (this.checked && !this.foundSimilarFiles) {
             ret += " " + (this.valid ? "[OK]" : "[nevalidní]");
         }
 
@@ -124,4 +123,23 @@ public class FileTreeObject extends TreeObject {
     }
 
 
+    private ContextMenu createHideSimilarityContextMenu(SimilarityElement similarity) {
+        return new ContextMenu(
+                new MenuItem("Skrýt tento druh podobnosti") {{
+                    this.setOnAction(event -> FileTreeObject.this.hideSimilarityHandler.accept(similarity));
+                }}
+        );
+    }
+
+
+    public ContextMenu getDefaultFileContextMenu() {
+        return new ContextMenu(
+                new MenuItem("Otevřít soubor") {{
+                    this.setOnAction(event -> DesktopHelper.openFile(FileTreeObject.this.file));
+                }},
+                new MenuItem("Otevřít složku") {{
+                    this.setOnAction(event -> DesktopHelper.browseParentDirectory(FileTreeObject.this.file));
+                }}
+        );
+    }
 }

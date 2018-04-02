@@ -33,8 +33,9 @@ public abstract class TreeObject {
         this.children = children;
     }
 
-    protected void addChild(TreeObject treeObject) {
+    protected <T extends TreeObject> T addChild(T treeObject) {
         this.children.add(new TreeItemObjectAdaptor(treeObject));
+        return treeObject;
     }
 
     public ContextMenu getContextMenu() {

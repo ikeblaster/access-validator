@@ -1,60 +1,82 @@
 package cz.zcu.kiv.accessvalidator.validator;
 
-import com.healthmarketscience.jackcess.*;
+import com.healthmarketscience.jackcess.Database;
+import com.healthmarketscience.jackcess.DatabaseBuilder;
+import com.healthmarketscience.jackcess.Row;
+import com.healthmarketscience.jackcess.Table;
 import cz.zcu.kiv.accessvalidator.validator.database.SimilarFiles;
 import cz.zcu.kiv.accessvalidator.validator.database.SimilarityElement;
 
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.*;
 
 /**
  * @author ike
  */
+@SuppressWarnings("Duplicates")
 public class TestBench {
     public static void main(String[] args) throws IOException {
 
-        if(false) {
+        if(true) {
 
 
-            {
-                Database db = DatabaseBuilder.open(new File("data/testdb.accdb"));
-
-                Table table = db.getSystemTable("MSysObjects");
-
-                for (Column column : table.getColumns()) {
-                    System.out.format("%-50s", column.getName());
-                }
-
-                System.out.println();
-
-                for (Row row : table) {
-                    for (Column column : table.getColumns()) {
-                        Object o = row.get(column.getName());
-                        if ((column.getName().equals("LvProp") || column.getName().equals("LvExtra")) && o != null) {
-                            String col = column.getName();
-                            System.out.format("");
-                        }
-                        System.out.format("%-50.38s", o);
-
-                    }
-                    System.out.println();
-
-                }
-            }
 //            {
-//                Database db = DatabaseBuilder.open(new File("data/db3.accdb"));
+//                Database db = DatabaseBuilder.open(new File("data/db3_resaved_relations_2016.accdb"));
 //
 //                Table table = db.getSystemTable("MSysObjects");
 //
+//                for (Column column : table.getColumns()) {
+//                    System.out.format("%-50s", column.getName());
+//                }
+//
+//                System.out.println();
+//
 //                for (Row row : table) {
-//                    if (row.getString("Name").equals("Admin")) {
-//                        found2.add(Arrays.asList(row.getBytes("LvExtra")));
+//
+//                    for (Column column : table.getColumns()) {
+//
+//                        Object o = row.get(column.getName());
+//                        System.out.format("%-50.38s", o);
+//
 //                    }
+//                    System.out.println();
+//
 //                }
 //            }
-//
-//            System.out.println(found1.get(0).equals(found2.get(0)));
+
+            List<byte[]> found = new ArrayList<>();
+            {
+                Database db = DatabaseBuilder.open(new File("data/db3.accdb"));
+
+                Table table = db.getSystemTable("MSysObjects");
+
+                for (Row row : table) {
+                    if (row.getString("Name").equals("Admin")) {
+                        byte[] lvExtras = row.getBytes("LvExtra");
+                        lvExtras = Arrays.copyOfRange(lvExtras, 64, lvExtras.length);
+                        dump(lvExtras, db.getFile().getName());
+                        found.add(lvExtras);
+                    }
+                }
+            }
+            {
+                Database db = DatabaseBuilder.open(new File("data/db3_resaved_relations_2016.accdb"));
+
+                Table table = db.getSystemTable("MSysObjects");
+
+                for (Row row : table) {
+                    if (row.getString("Name").equals("Admin")) {
+                        byte[] lvExtras = row.getBytes("LvExtra");
+                        lvExtras = Arrays.copyOfRange(lvExtras, 64, lvExtras.length);
+                        dump(lvExtras, db.getFile().getName());
+                        found.add(lvExtras);
+                    }
+                }
+            }
+
+            System.out.println(Arrays.equals(found.get(0),found.get(1)));
 
         }
         else {
@@ -102,5 +124,11 @@ public class TestBench {
             }
         }
 
+    }
+
+    private static void dump(byte[] data, String file) throws IOException {
+        try (FileOutputStream fos = new FileOutputStream(file + ".dump")) {
+            fos.write(data);
+        }
     }
 }

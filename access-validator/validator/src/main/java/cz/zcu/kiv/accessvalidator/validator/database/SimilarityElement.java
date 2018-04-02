@@ -18,6 +18,11 @@ public class SimilarityElement {
         this.value = value;
     }
 
+    public SimilarityElement(String label) {
+        this.label = label;
+        this.value = null;
+    }
+
     public String getLabel() {
         return this.label;
     }
@@ -36,7 +41,7 @@ public class SimilarityElement {
 
     @Override
     public String toString() {
-        return this.label + " (" + this.value + ")";
+        return this.label;
     }
 
     @Override

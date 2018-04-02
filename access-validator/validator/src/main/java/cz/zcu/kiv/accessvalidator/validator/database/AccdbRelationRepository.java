@@ -19,6 +19,7 @@ public class AccdbRelationRepository {
         this.db = db;
         try {
             this.relations = new HashSet<>(db.getRelationships());
+            this.relations.removeIf(relation -> relation.getName().startsWith("~"));
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

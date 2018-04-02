@@ -22,7 +22,7 @@ public class AccdbQueryRepository {
         this.db = db;
         try {
             this.queries = new HashSet<>(this.db.getQueries());
-            this.queries.removeIf(query -> query.getObjectFlag() == FORM_QUERY_OBJECT_FLAG); // exclude queries from forms
+            this.queries.removeIf(query -> query.getName().startsWith("~")); // exclude queries from forms
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

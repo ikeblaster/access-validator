@@ -21,6 +21,7 @@ public class AccdbTableRepository {
         this.db = db;
         try {
             this.tables = new HashSet<>(db.getTableNames());
+            this.tables.removeIf(table -> table.startsWith("~"));
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
