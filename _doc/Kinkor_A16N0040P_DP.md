@@ -185,7 +185,7 @@ Sloupce tabulky
 
 Struktura tabulky je definována pomocí sloupců, které mají specifikovaný
 název (unikátní v rámci tabulky) a datový typ. Microsoft Access[^1]
-podporuje následující datové typy[1](#_toc_1) \[\]:
+podporuje následující datové typy \[1\]:
 
 -   **Automatické číslo** -- typicky používáno jako primární klíč (viz
     dále), pro každý nový záznam se automaticky nastaví na následující
@@ -253,7 +253,7 @@ Rozlišují se tři druhy relačních vazeb.
 
 ![](media/image1.emf)
 
-Obrázek -- model relace 1:1
+Obrázek 1 -- model relace 1:1
 
 -   **Relace 1:N** -- k více záznamům v tabulce A lze přiřadit jeden
     záznam z tabulky B. To lze zajistit přidáním tzv. **cizího klíče**
@@ -263,7 +263,7 @@ Obrázek -- model relace 1:1
 
 ![](media/image2.emf)
 
-Obrázek -- model relace 1:N
+Obrázek 2 -- model relace 1:N
 
 -   **Relace M:N** -- k M záznamům v tabulce A lze přiřadit N záznamů
     z tabulky B. Relace se realizuje pomocí spojové tabulky (též
@@ -272,7 +272,7 @@ Obrázek -- model relace 1:N
 
 ![](media/image3.emf)
 
-Obrázek -- model relace M:N
+Obrázek 3 -- model relace M:N
 
 Relace mezi tabulkami mohou zajišťovat **referenčním integritu**. Cílem
 je zabránit odkazování na neexistující záznam (a rovněž tedy vzniku
@@ -502,12 +502,26 @@ Závěr
 Reference {#reference .ListParagraph}
 =========
 
-[]{#_toc_1
-.anchor}<https://support.office.com/en-us/article/data-types-for-access-desktop-databases-df2b83ba-cef6-436d-b679-3418f622e482>
+<https://support.office.com/en-us/article/data-types-for-access-desktop-databases-df2b83ba-cef6-436d-b679-3418f622e482>
+
+<https://support.office.com/en-us/article/create-and-use-an-index-to-improve-performance-0a8e2aa6-735c-4c3a-9dda-38c6c4f1a0ce>
+
+<https://support.office.com/en-us/article/which-access-file-format-should-i-use-012d9ab3-d14c-479e-b617-be66f9070b41>
+
+<https://www.loc.gov/preservation/digital/formats/fdd/fdd000462.shtml>
 
 \[1\] Data types for Access desktop databases. *Microsoft Office help
 and training - Office Support.* \[Online\] \[Citace: 22. 3. 2018\].
-Dostupné z:
+Dostupné z: \[2\] Create and use an index to improve performance.
+*Microsoft Office help and training - Office Support.* \[Online\]
+\[Citace: 14. 3. 2018\]. Dostupné z: \[3\] Which Access file format
+should I use? *Microsoft Office help and training - Office Support.*
+\[Online\] \[Citace: 20. 3. 2018\]. Dostupné z: \[4\] Microsoft Access
+ACCDB File Format Family. *Digital Preservation at the Library of
+Congress.* \[Online\] \[Citace: 20. 3. 2018\]. Dostupné z: \[5\]
+ADAMSKI, Joseph J.; FINNEGAN, Kathy T. ; SCOLLARD, Sharon. *New
+perspectives on Microsoft Access 2013: comprehensive.* Stamford, CT:
+Cengage Learning, 2014. ISBN 978-1-285-09920-0.
 
 Přílohy {#přílohy .ListParagraph}
 =======
