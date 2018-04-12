@@ -89,7 +89,9 @@ public class ActiveRulesController {
         }
         try {
             RulesSerializer serializer = new RulesSerializer();
-            serializer.serialize(this.activeRulesRoot.getValue(), new FileOutputStream(this.rulesFileChooser.getFile()));
+            FileOutputStream outputStream = new FileOutputStream(this.rulesFileChooser.getFile());
+            serializer.serialize(this.activeRulesRoot.getValue(), outputStream);
+            outputStream.close();
             this.rulesChanged = false;
         } catch (XMLStreamException | IOException e) {
             Dialogs.showErrorBox("Soubor se nepodařilo uložit", e.getLocalizedMessage());
