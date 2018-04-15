@@ -82,7 +82,7 @@ definována.**](#_Toc510188376)
 
 [2.4.2 Microsoft Office Interop 6](#microsoft-office-interop)
 
-[2.4.3 MDBTools 6](#mdbtools)
+[2.4.3 MDBTools 6](#mdb-tools)
 
 [2.4.4 Jackcess 6](#jackcess)
 
@@ -185,7 +185,7 @@ Sloupce tabulky
 
 Struktura tabulky je definována pomocí sloupců, které mají specifikovaný
 název (unikátní v rámci tabulky) a datový typ. Microsoft Access[^1]
-podporuje následující datové typy \[1\]:
+podporuje následující datové typy[1](#_toc_1) \[\]:
 
 -   **Automatické číslo** -- typicky používáno jako primární klíč (viz
     dále), pro každý nový záznam se automaticky nastaví na následující
@@ -253,7 +253,7 @@ Rozlišují se tři druhy relačních vazeb.
 
 ![](media/image1.emf)
 
-Obrázek 1 -- model relace 1:1
+Obrázek -- model relace 1:1
 
 -   **Relace 1:N** -- k více záznamům v tabulce A lze přiřadit jeden
     záznam z tabulky B. To lze zajistit přidáním tzv. **cizího klíče**
@@ -263,7 +263,7 @@ Obrázek 1 -- model relace 1:1
 
 ![](media/image2.emf)
 
-Obrázek 2 -- model relace 1:N
+Obrázek -- model relace 1:N
 
 -   **Relace M:N** -- k M záznamům v tabulce A lze přiřadit N záznamů
     z tabulky B. Relace se realizuje pomocí spojové tabulky (též
@@ -272,7 +272,7 @@ Obrázek 2 -- model relace 1:N
 
 ![](media/image3.emf)
 
-Obrázek 3 -- model relace M:N
+Obrázek -- model relace M:N
 
 Relace mezi tabulkami mohou zajišťovat **referenčním integritu**. Cílem
 je zabránit odkazování na neexistující záznam (a rovněž tedy vzniku
@@ -424,7 +424,20 @@ Avšak zůstává zde nutnost spouštět kód v systému, kde je nainstalovaný
 Microsoft Access. Jedná se rovněž o poměrně pomalý přístup, jelikož
 interop kód de-facto jen ovládá Microsoft Access spuštěný na pozadí.
 
-### MDBTools
+### MDB Tools
+
+Jedná se o open-source sadu nástrojů pro práci se soubory Microsoft
+Access, respektive Jet databázemi ve formátu MDB, jejíž vývoj započal
+již v roce 2000[^2]. Vzhledem k uzavřenosti formátu vznikla většina
+nástrojů technikami reverzního inženýrství, a jak vyplývá z odezvy
+uživatelů, objevují se případy, kdy nástroje nefungují zcela
+správně[^3]. Nástroje jsou napsány v jazyce C a jedná se o konzolové
+aplikace, existuje ale několik grafických nadstaveb pro prohlížení
+Access douborů. Součástí projektu je i dokument popisující strukturu a
+klíčové části Jet databází. V posledních letech probíhá vývoj pomalým
+tempem a podpora formátu ACCDB a novějších verzí Access databází není
+zaručena. Hlavní výhodou je nezávislost na konkrétní platformě a
+dostupnosti jakýchkoliv knihoven.
 
 ### Jackcess
 
@@ -502,7 +515,8 @@ Závěr
 Reference {#reference .ListParagraph}
 =========
 
-<https://support.office.com/en-us/article/data-types-for-access-desktop-databases-df2b83ba-cef6-436d-b679-3418f622e482>
+[]{#_toc_1
+.anchor}<https://support.office.com/en-us/article/data-types-for-access-desktop-databases-df2b83ba-cef6-436d-b679-3418f622e482>
 
 <https://support.office.com/en-us/article/create-and-use-an-index-to-improve-performance-0a8e2aa6-735c-4c3a-9dda-38c6c4f1a0ce>
 
@@ -555,3 +569,8 @@ též v repozitáři projektu v rámci služby GitHub na adrese:
 <https://github.com/ikeblaster/access-validator/>
 
 [^1]: Aktuálně ve verzi 2016.
+
+[^2]: Viz repozitář projektu: https://github.com/brianb/mdbtools
+
+[^3]: Viz *issue tracker* projektu:
+    <https://github.com/brianb/mdbtools/issues>
