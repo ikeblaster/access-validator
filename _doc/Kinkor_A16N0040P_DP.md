@@ -86,7 +86,7 @@ definována.**](#_Toc510188376)
 
 [2.4.4 Jackcess 6](#jackcess)
 
-[2.4.5 Další možnosti (JDBC) 6](#další-možnosti-jdbc)
+[2.4.5 Další možnosti (JDBC) 6](#další-dostupné-metody)
 
 [3 Portál ZČU 7](#portál-zču)
 
@@ -97,7 +97,7 @@ definována.**](#_Toc510188376)
 [3.3 Vytvoření nové validační domény
 7](#vytvoření-nové-validační-domény)
 
-[4 Analýza řešení 8](#analýza-řešení)
+[4 Analýza řešení 8](#analýza-kontroly-prací)
 
 [4.1 Požadavky na řešení 8](#požadavky-na-řešení)
 
@@ -107,7 +107,8 @@ definována.**](#_Toc510188376)
 
 [4.4 Vyhodnocení plagiarismu 8](#vyhodnocení-plagiarismu)
 
-[5 Implementace 9](#implementace)
+[5 Implementace
+9](#implementace-systému-pro-automatickou-kontrolu-prací)
 
 [5.1 Použité technologie 9](#použité-technologie)
 
@@ -126,7 +127,7 @@ definována.**](#_Toc510188376)
 [5.7 Adaptace pro validátor portálu ZČU
 9](#adaptace-pro-validátor-portálu-zču)
 
-[6 Testování 10](#testování)
+[6 Testování 10](#testování-vytvořeného-systému)
 
 [6.1 Validační pravidla 10](#validační-pravidla)
 
@@ -159,7 +160,7 @@ Základní informace
 ------------------
 
 Microsoft Access je nástroj řadící se mezi takzvané systémy řízení báze
-dat (SŘBD či DBMS -- *database management systém*). Jedná se o software,
+dat (SŘBD či DBMS -- database management systém). Jedná se o software,
 který umožňuje práci s relačními databázemi. Je součástí kancelářského
 balíku Microsoft Office, případně prodáván i samostatně.
 
@@ -226,17 +227,15 @@ najetí myší, atp.).
 Primární klíč
 
 Tabulka může mít primární klíč -- typicky se jedná o sloupec, jehož
-hodnoty jsou unikátní a vždy zadané (tzv. *not null*). V případě, že
+hodnoty jsou unikátní a vždy zadané (tzv. not null). V případě, že
 vytvoříme primární klíč pomocí více sloupců, nazýváme jej složeným
 primárním klíčem.
 
 Primární klíč slouží pro odkázání na jeden konkrétní záznam v tabulce,
 čehož se využívá při vytváření dotazů nebo tvoření relací mezi
-tabulkami.
-
-Pro vytváření primárních klíčů se obvykle využívá datový typ Automatické
-číslo, který každému záznamu přiřadí unikátní celé číslo. Často bývá
-takový sloupec pojmenován „ID" (*Identification*).
+tabulkami. Pro vytváření primárních klíčů se obvykle využívá datový typ
+Automatické číslo, který každému záznamu přiřadí unikátní celé číslo.
+Často bývá takový sloupec pojmenován „ID" (*Identification*).
 
 Relace mezi tabulkami a cizí klíče
 
@@ -246,24 +245,24 @@ referenci") na jeden konkrétní záznam z druhé tabulky.
 
 Rozlišují se tři druhy relačních vazeb.
 
--   **Relace 1:1** -- jednomu záznamu v tabulce A odpovídá žádný či
+-   **Relace 1:1** -- jednomu záznamu v tabulce A odpovídá žádný, či
     právě jeden záznam v tabulce B. Pro referencování se využívají pouze
     primární klíče obou tabulek (mají tedy v obou tabulkách shodnou
     hodnotu).
 
 ![](media/image1.emf)
 
-Obrázek -- model relace 1:1
+Obrázek 1 -- model relace 1:1
 
 -   **Relace 1:N** -- k více záznamům v tabulce A lze přiřadit jeden
     záznam z tabulky B. To lze zajistit přidáním tzv. **cizího klíče**
-    do tabulky A -- sloupce, který bude obsahovat hodnoty primárního
-    klíče z tabulky B (příp. skupiny sloupců, pokud se jedná o složený
-    primární klíč). Jedná se o nejčastěji využívanou vazbu.
+    do tabulky A -- sloupce, který bude obsahovat pouze hodnoty
+    primárního klíče z tabulky B (příp. skupiny sloupců, pokud se jedná
+    o složený primární klíč). Jedná se o nejčastěji využívanou vazbu.
 
 ![](media/image2.emf)
 
-Obrázek -- model relace 1:N
+Obrázek 2 -- model relace 1:N
 
 -   **Relace M:N** -- k M záznamům v tabulce A lze přiřadit N záznamů
     z tabulky B. Relace se realizuje pomocí spojové tabulky (též
@@ -272,7 +271,7 @@ Obrázek -- model relace 1:N
 
 ![](media/image3.emf)
 
-Obrázek -- model relace M:N
+Obrázek 3 -- model relace M:N
 
 Relace mezi tabulkami mohou zajišťovat **referenčním integritu**. Cílem
 je zabránit odkazování na neexistující záznam (a rovněž tedy vzniku
@@ -357,6 +356,15 @@ každý záznam („řádek" sestavy).
 
 ### Skryté systémové tabulky
 
+Jak se jmenují, jak k nim lze přistoupit, co obsahují/lze z nich
+zjistit.
+
+Metadata databázových souborů
+-----------------------------
+
+Datum a čas vytvoření/editace databázového souboru, tabulek, jméno
+autora/organizace.
+
 Formáty ACCDB a MDB
 -------------------
 
@@ -431,20 +439,45 @@ Access, respektive Jet databázemi ve formátu MDB, jejíž vývoj započal
 již v roce 2000[^2]. Vzhledem k uzavřenosti formátu vznikla většina
 nástrojů technikami reverzního inženýrství, a jak vyplývá z odezvy
 uživatelů, objevují se případy, kdy nástroje nefungují zcela
-správně[^3]. Nástroje jsou napsány v jazyce C a jedná se o konzolové
-aplikace, existuje ale několik grafických nadstaveb pro prohlížení
-Access douborů. Součástí projektu je i dokument popisující strukturu a
-klíčové části Jet databází. V posledních letech probíhá vývoj pomalým
-tempem a podpora formátu ACCDB a novějších verzí Access databází není
-zaručena. Hlavní výhodou je nezávislost na konkrétní platformě a
-dostupnosti jakýchkoliv knihoven.
+správně[^3].
+
+Nástroje jsou napsány v jazyce C a mají konzolové rozhraní, existuje ale
+i několik grafických nadstaveb pro prohlížení Access souborů. Součástí
+projektu je i dokument popisující strukturu a klíčové části Jet
+databází. V posledních letech probíhá vývoj pomalým tempem a podpora
+novějších verzí Access databází včetně formátu ACCDB není zaručena.
+Hlavní výhodou je nezávislost na konkrétní platformě a externích
+knihovnách.
 
 ### Jackcess
 
-### Další možnosti (JDBC)
+Jackcess je open-source Java knihovna poskytující čisté objektové
+rozhraní pro práci s Microsoft Access databázemi. Je aktivně vyvíjená od
+roku 2005 v rámci projektu OpenHMS zaštítěného firmou Health Market
+Science, Inc.
 
-Metadata databázových souborů
------------------------------
+Kromě čtení dat z tabulek umožňuje i základní editaci struktury
+databáze, výpis všech relací mezi tabulkami a výpis uložených dotazů.
+Díky přístupu ke skrytým systémovým tabulkám lze vyhledat i uložené
+formuláře a sestavy (reálně však lze zjistit pouze jejich existenci).
+Knihovna podporuje Access databáze ve verzích 2000 až 2016 (ve formátu
+MDB i ACCDB) a ve verzi 97 v režimu pro čtení. Knihovna neobsahuje
+rozhraní pro spouštění SQL dotazů, neumožňuje tedy ani vyhodnocení
+uložených dotazů.
+
+Zásadního výhodou pro potřeby této práce je přenositelnost knihovny
+(nezávislost na platformě) a aktivní vývoj -- tím pádem i podpora
+nejnovějších verzí Access databází. Vzhledem k distribuci v podobě
+samostatné Java knihovny je rovněž její použítí ve vlastní aplikaci
+jednoduché.
+
+### Další dostupné metody
+
+MDB Tools Java port
+
+JDBC
+
+UCanAccess
 
 Portál ZČU
 ==========
@@ -458,8 +491,8 @@ Validátor studentských prací
 Vytvoření nové validační domény
 -------------------------------
 
-Analýza řešení
-==============
+Analýza kontroly prací
+======================
 
 Požadavky na řešení
 -------------------
@@ -473,8 +506,8 @@ Validace databáze
 Vyhodnocení plagiarismu
 -----------------------
 
-Implementace
-============
+Implementace systému pro automatickou kontrolu prací
+====================================================
 
 Použité technologie
 -------------------
@@ -497,8 +530,8 @@ Grafické rozhraní
 Adaptace pro validátor portálu ZČU
 ----------------------------------
 
-Testování
-=========
+Testování vytvořeného systému
+=============================
 
 Validační pravidla
 ------------------
