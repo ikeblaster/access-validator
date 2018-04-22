@@ -162,14 +162,13 @@ Základní informace
 Microsoft Access je nástroj řadící se mezi takzvané systémy řízení báze
 dat (SŘBD či DBMS -- database management systém). Jedná se o software,
 který umožňuje práci s relačními databázemi. Je součástí kancelářského
-balíku Microsoft Office, případně prodáván i samostatně.
+balíku Microsoft Office, případně prodáván i samostatně. Pro vytváření a
+správu databáze nabízí uživatelům přehledné grafické rozhraní.
 
 Aplikace používá pro ukládání dat technologii Microsoft Jet Database
-Engine. Jednotlivé databáze jsou typicky uloženy v jediném souboru ve
-formátu ACCDB, nebo MDB.
-
-Pro vytváření a správu databáze je uživateli dostupné přehledné grafické
-rozhraní.
+Engine, v novějších verzích poté nazývanou Access Database Engine.
+Jednotlivé databáze jsou typicky uloženy v jediném souboru ve formátu
+ACCDB, nebo MDB.
 
 Objekty uložené v databázi
 --------------------------
@@ -397,21 +396,25 @@ ODBC (Open Database Connectivity) je standardizované API pro přístup
 k datům uloženým v databázích. Připojení ke konkrétním databázím je
 zajištěno speciálními ovladači, které lze do systému doinstalovat. Pro
 komunikaci skrze ODBC se typicky využívá jazyk SQL (Standard Query
-Language), ovladač poté zajistí přeložení na příkazy, kterým konkrétní
-databáze „rozumí".
+Language), ovladač poté zajistí vykonání příkazu nad konkrétní databází.
 
-Pro přístup k ACCDB databázím v rámci OS Microsoft Windows se využívají
+Pro přístup k ACCDB databázím v rámci OS Microsoft Windows se využívají
 ovladače Access Database Engine nainstalované spolu s aplikací Microsoft
 Access, případně ze samostatného distribučního balíku. Pro další
 platformy existují komerční Access ODBC ovladače. Vzniká zde tedy
 závislost na dostupnosti ovladače, přičemž v určitých případech může být
 problém jej do systému doplnit.
 
-Zásadní nevýhodou přístupu k datům přes ODBC API jsou omezení
+Zásadní nevýhodou přístupu k datům přes ODBC API jsou omezení
 vyplývající z univerzálnosti metody. Jednoduše lze pracovat pouze s daty
 v tabulkách a není možné přímo přistupovat k dalším uloženým objektům.
 Jedinou možnost je využít skryté systémové tabulky, pomocí kterých lze
 zjistit alespoň existenci objektů.
+
+Novější obdobnou technologií je OLE DB (*Object Linking and Embedding,
+Database*), vyvinuté firmou Microsoft původně jako nástupce ODBC.
+Z hlediska způsobu použití a nabízených funkcí pro čtení souboru ACCDB
+jsou technologie shodné.
 
 ### Microsoft Office Interop
 
@@ -430,7 +433,8 @@ Tato technika oproti ODBC umožňuje kompletní správu databáze vč. všech
 dostupných objektů a bez nutnosti analyzovat obsah systémových tabulek.
 Avšak zůstává zde nutnost spouštět kód v systému, kde je nainstalovaný
 Microsoft Access. Jedná se rovněž o poměrně pomalý přístup, jelikož
-interop kód de-facto jen ovládá Microsoft Access spuštěný na pozadí.
+interop kód de-facto jen ovládá aplikaci Microsoft Access spuštěnou
+v systému na pozadí.
 
 ### MDB Tools
 
@@ -451,10 +455,10 @@ knihovnách.
 
 ### Jackcess
 
-Jackcess je open-source Java knihovna poskytující čisté objektové
-rozhraní pro práci s Microsoft Access databázemi. Je aktivně vyvíjená od
-roku 2005 v rámci projektu OpenHMS zaštítěného firmou Health Market
-Science, Inc.
+Jackcess je Java knihovna poskytující čisté objektové rozhraní pro práci
+s Microsoft Access databázemi. Její vývoj započal v roce 2005 v rámci
+open-source projektu OpenHMS zaštítěného firmou Health Market Science,
+Inc.
 
 Kromě čtení dat z tabulek umožňuje i základní editaci struktury
 databáze, výpis všech relací mezi tabulkami a výpis uložených dotazů.
@@ -468,16 +472,40 @@ uložených dotazů.
 Zásadního výhodou pro potřeby této práce je přenositelnost knihovny
 (nezávislost na platformě) a aktivní vývoj -- tím pádem i podpora
 nejnovějších verzí Access databází. Vzhledem k distribuci v podobě
-samostatné Java knihovny je rovněž její použítí ve vlastní aplikaci
+samostatné Java knihovny je rovněž její použití ve vlastní aplikaci
 jednoduché.
+
+Pro knihovnu existuje rozšíření nazvané Jackcess Encrypt umožňující
+správu databází opatřených heslem. Podporuje „některé formy šifer
+aplikací Microsoft Access a Microsoft Money"[^4].
 
 ### Další dostupné metody
 
-MDB Tools Java port
+MDB Tools Java
+
+V roce 2004 začala *portace* nástrojů MDB Tools pro jazyk Java[^5],
+vývoj však již po roce ustal. Následně vzniklo několik *forků* (projektů
+založených na kódu původního projektu), nejaktuálnější z nich lze nalézt
+pod názvem „ome-mdbtools"[^6]. Vývoj těchto projektů je ale spíše pomalý
+-- poslední větší aktualizace proběhla v roce 2016. Oproti knihovně
+Jackcess nabízí méně možností a použité je značně komplikované[^7].
+Překážkou je chybějící dokumentace jak použití nástrojů, tak samotného
+programového kódu.
 
 JDBC
 
-UCanAccess
+Java Database Connectivity je API pro přístup k relačním databázím a
+tedy obdobou technologie ODBC pro programovací jazyk Java. API je
+standardní součástí platformy Java SE. Připojení ke konkrétní databázi
+je opět zajištěno speciálními ovladači určenými pro konkrétní typ
+databází.
+
+Microsoft neposkytuje
+
+Dále existují ovladače umožňující použití ODBC ovladačů, tzv. *JDBC-ODBC
+bridge*. V rámci platformy Java SE byl standardní součástí do verze 1.7;
+do novějších verzí jej lze překopírovat (jedná se však o neoficiální
+postup bez záruky na funkčnost) nebo nahradit komerčními produkty.
 
 Portál ZČU
 ==========
@@ -607,3 +635,14 @@ též v repozitáři projektu v rámci služby GitHub na adrese:
 
 [^3]: Viz *issue tracker* projektu:
     <https://github.com/brianb/mdbtools/issues>
+
+[^4]: Viz WWW: <http://jackcessencrypt.sourceforge.net/index.html>
+
+[^5]: Viz WWW:
+    <https://sourceforge.net/p/mdbtools/discussion/6688/thread/a543445a/>
+
+[^6]: Viz repozitář: <https://github.com/ome/ome-mdbtools>
+
+[^7]: Viz ukázkový kód:
+    [https://github.com/ome/ome-mdbtools/blob/master/src/main/ ↩
+    java/mdbtools/tests/ColumnTest.java](https://github.com/ome/ome-mdbtools/blob/master/src/main/%20↩%20java/mdbtools/tests/ColumnTest.java)
