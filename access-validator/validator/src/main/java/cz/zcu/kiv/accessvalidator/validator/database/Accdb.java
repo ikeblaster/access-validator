@@ -41,7 +41,7 @@ public class Accdb {
         Set<SimilarityElement> similarities = new HashSet<>();
 
         this.checkSimilarRelationsLayout(that, similarities);
-        this.checkSimilarDBMetadata(that, similarities);
+        this.checkSimilarSummaryProperties(that, similarities);
         this.checkSimilarDate(that, similarities, "Tables", "DateUpdate");
         this.checkSimilarDate(that, similarities, "MSysDb", "DateUpdate");
         this.checkSimilarDate(that, similarities, "Admin", "DateUpdate");
@@ -59,7 +59,7 @@ public class Accdb {
         }
     }
 
-    private void checkSimilarDBMetadata(Accdb that, Set<SimilarityElement> similarities) {
+    private void checkSimilarSummaryProperties(Accdb that, Set<SimilarityElement> similarities) {
         try {
             PropertyMap props1 = this.db.getSummaryProperties();
             PropertyMap props2 = that.db.getSummaryProperties();

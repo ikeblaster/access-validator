@@ -190,9 +190,10 @@ Struktura tabulky je definována pomocí sloupců, které mají specifikovaný
 název (unikátní v rámci tabulky) a datový typ. Microsoft Access[^1]
 podporuje následující datové typy[2](#_toc_2) \[\]:
 
--   **Automatické číslo** -- typicky používáno jako primární klíč (viz
-    dále), pro každý nový záznam se automaticky nastaví na následující
-    hodnotu posloupnosti, nebo na náhodné číslo (dle nastavení).
+-   **Automatické číslo** -- pro každý nový záznam se automaticky
+    nastaví na následující hodnotu posloupnosti, nebo na náhodné číslo
+    (dle nastavení). Typicky se využívá pro sloupec označený jako
+    primární klíč (viz dále).
 
 -   **Číslo** -- rozsah a typ (celočíselné/s desetinnou čárkou) lze
     zvolit ve vlastnostech sloupce.
@@ -207,7 +208,7 @@ podporuje následující datové typy[2](#_toc_2) \[\]:
     desetinnou čárkou (uchovává 4 desetinná místa).
 
 -   **Ano/ne** -- uchovává hodnotu -1 (Ano) nebo 0 (Ne); v rámci
-    Microsoft Accessu zobrazeno jako zaškrtávací pole (*checkbox*).
+    Microsoft Access zobrazeno jako zaškrtávací pole (*checkbox*).
 
 -   **Hypertextový odkaz.**
 
@@ -254,7 +255,7 @@ Rozlišují se tři druhy relačních vazeb.
 
 ![](media/image1.emf)
 
-Obrázek  -- model relace 1:1
+Obrázek 1 -- model relace 1:1
 
 -   **Relace 1:N** -- k více záznamům v tabulce A lze přiřadit jeden
     záznam z tabulky B. To lze zajistit přidáním tzv. **cizího klíče**
@@ -264,7 +265,7 @@ Obrázek  -- model relace 1:1
 
 ![](media/image2.emf)
 
-Obrázek  -- model relace 1:N
+Obrázek 2 -- model relace 1:N
 
 -   **Relace M:N** -- k M záznamům v tabulce A lze přiřadit N záznamů z
     tabulky B. Relace se realizuje pomocí spojové tabulky (též
@@ -273,7 +274,7 @@ Obrázek  -- model relace 1:N
 
 ![](media/image3.emf)
 
-Obrázek  -- model relace M:N
+Obrázek 3 -- model relace M:N
 
 Relace mezi tabulkami mohou zajišťovat **referenčním integritu**. Cílem
 je zabránit odkazování na neexistující záznam (a rovněž tedy vzniku
@@ -358,21 +359,36 @@ každý záznam („řádek" sestavy).
 
 ### Skryté systémové tabulky
 
-TODO: Jak se jmenují, jak k nim lze přistoupit, co obsahují/lze z nich
-zjistit.
+Databáze dále obsahují několik skrytých systémových tabulek, jejichž
+název vždy začíná **MSys**. Například v tabulce MSysRelationships jsou
+uloženy všechny relace mezi objekty (tabulkami a dotazy). Jednou ze
+zajímavějších tabulek je MSysObjects obsahující všechny objekty databáze
+a k nim i různé další údaje, čehož lze využít při hledání metadat (viz
+následující kapitola).
 
 Metadata databázových souborů
 -----------------------------
 
-Z databází Microsoft Access lze kromě samotných uživatelských dat získat
-i další doplňující údaje, dále označované jako metadata. Jedná se
-zejména o
+Kromě samotných uživatelských dat lze v databázi naléz i další
+doplňující údaje, obecně označované jako metadata:
 
-![](media/image4.png){width="5.009433508311461in"
-height="3.2738353018372703in"}
+-   **Autor databáze** -- jméno uživatele a název organizace.
 
-TODO: Datum a čas vytvoření/editace databázového souboru, tabulek, jméno
-autora/organizace.
+-   **Formát souboru** -- verze aplikace, ve které byla databáze
+    vytvořena, nastavení režimu kompatibility, atp.
+
+-   **Údaje o databázi a objektech** -- datum vytvoření a poslední
+    úpravy.
+
+-   **Uživatelské nastavení aplikace** -- nastavení navigačního panelu
+    (řazení/seskupení/šířka/...) a jiných prvků GUI až např. grafické
+    rozvržení relací (viz obr. 4).
+
+![](media/image4.png){width="4.969515529308836in"
+height="3.1037740594925634in"}
+
+Obrázek 4 -- grafické rozvržení relací mezi tabulkami,\
+které lze považovat za metadata databáze.
 
 Formáty ACCDB a MDB
 -------------------
@@ -381,22 +397,22 @@ Nativním formátem pro ukládání databází je od verze 2007 ACCDB, v
 předchozích verzích byl hlavním formátem MDB. Oba jsou založeny na
 technologii Jet (u formátu ACCDB také označované jako Access Database
 Engine) a jsou si tedy technologicky podobné. Z uživatelského hlediska
-jsou rozdíly zejména v různých možnostech zabezpečení dat. \[3\]
+jsou rozdíly zejména v možnostech zabezpečení dat.[3](#_toc_3) \[\]
 
 Možnosti čtení souborů ACCDB
 ----------------------------
 
 Jedná se o proprietární binární formát vyvíjený společností Microsoft
-bez dostupné specifikace \[4\]. Jediným oficiálním nástrojem pro správu
-je právě Microsoft Access, pro přístup k datům pak technologie ODBC a
-OLE DB.
+bez dostupné specifikace[4](#_toc_4) \[\]. Jediným oficiálním nástrojem
+pro správu je právě Microsoft Access, pro přístup k datům z jiných
+aplikací pak technologie ODBC a OLE DB.
 
 To velmi omezuje možnosti programového přístupu k databázím -- pokud
 bychom vzali v potaz pouze oficiální nástroje, jsme limitováni na
 systémy s nainstalovanou aplikací Microsoft Access (a tím pádem i
-operačním systémem). V současné době jsou však dostupné i nástroje
-vzniklé na základě reverzního inženýrství formátů MDB/ACCDB bez
-závislosti na programovém vybavení počítače.
+operačním systémem Microsoft Windows). V současné době jsou však
+dostupné i nástroje vzniklé na základě reverzního inženýrství formátů
+MDB/ACCDB bez závislosti na programovém vybavení počítače.
 
 Dále jsou zmíněny všechny možnosti čtení souborů ACCDB včetně výhod a
 nevýhod, jaké přináší.
@@ -437,17 +453,16 @@ a OLE (Object Linking and Embedding) vyvinuté firmou
 Microsoft[5](#_toc_5) \[\]. Dále jsou poskytovány *Primary Interop
 Assemblies *-- knihovny určené pro použití na platformě .NET (tedy v
 tzv. řízeném kódu) obalující COM volání do objektového
-rozhraní[6](#_toc_6) \[\]. V současné době poskytují nejjednodušší
-možnost pro programové ovládání aplikací Microsoft Office (mj. se
-využívají i pro psaní doplňku, *plug-inů*, pro jednotlivé Office
+rozhraní[6](#_toc_6) \[\]. V současné době jsou tyto knihovny
+nejjednodušší cestou pro programové ovládání aplikací Microsoft Office
+(mj. se využívají i pro psaní doplňku, *plug-inů*, pro jednotlivé Office
 aplikace).
 
 Tato technika oproti ODBC umožňuje kompletní správu databáze vč. všech
-dostupných objektů a bez nutnosti analyzovat obsah systémových tabulek.
-Avšak zůstává zde nutnost spouštět kód v systému, kde je nainstalovaný
-Microsoft Access. Jde rovněž o poměrně pomalý přístup, jelikož interop
-kód de-facto jen ovládá aplikaci Microsoft Access spuštěnou v systému na
-pozadí.
+dostupných objektů bez nutnosti analyzovat obsah systémových tabulek.
+Zůstává zde však omezení na systémy, kde je nainstalovaný Microsoft
+Access. Jde rovněž o poměrně pomalý přístup, jelikož interop kód
+de-facto jen ovládá aplikaci Microsoft Access spuštěnou na pozadí.
 
 ### MDB Tools
 
@@ -457,9 +472,9 @@ již v roce 2000[^2]. Vzhledem k uzavřenosti formátu vznikla většina
 nástrojů technikami reverzního inženýrství, není tedy zaručena
 stoprocentní funkčnost a kompatibilita.
 
-Nástroje jsou napsány v jazyce C a mají konzolové rozhraní, existuje ale
-i několik grafických nadstaveb pro prohlížení Access souborů. Součástí
-projektu je i dokument popisující strukturu a klíčové části Jet
+Nástroje jsou napsány v jazyce C a mají konzolové rozhraní, dále
+existuje několik grafických nadstaveb pro prohlížení Access souborů.
+Součástí projektu je i dokument popisující strukturu a klíčové části Jet
 databází. V posledních letech probíhá vývoj pomalým tempem a podpora
 novějších verzí Access databází včetně formátu ACCDB není zaručena.
 Hlavní výhodou nástrojů je nezávislost na konkrétní platformě
@@ -471,10 +486,11 @@ V roce 2004 začala *portace* nástrojů MDB Tools pro jazyk Java[^3],
 vývoj však již po roce ustal. Následně vzniklo několik *forků* (projektů
 založených na kódu původního projektu), nejaktuálnější z nich lze nalézt
 pod názvem „ome-mdbtools"[^4]. Vývoj těchto projektů je ale spíše
-pomalý -- poslední větší aktualizace proběhla v roce 2016. Oproti dále
-uvedené knihovně Jackcess nabízí méně možností a použité je značně
-komplikované[^5]. Překážkou je chybějící dokumentace jak pro použití
-nástrojů, tak i samotného programového kódu.
+pomalý -- poslední větší aktualizace proběhla v roce 2016.
+
+Oproti dále uvedené knihovně Jackcess nabízí méně možností a použité je
+značně komplikované[^5]. Překážkou je chybějící dokumentace jak pro
+použití nástrojů, tak i samotného programového kódu.
 
 ### Jackcess
 
@@ -519,14 +535,13 @@ nahradit komerčními produkty.
 
 Dále existuje několik JDBC „nativních" ovladačů pro práci s Microsoft
 Access databázemi. Jde zejména o open-source projekt UCanAccess[^8],
-který využívá již zmíněnou knihovnu Jackcess. Dále jsou k dispozici
+který využívá již zmíněnou knihovnu Jackcess. K dispozici jsou rovněž
 komerční produkty.[^9]
 
 Stejně jako u technologie ODBC jsou největší nevýhodou omezení v
-důsledku univerzálnosti přístupu, neboli možnost jednoduše pracovat
-pouze s daty v tabulkách a obtížný či nemožný přístup k ostatním
-objektům databází. Výhodou je jednodušší přenositelnost na jiné
-platformy.
+důsledku univerzálnosti přístupu, jinými slovy -- jednoduše pracovat je
+možné pouze s daty v tabulkách a k ostatním objektům databází je přístup
+obtížný či nemožný. Výhodou je lepší přenositelnost na jiné platformy.
 
 Portál ZČU
 ==========
@@ -534,8 +549,68 @@ Portál ZČU
 Základní informace
 ------------------
 
+Obecně termínem portál označujeme webovou aplikaci, která uživateli
+poskytuje jednotným způsobem a centralizovaně informace z různých
+zdrojů, které uživatele zajímají nebo se ho nějakým způsobem
+týkají.[7](#_toc_7) \[ str. 9-10\]
+
+Portál ZČU[^10] je informační zdroj pro studijní účely používaný
+studenty i zaměstnanci Západočeské Univerzity. Zastřešuje různé klíčové
+aplikace univerzity -- z pohledu studentů se jedná zejména o **IS/STAG**
+(Informační systém studijní agendy, umožňující zápis předmětů, zkoušek,
+prohlížení rozvrhů, hodnocení kvality výuky, atp.) a **Courseware**
+(místo s materiály používanými v rámci výuky předmětů).
+
+Jednotlivé stránky portálu se skládájí z více či méně nezávislých částí,
+které se nazývají portlety. Jedním z nich je „**aplikace pro správu
+semestrálních prací, jejich odevzdávání a hodnocení**". Referenční
+příručka IS/STAG uvádí následující [7](#_toc_7)\[ str. 139\]:
+
+> *Aplikace slouží vyučujícím k vypisování témat semestrálních prací v
+> jimi vyučovaných předmětech. Studenti se na tato témata posléze mohou
+> přihlašovat a elektronicky odevzdávat své práce --- vyučující si
+> odevzdané práce může jednotlivě či hromadně stáhnout. Vyučující pak
+> dle své vůle může využít i dalších možností aplikace, například
+> odevzdané práce studentovi schvalovat či vracet k přepracování atd. *
+
 Validátor studentských prací
 ----------------------------
+
+V případě, že studenti odevzdávají své práce elektronicky
+prostřednictvím zmíněného portletu, často po odevzdání čekají delší dobu
+na zkontrolování práce vyučujícím. Pokud shledá práci nevyhovující,
+vrací ji studentovi a proces se může následně i několikrát opakovat.
+
+Cílem validačního serveru studentských prací (dále jen validátor) je
+eliminovat tento proces a již při nahrání automatizovaně kontrolovat,
+zda je práce „vyhovující" -- to může mít mnoho podob,
+například[8](#_toc_8) \[\]:
+
+-   **Práce splňuje formální náležitosti:**
+
+    -   soubor má požadovaný formát,
+
+    -   soubor je vhodně pojmenován,
+
+    -   v nahraném archivu jsou požadované soubory ve správné adresářové
+        struktuře,
+
+    -   v nahraném archivu nejsou žádné nadbytečné soubory.
+
+-   **Práce je vyhovující kvalitativně:**
+
+    -   odevzdaný dokument splňuje stanovený rozsah (typicky minimální
+        počet slov či stran),
+
+    -   nahraný zdrojový kód lze zkompilovat,
+
+    -   nahraná program má totožný výstup, jako připravený referenční.
+
+...
+
+Validátor běží jako samostatná služba, se kterým portlet aplikace
+semestrálních prací komunikuje. Při nahrání semestrální práce se student
+okamžitě
 
 Vytvoření nové validační domény
 -------------------------------
@@ -597,29 +672,42 @@ Závěr
 Reference {#reference .ListParagraph}
 =========
 
-[]{#_toc_1 .anchor}
+[]{#_toc_2
+.anchor}<https://support.office.com/en-us/article/data-types-for-access-desktop-databases-df2b83ba-cef6-436d-b679-3418f622e482>
 
-<https://support.office.com/en-us/article/data-types-for-access-desktop-databases-df2b83ba-cef6-436d-b679-3418f622e482>
+[]{#_toc_3
+.anchor}<https://support.office.com/en-us/article/which-access-file-format-should-i-use-012d9ab3-d14c-479e-b617-be66f9070b41>
 
-<https://support.office.com/en-us/article/which-access-file-format-should-i-use-012d9ab3-d14c-479e-b617-be66f9070b41>
+[]{#_toc_4
+.anchor}<https://www.loc.gov/preservation/digital/formats/fdd/fdd000462.shtml>
 
-<https://www.loc.gov/preservation/digital/formats/fdd/fdd000462.shtml>
+[]{#_toc_5 .anchor}
 
-<https://msdn.microsoft.com/en-us/library/15s06t57.aspx>
+[]{#_toc_6
+.anchor}<https://msdn.microsoft.com/en-us/library/15s06t57.aspx>
+
+<https://is-stag.zcu.cz/NapovedyBuild/STAG_Reference_manual_cs.pdf>
+
+[]{#_toc_8
+.anchor}<https://validator-test.zcu.cz/vs/auth/doc/doc/validacni-server-uzivatelsky-popis-2.pdf>
 
 \[1\] ADAMSKI, Joseph J.; FINNEGAN, Kathy T. ; SCOLLARD, Sharon. *New
 perspectives on Microsoft Access 2013: comprehensive.* Stamford, CT:
 Cengage Learning, 2014. ISBN 978-1-285-09920-0.\[2\] Data types for
 Access desktop databases. *Microsoft Office help and training - Office
-Support.* \[Online\] \[Citace: 22. 3. 2018\]. Dostupné z: \[3\] Which
+Support.* \[Online\] \[Citace: 22. 3. 2018\]. Dostupné z: \[3\] Which
 Access file format should I use? *Microsoft Office help and training -
-Office Support.* \[Online\] \[Citace: 20. 3. 2018\]. Dostupné z: \[4\]
+Office Support.* \[Online\] \[Citace: 20. 3. 2018\]. Dostupné z: \[4\]
 Microsoft Access ACCDB File Format Family. *Digital Preservation at the
-Library of Congress.* \[Online\] \[Citace: 20. 3. 2018\]. Dostupné z:
+Library of Congress.* \[Online\] \[Citace: 20. 3. 2018\]. Dostupné z:
 \[5\] ROFF, Jason T. *ADO: ActiveX Data Objects.* místo neznámé:
 O\'Reilly Media, 2001. ISBN 9781491935576.\[6\] Office Primary Interop
-Assemblies. *Microsoft Developer Network.* \[Online\] \[Citace: 02. 04.
-2017\]. Dostupné z:
+Assemblies. *Microsoft Developer Network.* \[Online\] \[Citace:
+02. 04. 2017\]. Dostupné z: \[7\] Referenční příručka portálového
+rozhraní IS/STAG. *Centrum informatizace a výpočetní techniky.*
+\[Online\] \[Citace: 20. 4. 2018\]. Dostupné z: \[8\] HEROUT, Pavel.
+*Validační server pro studentské projekty.* \[Online\] \[Interní
+dokument\] \[Citace: 20. 4. 2018\]. Dostupné z:
 
 Přílohy {#přílohy .ListParagraph}
 =======
@@ -659,7 +747,7 @@ též v repozitáři projektu v rámci služby GitHub na adrese:
 [^3]: Viz WWW:
     <https://sourceforge.net/p/mdbtools/discussion/6688/thread/a543445a/>
 
-[^4]: Viz repozitář: <https://github.com/ome/ome-mdbtools>
+[^4]: Viz repozitář projektu: <https://github.com/ome/ome-mdbtools>
 
 [^5]: Viz ukázkový kód:
     [https://github.com/ome/ome-mdbtools/blob/master/src/main/↩
@@ -678,3 +766,5 @@ též v repozitáři projektu v rámci služby GitHub na adrese:
     nebo WWW:
     http://sesamesoftware.com/relational-junction/jdbc-database-drivers-↩
     products/relational-junction-mdb-jdbc-driver/
+
+[^10]: Dostupný na adrese <https://portal.zcu.cz/>

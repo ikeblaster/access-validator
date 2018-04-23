@@ -3682,7 +3682,7 @@
 								<xsl:copy-of select="msxsl:node-set($ListPopulatedWithMain)/b:Citation/b:Source/b:Author/b:Main"/>
 							</xsl:variable>
 							
-							<xsl:variable name="author">
+							<xsl:variable name="refOrder">
 								<xsl:value-of select="msxsl:node-set($ListPopulatedWithMain)/b:Citation/b:Source/b:RefOrder"/>
 							</xsl:variable>
 							
@@ -3741,8 +3741,8 @@
 							</xsl:variable>
 							
 							
-							<xsl:variable name="displayAuthor">
-								<xsl:value-of select="$author" />
+							<xsl:variable name="displayRefOrder">
+								<xsl:value-of select="$refOrder" />
 							</xsl:variable>
 							
 							<xsl:variable name="displayTitle">
@@ -3759,13 +3759,13 @@
 							
 							
 							<a>
-								<xsl:attribute name="href">#_toc_<xsl:value-of select="$displayAuthor" /></xsl:attribute>
-								<xsl:value-of select="$displayAuthor" />
+								<xsl:attribute name="href">#_toc_<xsl:value-of select="$displayRefOrder" /></xsl:attribute>
+								<xsl:value-of select="$displayRefOrder" />
 							</a>
 							
 							
 							<xsl:if test="string-length($displayTitle) > 0">
-								<xsl:if test="string-length($displayAuthor) > 0">
+								<xsl:if test="string-length($displayRefOrder) > 0">
 									<xsl:call-template name="templ_prop_ListSeparator"/>
 								</xsl:if>
 								<xsl:choose>
@@ -3788,14 +3788,14 @@
 							</xsl:if>
 							
 							<xsl:if test="string-length($year) > 0">
-								<xsl:if test="string-length($displayAuthor) > 0 or string-length($displayTitle) > 0">
+								<xsl:if test="string-length($displayRefOrder) > 0 or string-length($displayTitle) > 0">
 									<xsl:call-template name="templ_prop_ListSeparator"/>
 								</xsl:if>	
 								<xsl:value-of select="$year"/>
 							</xsl:if>
 							
 							<xsl:if test="string-length($volume) > 0 or string-length($pages) > 0">
-								<xsl:if test="string-length($displayAuthor) > 0 or string-length($displayTitle) > 0 or string-length($year) > 0">
+								<xsl:if test="string-length($displayRefOrder) > 0 or string-length($displayTitle) > 0 or string-length($year) > 0">
 									<xsl:call-template name="templ_prop_Space"/>
 								</xsl:if>			
 								
@@ -3821,6 +3821,7 @@
 							<xsl:if test="not(/b:Citation/b:LastAuthor)">
 								<xsl:call-template name="templ_prop_ListSeparator"/>
 							</xsl:if>
+							
 							<xsl:if test="/b:Citation/b:LastAuthor">
 								<xsl:call-template name="templ_prop_CloseBracket"/>
 							</xsl:if>

@@ -1,9 +1,6 @@
 package cz.zcu.kiv.accessvalidator.validator;
 
-import com.healthmarketscience.jackcess.Database;
-import com.healthmarketscience.jackcess.DatabaseBuilder;
-import com.healthmarketscience.jackcess.Row;
-import com.healthmarketscience.jackcess.Table;
+import com.healthmarketscience.jackcess.*;
 import cz.zcu.kiv.accessvalidator.validator.database.SimilarFiles;
 import cz.zcu.kiv.accessvalidator.validator.database.SimilarityElement;
 
@@ -21,30 +18,32 @@ public class TestBench {
 
         if(true) {
 
+            Database db = DatabaseBuilder.open(new File("data/db3_resaved_relations_2016.accdb"));
 
-//            {
-//                Database db = DatabaseBuilder.open(new File("data/db3_resaved_relations_2016.accdb"));
-//
-//                Table table = db.getSystemTable("MSysObjects");
-//
-//                for (Column column : table.getColumns()) {
-//                    System.out.format("%-50s", column.getName());
-//                }
-//
-//                System.out.println();
-//
-//                for (Row row : table) {
-//
-//                    for (Column column : table.getColumns()) {
-//
-//                        Object o = row.get(column.getName());
-//                        System.out.format("%-50.38s", o);
-//
-//                    }
-//                    System.out.println();
-//
-//                }
-//            }
+            Table table = db.getSystemTable("MSysObjects");
+
+            for (Column column : table.getColumns()) {
+                System.out.format("%-50s", column.getName());
+            }
+
+            System.out.println();
+            System.out.println(String.join("", Collections.nCopies(table.getColumns().size() * 50, "-")));
+
+
+            for (Row row : table) {
+
+                if(!row.getString("Name").equals("predmet")) continue;
+
+                for (Column column : table.getColumns()) {
+                    Object o = row.get(column.getName());
+                    System.out.format("%-50.38s", o);
+                }
+                System.out.println();
+
+            }
+
+        }
+        else if(true) {
 
             List<byte[]> found = new ArrayList<>();
             {
