@@ -363,31 +363,31 @@ Databáze dále obsahují několik skrytých systémových tabulek, jejichž
 název vždy začíná **MSys**. Například v tabulce MSysRelationships jsou
 uloženy všechny relace mezi objekty (tabulkami a dotazy). Jednou ze
 zajímavějších tabulek je MSysObjects obsahující všechny objekty databáze
-a k nim i různé další údaje, čehož lze využít při hledání metadat (viz
+a k nim i různé další údaje, čehož lze využít při hledání metadat (viz
 následující kapitola).
 
 Metadata databázových souborů
 -----------------------------
 
-Kromě samotných uživatelských dat lze v databázi naléz i další
+Kromě samotných uživatelských dat lze v databázi naléz i další
 doplňující údaje, obecně označované jako metadata:
 
--   **Autor databáze** -- jméno uživatele a název organizace.
+-   **Autor databáze** -- jméno uživatele a název organizace.
 
--   **Formát souboru** -- verze aplikace, ve které byla databáze
+-   **Formát souboru** -- verze aplikace, ve které byla databáze
     vytvořena, nastavení režimu kompatibility, atp.
 
--   **Údaje o databázi a objektech** -- datum vytvoření a poslední
+-   **Údaje o databázi a objektech** -- datum vytvoření a poslední
     úpravy.
 
--   **Uživatelské nastavení aplikace** -- nastavení navigačního panelu
+-   **Uživatelské nastavení aplikace **-- nastavení navigačního panelu
     (řazení/seskupení/šířka/...) a jiných prvků GUI až např. grafické
-    rozvržení relací (viz obr. 4).
+    rozvržení relací (viz obr. 4).
 
 ![](media/image4.png){width="4.969515529308836in"
 height="3.1037740594925634in"}
 
-Obrázek 4 -- grafické rozvržení relací mezi tabulkami,\
+Obrázek 4 -- grafické rozvržení relací mezi tabulkami,\
 které lze považovat za metadata databáze.
 
 Formáty ACCDB a MDB
@@ -404,7 +404,7 @@ Možnosti čtení souborů ACCDB
 
 Jedná se o proprietární binární formát vyvíjený společností Microsoft
 bez dostupné specifikace[4](#_toc_4) \[\]. Jediným oficiálním nástrojem
-pro správu je právě Microsoft Access, pro přístup k datům z jiných
+pro správu je právě Microsoft Access, pro přístup k datům z jiných
 aplikací pak technologie ODBC a OLE DB.
 
 To velmi omezuje možnosti programového přístupu k databázím -- pokud
@@ -539,8 +539,8 @@ který využívá již zmíněnou knihovnu Jackcess. K dispozici jsou rovněž
 komerční produkty.[^9]
 
 Stejně jako u technologie ODBC jsou největší nevýhodou omezení v
-důsledku univerzálnosti přístupu, jinými slovy -- jednoduše pracovat je
-možné pouze s daty v tabulkách a k ostatním objektům databází je přístup
+důsledku univerzálnosti přístupu, jinými slovy -- jednoduše pracovat je
+možné pouze s daty v tabulkách a k ostatním objektům databází je přístup
 obtížný či nemožný. Výhodou je lepší přenositelnost na jiné platformy.
 
 Portál ZČU
@@ -556,13 +556,13 @@ týkají.[7](#_toc_7) \[ str. 9-10\]
 
 Portál ZČU[^10] je informační zdroj pro studijní účely používaný
 studenty i zaměstnanci Západočeské Univerzity. Zastřešuje různé klíčové
-aplikace univerzity -- z pohledu studentů se jedná zejména o **IS/STAG**
+aplikace univerzity -- z pohledu studentů se jedná zejména o **IS/STAG**
 (Informační systém studijní agendy, umožňující zápis předmětů, zkoušek,
-prohlížení rozvrhů, hodnocení kvality výuky, atp.) a **Courseware**
-(místo s materiály používanými v rámci výuky předmětů).
+prohlížení rozvrhů, hodnocení kvality výuky, atp.) a **Courseware**
+(místo s materiály používanými v rámci výuky předmětů).
 
-Jednotlivé stránky portálu se skládájí z více či méně nezávislých částí,
-které se nazývají portlety. Jedním z nich je „**aplikace pro správu
+Jednotlivé stránky portálu se skládájí z více či méně nezávislých částí,
+které se nazývají portlety. Jedním z nich je „**aplikace pro správu
 semestrálních prací, jejich odevzdávání a hodnocení**". Referenční
 příručka IS/STAG uvádí následující [7](#_toc_7)\[ str. 139\]:
 
@@ -571,19 +571,19 @@ příručka IS/STAG uvádí následující [7](#_toc_7)\[ str. 139\]:
 > přihlašovat a elektronicky odevzdávat své práce --- vyučující si
 > odevzdané práce může jednotlivě či hromadně stáhnout. Vyučující pak
 > dle své vůle může využít i dalších možností aplikace, například
-> odevzdané práce studentovi schvalovat či vracet k přepracování atd. *
+> odevzdané práce studentovi schvalovat či vracet k přepracování atd. *
 
 Validátor studentských prací
 ----------------------------
 
-V případě, že studenti odevzdávají své práce elektronicky
+V případě, že studenti odevzdávají své práce elektronicky
 prostřednictvím zmíněného portletu, často po odevzdání čekají delší dobu
 na zkontrolování práce vyučujícím. Pokud shledá práci nevyhovující,
-vrací ji studentovi a proces se může následně i několikrát opakovat.
+vrací ji studentovi a proces se může následně i několikrát opakovat.
 
 Cílem validačního serveru studentských prací (dále jen validátor) je
 eliminovat tento proces a již při nahrání automatizovaně kontrolovat,
-zda je práce „vyhovující" -- to může mít mnoho podob,
+zda je práce „vyhovující" -- to může mít mnoho podob,
 například[8](#_toc_8) \[\]:
 
 -   **Práce splňuje formální náležitosti:**
@@ -592,10 +592,10 @@ například[8](#_toc_8) \[\]:
 
     -   soubor je vhodně pojmenován,
 
-    -   v nahraném archivu jsou požadované soubory ve správné adresářové
+    -   v nahraném archivu jsou požadované soubory ve správné adresářové
         struktuře,
 
-    -   v nahraném archivu nejsou žádné nadbytečné soubory.
+    -   v nahraném archivu nejsou žádné nadbytečné soubory.
 
 -   **Práce je vyhovující kvalitativně:**
 
@@ -695,19 +695,19 @@ Reference {#reference .ListParagraph}
 perspectives on Microsoft Access 2013: comprehensive.* Stamford, CT:
 Cengage Learning, 2014. ISBN 978-1-285-09920-0.\[2\] Data types for
 Access desktop databases. *Microsoft Office help and training - Office
-Support.* \[Online\] \[Citace: 22. 3. 2018\]. Dostupné z: \[3\] Which
+Support.* \[Online\] \[Citace: 22. 3. 2018\]. Dostupné z: \[3\] Which
 Access file format should I use? *Microsoft Office help and training -
-Office Support.* \[Online\] \[Citace: 20. 3. 2018\]. Dostupné z: \[4\]
+Office Support.* \[Online\] \[Citace: 20. 3. 2018\]. Dostupné z: \[4\]
 Microsoft Access ACCDB File Format Family. *Digital Preservation at the
-Library of Congress.* \[Online\] \[Citace: 20. 3. 2018\]. Dostupné z:
+Library of Congress.* \[Online\] \[Citace: 20. 3. 2018\]. Dostupné z:
 \[5\] ROFF, Jason T. *ADO: ActiveX Data Objects.* místo neznámé:
 O\'Reilly Media, 2001. ISBN 9781491935576.\[6\] Office Primary Interop
-Assemblies. *Microsoft Developer Network.* \[Online\] \[Citace:
-02. 04. 2017\]. Dostupné z: \[7\] Referenční příručka portálového
-rozhraní IS/STAG. *Centrum informatizace a výpočetní techniky.*
-\[Online\] \[Citace: 20. 4. 2018\]. Dostupné z: \[8\] HEROUT, Pavel.
-*Validační server pro studentské projekty.* \[Online\] \[Interní
-dokument\] \[Citace: 20. 4. 2018\]. Dostupné z:
+Assemblies. *Microsoft Developer Network.* \[Online\] \[Citace: 02. 04.
+2017\]. Dostupné z: \[7\] Referenční příručka portálového rozhraní
+IS/STAG. *Centrum informatizace a výpočetní techniky.* \[Online\]
+\[Citace: 20. 4. 2018\]. Dostupné z: \[8\] HEROUT, Pavel. *Validační
+server pro studentské projekty.* \[Online\] \[Interní dokument\]
+\[Citace: 20. 4. 2018\]. Dostupné z:
 
 Přílohy {#přílohy .ListParagraph}
 =======
