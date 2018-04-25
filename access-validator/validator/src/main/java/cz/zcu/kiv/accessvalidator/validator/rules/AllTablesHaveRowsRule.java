@@ -35,7 +35,7 @@ public class AllTablesHaveRowsRule extends Rule {
         AccdbTableRepository repository = accdb.getTableRepository();
 
         int tablesInDb = repository.getTables().size();
-        repository.filterByRowsCount(this.count.getValue(), this.countOp.getValue());
+        repository.filterByRowCount(this.count.getValue(), this.countOp.getValue());
 
         return repository.getTables().size() == tablesInDb;
     }

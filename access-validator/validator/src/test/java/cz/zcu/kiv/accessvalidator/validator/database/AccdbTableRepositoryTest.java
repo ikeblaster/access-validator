@@ -49,7 +49,7 @@ class AccdbTableRepositoryTest extends BaseTestClass {
         Mockito.when(db.getRelationships(Mockito.any())).thenThrow(new IOException());
 
         AccdbTableRepository repository = new AccdbTableRepository(db);
-        assertThrows(RuntimeException.class, () -> repository.filterByRowsCount(1, ComparisonOperator.GTE));
+        assertThrows(RuntimeException.class, () -> repository.filterByRowCount(1, ComparisonOperator.GTE));
         assertThrows(RuntimeException.class, repository::filterMNJunctionTables);
     }
 
@@ -137,7 +137,7 @@ class AccdbTableRepositoryTest extends BaseTestClass {
     @ParameterizedTest
     @MethodSource("getFilterByRowsCountArguments")
     void filterByRowsCount_DifferentRules_FoundExpectedNumberOfTables(int rowsCount, ComparisonOperator rowsCountOp, int expectedTables) {
-        this.repository.filterByRowsCount(rowsCount, rowsCountOp);
+        this.repository.filterByRowCount(rowsCount, rowsCountOp);
         assertEquals(expectedTables, this.repository.getTables().size());
     }
 
@@ -166,10 +166,10 @@ class AccdbTableRepositoryTest extends BaseTestClass {
         this.repository.filterByColumnCount(1, ComparisonOperator.GTE, "", ColumnType.TEXT, YesNoType._ANY);
         assertEquals(5, this.repository.getTables().size());
 
-        this.repository.filterByRowsCount(1, ComparisonOperator.GTE);
+        this.repository.filterByRowCount(1, ComparisonOperator.GTE);
         assertEquals(5, this.repository.getTables().size());
 
-        this.repository.filterByRowsCount(4, ComparisonOperator.GTE);
+        this.repository.filterByRowCount(4, ComparisonOperator.GTE);
         assertEquals(4, this.repository.getTables().size());
 
         this.repository.filterByColumnCount(4, ComparisonOperator.GTE);

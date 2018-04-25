@@ -10,13 +10,27 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 /**
+ * Represents a repository for searching tables in ACCDB database.
+ *
  * @author ike
  */
 public class AccdbTableRepository {
 
+    /**
+     * Database instance.
+     */
     private Database db;
+
+    /**
+     * Current set of tables.
+     */
     private Set<String> tables;
 
+    /**
+     * Represents a repository for searching tables in ACCDB database.
+     *
+     * @param db Database instance.
+     */
     AccdbTableRepository(Database db) {
         this.db = db;
         try {
@@ -27,35 +41,82 @@ public class AccdbTableRepository {
         }
     }
 
+    /**
+     * Filters current set of tables by name (leaves only exactly matching table).
+     *
+     * @param tableName Name of table.
+     */
     public void filterByName(String tableName) {
         this.tables.retainAll(Collections.singleton(tableName));
     }
 
+    /**
+     * Filters current set of tables by count of columns they have.
+     *
+     * @param columnCount Desired count of columns.
+     * @param operator Operator for comparing found amount of columns.
+     */
     public void filterByColumnCount(int columnCount, ComparisonOperator operator) {
         this.tables.removeIf(tableName -> !operator.compare(this.getTable(tableName).getColumnCount(), columnCount));
     }
 
+    /**
+     * Filters current set of tables by count of columns they have.
+     *
+     * @param columnCount Desired count of columns.
+     * @param operator Operator for comparing found amount of columns.
+     * @param columnName Filter found columns by name (exact match).
+     * @param columnType Filter found columns by type.
+     * @param isPrimaryKey Filter found columns by being or not being a primary key.
+     */
     public void filterByColumnCount(int columnCount, ComparisonOperator operator, String columnName, ColumnType columnType, YesNoType isPrimaryKey) {
         this.tables.removeIf(tableName -> !operator.compare(this.getTableColumnCountByCriteria(tableName, columnName, columnType, isPrimaryKey), columnCount));
     }
 
+    /**
+     * Filters current set of tables by existence of column searched for by criteria.
+     *
+     * @param columnName Filter found columns by name (exact match).
+     * @param columnType Filter found columns by type.
+     * @param isPrimaryKey Filter found columns by being or not being a primary key.
+     */
     public void filterByColumnExistence(String columnName, ColumnType columnType, YesNoType isPrimaryKey) {
         this.tables.removeIf(tableName -> this.getTableColumnCountByCriteria(tableName, columnName, columnType, isPrimaryKey) == 0);
     }
 
-    public void filterByRowsCount(int rowsCount, ComparisonOperator operator) {
-        this.tables.removeIf(tableName -> !operator.compare(this.getTable(tableName).getRowCount(), rowsCount));
+    /**
+     * Filters current set of tables by row count.
+     *
+     * @param rowCount Desired count of rows.
+     * @param operator Operator for comparing found amount of rows.
+     */
+    public void filterByRowCount(int rowCount, ComparisonOperator operator) {
+        this.tables.removeIf(tableName -> !operator.compare(this.getTable(tableName).getRowCount(), rowCount));
     }
 
+    /**
+     * Filters out anything else other than M:N junction tables.
+     */
     public void filterMNJunctionTables() {
         this.tables.removeIf(tableName -> !this.isMNJunctionTable(tableName));
     }
 
+    /**
+     * Gets filtered set of relationships.
+     *
+     * @return Set of found relationships.
+     */
     public Set<String> getTables() {
         return this.tables;
     }
 
-
+    /**
+     * Gets single table by name.
+     *
+     * @param tableName Name of table.
+     * @throws RuntimeException for IO errors.
+     * @return Table or {@code null} when not found.
+     */
     private Table getTable(String tableName) {
         try {
             return this.db.getTable(tableName);
@@ -65,6 +126,13 @@ public class AccdbTableRepository {
         }
     }
 
+    /**
+     * Gets collection of relationships for table defined by name.
+     *
+     * @param tableName Name of table.
+     * @throws RuntimeException for IO errors.
+     * @return Collection of relationships.
+     */
     private List<Relationship> getRelationships(String tableName) {
         try {
             return this.db.getRelationships(this.db.getTable(tableName));
@@ -74,6 +142,15 @@ public class AccdbTableRepository {
         }
     }
 
+    /**
+     * Gets column count filtered by criteria for single table.
+     *
+     * @param tableName Name of table.
+     * @param columnName Filter found columns by name (exact match).
+     * @param columnType Filter found columns by type.
+     * @param isPrimaryKey Filter found columns by being or not being a primary key.
+     * @return Column count.
+     */
     private int getTableColumnCountByCriteria(String tableName, String columnName, ColumnType columnType, YesNoType isPrimaryKey) {
         Table table = this.getTable(tableName);
         List<? extends Column> columns = new ArrayList<>(table.getColumns());
@@ -92,6 +169,12 @@ public class AccdbTableRepository {
         return columns.size();
     }
 
+    /**
+     * Checks whether the table is M:N junction table.
+     *
+     * @param tableName Name of table.
+     * @return True, when table is M:N junction table.
+     */
     private boolean isMNJunctionTable(String tableName) {
         List<Relationship> relationships = this.getRelationships(tableName);
         int foreignTables = 0;

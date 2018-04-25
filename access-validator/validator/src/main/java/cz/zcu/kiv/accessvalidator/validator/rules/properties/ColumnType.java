@@ -6,6 +6,11 @@ import com.healthmarketscience.jackcess.DataType;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * Represents type of database table column.
+ *
+ * @author ike
+ */
 public enum ColumnType {
     _ANY(""),
     AUTO_NUMBER("Aut. číslo"),
@@ -16,21 +21,45 @@ public enum ColumnType {
     YESNO("Ano/Ne"),
     LINK("Odkaz");
 
+    /**
+     * Label for column type.
+     */
     private String label;
 
+    /**
+     * Represents type of database table column.
+     *
+     * @param label Label for column type.
+     */
     ColumnType(String label) {
         this.label = label;
     }
 
+    /**
+     * Gets label for column type.
+     *
+     * @return Label for column type.
+     */
     @Override
     public String toString() {
         return this.label;
     }
 
+    /**
+     * Gets all column types as collection.
+     *
+     * @return Collection of column types.
+     */
     public static List<ColumnType> getChoices() {
         return Arrays.asList(values());
     }
 
+    /**
+     * Compares with database column.
+     *
+     * @param column Database column.
+     * @return {@code true} when equal, {@code} false otherwise.
+     */
     public boolean compare(Column column) {
         DataType type = column.getType();
 

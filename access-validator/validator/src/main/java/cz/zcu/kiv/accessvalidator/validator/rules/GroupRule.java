@@ -1,7 +1,6 @@
 package cz.zcu.kiv.accessvalidator.validator.rules;
 
 import cz.zcu.kiv.accessvalidator.validator.database.Accdb;
-import cz.zcu.kiv.accessvalidator.validator.rules.annotations.Monitorable;
 import cz.zcu.kiv.accessvalidator.validator.rules.properties.ChoiceProperty;
 
 import java.util.*;
@@ -9,7 +8,7 @@ import java.util.*;
 /**
  * @author ike
  */
-public class GroupRule extends Rule implements Monitorable {
+public class GroupRule extends Rule {
     public enum Mode {
         AND, OR
     }
