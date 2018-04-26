@@ -28,7 +28,7 @@ public class AccdbQueryRepository {
     private Set<Query> queries;
 
     /**
-     * Represents a repository for seaching queries in ACCDB database.
+     * Represents a repository for searching queries in ACCDB database.
      *
      * @param db Database instance.
      */

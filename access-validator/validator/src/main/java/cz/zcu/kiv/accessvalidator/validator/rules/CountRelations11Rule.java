@@ -10,13 +10,25 @@ import cz.zcu.kiv.accessvalidator.validator.rules.properties.Property;
 import java.util.Set;
 
 /**
+ * Rule which checks the number of 1:1 relations in database.
+ *
  * @author ike
  */
 public class CountRelations11Rule extends Rule {
 
+    /**
+     * Operator for comparing found number of relations.
+     */
     private ChoiceProperty<ComparisonOperator> countOp;
+
+    /**
+     * Desired number of relations.
+     */
     private Property<Integer> count;
 
+    /**
+     * Rule which checks the number of 1:1 relations in database.
+     */
     public CountRelations11Rule() {
         super();
 
@@ -32,6 +44,12 @@ public class CountRelations11Rule extends Rule {
         ));
     }
 
+    /**
+     * Checks database against the rule. Rule is satisfied when desired number of 1:1 relations is found.
+     *
+     * @param accdb Database.
+     * @return {@code true} when database satisfies the rule, {@code false} otherwise.
+     */
     @Override
     public boolean check(Accdb accdb) {
         AccdbRelationRepository repository = accdb.getRelationRepository();
@@ -42,11 +60,21 @@ public class CountRelations11Rule extends Rule {
         return this.countOp.getValue().compare(foundRelations.size(), this.count.getValue());
     }
 
+    /**
+     * Gets generic label for rule (i.e. label usable in any situation regardless of properties values).
+     *
+     * @return Generic label for rule.
+     */
     @Override
     public String getGenericLabel() {
         return "Počet relací 1:1";
     }
 
+    /**
+     * Gets rule label, usually shortly describing set properties.
+     *
+     * @return Label for rule.
+     */
     @Override
     public String toString() {
         return "Počet relací 1:1 " + this.countOp.getValue() + " " + this.count.getValue();

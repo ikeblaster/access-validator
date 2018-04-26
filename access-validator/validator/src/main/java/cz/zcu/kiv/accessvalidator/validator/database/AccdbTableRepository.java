@@ -51,20 +51,20 @@ public class AccdbTableRepository {
     }
 
     /**
-     * Filters current set of tables by count of columns they have.
+     * Filters current set of tables by number of columns they have.
      *
-     * @param columnCount Desired count of columns.
-     * @param operator Operator for comparing found amount of columns.
+     * @param columnCount Desired number of columns.
+     * @param operator Operator for comparing found number of columns.
      */
     public void filterByColumnCount(int columnCount, ComparisonOperator operator) {
         this.tables.removeIf(tableName -> !operator.compare(this.getTable(tableName).getColumnCount(), columnCount));
     }
 
     /**
-     * Filters current set of tables by count of columns they have.
+     * Filters current set of tables by number of columns they have.
      *
-     * @param columnCount Desired count of columns.
-     * @param operator Operator for comparing found amount of columns.
+     * @param columnCount Desired number of columns.
+     * @param operator Operator for comparing found number of columns.
      * @param columnName Filter found columns by name (exact match).
      * @param columnType Filter found columns by type.
      * @param isPrimaryKey Filter found columns by being or not being a primary key.
@@ -87,8 +87,8 @@ public class AccdbTableRepository {
     /**
      * Filters current set of tables by row count.
      *
-     * @param rowCount Desired count of rows.
-     * @param operator Operator for comparing found amount of rows.
+     * @param rowCount Desired number of rows.
+     * @param operator Operator for comparing found number of rows.
      */
     public void filterByRowCount(int rowCount, ComparisonOperator operator) {
         this.tables.removeIf(tableName -> !operator.compare(this.getTable(tableName).getRowCount(), rowCount));

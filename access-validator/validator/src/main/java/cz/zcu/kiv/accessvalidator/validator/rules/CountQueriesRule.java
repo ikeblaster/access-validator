@@ -11,14 +11,30 @@ import cz.zcu.kiv.accessvalidator.validator.rules.properties.QueryType;
 import java.util.Set;
 
 /**
+ * Rule which checks the number of queries in database.
+ *
  * @author ike
  */
 public class CountQueriesRule extends Rule {
 
+    /**
+     * Operator for comparing found number of queries.
+     */
     private ChoiceProperty<ComparisonOperator> countOp;
+
+    /**
+     * Desired number of queries.
+     */
     private Property<Integer> count;
+
+    /**
+     * Desired type of queries.
+     */
     private ChoiceProperty<QueryType> type;
 
+    /**
+     * Rule which checks the number of queries in database.
+     */
     public CountQueriesRule() {
         super();
 
@@ -39,6 +55,12 @@ public class CountQueriesRule extends Rule {
         ));
     }
 
+    /**
+     * Checks database against the rule. Rule is satisfied when desired number of queries is found.
+     *
+     * @param accdb Database.
+     * @return {@code true} when database satisfies the rule, {@code false} otherwise.
+     */
     @Override
     public boolean check(Accdb accdb) {
         AccdbQueryRepository repository = accdb.getQueryRepository();
@@ -52,11 +74,21 @@ public class CountQueriesRule extends Rule {
         return this.countOp.getValue().compare(foundQueries.size(), this.count.getValue());
     }
 
+    /**
+     * Gets generic label for rule (i.e. label usable in any situation regardless of properties values).
+     *
+     * @return Generic label for rule.
+     */
     @Override
     public String getGenericLabel() {
         return "Počet dotazů";
     }
 
+    /**
+     * Gets rule label, usually shortly describing set properties.
+     *
+     * @return Label for rule.
+     */
     @Override
     public String toString() {
         String details = "";

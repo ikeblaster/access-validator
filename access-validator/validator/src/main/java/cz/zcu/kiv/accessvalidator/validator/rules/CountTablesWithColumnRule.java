@@ -7,17 +7,40 @@ import cz.zcu.kiv.accessvalidator.validator.rules.properties.*;
 import java.util.Set;
 
 /**
+ * Rule which checks the number of tables having column defined by criteria in database.
+ *
  * @author ike
  */
 public class CountTablesWithColumnRule extends Rule {
 
+    /**
+     * Operator for comparing found number of tables.
+     */
     private ChoiceProperty<ComparisonOperator> countOp;
+
+    /**
+     * Desired number of tables.
+     */
     private Property<Integer> count;
+
+    /**
+     * Desired data type of column.
+     */
     private ChoiceProperty<ColumnType> columnType;
+
+    /**
+     * Desired name of column (exact match).
+     */
     private Property<String> columnName;
+
+    /**
+     * Desired state of column by being a primary key.
+     */
     private ChoiceProperty<YesNoType> columnIsPrimary;
 
-
+    /**
+     * Rule which checks the number of tables having column defined by criteria in database.
+     */
     public CountTablesWithColumnRule() {
         super();
 
@@ -50,6 +73,12 @@ public class CountTablesWithColumnRule extends Rule {
 
     }
 
+    /**
+     * Checks database against the rule. Rule is satisfied when desired number of tables is found.
+     *
+     * @param accdb Database.
+     * @return {@code true} when database satisfies the rule, {@code false} otherwise.
+     */
     @Override
     public boolean check(Accdb accdb) {
         AccdbTableRepository repository = accdb.getTableRepository();
@@ -60,11 +89,21 @@ public class CountTablesWithColumnRule extends Rule {
         return this.countOp.getValue().compare(foundTables.size(), this.count.getValue());
     }
 
+    /**
+     * Gets generic label for rule (i.e. label usable in any situation regardless of properties values).
+     *
+     * @return Generic label for rule.
+     */
     @Override
     public String getGenericLabel() {
         return "Počet tabulek se sloupcem";
     }
 
+    /**
+     * Gets rule label, usually shortly describing set properties.
+     *
+     * @return Label for rule.
+     */
     @Override
     public String toString() {
         String details = "";

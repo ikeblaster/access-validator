@@ -57,9 +57,6 @@ class ComplexRuleTest extends BaseRulesTestClass {
         Mockito.verify(listener, Mockito.times(1)).invalidated(Mockito.any(Observable.class));
     }
 
-    // TODO: test na reálné DB
-
-
     @Test
     void getGenericLabel__NotNullNorEmpty() {
         assertNotNull(this.rule.getGenericLabel());

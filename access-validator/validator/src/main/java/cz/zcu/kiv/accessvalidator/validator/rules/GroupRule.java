@@ -6,9 +6,17 @@ import cz.zcu.kiv.accessvalidator.validator.rules.properties.ChoiceProperty;
 import java.util.*;
 
 /**
+ * Represents a parent rule for group of rules.
+ *
  * @author ike
  */
 public class GroupRule extends Rule {
+
+    /**
+     * Mode for checking the database.
+     * {@code AND} - all children rules must be satisfied.
+     * {@code OR} - at least one children rule must be satisfied.
+     */
     public enum Mode {
         AND, OR
     }
@@ -17,6 +25,9 @@ public class GroupRule extends Rule {
     private List<Rule> rules = new ArrayList<>();
     private Set<Rule> failedRules = new LinkedHashSet<>();
 
+    /**
+     * Represents a parent rule for group of rules.
+     */
     public GroupRule() {
         super();
 
@@ -29,10 +40,23 @@ public class GroupRule extends Rule {
         ));
     }
 
+    /**
+     * Gets collection of children rules.
+     *
+     * @return Collection of rules.
+     */
     public List<Rule> getRules() {
         return this.rules;
     }
 
+    /**
+     * Checks database against the rule. Depends on set mode.
+     * In {@code AND} mode checking is stopped immediately after first failed rule.
+     * Similarily in {@code OR} mode checking is stopped after first successful rule.
+     *
+     * @param accdb Database.
+     * @return {@code true} when database satisfies the rule, {@code false} otherwise.
+     */
     @Override
     public boolean check(Accdb accdb) {
         this.failedRules.clear();
@@ -61,21 +85,41 @@ public class GroupRule extends Rule {
         }
     }
 
+    /**
+     * Gets set of failed rules from last check.
+     *
+     * @return Set of failed rules.
+     */
     public Set<Rule> getFailedRules() {
         return this.failedRules;
     }
 
+    /**
+     * Gets generic label for rule (i.e. label usable in any situation regardless of properties values).
+     *
+     * @return Generic label for rule.
+     */
     @Override
     public String getGenericLabel() {
         return "Skupina pravidel";
     }
 
+    /**
+     * Gets rule label, usually shortly describing set properties.
+     *
+     * @return Label for rule.
+     */
     @Override
     public String toString() {
         return "Skupina pravidel (" + this.mode.getValue() + ")";
     }
 
-
+    /**
+     * Compares this object to other object.
+     *
+     * @param o Other object.
+     * @return {@code true} if the argument is equal to this object and {@code false} otherwise.
+     */
     @Override
     public boolean equals(Object o) {
         if(this == o) return true;
@@ -85,13 +129,22 @@ public class GroupRule extends Rule {
         return Objects.equals(this.rules, groupRule.rules);
     }
 
+    /**
+     * Computes a hash value based on {@code toString()} and properties.
+     *
+     * @return A hash value of this object.
+     */
     @Override
     public int hashCode() {
         return Objects.hash(super.hashCode(), this.rules);
     }
 
-
-
+    /**
+     * Adds a failed rule into the set of failed rules.
+     * For nested group rules all their failed rules are also added.
+     *
+     * @param rule Failed rule to be added into the set.
+     */
     private void addFailedRule(Rule rule) {
         this.failedRules.add(rule);
         if(rule instanceof GroupRule) {

@@ -12,13 +12,27 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.Collection;
 
 /**
+ * Provides interface for serializing and deserializing rules (see {@code Rule}).
+ * Uses XML format.
+ *
  * @author ike
  */
 public class RulesSerializer {
 
-    private static final String packagePrefix = Rule.class.getPackage().getName() + ".";
+    /**
+     * This prefix + {@code simpleName} of rules class must result in fully qualified name of that class.
+     */
+    private static final String PACKAGE_PREFIX = Rule.class.getPackage().getName() + ".";
+
 
     //region Serializer
+    /**
+     * Serializes a rule (possibly tree of rules). Uses XML format.
+     *
+     * @param root Root rule.
+     * @param outputStream The stream to write to.
+     * @throws XMLStreamException
+     */
     public void serialize(Rule root, OutputStream outputStream) throws XMLStreamException {
         XMLOutputFactory factory = XMLOutputFactory.newInstance();
         XMLStreamWriter writer = factory.createXMLStreamWriter(outputStream);
@@ -31,6 +45,14 @@ public class RulesSerializer {
         writer.close();
     }
 
+    /**
+     * Writes a rule together with its properties into stream.
+     * Recursively called for {@code GroupRule}.
+     *
+     * @param rule Rule to be written.
+     * @param writer The stream to write to.
+     * @throws XMLStreamException
+     */
     private void writeRule(Rule rule, XMLStreamWriter writer) throws XMLStreamException {
         writer.writeStartElement(rule.getClass().getSimpleName());
 
@@ -60,7 +82,15 @@ public class RulesSerializer {
     }
     //endregion
 
+
     //region Deserializer
+    /**
+     * Deserializes a rule (possibly tree of rules) from input stream. Uses XML format.
+     *
+     * @param inputStream The stream to read from.
+     * @return Deserialized rule or {@code null} when no rule or unknown rule found.
+     * @throws XMLStreamException
+     */
     public Rule deserialize(InputStream inputStream) throws XMLStreamException {
         XMLInputFactory factory = XMLInputFactory.newInstance();
         XMLStreamReader reader = factory.createXMLStreamReader(inputStream);
@@ -78,9 +108,17 @@ public class RulesSerializer {
         return rule;
     }
 
+    /**
+     * Reads a rule together with its properties from stream.
+     * When unknown rule or property found, error message is written to {@code System.err}.
+     *
+     * @param reader The stream to read from.
+     * @return Deserialized rule or {@code null} when no rule or unknown rule found.
+     * @throws XMLStreamException
+     */
     private Rule readRule(XMLStreamReader reader) throws XMLStreamException {
         Rule rule = null;
-        String ruleClassName = packagePrefix + reader.getLocalName();
+        String ruleClassName = PACKAGE_PREFIX + reader.getLocalName();
 
         try {
             Object obj = Class.forName(ruleClassName).getConstructor().newInstance();

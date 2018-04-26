@@ -9,13 +9,25 @@ import cz.zcu.kiv.accessvalidator.validator.rules.properties.Property;
 import java.util.Set;
 
 /**
+ * Rule which checks the number of M:N relations in database (i.e. number of junction tables in database).
+ *
  * @author ike
  */
 public class CountRelationsMNRule extends Rule {
 
+    /**
+     * Operator for comparing found number of relations.
+     */
     private ChoiceProperty<ComparisonOperator> countOp;
+
+    /**
+     * Desired number of relations.
+     */
     private Property<Integer> count;
 
+    /**
+     * Rule which checks the number of M:N relations in database (i.e. number of junction tables in database).
+     */
     public CountRelationsMNRule() {
         super();
 
@@ -34,6 +46,12 @@ public class CountRelationsMNRule extends Rule {
         ));
     }
 
+    /**
+     * Checks database against the rule. Rule is satisfied when desired number of M:N relations is found.
+     *
+     * @param accdb Database.
+     * @return {@code true} when database satisfies the rule, {@code false} otherwise.
+     */
     @Override
     public boolean check(Accdb accdb) {
         AccdbTableRepository repository = accdb.getTableRepository();
@@ -44,11 +62,21 @@ public class CountRelationsMNRule extends Rule {
         return this.countOp.getValue().compare(foundTables.size(), this.count.getValue());
     }
 
+    /**
+     * Gets generic label for rule (i.e. label usable in any situation regardless of properties values).
+     *
+     * @return Generic label for rule.
+     */
     @Override
     public String getGenericLabel() {
         return "Počet relací M:N";
     }
 
+    /**
+     * Gets rule label, usually shortly describing set properties.
+     *
+     * @return Label for rule.
+     */
     @Override
     public String toString() {
         return "Počet relací M:N " + this.countOp.getValue() + " " + this.count.getValue();

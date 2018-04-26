@@ -7,18 +7,55 @@ import cz.zcu.kiv.accessvalidator.validator.rules.properties.*;
 import java.util.Set;
 
 /**
+ * Rule which does complex table search in database using multiple criteria.
+ *
  * @author ike
  */
 public class ComplexRule extends Rule {
+
+    /**
+     * Operator for comparing found number of tables.
+     */
     private ChoiceProperty<ComparisonOperator> tablesCountOp;
+
+    /**
+     * Desired number of tables.
+     */
     private Property<Integer> tablesCount;
+
+    /**
+     * Desired name of table (exact match).
+     */
     private Property<String> tablesByName;
+
+    /**
+     * Operator for comparing found number of columns in tables.
+     */
     private ChoiceProperty<ComparisonOperator> columnsCountOp;
+
+    /**
+     * Desired number of columns in tables.
+     */
     private Property<Integer> columnsCount;
+
+    /**
+     * Desired name of columns in tables (exact match).
+     */
     private Property<String> columnsByName;
+
+    /**
+     * Desired data type of columns in tables.
+     */
     private ChoiceProperty<ColumnType> columnsByType;
+
+    /**
+     * Desired state of columns in tables by being a primary key.
+     */
     private ChoiceProperty<YesNoType> columnIsPrimary;
 
+    /**
+     * Rule which does complex table search in database using multiple criteria.
+     */
     public ComplexRule() {
         super();
 
@@ -68,6 +105,14 @@ public class ComplexRule extends Rule {
 
     }
 
+    /**
+     * Checks database against the rule.
+     * Rule is satisfied when desired number of tables having desired name
+     * and columns (their count, type, name, being primary key) is found.
+     *
+     * @param accdb Database.
+     * @return {@code true} when database satisfies the rule, {@code false} otherwise.
+     */
     @Override
     public boolean check(Accdb accdb) {
         AccdbTableRepository repository = accdb.getTableRepository();
@@ -83,11 +128,21 @@ public class ComplexRule extends Rule {
         return this.tablesCountOp.getValue().compare(foundTables.size(), this.tablesCount.getValue());
     }
 
+    /**
+     * Gets generic label for rule (i.e. label usable in any situation regardless of properties values).
+     *
+     * @return Generic label for rule.
+     */
     @Override
     public String getGenericLabel() {
         return "Komplexní vyhledání tabulek";
     }
 
+    /**
+     * Gets rule label, usually shortly describing set properties.
+     *
+     * @return Label for rule.
+     */
     @Override
     public String toString() {
         return "Komplexní vyhledání tabulek";

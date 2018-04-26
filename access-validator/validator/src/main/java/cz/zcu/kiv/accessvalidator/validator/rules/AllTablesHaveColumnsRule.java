@@ -5,16 +5,40 @@ import cz.zcu.kiv.accessvalidator.validator.database.AccdbTableRepository;
 import cz.zcu.kiv.accessvalidator.validator.rules.properties.*;
 
 /**
+ * Rule which checks whether all tables in the database have a column defined by criteria.
+ *
  * @author ike
  */
 public class AllTablesHaveColumnsRule extends Rule {
 
+    /**
+     * Operator for comparing found number of columns.
+     */
     private ChoiceProperty<ComparisonOperator> countOp;
+
+    /**
+     * Desired number of columns.
+     */
     private Property<Integer> count;
+
+    /**
+     * Desired type of columns.
+     */
     private ChoiceProperty<ColumnType> columnType;
+
+    /**
+     * Desired name of column (exact match).
+     */
     private Property<String> columnName;
+
+    /**
+     * Desired state of column by being a primary key.
+     */
     private ChoiceProperty<YesNoType> columnIsPrimary;
 
+    /**
+     * Rule which checks whether all tables in the database have a column defined by criteria.
+     */
     public AllTablesHaveColumnsRule() {
         super();
 
@@ -44,10 +68,14 @@ public class AllTablesHaveColumnsRule extends Rule {
                 YesNoType.class, YesNoType._ANY, YesNoType.getChoices(),
                 "Primární klíč", "Ověří, zda je sloupec součástí primárního klíče", this.getGenericLabel()
         ));
-
     }
 
-    @SuppressWarnings("Duplicates")
+    /**
+     * Checks database against the rule. Rule is satisfied when desired number of columns defined by criteria is found.
+     *
+     * @param accdb Database.
+     * @return {@code true} when database satisfies the rule, {@code false} otherwise.
+     */
     @Override
     public boolean check(Accdb accdb) {
         AccdbTableRepository repository = accdb.getTableRepository();
@@ -59,11 +87,21 @@ public class AllTablesHaveColumnsRule extends Rule {
         return repository.getTables().size() == tablesInDb;
     }
 
+    /**
+     * Gets generic label for rule (i.e. label usable in any situation regardless of properties values).
+     *
+     * @return Generic label for rule.
+     */
     @Override
     public String getGenericLabel() {
         return "Počet sloupců v každé tabulce";
     }
 
+    /**
+     * Gets rule label, usually shortly describing set properties.
+     *
+     * @return Label for rule.
+     */
     @Override
     public String toString() {
         String details = "";
