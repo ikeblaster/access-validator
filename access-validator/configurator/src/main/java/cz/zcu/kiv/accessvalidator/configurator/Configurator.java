@@ -24,9 +24,9 @@ public class Configurator extends Application {
     }
 
     /**
-     * Overriden method that draws the active window in which the application is beeing drawn.
+     * Overriden method that opens the active window in which the application is being drawn.
      *
-     * @param primaryStage Basic parameter in which all information about the drawn window are stored.
+     * @param primaryStage Parent window, by default OS window manager.
      * @throws Exception When an unexpected event occured (could be anything).
      */
     @Override

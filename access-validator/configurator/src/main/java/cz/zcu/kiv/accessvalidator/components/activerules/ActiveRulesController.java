@@ -21,26 +21,57 @@ import java.io.IOException;
 import java.util.Optional;
 
 /**
+ * Controller for ActiveRules pane in JavaFX GUI.
+ * Contains a tree with currently active set of rules.
+ *
  * @author ike
  */
 public class ActiveRulesController {
 
+    /**
+     * Tree panel with currently active rules.
+     */
     @FXML
     private TreeView<Rule> activeRules;
 
+    /**
+     * File chooser for opening or saving files with rules.
+     */
     private FileChooserEx rulesFileChooser = new FileChooserEx(this.getClass().getSimpleName());
+
+    /**
+     * State of pane, tells whether the loaded rules have been changed and need to be saved.
+     */
     private boolean rulesChanged = false;
+
+    /**
+     * Controller of the details pane (which contains properties of highlighted rule).
+     */
     private DetailsController detailsController;
+
+    /**
+     * Root item of the tree.
+     */
     private TreeItemRuleAdaptor activeRulesRoot;
 
 
     //region================== GUI initialization ==================
 
+    /**
+     * Called after GUI load. Sets parent stage and dependency to other parts of GUI.
+     *
+     * @param stage Parent stage for pane.
+     * @param detailsController Controller of the details pane.
+     */
     public void onLoad(Stage stage, DetailsController detailsController) {
         this.rulesFileChooser.setStage(stage);
         this.detailsController = detailsController;
     }
 
+    /**
+     * Called during GUI initialization.
+     * Initializes elements inside pane (adds listeners, filter for file chooser, etc.).
+     */
     @FXML
     public void initialize() {
         this.loadEmptyRules();
@@ -61,6 +92,9 @@ public class ActiveRulesController {
 
     //region================== Actions (buttons) ==================
 
+    /**
+     * Creates a new set of rules.
+     */
     public void actionNewFile() {
         if(!this.canDiscardFile()) {
             return;
@@ -69,6 +103,9 @@ public class ActiveRulesController {
         this.loadEmptyRules();
     }
 
+    /**
+     * Opens an existing file with rules nad loads them into the tree.
+     */
     public void actionOpenFile() {
         if(!this.canDiscardFile() || !this.rulesFileChooser.openFile()) {
             return;
@@ -82,6 +119,9 @@ public class ActiveRulesController {
         }
     }
 
+    /**
+     * Saves current set of rules.
+     */
     public void actionSaveFile() {
         if(!this.rulesFileChooser.hasFile()) {
             this.actionSaveAs();
@@ -99,12 +139,18 @@ public class ActiveRulesController {
         }
     }
 
+    /**
+     * Saves the current set of rules as a different file.
+     */
     public void actionSaveAs() {
         if(this.rulesFileChooser.saveFile()) {
             this.actionSaveFile();
         }
     }
 
+    /**
+     * Deletes highlighted rule.
+     */
     public void actionDeleteRule() {
         TreeItem<Rule> selected = this.activeRules.getSelectionModel().getSelectedItem();
         if (selected == null || !(selected.getParent() instanceof TreeItemRuleAdaptor)) {
@@ -117,11 +163,19 @@ public class ActiveRulesController {
 
     //endregion
 
-
+    /**
+     * Gets the root rule of the tree.
+     * @return Root rule.
+     */
     public Rule getRootRule() {
         return this.activeRulesRoot.getValue();
     }
 
+    /**
+     * Adds a rule into highlighted parent.
+     *
+     * @param rule Rule to be added.
+     */
     public void addRule(Rule rule) {
         TreeItemRuleAdaptor parent = (TreeItemRuleAdaptor) this.activeRules.getSelectionModel().getSelectedItem();
         if (parent == null || !parent.isGroup()) {
@@ -133,11 +187,18 @@ public class ActiveRulesController {
     }
 
 
-
+    /**
+     * Clears out the tree.
+     */
     private void loadEmptyRules() {
         this.loadRules(new GroupRule());
     }
 
+    /**
+     * Loads a rule into the tree (clears out previous).
+     *
+     * @param root New rule root.
+     */
     private void loadRules(Rule root) {
         this.rulesChanged = false;
         this.activeRulesRoot = new TreeItemRuleAdaptor(root);
@@ -145,7 +206,12 @@ public class ActiveRulesController {
     }
 
 
-
+    /**
+     * Tests whether it's possible to discard current rule set.
+     * Asks user for confirmation when set was changed.
+     *
+     * @return {@code true} if current rule set can be cleared/discareded.
+     */
     private boolean canDiscardFile(){
         if(!this.rulesChanged) {
             return true;

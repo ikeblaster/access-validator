@@ -8,22 +8,41 @@ import javafx.scene.input.MouseButton;
 import javafx.stage.Stage;
 
 /**
+ * Controller for Library pane in JavaFX UI.
+ * Contains a listview of all accessible rules.
+ *
  * @author ike
  */
 public class LibraryController {
 
+    /**
+     * Listview with all accessible rules.
+     */
     @FXML
     public ListView<ListViewRuleAdaptor> rules;
 
+    /**
+     * Reference to a controller of pane with a set of active rules.
+     */
     private ActiveRulesController activeRulesController;
 
 
     //region================== GUI initialization ==================
 
+    /**
+     * Called after GUI load. Sets parent stage and dependency to other parts of GUI.
+     *
+     * @param stage Parent stage for pane.
+     * @param activeRulesController Controller of the pane with a set of active rules.
+     */
     public void onLoad(Stage stage, ActiveRulesController activeRulesController) {
         this.activeRulesController = activeRulesController;
     }
 
+    /**
+     * Called during GUI initialization.
+     * Initializes elements inside pane (adds rules into the list and sets doubleclick event).
+     */
     @FXML
     public void initialize() {
         this.rules.getItems().addAll(ListViewRuleAdaptor.wrapAll(RulesRepository.getAll()));
@@ -41,6 +60,9 @@ public class LibraryController {
 
     //region================== Actions (buttons) ==================
 
+    /**
+     * Adds highlighted rule to the set of active rules.
+     */
     public void actionAddSelectedRule() {
         ListViewRuleAdaptor origin = this.rules.getSelectionModel().getSelectedItem();
         if (origin == null) {

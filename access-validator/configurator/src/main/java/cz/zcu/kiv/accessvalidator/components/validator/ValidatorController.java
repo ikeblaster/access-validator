@@ -18,22 +18,63 @@ import java.io.File;
 import java.io.IOException;
 import java.util.*;
 
-
+/**
+ * Controller for validator pane in JavaFX UI.
+ * Contains a treeview with files and nested details (failed
+ * rules and/or similar files together with their similarities).
+ *
+ * @author ike
+ */
 public class ValidatorController {
 
+    /**
+     * Tree with files and infomations.
+     */
     @FXML
     private TreeView<TreeObject> treeView;
+
+    /**
+     * Root item containing all added database files.
+     */
     private TreeItemRoot dbFiles;
 
+    /**
+     * Sets whether similarities should be checked on after every validity check.
+     */
     private boolean checkSimilarities = true;
+
+    /**
+     * Set of ignored similarities.
+     */
     private Set<SimilarityElement> ignoredSimilarities = new HashSet<>();
 
+    /**
+     * File chooser for adding databases.
+     */
     private FileChooserEx fileChooser = new FileChooserEx(this.getClass().getSimpleName());
+
+    /**
+     * Last used rule for checking validity. Used for rechecks after modifying options of pane.
+     */
     private Rule lastCheckedRule;
 
 
     //region================== GUI initialization ==================
 
+    /**
+     * Called after GUI load. Sets parent stage.
+     *
+     * @param stage Parent stage for pane.
+     */
+    public void onLoad(Stage stage) {
+        this.fileChooser.setStage(stage);
+    }
+
+    /**
+     * Called during GUI initialization.
+     * Initializes elements inside pane (adds cell factory for cells,
+     * sets tree root, adds extension filter to file chooser.).
+     */
     @FXML
     public void initialize() {
         // tooltips support
@@ -88,15 +129,14 @@ public class ValidatorController {
         this.fileChooser.addExtensionFilter(new FileChooser.ExtensionFilter("Access databáze", "*.accdb", "*.mdb"));
     }
 
-    public void onLoad(Stage stage) {
-        this.fileChooser.setStage(stage);
-    }
-
     //endregion
 
 
     //region================== Actions (buttons) ==================
 
+    /**
+     * Action for adding database files into the tree.
+     */
     public void actionAddDB() {
         List<File> files = this.fileChooser.openMultipleFiles();
         List<File> existing = this.dbFiles.getFiles();
@@ -111,12 +151,17 @@ public class ValidatorController {
         this.dbFiles.getChildren().sort(Comparator.comparing(javafx.scene.control.TreeItem::toString, String.CASE_INSENSITIVE_ORDER));
     }
 
-
+    /**
+     * Action from removing database file from the tree.
+     */
     public void actionRemoveDB() {
         this.dbFiles.getChildren().removeAll(this.treeView.getSelectionModel().getSelectedItems());
     }
 
-
+    /**
+     * Action for testing all added databases against the rule. Also checks for similarities.
+     * @param rule
+     */
     public void actionTestDBs(Rule rule) {
         this.lastCheckedRule = rule;
 
@@ -131,7 +176,7 @@ public class ValidatorController {
 
                 AccdbValidator validator = new AccdbValidator(treeFile.getFile(), rule);
 
-                treeFile.clearInfo();
+                treeFile.resetState();
                 treeFile.setValid(validator.validate());
                 treeFile.setFailedRules(validator.getFailedRules());
                 treeFile.setSimilarFiles(similarFiles.get(treeFile.getFile()));
@@ -145,16 +190,29 @@ public class ValidatorController {
         this.treeView.refresh();
     }
 
+    /**
+     * Action for hiding similarity between files.
+     *
+     * @param similarityElement Similarity to be hidden.
+     */
     public void actionHideSimilarity(SimilarityElement similarityElement) {
         this.ignoredSimilarities.add(similarityElement);
         this.actionTestDBs(this.lastCheckedRule);
     }
 
+    /**
+     * Action for resetting hidden similarities.
+     * Recheckes all databases afterwards.
+     */
     public void actionResetHiddenSimilarities() {
         this.ignoredSimilarities.clear();
         this.actionTestDBs(this.lastCheckedRule);
     }
 
+    /**
+     * Action for enabling or disabling similarity checking.
+     * Recheckes all databases afterwards.
+     */
     public void actionSetCheckSimilarities(boolean checkSimilarities) {
         this.checkSimilarities = checkSimilarities;
         this.actionTestDBs(this.lastCheckedRule);
@@ -163,7 +221,12 @@ public class ValidatorController {
     //endregion
 
 
-
+    /**
+     * Gets a map with files and similar files to them.
+     *
+     * @param files Collection of databases for similarity check.
+     * @return Map with files and similar files to them.
+     */
     private Map<File, SimilarFiles> findSimilarFiles(List<File> files) {
         if(this.checkSimilarities) {
             try {

@@ -6,10 +6,15 @@ import java.util.Arrays;
 import java.util.Collection;
 
 /**
+ * Provides a repository of all accessible rules.
+ *
  * @author ike
  */
 public class RulesRepository {
 
+    /**
+     * List of all accessible rules.
+     */
     private static final Collection<Rule> RULES = Arrays.asList(
             new GroupRule(),
             new ComplexRule(),
@@ -23,6 +28,11 @@ public class RulesRepository {
             new CountQueriesRule()
     );
 
+    /**
+     * Gets a list of all accessible rules.
+     *
+     * @return List of accessible rules.
+     */
     public static Collection<Rule> getAll() {
         return RULES;
     }

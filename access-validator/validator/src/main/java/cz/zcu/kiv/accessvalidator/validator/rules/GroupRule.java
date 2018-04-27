@@ -21,8 +21,19 @@ public class GroupRule extends Rule {
         AND, OR
     }
 
+    /**
+     * Mode of the group rule. See enum {@code Mode}.
+     */
     private ChoiceProperty<Mode> mode;
+
+    /**
+     * Group of nested rules.
+     */
     private List<Rule> rules = new ArrayList<>();
+
+    /**
+     * Set of failed rules of last check.
+     */
     private Set<Rule> failedRules = new LinkedHashSet<>();
 
     /**

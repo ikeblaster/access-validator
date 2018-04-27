@@ -9,14 +9,33 @@ import java.io.IOException;
 import java.util.*;
 
 /**
+ * Provides a tool for batch checking multiple files for similarities.
+ *
  * @author ike
  */
 public class AccdbSimilarityChecker {
 
+    /**
+     * List of databases being checked.
+     */
     private List<Accdb> dbs = new ArrayList<>();
+
+    /**
+     * Collection of similarities. Map is used for searching already found similarity element, hence key is also {@code SimilarityElement}.
+     */
     private Map<Object, SimilarityElement> similarityGroups = new HashMap<>();
+
+    /**
+     * Set of similarity elements which should be excluded from final collection.
+     */
     private Set<SimilarityElement> hiddenSimilarities = Collections.emptySet();
 
+    /**
+     * Provides a tool for batch checking multiple files for similarities.
+     *
+     * @param files List of files to be checked.
+     * @throws IOException
+     */
     public AccdbSimilarityChecker(List<File> files) throws IOException {
         for(File file : files) {
             this.dbs.add(new Accdb(file));
@@ -25,26 +44,12 @@ public class AccdbSimilarityChecker {
         this.process();
     }
 
-    private void process() {
-        for(int i = 0; i < this.dbs.size(); i++) {
-            for(int j = i + 1; j < this.dbs.size(); j++) {
-                this.compare(this.dbs.get(i), this.dbs.get(j));
-            }
-        }
-    }
-
-    private void compare(Accdb db1, Accdb db2) {
-        Set<SimilarityElement> similarities = db1.findSimilarities(db2);
-
-        for(SimilarityElement similarity : similarities) {
-            SimilarityElement group = this.similarityGroups.computeIfAbsent(similarity, k -> similarity);
-
-            group.add(db1.getFile());
-            group.add(db2.getFile());
-        }
-    }
-
-
+    /**
+     * Gets a map of all checked files and collections of their similarities with other files.
+     * Map structure: [file => [all similarities with other files { list of similar files }]]
+     *
+     * @return Map of files and their similarities to other files.
+     */
     public Map<File, Collection<SimilarityElement>> getFileSimilarities() {
         Map<File, Collection<SimilarityElement>> map = new HashMap<>();
 
@@ -69,6 +74,12 @@ public class AccdbSimilarityChecker {
         return map;
     }
 
+    /**
+     * Gets a map of files and structure {@code SimilarFiles} which holds collection
+     * of similar files to the key file and similarities between them.
+     *
+     * @return Map of files and {@code SimilarFiles}.
+     */
     public Map<File, SimilarFiles> getSimilarFiles() {
         Map<File, SimilarFiles> map = new HashMap<>();
 
@@ -94,9 +105,44 @@ public class AccdbSimilarityChecker {
         return map;
     }
 
+    /**
+     * Sets similarity elements which should be excluded from final collection.
+     *
+     * @param hiddenSimilarities Collection of similarities to be excluded.
+     */
     public void setIgnoreSimilarities(Set<SimilarityElement> hiddenSimilarities) {
         this.hiddenSimilarities = hiddenSimilarities;
     }
+
+    /**
+     * Compares all databases between each other.
+     */
+    private void process() {
+        for(int i = 0; i < this.dbs.size(); i++) {
+            for(int j = i + 1; j < this.dbs.size(); j++) {
+                this.compare(this.dbs.get(i), this.dbs.get(j));
+            }
+        }
+    }
+
+    /**
+     * Compares two databases.
+     *
+     * @param db1 First database.
+     * @param db2 Second database.
+     */
+    private void compare(Accdb db1, Accdb db2) {
+        Set<SimilarityElement> similarities = db1.findSimilarities(db2);
+
+        for(SimilarityElement similarity : similarities) {
+            SimilarityElement group = this.similarityGroups.computeIfAbsent(similarity, k -> similarity);
+
+            group.add(db1.getFile());
+            group.add(db2.getFile());
+        }
+    }
+
+
 
 
 
