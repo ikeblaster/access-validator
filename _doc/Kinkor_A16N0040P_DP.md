@@ -73,22 +73,20 @@ Obsah
 
 [2.3 Metadata databázových souborů 7](#metadata-databázových-souborů)
 
-[2.4 Možnosti čtení souborů ACCDB
+[2.4 Formát ACCDB a možnosti jeho čtení
 8](#formát-accdb-a-možnosti-jeho-čtení)
 
-[2.4.1 Formát ACCDB 8](#_Toc512468580)
+[2.4.1 ODBC 9](#odbc)
 
-[2.4.2 ODBC 9](#odbc)
+[2.4.2 Microsoft Office Interop 9](#microsoft-office-interop)
 
-[2.4.3 Microsoft Office Interop 9](#microsoft-office-interop)
+[2.4.3 MDB Tools 10](#mdb-tools)
 
-[2.4.4 MDB Tools 10](#mdb-tools)
+[2.4.4 MDB Tools Java 10](#mdb-tools-java)
 
-[2.4.5 MDB Tools Java 10](#mdb-tools-java)
+[2.4.5 Jackcess 11](#jackcess)
 
-[2.4.6 Jackcess 11](#jackcess)
-
-[2.4.7 JDBC 11](#jdbc)
+[2.4.6 JDBC 11](#jdbc)
 
 [3 Portál ZČU 13](#portál-zču)
 
@@ -96,8 +94,7 @@ Obsah
 
 [3.2 Validátor studentských prací 13](#validátor-studentských-prací)
 
-[3.3 Vytvoření nové validační domény
-15](#vytvoření-nové-validační-domény)
+[3.3 Vytvoření nové validační domény 15](#validační-domény)
 
 [4 Analýza kontroly prací 16](#analýza-kontroly-prací)
 
@@ -236,30 +233,29 @@ vytvoříme primární klíč pomocí více sloupců, nazýváme jej složeným
 primárním klíčem[1](#_toc_1) \[ str. AC A4\].
 
 Primární klíč slouží k jednoznačnému určení konkrétního záznamu v
-tabulce, čehož se využívá při vytváření dotazů nebo tvoření relací mezi
-tabulkami. Pro vytváření primárních klíčů se obvykle používá datový typ
-Automatické číslo, který každému záznamu přiřadí unikátní celé číslo.
-Často bývá takový sloupec pojmenován „ID" (*identification*)[1](#_toc_1)
-\[ str. AC A3-A4\].
+tabulce, čehož se využívá při vytváření dotazů nebo tvoření relačních
+vazeb mezi tabulkami. Pro vytváření primárních klíčů se obvykle používá
+datový typ Automatické číslo, který každému záznamu přiřadí unikátní
+celé číslo. Často bývá takový sloupec pojmenován „ID"
+(*identification*)[1](#_toc_1) \[ str. AC A3-A4\].
 
 Relace mezi tabulkami a cizí klíče
 
 V případě, že chceme propojit více tabulek mezi sebou, využijeme tzv.
-relačních vazeb, zkráceně relací. Jedná se o situaci, kdy záznam v
-tabulce odkazuje („má referenci") na jeden konkrétní záznam z druhé
-tabulky.
-
-Rozlišují se tři druhy relačních vazeb[1](#_toc_1)[4](#_toc_4) \[ str.
-AC A5-A8, str. 419\].
+relačních vazeb, zkráceně relací. Jedná se o situaci, kdy záznam
+v tabulce A odkazuje („má referenci") na jeden konkrétní záznam
+v tabulce B. To lze obecně zajistit přidáním tzv. *cizího klíče* do
+tabulky A -- sloupce, který bude obsahovat pouze hodnoty primárního
+klíče tabulky B (příp. skupiny sloupců, pokud se jedná o složený
+primární klíč). Rozlišují se tři druhy relačních
+vazeb[1](#_toc_1)[4](#_toc_4) \[ str. AC A5-A8, str. 419\]:
 
 -   *Relace typu 1:1* -- jednomu záznamu v tabulce A odpovídá žádný, či
-    právě jeden záznam v tabulce B. To lze zajistit přidáním tzv.
-    *cizího klíče* do tabulky A -- sloupce, který bude obsahovat pouze
-    hodnoty primárního klíče z tabulky B (příp. skupiny sloupců, pokud
-    se jedná o složený primární klíč). Alternativně lze referencování
-    použít primární klíče obou tabulek (viz obrázek 1) -- typicky je
-    tento postup vhodný v situaci, kdy jen málo záznamů v tabulce A má i
-    záznam v tabulce B[4](#_toc_4) \[ str. 420\].
+    právě jeden záznam v tabulce B. Typicky je tato relace vhodná v
+    situaci, kdy jen málo záznamů odkazuje do druhé tabulky. Pro cizí
+    klíče zde platí, že jejich hodnoty jsou v rámci tabulky unikátní.
+    Alternativně lze pro referencování použít primární klíče obou
+    tabulek (viz obrázek 1). [4](#_toc_4)\[ str. 420\].
 
 ![](media/image1.emf)
 
@@ -267,9 +263,9 @@ Obrázek 1 -- model relace 1:1 využívající\
 v obou tabulkách primární klíč.
 
 -   *Relace typu 1:N* -- k více záznamům v tabulce A lze přiřadit jeden
-    záznam z tabulky B. Tato vazba je vždy realizována pomocí zmíněných
-    cizích klíčů. Jedná se o nejčastěji využívanou vazbu[4](#_toc_4) \[
-    str. 421\].
+    záznam z tabulky B. Tato vazba je vždy realizována pomocí již
+    zmíněných cizích klíčů. Jedná se o nejčastěji využívanou
+    vazbu[4](#_toc_4) \[ str. 421\].
 
 ![](media/image2.emf)
 
@@ -291,7 +287,7 @@ zabránit odkazování na neexistující záznam (a rovněž tedy vzniku
 osiřelých záznamů, na které byly všechny reference zrušeny). Integritní
 pravidlo může dále zajistit kaskádovou aktualizaci polí -- pokud se
 změní hodnota primárního klíče, změní se automaticky hodnota u všech
-záznamů, které na záznam odkazují. Dále může zajistit kaskádové
+záznamů, které na záznam odkazují. Stejně tak může zajistit kaskádové
 odstranění souvisejících záznamů -- v případě smazání záznamu budou
 smazány i všechny další, které na právě tento záznam odkazovaly
 [1](#_toc_1)\[ str. AC A11\].
@@ -372,17 +368,17 @@ každý záznam („řádek" sestavy)[1](#_toc_1) \[ str. AC 208\].
 ### Skryté systémové tabulky
 
 Databáze dále obsahují několik skrytých systémových tabulek, jejichž
-název vždy začíná MSys. Například v tabulce MSysRelationships jsou
-uloženy všechny relace mezi objekty (tabulkami a dotazy). Jednou ze
-zajímavějších tabulek je MSysObjects obsahující všechny objekty databáze
-a k nim i různé další údaje, čehož lze využít při hledání metadat (viz
-následující kapitola)[1](#_toc_1)[5](#_toc_5) \[ str. AC 582, \].
+název vždy začíná prefixem MSys. Například v tabulce MSysRelationships
+jsou uloženy všechny relace mezi objekty (tabulkami a dotazy). Jednou ze
+zajímavějších tabulek je MSysObjects obsahující seznam všech objektů
+databáze a k nim i různé další údaje, čehož lze využít při hledání
+metadat (viz kapitola 2.3)[1](#_toc_1)[5](#_toc_5) \[ str. AC 582, \].
 
 Metadata databázových souborů
 -----------------------------
 
-Kromě samotných uživatelských dat lze v databázi naléz i další
-doplňující údaje, obecně označované jako
+Kromě samotných uživatelských dat a databázových objektů lze v databázi
+nalézt i další doplňující údaje, obecně označované jako
 metadata[5](#_toc_5)[6](#_toc_6) \[, \]:
 
 -   *Autor databáze* -- jméno uživatele a název organizace.
@@ -413,7 +409,7 @@ Engine) a jsou si tedy technologicky podobné. Z uživatelského hlediska
 jsou rozdíly zejména v možnostech zabezpečení
 dat[2](#_toc_2)[6](#_toc_6)[7](#_toc_7) \[, , \].
 
-Jedná se o proprietární binární formáty vyvíjený společností Microsoft
+Jedná se o proprietární binární formáty vyvíjené společností Microsoft
 bez dostupné specifikace. Jediným oficiálním nástrojem pro správu je
 právě Microsoft Access, pro přístup k datům z jiných aplikací pak
 technologie ODBC a OLE DB [6](#_toc_6)\[\].
@@ -423,7 +419,7 @@ bychom vzali v potaz pouze oficiální nástroje, jsme limitováni na
 systémy s nainstalovanou aplikací Microsoft Access (a tím pádem i
 operačním systémem Microsoft Windows). V současné době jsou však
 dostupné i nástroje vzniklé na základě reverzního inženýrství formátů
-MDB/ACCDB bez závislosti na programovém vybavení počítače.
+ACCDB/MDB bez závislosti na programovém vybavení počítače.
 
 V následujících podkapitolách jsou zmíněny všechny možnosti čtení
 souborů ACCDB včetně výhod a nevýhod, jaké přináší.
@@ -439,16 +435,16 @@ databází[8](#_toc_8) \[\].
 
 Pro přístup k ACCDB databázím v rámci OS Microsoft Windows se využívají
 ovladače Access Database Engine nainstalované spolu s aplikací Microsoft
-Access, případně ze samostatného distribučního balíku[2](#_toc_2) \[\].
-Pro další platformy existují komerční Access ODBC ovladače[^2]. Vzniká
-zde tedy závislost na dostupnosti ovladače, přičemž v určitých případech
-může být problém jej do systému doplnit.
+Access, případně ze samostatného distribučního balíku. Pro další
+platformy existují komerční Access ODBC ovladače[^2]. Vzniká zde tedy
+závislost na dostupnosti ovladače, přičemž v určitých případech může být
+problém jej do systému doplnit [2](#_toc_2)\[\].
 
 Zásadní nevýhodou přístupu k datům přes ODBC API jsou omezení
 vyplývající z univerzálnosti metody. Jednoduše lze pracovat pouze s daty
-v tabulkách a není možné přímo přistupovat k dalším uloženým
-objektům[8](#_toc_8) \[\]. Jedinou možnost je využít skryté systémové
-tabulky, pomocí kterých lze zjistit alespoň existenci objektů.
+v tabulkách a není možné přímo přistupovat k dalším uloženým objektům.
+Jedinou možnost je využít skryté systémové tabulky, pomocí kterých lze
+zjistit alespoň existenci objektů [8](#_toc_8)\[\].
 
 Novější obdobnou technologií je OLE DB (*Object Linking and Embedding,
 Database*), vyvinuté firmou Microsoft původně jako nástupce ODBC; a dále
@@ -496,13 +492,13 @@ na konkrétní platformě a externích knihovnách.
 V roce 2004 začala *portace* nástrojů MDB Tools pro jazyk Java, vývoj
 však již po roce ustal[13](#_toc_13) \[\]. Následně vzniklo několik
 *forků* (projektů založených na kódu původního projektu), nejaktuálnější
-z nich lze nalézt pod názvem OME MDB Tools[14](#_toc_14) \[\]. Vývoj
-těchto projektů je ale spíše pomalý -- poslední větší aktualizace
-proběhla v roce 2016.
+z nich lze nalézt pod názvem OME MDB Tools. Vývoj těchto projektů je ale
+spíše pomalý -- poslední větší aktualizace proběhla v roce 2016
+[14](#_toc_14)\[\].
 
 Oproti dále uvedené knihovně Jackcess nabízí méně možností a použité je
 značně komplikované[15](#_toc_15) \[\]. Překážkou je chybějící
-dokumentace jak použití nástrojů, tak i samotného programového kódu.
+dokumentace jak samotných nástrojů, tak i jejich programového kódu.
 
 ### Jackcess
 
@@ -525,11 +521,11 @@ Zásadního výhodou pro potřeby této práce je přenositelnost knihovny
 (nezávislost na platformě) a aktivní vývoj -- tím pádem i podpora
 nejnovějších verzí Access databází. Vzhledem k distribuci v podobě
 samostatné Java knihovny (rovněž dostupné v Maven repozitářích) je její
-použití ve vlastní aplikaci jednoduché.
+použití ve vlastní aplikaci jednoduché[18](#_toc_18) \[\].
 
 Pro knihovnu existuje rozšíření nazvané Jackcess Encrypt umožňující
 správu databází zašifrovaných heslem. Podporuje některé formy šifer
-aplikací Microsoft Access a Microsoft Money[18](#_toc_18) \[\].
+aplikací Microsoft Access a Microsoft Money[19](#_toc_19) \[\].
 
 ### JDBC
 
@@ -537,24 +533,24 @@ Java Database Connectivity je API pro přístup k relačním databázím a
 tedy obdobou technologie ODBC pro programovací jazyk Java. API je
 standardní součástí platformy Java SE. Připojení ke konkrétní databázi
 je opět zajištěno ovladači určenými pro konkrétní typ
-databází[19](#_toc_19) \[\].
+databází[20](#_toc_20) \[\].
 
 Microsoft neposkytuje vlastní JDBC ovladač pro práci s Access/Jet
 databázemi, existují ale speciální ovladače, tzv. *JDBC-ODBC bridge,*
 umožňující použití ODBC ovladačů. V rámci platformy Java SE do verze 1.7
 byl takový ovladač standardní součástí; do novějších verzí jej lze
 překopírovat (jde ale o neoficiální postup bez záruky funkčnosti) nebo
-nahradit komerčními produkty[8](#_toc_8)[20](#_toc_20) \[, \].
+nahradit komerčními alternativami[8](#_toc_8)[21](#_toc_21) \[, \].
 
 Dále existuje několik JDBC „nativních" ovladačů pro práci s Microsoft
 Access databázemi. Jde zejména o open-source projekt UCanAccess, který
-využívá již zmíněnou knihovnu Jackcess[21](#_toc_21) \[\]. K dispozici
-jsou rovněž komerční produkty [^3]^,^[^4]^,^[^5].
+využívá již zmíněnou knihovnu Jackcess[22](#_toc_22) \[\]. K dispozici
+jsou rovněž komerční ovladače [^3]^,^[^4]^,^[^5].
 
 Stejně jako u technologie ODBC jsou největší nevýhodou omezení v
-důsledku univerzálnosti přístupu, jinými slovy -- jednoduše pracovat je
+důsledku univerzálnosti přístupu; jinými slovy -- jednoduše pracovat je
 možné pouze s daty v tabulkách a k ostatním objektům databází je přístup
-obtížný či nemožný[19](#_toc_19) \[\]. Výhodou je lepší přenositelnost
+obtížný či nemožný[20](#_toc_20) \[\]. Výhodou je lepší přenositelnost
 na jiné platformy.
 
 Portál ZČU
@@ -566,37 +562,37 @@ Základní informace
 Obecně termínem portál označujeme webovou aplikaci, která uživateli
 poskytuje jednotným způsobem a centralizovaně informace z různých
 zdrojů, které uživatele zajímají nebo se ho nějakým způsobem
-týkají[22](#_toc_22) \[\].
+týkají[23](#_toc_23) \[\].
 
 Portál ZČU[^6] je informační zdroj pro studijní účely používaný studenty
 i zaměstnanci Západočeské Univerzity. Zastřešuje různé klíčové aplikace
 univerzity -- z pohledu studentů se jedná zejména o *IS/STAG*
 (Informační systém studijní agendy, umožňující zápis předmětů, zkoušek,
 prohlížení rozvrhů, hodnocení kvality výuky, atp.) a *Courseware* (místo
-s materiály používanými v rámci výuky předmětů).
+s materiály používanými v rámci výuky předmětů) [23](#_toc_23)\[\].
 
 Jednotlivé stránky portálu se skládájí z více či méně nezávislých částí,
 které se nazývají portlety. Jedním z nich je *aplikace pro správu
 semestrálních prací, jejich odevzdávání a hodnocení*. Vyučujícím slouží
 k vypisování témat semestrálních prací, do nichž se studenti posléze
 mohou přihlašovat a odevzdávat své práce. Vyučující si může práce
-jednotlivě či hromadně stáhnout, následně schvalovat či vracet
-k přepracování a zanechávat studentům poznámky a hodnocení
-[22](#_toc_22)\[\].
+jednotlivě či hromadně stáhnout, schvalovat je či vracet k přepracování
+a zanechávat studentům poznámky a hodnocení
+[23](#_toc_23)[24](#_toc_24)\[, \].
 
 Validátor studentských prací
 ----------------------------
 
-V případě, že studenti odevzdávají své práce prostřednictvím zmíněného
-portletu, často po odevzdání čekají delší dobu na zkontrolování práce
-vyučujícím. Pokud práci shledá nevyhovující, vrací ji studentovi. Tento
-proces se navíc může i několikrát opakovat, což znamená pro vyučujícího
-velkou časovou zátěž.
+Studenti často po odevzdání své práce prostřednictvím portálu ZČU čekají
+delší dobu na zkontrolování práce vyučujícím. Pokud práci shledá
+nevyhovující, vrací ji studentovi k přepracování. Tento proces se navíc
+může i několikrát opakovat, což znamená pro vyučujícího velkou časovou
+zátěž a pro studenta čekání v nejistotě.
 
 Cílem validačního serveru studentských prací (dále jen validátor) je
 eliminovat tento proces a již při nahrání automatizovaně kontrolovat,
 zda je práce „vyhovující" -- to může mít mnoho podob,
-například[23](#_toc_23) \[\]:
+například[25](#_toc_25) \[\]:
 
 -   **Práce splňuje formální náležitosti:**
 
@@ -604,8 +600,8 @@ například[23](#_toc_23) \[\]:
 
     -   soubor je vhodně pojmenován,
 
-    -   v nahraném archivu jsou požadované soubory ve správné adresářové
-        struktuře,
+    -   v odevzdaném archivu jsou požadované soubory ve správné
+        adresářové struktuře,
 
     -   v nahraném archivu nejsou žádné nadbytečné soubory.
 
@@ -617,9 +613,11 @@ například[23](#_toc_23) \[\]:
     -   zdrojový kód lze zkompilovat,
 
     -   program má totožný výstup, jako referenční program připravený
-        vyučujícím.
+        vyučujícím,
 
-Automatizace této kontroly poté přináší mnoho výhod [23](#_toc_23)\[\]:
+    -   odevzdaný soubor obsahuje všechny části odpovídající zadání.
+
+Automatizace této kontroly poté přináší mnoho výhod [25](#_toc_25)\[\]:
 
 -   Student se okamžitě dozví, zda jeho práce splňuje základní kritéria
     stanovená učitelem.
@@ -639,11 +637,12 @@ Automatizace této kontroly poté přináší mnoho výhod [23](#_toc_23)\[\]:
 ...
 
 Validátor běží jako samostatná služba, se kterým portlet aplikace
-semestrálních prací komunikuje. \< konkrétní validační pravidla
-nastavuje učitel na serveru, říká se jim validační doména \>
+semestrálních prací komunikuje. \<konkrétní validační pravidla nastavuje
+učitel na serveru, říká se jim validační doména\> \<validační server,
+jak funguje, co je to za server, co tam běží za SW, jak se dá rozšířit,
+testovací validační server\>
 
-Vytvoření nové validační domény
--------------------------------
+### Validační domény
 
 Analýza kontroly prací
 ======================
@@ -739,16 +738,22 @@ Reference {#reference .ListParagraph}
 
 []{#_toc_17 .anchor}<http://jackcess.sourceforge.net/faq.html>
 
-[]{#_toc_18 .anchor}<http://jackcessencrypt.sourceforge.net/>
+[]{#_toc_18 .anchor}<http://jackcess.sourceforge.net/cookbook.html>
 
-[]{#_toc_19 .anchor}
+[]{#_toc_19 .anchor}<http://jackcessencrypt.sourceforge.net/>
 
-[]{#_toc_20
+[]{#_toc_20 .anchor}
+
+[]{#_toc_21
 .anchor}<https://docs.oracle.com/javase/7/docs/technotes/guides/jdbc/bridge.html>
 
-[]{#_toc_21 .anchor}<http://ucanaccess.sourceforge.net/site.html>
+<http://ucanaccess.sourceforge.net/site.html>
 
-<https://validator-test.zcu.cz/vs/auth/doc/doc/validacni-server-uzivatelsky-popis-2.pdf>
+[]{#_toc_24
+.anchor}<https://is-stag.zcu.cz/napoveda/stag-v-portalu/spnew-studium_odevzdavani-praci.html>
+
+[]{#_toc_25
+.anchor}<https://validator-test.zcu.cz/vs/auth/doc/doc/validacni-server-uzivatelsky-popis-2.pdf>
 
 \[1\] ADAMSKI, Joseph J.; FINNEGAN, Kathy T. ; SCOLLARD, Sharon. *New
 perspectives on Microsoft Access 2013: comprehensive.* Stamford, CT:
@@ -781,18 +786,22 @@ Discussion.* \[Online\] 2. 5. 2004 \[Citace: 20. 4. 2018\]. Dostupné z:
 Dostupné z: \[16\] *Jackcess.* \[Online\] Health Market Science,
 31. 3. 2018 \[Citace: 20. 4. 2018\]. Dostupné z: \[17\] Frequently Asked
 Questions. *Jackcess.* \[Online\] Health Market Science, 31. 3. 2018
-\[Citace: 20. 4. 2018\]. Dostupné z: \[18\] *Jackcess Encrypt.*
-\[Online\] Health Market Science, 9. 10. 2017 \[Citace: 20. 4. 2018\].
-Dostupné z: \[19\] MAYDENE FISHER, Jon Ellis, Jonathan Bruce. *JDBC™ API
-Tutorial and Reference.* Boston, MA: Addison Wesley, 2003. ISBN
-0-321-17384-8.\[20\] ORACLE. JDBC-ODBC Bridge. *Java SE Documentation.*
-\[Online\] \[Citace: 20. 4. 2018\]. Dostupné z: \[21\] AMADEI, Marco.
-*UCanAccess.* \[Online\] \[Citace: 20. 4. 2018\]. Dostupné z: \[22\]
-Centrum informatizace a výpočetní techniky. *Referenční příručka
-portálového rozhraní IS/STAG.* Plzeň: Západočeská univerzita, 2009. ISBN
-978-80-7043-807-7.\[23\] HEROUT, Pavel. *Validační server pro studentské
-projekty.* \[Online\] \[Interní dokument\] \[Citace: 20. 4. 2018\].
-Dostupné z:
+\[Citace: 20. 4. 2018\]. Dostupné z: \[18\] Cookbook. *Jackcess.*
+\[Online\] Health Market Science, 31. 3. 2018 \[Citace: 20. 4. 2018\].
+Dostupné z: \[19\] *Jackcess Encrypt.* \[Online\] Health Market Science,
+9. 10. 2017 \[Citace: 20. 4. 2018\]. Dostupné z: \[20\] MAYDENE FISHER,
+Jon Ellis, Jonathan Bruce. *JDBC™ API Tutorial and Reference.* Boston,
+MA: Addison Wesley, 2003. ISBN 0-321-17384-8.\[21\] ORACLE. JDBC-ODBC
+Bridge. *Java SE Documentation.* \[Online\] \[Citace: 20. 4. 2018\].
+Dostupné z: \[22\] AMADEI, Marco. *UCanAccess.* \[Online\] \[Citace:
+20. 4. 2018\]. Dostupné z: \[23\] Centrum informatizace a výpočetní
+techniky. *Referenční příručka portálového rozhraní IS/STAG.* Plzeň:
+Západočeská univerzita, 2009. ISBN 978-80-7043-807-7.\[24\] ---.
+Aplikace pro správu semestrálních prací, jejich odevzdávání a hodnocení.
+*IS/STAG - Helpcentrum.* \[Online\] Západočeská univerzita \[Citace:
+23. 4. 2018\]. Dostupné z: \[25\] HEROUT, Pavel. *Validační server pro
+studentské projekty.* \[Online\] \[Interní dokument\] \[Citace:
+20. 4. 2018\]. Dostupné z:
 
 Přílohy {#přílohy .ListParagraph}
 =======
@@ -827,7 +836,7 @@ též v repozitáři projektu v rámci služby GitHub na adrese:
 
 [^1]: Aktuálně ve verzi 2016.
 
-[^2]: Viz WWW:
+[^2]: Např. viz WWW:
     https://www.easysoft.com/products/data\_access/odbc-access-driver/
 
 [^3]: Viz WWW:
