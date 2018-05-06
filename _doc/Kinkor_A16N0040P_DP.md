@@ -96,7 +96,7 @@ Obsah
 
 [3.3 Vytvoření nové validační domény 15](#validační-domény)
 
-[4 Analýza kontroly prací 16](#analýza-kontroly-prací)
+[4 Analýza kontroly prací 16](#_Toc512982348)
 
 [4.1 Požadavky na řešení 16](#požadavky-na-řešení)
 
@@ -128,7 +128,7 @@ Obsah
 
 [6 Testování vytvořeného systému 18](#testování-vytvořeného-systému)
 
-[6.1 Validační pravidla 18](#validační-pravidla)
+[6.1 Validační pravidla 18](#grafické-rozhraní-1)
 
 [6.2 Konzolová aplikace pro validátor portálu ZČU
 18](#konzolová-aplikace-pro-validátor-portálu-zču)
@@ -178,7 +178,7 @@ být součástí Microsoft Access databází.
 
 ### Tabulky
 
-Tabulky jsou stěžejní součástí každé databáze. Lze je definovat jako
+Tabulky jsou stěžejní součást každé databáze. Lze je definovat jako
 strukturovanou kolekci dat. Skládá se ze sloupců a řádků (též záznamů) a
 v rámci databáze má unikátní název[1](#_toc_1) \[ str. AC 4\].
 
@@ -189,12 +189,12 @@ Struktura tabulky je definována sloupci, které mají specifikovaný název
 následující datové typy[1](#_toc_1)[3](#_toc_3) \[ str. AC 57, \]:
 
 -   *Automatické číslo* -- pro každý nový záznam se automaticky nastaví
-    na následující hodnotu posloupnosti, nebo na náhodné číslo (dle
-    nastavení). Typicky se využívá pro sloupec označený jako primární
-    klíč (viz dále).
+    > na následující hodnotu posloupnosti, nebo na náhodné číslo (dle
+    > nastavení). Typicky se využívá pro sloupec označený jako primární
+    > klíč (viz dále).
 
 -   *Číslo* -- rozsah a typ (celočíselné/s desetinnou čárkou) lze zvolit
-    ve vlastnostech sloupce.
+    > ve vlastnostech sloupce.
 
 -   *Krátký text* (dříve Text) -- text do délky 255 znaků.
 
@@ -203,21 +203,21 @@ následující datové typy[1](#_toc_1)[3](#_toc_3) \[ str. AC 57, \]:
 -   *Datum a čas*.
 
 -   *Měna*** **-- specializovaný případ číselného datového typu s fixní
-    desetinnou čárkou (uchovává 4 desetinná místa).
+    > desetinnou čárkou (uchovává 4 desetinná místa).
 
 -   *Ano/ne* -- uchovává hodnotu -1 (Ano) nebo 0 (Ne); v rámci Microsoft
-    Access zobrazeno jako zaškrtávací pole (*checkbox*).
+    > Access zobrazeno jako zaškrtávací pole (*checkbox*).
 
 -   *Hypertextový odkaz*.
 
 -   *Objekt OLE*** **-- umožňuje vložit speciální objekty, například
-    obrázek, jiný dokument, či odkaz na soubor.
+    > obrázek, jiný dokument, či odkaz na soubor.
 
 -   *Příloha* -- umožňuje vložit libovolný soubor jako součást záznamu.
-    Jedná se o univerzálnější možnost k předchozímu.
+    > Jedná se o univerzálnější možnost k předchozímu.
 
 -   *Počítané* -- automatické vložení hodnoty vypočítané na základě
-    zadaného vzorce.
+    > zadaného vzorce.
 
 Každému sloupci lze dále nastavit různé vlastnosti dle vybraného
 datového typu -- typicky se jedná o ověřovací pravidla (validace vstupu
@@ -251,35 +251,35 @@ primární klíč). Rozlišují se tři druhy relačních
 vazeb[1](#_toc_1)[4](#_toc_4) \[ str. AC A5-A8, str. 419\]:
 
 -   *Relace typu 1:1* -- jednomu záznamu v tabulce A odpovídá žádný, či
-    právě jeden záznam v tabulce B. Typicky je tato relace vhodná v
-    situaci, kdy jen málo záznamů odkazuje do druhé tabulky. Pro cizí
-    klíče zde platí, že jejich hodnoty jsou v rámci tabulky unikátní.
-    Alternativně lze pro referencování použít primární klíče obou
-    tabulek (viz obrázek 1). [4](#_toc_4)\[ str. 420\].
+    > právě jeden záznam v tabulce B. Typicky je tato relace vhodná v
+    > situaci, kdy jen málo záznamů odkazuje do druhé tabulky. Pro cizí
+    > klíče zde platí, že jejich hodnoty jsou v rámci tabulky unikátní.
+    > Alternativně lze pro referencování použít primární klíče obou
+    > tabulek (viz obrázek 1). [4](#_toc_4)\[ str. 420\].
 
 ![](media/image1.emf)
 
-Obrázek 1 -- model relace 1:1 využívající\
+Obrázek  -- model relace 1:1 využívající\
 v obou tabulkách primární klíč.
 
 -   *Relace typu 1:N* -- k více záznamům v tabulce A lze přiřadit jeden
-    záznam z tabulky B. Tato vazba je vždy realizována pomocí již
-    zmíněných cizích klíčů. Jedná se o nejčastěji využívanou
-    vazbu[4](#_toc_4) \[ str. 421\].
+    > záznam z tabulky B. Tato vazba je vždy realizována pomocí již
+    > zmíněných cizích klíčů. Jedná se o nejčastěji využívanou
+    > vazbu[4](#_toc_4) \[ str. 421\].
 
 ![](media/image2.emf)
 
-Obrázek 2 -- model relace 1:N; cizí klíč *Kolej ID* v tabulce *Student\
+Obrázek  -- model relace 1:N; cizí klíč *Kolej ID* v tabulce *Student\
 * referencuje primární klíč tabulky *Kolej*.
 
 -   *Relace typu M:N* -- k M záznamům v tabulce A lze přiřadit N záznamů
-    z tabulky B. Relace se realizuje pomocí *spojové tabulky* (též
-    rozkladové) a dvojice relací 1:N. Spojová tabulka obvykle obsahuje
-    pouze sloupce cizích klíčů[4](#_toc_4) \[ str. 422\].
+    > z tabulky B. Relace se realizuje pomocí *spojové tabulky* (též
+    > rozkladové) a dvojice relací 1:N. Spojová tabulka obvykle obsahuje
+    > pouze sloupce cizích klíčů[4](#_toc_4) \[ str. 422\].
 
 ![](media/image3.emf)
 
-Obrázek 3 -- model relace M:N, která je tvořena dvěma\
+Obrázek  -- model relace M:N, která je tvořena dvěma\
 relacemi 1:N na spojovou tabulku *StudentPředmět*.
 
 Relace mezi tabulkami mohou zajišťovat *referenčním integritu*. Cílem je
@@ -307,25 +307,26 @@ hodnot parametrů[1](#_toc_1) \[ str. AC 249\].
 Podporovány jsou následující druhy dotazů:
 
 -   *Výběrové (SELECT)* -- jedná se o dotaz, jehož výsledkem je množina
-    vybraných záznamů. Struktura je dána dotazem -- jednotlivé sloupce
-    mohou pocházet z různých tabulek, či být spočítané „za běhu". Obecně
-    lze považovat výběrový dotaz za analogii k databázovým
-    pohledům[1](#_toc_1) \[ str. AC 124-128\].
+    > vybraných záznamů. Struktura je dána dotazem -- jednotlivé sloupce
+    > mohou pocházet z různých tabulek, či být spočítané „za běhu".
+    > Obecně lze považovat výběrový dotaz za analogii k databázovým
+    > pohledům[1](#_toc_1) \[ str. AC 124-128\].
 
 -   *Vytvářecí (MAKE TABLE)* -- pracuje na stejném principu jako
-    výběrový, výsledek dotazu však není ihned zobrazen uživateli, ale
-    uložen do nové tabulky[1](#_toc_1) \[ str. AC 500, 501\].
+    > výběrový, výsledek dotazu však není ihned zobrazen uživateli, ale
+    > uložen do nové tabulky[1](#_toc_1) \[ str. AC 500, 501\].
 
 -   *Přidávací (APPEND) *-- slouží pro vkládání nových záznamů do
-    existujících tabulek[1](#_toc_1) \[ str. AC 500, 506\].
+    > existujících tabulek[1](#_toc_1) \[ str. AC 500, 506\].
 
 -   *Aktualizační (UPDATE)*** **-- umožňuje úpravu hodnot již
-    existujících záznamů v tabulkách [1](#_toc_1)\[ str. AC 500, 512\].
+    > existujících záznamů v tabulkách [1](#_toc_1)\[ str. AC 500,
+    > 512\].
 
 -   *Křížový (CROSSTAB)*** **-- výsledkem dotazu je tzv. kontingenční
-    tabulka zobrazující data v kompaktní podobě. Typicky se používá
-    například pro sumarizaci hodnot, nalezení průměrů, maximálních
-    hodnot, atp [1](#_toc_1)\[ str. AC 254, 256\].
+    > tabulka zobrazující data v kompaktní podobě. Typicky se používá
+    > například pro sumarizaci hodnot, nalezení průměrů, maximálních
+    > hodnot, atp. [1](#_toc_1)\[ str. AC 254, 256\].
 
 ### Formuláře
 
@@ -339,23 +340,23 @@ Access umožňují vytvořit formuláře různých druhů[1](#_toc_1) \[ str. AC
 180-200\]:
 
 -   Formuláře pro editaci jednotlivých záznamů (dále označované jako
-    standardní).
+    > standardní).
 
 -   Navigační formuláře, které poskytují možnost přepínání mezi různými
-    formuláři a umožňují tak vytvořit komplexní rozhraní pro správu celé
-    databáze.
+    > formuláři a umožňují tak vytvořit komplexní rozhraní pro správu
+    > celé databáze.
 
 -   Formuláře zobrazující více položek (záznamů) najednou.
 
 -   Datové listy, které vypadají podobně jako zobrazení tabulky (tedy
-    tabulka, kde každý řádek odpovídá jednomu záznamu), ale zachovávají
-    možnost upravovat zobrazená pole.
+    > tabulka, kde každý řádek odpovídá jednomu záznamu), ale
+    > zachovávají možnost upravovat zobrazená pole.
 
 -   Rozdělené formuláře, které jsou kombinaci standardních formulářů v
-    jedné části a datového listu v druhé části obrazovky.
+    > jedné části a datového listu v druhé části obrazovky.
 
 -   Modální dialogová okna, která mají stejné možnosti jako standardní
-    formuláře, ale zobrazují se v samostatném okně a jsou
+    > formuláře, ale zobrazují se v samostatném okně a jsou
 
 ### Sestavy
 
@@ -384,18 +385,18 @@ metadata[5](#_toc_5)[6](#_toc_6) \[, \]:
 -   *Autor databáze* -- jméno uživatele a název organizace.
 
 -   *Formát souboru* -- verze aplikace, ve které byla databáze
-    vytvořena, nastavení režimu kompatibility, atp.
+    > vytvořena, nastavení režimu kompatibility, atp.
 
 -   *Údaje o databázi a objektech *-- datum vytvoření a poslední úpravy.
 
 -   *Uživatelské nastavení aplikace*** **-- nastavení navigačního panelu
-    (řazení/seskupení/šířka/...) a jiných prvků GUI až např. grafické
-    rozvržení relací (viz obr. 4).
+    > (řazení/seskupení/šířka/...) a jiných prvků GUI až např. grafické
+    > rozvržení relací (viz obr. 4).
 
 ![](media/image4.png){width="4.969515529308836in"
 height="3.1037740594925634in"}
 
-Obrázek 4 -- grafické rozvržení relací mezi tabulkami v aplikaci
+Obrázek  -- grafické rozvržení relací mezi tabulkami v aplikaci
 Microsoft Access 2016,\
 které lze rovněž považovat za metadata uložená v databázi.
 
@@ -576,8 +577,8 @@ které se nazývají portlety. Jedním z nich je *aplikace pro správu
 semestrálních prací, jejich odevzdávání a hodnocení*. Vyučujícím slouží
 k vypisování témat semestrálních prací, do nichž se studenti posléze
 mohou přihlašovat a odevzdávat své práce. Vyučující si může práce
-jednotlivě či hromadně stáhnout, schvalovat je či vracet k přepracování
-a zanechávat studentům poznámky a hodnocení
+jednotlivě či hromadně stáhnout, schvalovat je nebo vracet
+k přepracování a zanechávat studentům poznámky a hodnocení
 [23](#_toc_23)[24](#_toc_24)\[, \].
 
 Validátor studentských prací
@@ -589,10 +590,9 @@ nevyhovující, vrací ji studentovi k přepracování. Tento proces se navíc
 může i několikrát opakovat, což znamená pro vyučujícího velkou časovou
 zátěž a pro studenta čekání v nejistotě.
 
-Cílem validačního serveru studentských prací (dále jen validátor) je
-eliminovat tento proces a již při nahrání automatizovaně kontrolovat,
-zda je práce „vyhovující" -- to může mít mnoho podob,
-například[25](#_toc_25) \[\]:
+Cílem validátoru je eliminovat tento proces a již při nahrání
+automatizovaně kontrolovat, zda je práce „vyhovující" -- to může mít
+mnoho podob, například[25](#_toc_25) \[\]:
 
 -   **Práce splňuje formální náležitosti:**
 
@@ -601,54 +601,183 @@ například[25](#_toc_25) \[\]:
     -   soubor je vhodně pojmenován,
 
     -   v odevzdaném archivu jsou požadované soubory ve správné
-        adresářové struktuře,
+        > adresářové struktuře,
 
     -   v nahraném archivu nejsou žádné nadbytečné soubory.
 
 -   **Práce je vyhovující kvalitativně:**
 
     -   dokument splňuje stanovený rozsah (typicky minimální počet slov
-        či stran),
+        > či stran),
 
     -   zdrojový kód lze zkompilovat,
 
     -   program má totožný výstup, jako referenční program připravený
-        vyučujícím,
+        > vyučujícím,
 
-    -   odevzdaný soubor obsahuje všechny části odpovídající zadání.
+    -   odevzdaný soubor obsahuje všechny prvky stanovené zadáním.
 
 Automatizace této kontroly poté přináší mnoho výhod [25](#_toc_25)\[\]:
 
 -   Student se okamžitě dozví, zda jeho práce splňuje základní kritéria
-    stanovená učitelem.
+    > stanovená učitelem.
 
 -   Protože je nevyhovující práce okamžitě odmítnuta, nemůže student
-    zneužít nahrání takové práce k získání dalšího času.
+    > zneužít nahrání takové práce k získání dalšího času.
 
 -   Pokud není omezen počet odevzdání, může student u určitých úloh
-    zkoušet i různá „inovativní" řešení, u kterých si není jist
-    správností.
+    > zkoušet i různá „inovativní" řešení, u kterých si není jist
+    > správností.
 
 -   Vyučující není zatěžován mechanickým kontrolováním formální
-    správnosti.
+    > správnosti.
 
 -   K hodnocení se dostanou jen práce s určitou minimální mírou kvality.
 
-...
+\<TODO: nevýhody?\>
 
-Validátor běží jako samostatná služba, se kterým portlet aplikace
-semestrálních prací komunikuje. \<konkrétní validační pravidla nastavuje
-učitel na serveru, říká se jim validační doména\> \<validační server,
-jak funguje, co je to za server, co tam běží za SW, jak se dá rozšířit,
-testovací validační server\>
+### Validační servery
+
+Validátor je realizován jako služba běžící na samostatném serveru, se
+kterou aplikace pro odevzdávání semestrálních prací komunikuje. Příprava
+validačních pravidel a různých nástrojů pro kontrolu prací tedy probíhá
+odděleně na tomto serveru, který kromě konfigurace přes terminál
+poskytuje i jednoduché webové rozhraní[^7] umožňující správu pravidel a
+následné testování nad vzorovými pracemi. Souběžně s tímto serverem je
+dostupný testovací validační server[^8] určený pro vývoj nových funkcí a
+přípravu validačních pravidel, kde nehrozí nebezpečí poškození aktuálně
+používaných dat, a je tedy vhodný i pro využití v rámci realizace této
+práce [25](#_toc_25)\[\].
 
 ### Validační domény
 
-Analýza kontroly prací
-======================
+Konkrétní postup pro vyhodnocení, zda je práce „vyhovující", je určen
+tzv. *validační doménou*. Ta se skládá z libovolného počtu kroků, jimiž
+se zajistí validace odevzdané práce, a tedy určení, zda bude práce
+přijata, či vrácena studentovi. Domény jsou uloženy na validačním
+serveru, kde je má vyučující možnost libovolně přidávat, upravovat a
+odebírat. Každá je uložena pod vlastním názvem -- pomocí něj ji lze
+následně nastavit v rámci portletu pro odevzdávání prací a tím zajistit
+validaci odevzdaných prací[25](#_toc_25)[26](#_toc_26) \[, \].
+
+Jednotlivé kroky validace představují konkrétní akce, které se mají
+provést. V rámci domény mají unikátní název a volitelný popis. Pro každý
+krok lze určit podmínku, za které se má akce provést[26](#_toc_26) \[\]:
+
+-   *Vždy*.
+
+-   *Nikdy*.
+
+-   *Validace ještě neobsahuje chybu* -- neboli žádný předchozí krok
+    neskončil chybou.
+
+-   *Validace již obsahuje chybu* -- alespoň jeden předchozí krok
+    skončil chybou.
+
+-   *Vlastní skript* -- lze napsat vlastní skript v jazyce JavaScript,
+    > který například vyhodnotí výsledek předchozího kroku a určí, zda
+    > se má krok provést.
+
+Akce lze rozdělit do několika kategorií[27](#_toc_27) \[\]:
+
+-   *Textové výpisy* -- pro zlepšení orientace je vhodné vypisovat
+    > relevantní informace k právě probíhané kontrole a jejím výsledkům
+    > (tedy např. *„Kontrola počtu stran"* nebo *„Chyba -- očekáváno
+    > alespoň 20 stran, odevzdaný soubor obsahuje 17"*). Výpisy mohou
+    > být informativní, varovné či chybové.
+
+-   *Spouštění vlastních akcí* -- jedná se o předem definované
+    > komplexnější validace, které lze ovládat pomocí parametrů.
+    > V současné době je dostupných 31 akcí rozdělených do několika
+    > skupin, např.: kompilace souboru, rozbalení ZIP souboru, spočítání
+    > slov/stran dokumentu, spuštění Java programu, kontrola názvu
+    > souboru, nalezení souboru v adresáři, porovnání PNG souborů, ...
+    > Validátor lze rozšířit o další vlastní akce naprogramováním a
+    > nahráním tzv. *validačních modulů* na validační
+    > server[28](#_toc_28)[29](#_toc_29) \[, \].
+
+-   *Vlastní skript* -- opět lze napsat vlastní skript v jazyce
+    > JavaScript. Pro spouštění skriptů se používá knihovna Rhino, která
+    > umožňuje přistupovat i k běžným funkcím platformy
+    > Java[26](#_toc_26)[29](#_toc_29) \[, \].
+
+-   *Skok na jiný krok validace* a *ukončení validace* -- ve spojení
+    > s podmínkami lze takto řídit průběh validace.[]{#_Toc512982348
+    > .anchor}
+
+### Princip validace práce
+
+Postup validace práce odevzdané studentem zahrnuje mnoho dílčích úkonů:
+
+1.  Validační server práci přijme a načte přiřazenou validační doménu.
+
+2.  Proběhne úvodní kontrola dle konfigurace domény.
+
+3.  Příprava na validaci -- vytvoření pracovního adresáře, do kterého je
+    > práce nahrána a ve které probíhají akce definované doménou (např.
+    > rozbalení archivu, atp.).
+
+4.  Spuštění validačního procesu validační domény -- tedy zpracování
+    > všech definovaných kroků. Průběžně se generuje výsledek validace,
+    > který může obsahovat informativní nebo chybová hlášení.
+
+5.  Výsledek validace je vrácen volající aplikaci -- obvykle tedy
+    > aplikaci pro odevzdávání studentských prací, který jej zobrazí
+    > studentovi. Ten má v tu chvíli možnost zjistit, zda byla jeho
+    > práce vyhovující, či nikoliv.
+
+6.  Ukončení validačního procesu, případně smazání pracovního adresáře
+    > (závisí na konkrétním nastavení validační domény).
+
+Analýza řešení kontroly prací
+=============================
+
+Cílem této práce je vytvoření systému pro kontrolu samostatných prací
+vytvořených v MS Access, konkrétně pro jejich validaci a rozpoznání
+plagiarismu; v další části poté adaptací pro validátor studentských
+prací. Následující podkapitoly se zabývají úvodní analýzou a návrhem
+řešení.
 
 Požadavky na řešení
 -------------------
+
+Hlavní části požadovaného systému je aplikace umožňující *validaci
+Access databází* -- kontrolu databází s ohledem na splnění zadání.
+S ohledem na různorodost jednotlivých zadání musí aplikace umožnit
+pohodlnou konfiguraci této kontroly. To bude spočívat v možnosti
+zahrnout do kontroly různá pravidla testující obsah databází. Výsledek
+kontroly pro zadaný databázový soubor musí být *vyhovující* či
+*nevyhovující*; v druhém případě by měla aplikace poskytnout informaci o
+pravidle, které „selhalo" (a zapříčinilo tedy vyhodnocení databáze jako
+*nevyhovující*).
+
+Pravidla musí umožňovat kontrolu existence tabulek a relací mezi nimi,
+případně i dalších objektů uložených v databázi. Dále musí být možné
+prověřit strukturu tabulek -- existenci sloupců konkrétního názvu či
+datového typu, atp. Bude možné i ověřit počet řádků v tabulce či
+tabulkách (zejména v podobě kontroly, zda všechny tabulky obsahují
+alespoň určitý počet řádků).
+
+Další částí aplikace bude detekce plagiarismu, respektive vyhledávání
+podobností mezi databázovými soubory. Pro databáze může být obtížné
+definovat, kdy se již jedná o plagiát -- například dvě databáze
+obsahující stejně pojmenované tabulky mohou, ale nemusí být plagiátem.
+V takovém případě může aplikace pouze upozorňovat na podobnost; pokud se
+ale podaří na základě dalších informací jednoznačně určit, že se o
+plagiát jedná, budou tak takové soubory označeny.
+
+Aplikace bude uživatelům nabízet přívětivé grafické rozhraní, pomocí
+kterého bude moci spravovat aktuální konfiguraci validace -- tedy
+nastavení jednotlivých pravidel. Validaci musí být možné spustit
+hromadně na více databázemi, výsledek poté bude pro každou z nich určený
+zvlášť.
+
+Součástí systému bude dále aplikace přizpůsobená pro použití v rámci
+validátoru studentských prací -- konkrétním řešením může být konzolová
+aplikace, případně nový validační modul. S ohledem na jednoduchou
+konfiguraci je nutné, aby hlavní část systému (tedy již popsaná aplikace
+s grafickým rozhraním) umožňovala export konfigurace (pravidel validace)
+pro použití v části adaptované pro validátor.
 
 Případy užití
 -------------
@@ -686,14 +815,14 @@ Adaptace pro validátor portálu ZČU
 Testování vytvořeného systému
 =============================
 
-Validační pravidla
-------------------
-
 Konzolová aplikace pro validátor portálu ZČU
 --------------------------------------------
 
-Grafické rozhraní
------------------
+Grafické rozhraní 
+------------------
+
+Validační pravidla
+------------------
 
 Závěr
 =====
@@ -701,59 +830,58 @@ Závěr
 Reference {#reference .ListParagraph}
 =========
 
-[]{#_toc_2
-.anchor}<https://support.office.com/en-us/article/Introduction-to-the-Access-2007-file-format-8cf93630-0b68-4a40-a13c-7528b9f074b6>
+[]{#_toc_1 .anchor}
 
-[]{#_toc_3
-.anchor}<https://support.office.com/en-us/article/data-types-for-access-desktop-databases-df2b83ba-cef6-436d-b679-3418f622e482>
+<https://support.office.com/en-us/article/Introduction-to-the-Access-2007-file-format-8cf93630-0b68-4a40-a13c-7528b9f074b6>
 
-[]{#_toc_4 .anchor}
+<https://support.office.com/en-us/article/data-types-for-access-desktop-databases-df2b83ba-cef6-436d-b679-3418f622e482>
 
-[]{#_toc_5
-.anchor}<https://github.com/brianb/mdbtools/blob/master/HACKING>
+<https://github.com/brianb/mdbtools/blob/master/HACKING>
 
-[]{#_toc_6
-.anchor}<https://www.loc.gov/preservation/digital/formats/fdd/fdd000462.shtml>
+<https://www.loc.gov/preservation/digital/formats/fdd/fdd000462.shtml>
 
-<https://support.office.com/en-us/article/which-access-file-format-should-i-use-012d9ab3-d14c-479e-b617-be66f9070b41>
+[]{#_toc_7
+.anchor}<https://support.office.com/en-us/article/which-access-file-format-should-i-use-012d9ab3-d14c-479e-b617-be66f9070b41>
 
-[]{#_toc_8 .anchor}
+<https://msdn.microsoft.com/en-us/library/15s06t57.aspx>
 
-[]{#_toc_9 .anchor}
+<https://github.com/brianb/mdbtools/>
 
-[]{#_toc_10
-.anchor}<https://msdn.microsoft.com/en-us/library/15s06t57.aspx>
+[]{#_toc_12 .anchor}<https://github.com/brianb/mdbtools/issues/77>
 
-[]{#_toc_11 .anchor}<https://github.com/brianb/mdbtools/>
+[]{#_toc_13
+.anchor}<https://sourceforge.net/p/mdbtools/discussion/6688/thread/a543445a/>
 
-<https://github.com/brianb/mdbtools/issues/77>
+<https://github.com/ome/ome-mdbtools>
 
-<https://sourceforge.net/p/mdbtools/discussion/6688/thread/a543445a/>
+[]{#_toc_15
+.anchor}<https://github.com/ome/ome-mdbtools/blob/master/src/main/java/mdbtools/tests/ColumnTest.java>
 
-[]{#_toc_14 .anchor}<https://github.com/ome/ome-mdbtools>
+<http://jackcess.sourceforge.net/>
 
-<https://github.com/ome/ome-mdbtools/blob/master/src/main/java/mdbtools/tests/ColumnTest.java>
+<http://jackcess.sourceforge.net/faq.html>
 
-[]{#_toc_16 .anchor}<http://jackcess.sourceforge.net/>
+<http://jackcess.sourceforge.net/cookbook.html>
 
-[]{#_toc_17 .anchor}<http://jackcess.sourceforge.net/faq.html>
+<http://jackcessencrypt.sourceforge.net/>
 
-[]{#_toc_18 .anchor}<http://jackcess.sourceforge.net/cookbook.html>
+<https://docs.oracle.com/javase/7/docs/technotes/guides/jdbc/bridge.html>
 
-[]{#_toc_19 .anchor}<http://jackcessencrypt.sourceforge.net/>
+[]{#_toc_22 .anchor}<http://ucanaccess.sourceforge.net/site.html>
 
-[]{#_toc_20 .anchor}
+[]{#_toc_23 .anchor}
 
-[]{#_toc_21
-.anchor}<https://docs.oracle.com/javase/7/docs/technotes/guides/jdbc/bridge.html>
+<https://is-stag.zcu.cz/napoveda/stag-v-portalu/spnew-studium_odevzdavani-praci.html>
 
-<http://ucanaccess.sourceforge.net/site.html>
+<https://validator-test.zcu.cz/vs/auth/doc/doc/validacni-server-uzivatelsky-popis-2.pdf>
 
-[]{#_toc_24
-.anchor}<https://is-stag.zcu.cz/napoveda/stag-v-portalu/spnew-studium_odevzdavani-praci.html>
+[]{#_toc_26 .anchor}
 
-[]{#_toc_25
-.anchor}<https://validator-test.zcu.cz/vs/auth/doc/doc/validacni-server-uzivatelsky-popis-2.pdf>
+[]{#_toc_27 .anchor}<https://validator-test.zcu.cz/>
+
+<https://students.kiv.zcu.cz:3443/projects/validator/wiki>
+
+<https://validator-test.zcu.cz/vs/auth/doc/index.html>
 
 \[1\] ADAMSKI, Joseph J.; FINNEGAN, Kathy T. ; SCOLLARD, Sharon. *New
 perspectives on Microsoft Access 2013: comprehensive.* Stamford, CT:
@@ -801,6 +929,14 @@ Aplikace pro správu semestrálních prací, jejich odevzdávání a hodnocení.
 *IS/STAG - Helpcentrum.* \[Online\] Západočeská univerzita \[Citace:
 23. 4. 2018\]. Dostupné z: \[25\] HEROUT, Pavel. *Validační server pro
 studentské projekty.* \[Online\] \[Interní dokument\] \[Citace:
+20. 4. 2018\]. Dostupné z: \[26\] DUDOVÁ, Veronika. *Webová konfigurace
+validačního serveru.* Plzeň, 2010. Bakalářská práce. Západočeská
+univerzita. Fakulta aplikovaných věd. Katedra informatiky a výpočetní
+techniky. Vedoucí práce Pavel HEROUT.\[27\] *Testovací validační server
+pro studentské projekty.* \[Online\] \[Citace: 20. 4. 2018\]. Dostupné
+z: \[28\] *Wiki - Validační server a jeho moduly - Redmine.* \[Online\]
+\[Citace: 20. 4. 2018\]. Dostupné z: \[29\] VALENTA, Lukáš; DUDOVÁ,
+Veronika. *Validační server - manuál.* \[Online\] \[Citace:
 20. 4. 2018\]. Dostupné z:
 
 Přílohy {#přílohy .ListParagraph}
@@ -849,3 +985,7 @@ též v repozitáři projektu v rámci služby GitHub na adrese:
     products/relational-junction-mdb-jdbc-driver/
 
 [^6]: Dostupný na adrese <https://portal.zcu.cz/>
+
+[^7]: Viz WWW: <https://validator.zcu.cz/>
+
+[^8]: Viz WWW: <https://validator-test.zcu.cz/>
