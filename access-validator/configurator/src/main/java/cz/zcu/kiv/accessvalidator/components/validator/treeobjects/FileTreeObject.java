@@ -25,6 +25,11 @@ public class FileTreeObject extends TreeObject {
     private File file;
 
     /**
+     * Suffix of label.
+     */
+    private String labelSuffix = null;
+
+    /**
      * State of file - already checked.
      */
     private boolean checked = false;
@@ -38,6 +43,11 @@ public class FileTreeObject extends TreeObject {
      * State of file - found similar files to it.
      */
     private boolean foundSimilarFiles = false;
+
+    /**
+     * State of file - found highly similar files to it (possibly plagiarism).
+     */
+    private boolean foundHighlySimilarFile = false;
 
     /**
      * Handler for hiding similarities between files.
@@ -65,6 +75,15 @@ public class FileTreeObject extends TreeObject {
     }
 
     /**
+     * Sets label suffix.
+     *
+     * @param labelSuffix Suffix of label.
+     */
+    public void setLabelSuffix(String labelSuffix) {
+        this.labelSuffix = labelSuffix;
+    }
+
+    /**
      * Sets state of a file. Also sets {@code checked} to {@code true}.
      *
      * @param valid Validness of the file.
@@ -83,6 +102,7 @@ public class FileTreeObject extends TreeObject {
         this.checked = false;
         this.valid = false;
         this.foundSimilarFiles = false;
+        this.foundHighlySimilarFile = false;
     }
 
     /**
@@ -102,6 +122,7 @@ public class FileTreeObject extends TreeObject {
      */
     public void setSimilarFiles(SimilarFiles similarFiles) {
         this.foundSimilarFiles = false;
+        this.foundHighlySimilarFile = false;
 
         if (similarFiles == null || similarFiles.getSimilarFiles().isEmpty()) {
             return;
@@ -113,10 +134,17 @@ public class FileTreeObject extends TreeObject {
 
         for (File similar : similarFiles.getSimilarFiles()) {
             FileTreeObject node = parent.addChild(new FileTreeObject(similar));
+            int severity = 0;
 
             for (SimilarityElement similarity : similarFiles.getFileSimilarities(similar)) {
                 StringTreeObject simObject = node.addChild(new StringTreeObject(similarity.toString()));
                 simObject.contextMenu = this.createHideSimilarityContextMenu(similarity);
+                severity += similarity.getSeverity();
+            }
+
+            if(severity >= 100) {
+                this.foundHighlySimilarFile = true;
+                node.setLabelSuffix(" [plagiát]");
             }
 
             node.children.sort(Comparator.comparing(TreeItem::toString, String.CASE_INSENSITIVE_ORDER));
@@ -177,6 +205,9 @@ public class FileTreeObject extends TreeObject {
         if (this.foundSimilarFiles) {
             classes.add("icon-similar");
         }
+        if (this.foundHighlySimilarFile) {
+            classes.add("cls-plagiarism");
+        }
 
         return classes;
     }
@@ -190,9 +221,13 @@ public class FileTreeObject extends TreeObject {
     public String toString() {
         String ret = this.file.getName();
 
+        if(this.labelSuffix != null && !this.labelSuffix.isEmpty()) {
+            ret += this.labelSuffix;
+        }
+
         if (this.checked) {
-            if(this.foundSimilarFiles) {
-                ret += " [duplicity]";
+            if(this.foundHighlySimilarFile) {
+                ret += " [plagiarismus]";
             }
             else {
                 ret += " " + (this.valid ? "[OK]" : "[nevalidní]");

@@ -1,7 +1,10 @@
 package cz.zcu.kiv.accessvalidator.validator.database;
 
 import java.io.File;
-import java.util.*;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.Objects;
+import java.util.Set;
 
 /**
  * Single element of similarity which is shared across files.
@@ -26,6 +29,11 @@ public class SimilarityElement {
     private Set<File> files = new HashSet<>();
 
     /**
+     * Severity of similarity in range 0-100.
+     */
+    private int severity = 1;
+
+    /**
      * Single element of similarity which is shared across files.
      *
      * @param label Short description of similarity.
@@ -34,6 +42,23 @@ public class SimilarityElement {
     public SimilarityElement(String label, Object value) {
         this.label = label;
         this.value = value;
+    }
+
+    /**
+     * Single element of similarity which is shared across files.
+     *
+     * @param label Short description of similarity.
+     * @param value Value used in comparing with other files.
+     * @param severity Severity of similarity.
+     */
+    public SimilarityElement(String label, Object value, int severity) throws Exception {
+        if(severity < 0 || severity > 100) {
+            throw new Exception("Severity must be between 0 and 100 (inclusive).");
+        }
+
+        this.label = label;
+        this.value = value;
+        this.severity = severity;
     }
 
     /**
@@ -62,6 +87,15 @@ public class SimilarityElement {
      */
     public Object getValue() {
         return this.value;
+    }
+
+    /**
+     * Gets severity of similarity.
+     *
+     * @return Severity of similarity.
+     */
+    public int getSeverity() {
+        return this.severity;
     }
 
     /**

@@ -51,6 +51,7 @@
 }
 .icon-invalid {
 	-fx-background-image: url("/icons/if_sign-error_299045_32.png");
+	-fx-text-fill: #820000;
 }
 .icon-similar {
 	-fx-background-image: url("/icons/if_sign-add_299068_32.png");
@@ -62,4 +63,10 @@
 .icon-invalid.icon-similar {
 	-fx-background-image: url("/icons/if_sign-error_299045_32.png"), url("/icons/if_sign-add_error_32.png");
 	-fx-background-position: 94% center, 98% center;
+}
+.cls-plagiarism {
+	-fx-text-fill: #820000;
+}
+.tree-view .tree-cell:focused {
+	-fx-text-fill: white !important;
 }
