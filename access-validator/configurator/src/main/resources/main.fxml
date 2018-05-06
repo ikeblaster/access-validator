@@ -1,115 +1,108 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.CheckMenuItem?>
-<?import javafx.scene.control.Menu?>
-<?import javafx.scene.control.MenuBar?>
-<?import javafx.scene.control.MenuItem?>
-<?import javafx.scene.control.Separator?>
-<?import javafx.scene.control.SeparatorMenuItem?>
-<?import javafx.scene.control.SplitPane?>
-<?import javafx.scene.control.ToolBar?>
-<?import javafx.scene.control.Tooltip?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.Pane?>
-<?import javafx.scene.layout.VBox?>
-
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1200.0" stylesheets="main.css" xmlns="http://javafx.com/javafx/8.0.162" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cz.zcu.kiv.accessvalidator.configurator.ConfiguratorController">
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0"
+      prefWidth="1200.0" stylesheets="main.css" xmlns="http://javafx.com/javafx/8.0.162"
+      xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="cz.zcu.kiv.accessvalidator.configurator.ConfiguratorController">
     <MenuBar VBox.vgrow="NEVER">
         <Menu mnemonicParsing="false" text="Soubor pravidel">
-            <MenuItem mnemonicParsing="false" onAction="#actionNewFile" text="Nový" />
-            <MenuItem mnemonicParsing="false" onAction="#actionOpenFile" text="Otevřít..." />
-            <MenuItem mnemonicParsing="false" onAction="#actionSaveFile" text="Uložit" />
-            <MenuItem mnemonicParsing="false" onAction="#actionSaveAs" text="Uložit jako..." />
-            <SeparatorMenuItem mnemonicParsing="false" />
-            <MenuItem mnemonicParsing="false" onAction="#actionExitApp" text="Ukončit" />
+            <MenuItem mnemonicParsing="false" onAction="#actionNewFile" text="Nový"/>
+            <MenuItem mnemonicParsing="false" onAction="#actionOpenFile" text="Otevřít..."/>
+            <MenuItem mnemonicParsing="false" onAction="#actionSaveFile" text="Uložit"/>
+            <MenuItem mnemonicParsing="false" onAction="#actionSaveAs" text="Uložit jako..."/>
+            <SeparatorMenuItem mnemonicParsing="false"/>
+            <MenuItem mnemonicParsing="false" onAction="#actionExitApp" text="Ukončit"/>
         </Menu>
-      <Menu mnemonicParsing="false" text="Kontrola databází">
-         <items>
-            <MenuItem mnemonicParsing="false" onAction="#actionAddDB" text="Přidat databázi ke kontrole" />
-            <MenuItem mnemonicParsing="false" onAction="#actionTestDBs" text="Otestovat databáze" />
-            <SeparatorMenuItem mnemonicParsing="false" />
-            <CheckMenuItem mnemonicParsing="false" onAction="#actionToggleCheckSimilarities" selected="true" text="Vyhledávat podobnosti mezi databázemi" />
-            <MenuItem mnemonicParsing="false" onAction="#actionResetHiddenSimilarities" text="Resetovat skryté podobnosti databází" />
-         </items>
-      </Menu>
+        <Menu mnemonicParsing="false" text="Kontrola databází">
+            <items>
+                <MenuItem mnemonicParsing="false" onAction="#actionAddDB" text="Přidat databázi ke kontrole"/>
+                <MenuItem mnemonicParsing="false" onAction="#actionTestDBs" text="Otestovat databáze"/>
+                <SeparatorMenuItem mnemonicParsing="false"/>
+                <CheckMenuItem mnemonicParsing="false" onAction="#actionToggleCheckSimilarities" selected="true"
+                               text="Vyhledávat podobnosti mezi databázemi"/>
+                <MenuItem mnemonicParsing="false" onAction="#actionResetHiddenSimilarities"
+                          text="Resetovat skryté podobnosti databází"/>
+            </items>
+        </Menu>
     </MenuBar>
     <ToolBar prefHeight="40.0" prefWidth="200.0">
         <Button mnemonicParsing="false" onAction="#actionOpenFile" text="Otevřít pravidla">
             <graphic>
                 <ImageView fitHeight="22.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true">
-                    <Image url="@icons/if_folder_299060.png" />
+                    <Image url="@icons/if_folder_299060.png"/>
                 </ImageView>
             </graphic>
         </Button>
         <Button mnemonicParsing="false" onAction="#actionSaveFile" text="Uložit">
             <graphic>
                 <ImageView fitHeight="22.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true">
-                    <Image url="@icons/if_floppy_285657.png" />
+                    <Image url="@icons/if_floppy_285657.png"/>
                 </ImageView>
             </graphic>
         </Button>
-        <Separator orientation="VERTICAL" prefHeight="23.0" prefWidth="0.0" visible="false" />
-      <Button mnemonicParsing="false" onAction="#actionAddRule" text="Přidat pravidlo">
-         <graphic>
-            <ImageView fitHeight="22.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@icons/if_sign-add_299068.png" />
-               </image>
-            </ImageView>
-         </graphic>
-         <tooltip>
-            <Tooltip text="Přidat označené pravidlo z knihovny mezi aktivní pravidla" />
-         </tooltip>
-      </Button>
+        <Separator orientation="VERTICAL" prefHeight="23.0" prefWidth="0.0" visible="false"/>
+        <Button mnemonicParsing="false" onAction="#actionAddRule" text="Přidat pravidlo">
+            <graphic>
+                <ImageView fitHeight="22.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@icons/if_sign-add_299068.png"/>
+                    </image>
+                </ImageView>
+            </graphic>
+            <tooltip>
+                <Tooltip text="Přidat označené pravidlo z knihovny mezi aktivní pravidla"/>
+            </tooltip>
+        </Button>
         <Button mnemonicParsing="false" onAction="#actionDeleteRule" text="Smazat pravidlo">
             <graphic>
                 <ImageView fitHeight="22.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true">
-                    <Image url="@icons/if_sign-error_299045.png" />
+                    <Image url="@icons/if_sign-error_299045.png"/>
                 </ImageView>
             </graphic>
-         <tooltip>
-            <Tooltip text="Smazat označené aktivní pravidlo" />
-         </tooltip>
+            <tooltip>
+                <Tooltip text="Smazat označené aktivní pravidlo"/>
+            </tooltip>
         </Button>
-        <Pane prefHeight="0.0" HBox.hgrow="SOMETIMES" />
+        <Pane prefHeight="0.0" HBox.hgrow="SOMETIMES"/>
         <Button mnemonicParsing="false" onAction="#actionAddDB" text="Přidat databázi (ACCDB)">
             <graphic>
                 <ImageView fitHeight="22.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true">
-                    <Image url="@icons/if_database_299089if_folder_299060.png" />
+                    <Image url="@icons/if_database_299089if_folder_299060.png"/>
                 </ImageView>
             </graphic>
-         <tooltip>
-            <Tooltip text="Přidat databázi ke kontrole" />
-         </tooltip>
+            <tooltip>
+                <Tooltip text="Přidat databázi ke kontrole"/>
+            </tooltip>
         </Button>
         <Button mnemonicParsing="false" onAction="#actionRemoveDB" text="Odebrat databázi">
             <graphic>
                 <ImageView fitHeight="22.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true">
-                    <Image url="@icons/if_database_299089if_sign-remove.png" />
+                    <Image url="@icons/if_database_299089if_sign-remove.png"/>
                 </ImageView>
             </graphic>
-         <tooltip>
-            <Tooltip text="Odebrat označenou databázi z kontroly" />
-         </tooltip>
+            <tooltip>
+                <Tooltip text="Odebrat označenou databázi z kontroly"/>
+            </tooltip>
         </Button>
         <Button mnemonicParsing="false" onAction="#actionTestDBs" text="Otestovat databáze">
             <graphic>
                 <ImageView fitHeight="22.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true">
-                    <Image url="@icons/if_sign-check_299110.png" />
+                    <Image url="@icons/if_sign-check_299110.png"/>
                 </ImageView>
             </graphic>
-         <tooltip>
-            <Tooltip text="Otestovat přidané databáze oproti aktivním pravidlům&#10;a vyhledat plagiáty/podobnosti mezi databázemi." />
-         </tooltip>
+            <tooltip>
+                <Tooltip
+                        text="Otestovat přidané databáze oproti aktivním pravidlům&#10;a vyhledat plagiáty/podobnosti mezi databázemi."/>
+            </tooltip>
         </Button>
     </ToolBar>
-    <SplitPane dividerPositions="0.178, 0.48, 0.72" focusTraversable="true" VBox.vgrow="ALWAYS">
-        <fx:include fx:id="library" source="pane_library.fxml" />
-        <fx:include fx:id="activeRules" source="pane_activerules.fxml" />
-        <fx:include fx:id="details" source="pane_details.fxml" />
-        <fx:include fx:id="validator" source="pane_validator.fxml" />
+    <SplitPane dividerPositions="0.178, 0.41, 0.65" focusTraversable="true" VBox.vgrow="ALWAYS">
+        <fx:include fx:id="library" source="pane_library.fxml"/>
+        <fx:include fx:id="activeRules" source="pane_activerules.fxml"/>
+        <fx:include fx:id="details" source="pane_details.fxml"/>
+        <fx:include fx:id="validator" source="pane_validator.fxml"/>
     </SplitPane>
 </VBox>

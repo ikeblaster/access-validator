@@ -67,6 +67,7 @@
 .cls-plagiarism {
 	-fx-text-fill: #820000;
 }
-.tree-view .tree-cell:focused {
+
+.tree-view:focused .tree-cell:focused:selected {
 	-fx-text-fill: white !important;
 }

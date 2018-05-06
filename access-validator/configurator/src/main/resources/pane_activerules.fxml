@@ -5,14 +5,14 @@
 <?import javafx.scene.control.TreeView?>
 <?import javafx.scene.layout.*?>
 <AnchorPane xmlns="http://javafx.com/javafx"
-        xmlns:fx="http://javafx.com/fxml"
-        fx:controller="cz.zcu.kiv.accessvalidator.components.activerules.ActiveRulesController">
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="cz.zcu.kiv.accessvalidator.components.activerules.ActiveRulesController">
 
     <Label alignment="CENTER" styleClass="label-header" layoutX="14.0" layoutY="14.0" minWidth="60.0"
            text="Aktivní pravidla" textAlignment="CENTER"/>
     <ScrollPane fitToHeight="true" fitToWidth="true"
-                                 AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
-                                 AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="50.0">
-    <TreeView fx:id="activeRules"/>
-</ScrollPane>
+                AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+                AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="50.0">
+        <TreeView fx:id="activeRules"/>
+    </ScrollPane>
 </AnchorPane>

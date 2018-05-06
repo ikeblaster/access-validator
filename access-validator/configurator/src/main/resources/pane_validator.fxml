@@ -3,13 +3,15 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TreeView?>
-<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.*?>
+<AnchorPane xmlns="http://javafx.com/javafx/8.0.162" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="cz.zcu.kiv.accessvalidator.components.validator.ValidatorController">
 
-<AnchorPane xmlns="http://javafx.com/javafx/8.0.162" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cz.zcu.kiv.accessvalidator.components.validator.ValidatorController">
+    <Label alignment="CENTER" layoutX="14.0" layoutY="14.0" styleClass="label-header" text="Databáze ke kontrole"
+           textAlignment="CENTER" wrapText="false"/>
 
-    <Label alignment="CENTER" layoutX="14.0" layoutY="14.0" styleClass="label-header" text="Databáze ke kontrole" textAlignment="CENTER" wrapText="false" />
-
-    <ScrollPane fitToHeight="true" fitToWidth="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="50.0">
-        <TreeView fx:id="treeView" />
+    <ScrollPane fitToHeight="true" fitToWidth="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+                AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="50.0">
+        <TreeView fx:id="treeView"/>
     </ScrollPane>
 </AnchorPane>
