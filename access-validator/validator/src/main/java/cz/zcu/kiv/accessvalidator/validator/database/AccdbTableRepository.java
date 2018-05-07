@@ -162,8 +162,15 @@ public class AccdbTableRepository {
             columns.removeIf(col -> !columnType.compare(col));  // remove columns with different types than columnType
         }
         if(isPrimaryKey != null && isPrimaryKey != YesNoType._ANY) {
-            List<Column> primaryKeyColumns = table.getPrimaryKeyIndex().getColumns().stream().map(Index.Column::getColumn).collect(Collectors.toList());
-            columns.removeIf(col -> (isPrimaryKey == YesNoType.YES) ^ primaryKeyColumns.contains(col)); // either we are looking for primary key and col isn't one... or the exact opposite
+            try {
+                List<Column> primaryKeyColumns = table.getPrimaryKeyIndex().getColumns().stream().map(Index.Column::getColumn).collect(Collectors.toList());
+                columns.removeIf(col -> (isPrimaryKey == YesNoType.YES) ^ primaryKeyColumns.contains(col)); // either we are looking for primary key and col isn't one... or the exact opposite
+            } catch (IllegalArgumentException e) {
+                // no primary key index on this table found and we are looking explicitely for primary keys
+                if(isPrimaryKey == YesNoType.YES) {
+                    columns.clear();
+                }
+            }
         }
 
         return columns.size();

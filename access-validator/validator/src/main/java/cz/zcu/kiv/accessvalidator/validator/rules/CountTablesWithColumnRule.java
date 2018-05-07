@@ -109,13 +109,16 @@ public class CountTablesWithColumnRule extends Rule {
         String details = "";
 
         if(this.columnType.getValue() != ColumnType._ANY) {
-            details += "typu '" + this.columnType.getValue().toString() + "' ";
+            details += " typu '" + this.columnType.getValue().toString() + "'";
         }
         if(!this.columnName.getValue().isEmpty()) {
-            details += "s názvem '" + this.columnName.getValue() + "' ";
+            details += " s názvem '" + this.columnName.getValue() + "'";
+        }
+        if (this.columnIsPrimary.getValue() != YesNoType._ANY) {
+            details += ", který " + (this.columnIsPrimary.getValue() == YesNoType.YES ? "je" : "není") + " primárním klíčem";
         }
 
-        return "Počet tabulek se sloupcem " + details + this.countOp.getValue() + " " + this.count.getValue();
+        return "Počet tabulek se sloupcem" + details + " " + this.countOp.getValue() + " " + this.count.getValue();
     }
 
 

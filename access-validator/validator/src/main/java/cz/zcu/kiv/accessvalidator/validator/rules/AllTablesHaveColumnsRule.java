@@ -107,13 +107,16 @@ public class AllTablesHaveColumnsRule extends Rule {
         String details = "";
 
         if (this.columnType.getValue() != ColumnType._ANY) {
-            details += "typu '" + this.columnType.getValue().toString() + "' ";
+            details += " typu '" + this.columnType.getValue().toString() + "'";
         }
         if (!this.columnName.getValue().isEmpty()) {
-            details += "s názvem '" + this.columnName.getValue() + "' ";
+            details += " s názvem '" + this.columnName.getValue() + "'";
+        }
+        if (this.columnIsPrimary.getValue() != YesNoType._ANY) {
+            details += ", které " + (this.columnIsPrimary.getValue() == YesNoType.YES ? "jsou" : "nejsou") + " primárním klíčem,";
         }
 
-        return "Počet sloupců " + details + "v každé tabulce " + this.countOp.getValue() + " " + this.count.getValue();
+        return "Počet sloupců" + details + " v každé tabulce " + this.countOp.getValue() + " " + this.count.getValue();
     }
 
 
