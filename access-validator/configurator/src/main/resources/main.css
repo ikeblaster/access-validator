@@ -68,6 +68,6 @@
 	-fx-text-fill: #820000;
 }
 
-.tree-view:focused .tree-cell:focused:selected {
+.tree-view:focused .tree-cell:selected {
 	-fx-text-fill: white !important;
 }

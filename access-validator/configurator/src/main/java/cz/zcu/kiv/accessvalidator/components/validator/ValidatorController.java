@@ -11,6 +11,7 @@ import cz.zcu.kiv.accessvalidator.validator.database.SimilarityElement;
 import cz.zcu.kiv.accessvalidator.validator.rules.Rule;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.input.TransferMode;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
@@ -127,6 +128,32 @@ public class ValidatorController {
 
 
         this.fileChooser.addExtensionFilter(new FileChooser.ExtensionFilter("Access databáze", "*.accdb", "*.mdb"));
+
+        // add drag and drop support
+        this.treeView.setOnDragOver(event -> {
+            if(event.getDragboard().hasFiles()) {
+
+                for (File file : event.getDragboard().getFiles()) {
+                    if(this.checkFileSupported(file)) {
+                        event.acceptTransferModes(TransferMode.COPY_OR_MOVE);
+                        break;
+                    }
+                }
+
+            }
+            event.consume();
+        });
+
+        this.treeView.setOnDragDropped(event -> {
+            if (event.getDragboard().hasFiles()) {
+
+                this.actionAddDB(event.getDragboard().getFiles());
+                event.setDropCompleted(true);
+
+            }
+            event.consume();
+        });
+
     }
 
     //endregion
@@ -136,13 +163,21 @@ public class ValidatorController {
 
     /**
      * Action for adding database files into the tree.
+     * Opens file chooser.
      */
     public void actionAddDB() {
-        List<File> files = this.fileChooser.openMultipleFiles();
+        this.actionAddDB(this.fileChooser.openMultipleFiles());
+    }
+
+    /**
+     * Action for adding database files into the tree.
+     * @param files List of files to be added.
+     */
+    public void actionAddDB(List<File> files) {
         List<File> existing = this.dbFiles.getFiles();
 
         for (File file : files) {
-            if (!existing.contains(file)) {
+            if (this.checkFileSupported(file) && !existing.contains(file)) {
                 FileTreeObject treeFile = this.dbFiles.addFile(file);
                 treeFile.onHideSimilarity(this::actionHideSimilarity);
             }
@@ -242,4 +277,22 @@ public class ValidatorController {
         return Collections.emptyMap();
     }
 
+    /**
+     * Checks whether a file is supported by validator. Check is extension based only.
+     *
+     * @param file File to be checked.
+     * @return {@code true} when file is supported, {@code false} otherwise.
+     */
+    private boolean checkFileSupported(File file) {
+        String name = file.getName();
+        try {
+            String ext = name.substring(name.lastIndexOf(".") + 1).toLowerCase();
+
+            if(ext.equals("accdb") || ext.equals("mdb")) {
+                return true;
+            }
+        } catch (Exception e) {
+        }
+        return false;
+    }
 }
