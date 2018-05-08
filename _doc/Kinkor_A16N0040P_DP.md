@@ -63,7 +63,7 @@ Obsah
 
 [2.2.1 Tabulky 2](#tabulky)
 
-[2.2.2 Dotazy 5](#dotazy)
+[2.2.2 Dotazy 6](#dotazy)
 
 [2.2.3 Formuláře 6](#formuláře)
 
@@ -78,11 +78,11 @@ Obsah
 
 [2.4.1 ODBC 9](#odbc)
 
-[2.4.2 Microsoft Office Interop 9](#microsoft-office-interop)
+[2.4.2 Microsoft Office Interop 10](#microsoft-office-interop)
 
 [2.4.3 MDB Tools 10](#mdb-tools)
 
-[2.4.4 MDB Tools Java 10](#mdb-tools-java)
+[2.4.4 MDB Tools Java 11](#mdb-tools-java)
 
 [2.4.5 Jackcess 11](#jackcess)
 
@@ -94,60 +94,72 @@ Obsah
 
 [3.2 Validátor studentských prací 13](#validátor-studentských-prací)
 
-[3.3 Vytvoření nové validační domény 15](#validační-domény)
+[3.2.1 Validační servery 14](#validační-servery)
 
-[4 Analýza kontroly prací 16](#_Toc512982348)
+[3.2.2 Validační domény 15](#validační-domény)
 
-[4.1 Požadavky na řešení 16](#požadavky-na-řešení)
+[3.2.3 Princip validace práce 16](#princip-validace-práce)
 
-[4.2 Případy užití 16](#případy-užití)
+[4 Analýza řešení kontroly prací 18](#analýza-řešení-kontroly-prací)
 
-[4.3 Validace databáze 16](#validace-databázových-souborů)
+[4.1 Požadavky na řešení 18](#požadavky-na-řešení)
 
-[4.4 Vyhodnocení plagiarismu 16](#vyhodnocení-plagiarismu)
+[4.2 Případy užití 19](#případy-užití)
+
+[4.3 Metoda čtení databázových souborů
+20](#metoda-čtení-databázových-souborů)
+
+[4.4 Validace databázových souborů 21](#validace-databázových-souborů)
+
+[4.5 Vyhodnocení plagiarismu 23](#vyhodnocení-plagiarismu)
+
+[4.6 Adaptace pro validátor studentských prací
+24](#adaptace-pro-validátor-studentských-prací)
+
+[4.7 Návrh struktury systému 25](#návrh-struktury-systému)
 
 [5 Implementace systému pro automatickou kontrolu prací
-17](#implementace-systému-pro-automatickou-kontrolu-prací)
+26](#implementace-systému-pro-automatickou-kontrolu-prací)
 
-[5.1 Použité technologie 17](#použité-technologie)
+[5.1 Použité technologie 26](#použité-technologie)
 
-[5.2 Struktura aplikace 17](#struktura-aplikace)
+[5.2 Struktura aplikace 26](#struktura-aplikace)
 
-[5.3 Validace databáze 17](#validace-databáze)
+[5.3 Validace databáze 26](#validace-databáze)
 
 [5.4 Implementovaná validační pravidla
-17](#implementovaná-validační-pravidla)
+26](#implementovaná-validační-pravidla)
 
 [5.5 Hledání podobností a detekce plagiarismu
-17](#hledání-podobností-a-detekce-plagiarismu)
+26](#hledání-podobností-a-detekce-plagiarismu)
 
-[5.6 Grafické rozhraní 17](#grafické-rozhraní)
+[5.6 Grafické rozhraní 26](#grafické-rozhraní-1)
 
 [5.7 Adaptace pro validátor portálu ZČU
-17](#adaptace-pro-validátor-portálu-zču)
+26](#adaptace-pro-validátor-portálu-zču)
 
-[6 Testování vytvořeného systému 18](#testování-vytvořeného-systému)
+[6 Testování vytvořeného systému 27](#testování-vytvořeného-systému)
 
-[6.1 Validační pravidla 18](#grafické-rozhraní-1)
+[6.1 Konzolová aplikace pro validátor portálu ZČU
+27](#validace-a-validační-pravidla)
 
-[6.2 Konzolová aplikace pro validátor portálu ZČU
-18](#konzolová-aplikace-pro-validátor-portálu-zču)
+[6.2 Grafické rozhraní 27](#validace-a-validační-pravidla)
 
-[6.3 Grafické rozhraní 18](#grafické-rozhraní-1)
+[6.3 Validační pravidla 27](#validace-a-validační-pravidla)
 
-[7 Závěr 19](#závěr)
+[7 Závěr 28](#závěr)
 
-[Reference 20](#reference)
+[Reference 29](#reference)
 
-[Přílohy 22](#přílohy)
+[Přílohy 31](#přílohy)
 
-[A Uživatelská příručka 22](#a-uživatelská-příručka)
+[A Uživatelská příručka 31](#a-uživatelská-příručka)
 
-[Spuštění a kompilace nástroje 22](#spuštění-a-kompilace-nástroje)
+[Spuštění a kompilace nástroje 31](#spuštění-a-kompilace-nástroje)
 
-[Obsluha nástroje 22](#obsluha-nástroje)
+[Obsluha nástroje 31](#obsluha-nástroje)
 
-[B Obsah přiloženého média 22](#b-obsah-přiloženého-média)
+[B Obsah přiloženého média 31](#b-obsah-přiloženého-média)
 
 Úvod
 ====
@@ -174,11 +186,11 @@ Objekty uložené v databázi
 --------------------------
 
 V následujících podkapitolách jsou uvedeny různé objekty, které mohou
-být součástí Microsoft Access databází.
+být uloženy v Microsoft Access databázích.
 
 ### Tabulky
 
-Tabulky jsou stěžejní součást každé databáze. Lze je definovat jako
+Tabulky jsou stěžejní součástí každé databáze. Lze je definovat jako
 strukturovanou kolekci dat. Skládá se ze sloupců a řádků (též záznamů) a
 v rámci databáze má unikátní název[1](#_toc_1) \[ str. AC 4\].
 
@@ -414,16 +426,18 @@ jsou rozdíly zejména v možnostech zabezpečení
 dat[2](#_toc_2)[6](#_toc_6)[7](#_toc_7) \[, , \].
 
 Jedná se o proprietární binární formáty vyvíjené společností Microsoft
-bez dostupné specifikace. Jediným oficiálním nástrojem pro správu je
-právě Microsoft Access, pro přístup k datům z jiných aplikací pak
-technologie ODBC a OLE DB [6](#_toc_6)\[\].
+bez dostupné specifikace, avšak je zřejmé, že součástí databázových
+souborů ve formátu ACCDB, potažmo MDB, musí být uložené zmíněné objekty
+a metadata [6](#_toc_6)\[\].
 
-To velmi omezuje možnosti programového přístupu k databázím -- pokud
-bychom vzali v potaz pouze oficiální nástroje, jsme limitováni na
-systémy s nainstalovanou aplikací Microsoft Access (a tím pádem i
-operačním systémem Microsoft Windows). V současné době jsou však
-dostupné i nástroje vzniklé na základě reverzního inženýrství formátů
-ACCDB/MDB bez závislosti na programovém vybavení počítače.
+Jediným oficiálním nástrojem pro správu je právě Microsoft Access, pro
+přístup k datům z jiných aplikací pak technologie ODBC a OLE DB. To
+velmi omezuje možnosti programového přístupu k databázím -- pokud bychom
+vzali v potaz pouze oficiální nástroje, jsme limitováni na systémy s
+nainstalovanou aplikací Microsoft Access (a tím pádem i operačním
+systémem Microsoft Windows). V současné době jsou však dostupné i
+nástroje vzniklé na základě reverzního inženýrství formátů ACCDB/MDB bez
+závislosti na programovém vybavení počítače [6](#_toc_6)\[\].
 
 V následujících podkapitolách jsou zmíněny všechny možnosti čtení
 souborů ACCDB včetně výhod a nevýhod, jaké přináší.
@@ -560,13 +574,15 @@ na jiné platformy.
 Portál ZČU
 ==========
 
-Základní informace
-------------------
-
 Obecně termínem portál označujeme webovou aplikaci, která uživateli
 poskytuje jednotným způsobem a centralizovaně informace z různých
 zdrojů, které uživatele zajímají nebo se ho nějakým způsobem
-týkají[23](#_toc_23) \[\].
+týkají[23](#_toc_23) \[\]. Následující podkapitoly se věnují portálu
+Západočeské univerzity v Plzni (dále jen ZČU) a validátoru studentských
+prací, který je s portálem úzce spjatý a který bude
+
+Základní informace
+------------------
 
 Portál ZČU[^6] je informační zdroj pro studijní účely používaný studenty
 i zaměstnanci Západočeské Univerzity. Zastřešuje různé klíčové aplikace
@@ -575,7 +591,7 @@ univerzity -- z pohledu studentů se jedná zejména o *IS/STAG*
 prohlížení rozvrhů, hodnocení kvality výuky, atp.) a *Courseware* (místo
 s materiály používanými v rámci výuky předmětů) [23](#_toc_23)\[\].
 
-Jednotlivé stránky portálu se skládájí z více či méně nezávislých částí,
+Jednotlivé stránky portálu se skládají z více či méně nezávislých částí,
 které se nazývají portlety. Jedním z nich je *aplikace pro správu
 semestrálních prací, jejich odevzdávání a hodnocení*. Vyučujícím slouží
 k vypisování témat semestrálních prací, do nichž se studenti posléze
@@ -587,15 +603,16 @@ přepracování a zanechávat studentům poznámky a hodnocení
 Validátor studentských prací
 ----------------------------
 
-Studenti často po odevzdání své práce prostřednictvím portálu ZČU čekají
-delší dobu na zkontrolování práce vyučujícím. Pokud práci shledá
-nevyhovující, vrací ji studentovi k přepracování. Tento proces se navíc
-může i několikrát opakovat, což znamená pro vyučujícího velkou časovou
-zátěž a pro studenta čekání v nejistotě.
+Studenti často po odevzdání své práce čekají delší dobu na zkontrolování
+a ohodnocení vyučujícím. Pokud práci shledá nevyhovující, vrací ji
+studentovi k přepracování. Tento proces se navíc může i několikrát
+opakovat, což znamená pro studenta čekání v nejistotě a pro vyučujícího
+velkou časovou zátěž.
 
-Cílem validátoru je eliminovat tento proces a již při nahrání
-automatizovaně kontrolovat, zda je práce „vyhovující" -- to může mít
-mnoho podob, například[25](#_toc_25) \[\]:
+Cílem validátoru studentských prací (který je propojen s již zmíněnou
+aplikací na portálu ZČU) je eliminovat tento proces a automatizovaně
+kontrolovat, zda je práce „vyhovující" -- to může mít mnoho podob,
+například[25](#_toc_25) \[\]:
 
 -   **Práce splňuje formální náležitosti:**
 
@@ -637,7 +654,19 @@ Automatizace této kontroly poté přináší mnoho výhod [25](#_toc_25)\[\]:
 
 -   K hodnocení se dostanou jen práce s určitou minimální mírou kvality.
 
-\<TODO: nevýhody?\>
+Mezi nevýhody naopak patří [25](#_toc_25)\[\]:
+
+-   Časová náročnost přípravy a udržování konfigurace validátoru (v
+    > případě úprav zadání).
+
+-   Striktnost v hodnocení -- označení práce jako nevyhovující kvůli
+    > zanedbatelnému problému (např. chybějící mezeře ve výstupu
+    > programu). Lze předejít podrobným zadáním a poskytováním informací
+    > o úskalích.
+
+-   Zvýšení rizika plagiarismu, pokud vyučující hodnocení prací plně
+    > ponechá na validátoru. Lze vyřešit na straně portálu napojením
+    > aplikace pro odevzdávání na systém pro odhalování plagiátů.
 
 ### Validační servery
 
@@ -650,8 +679,8 @@ následné testování nad vzorovými pracemi. Souběžně s tímto serverem je
 dostupný testovací validační server[^8] určený pro vývoj nových funkcí
 a přípravu validačních pravidel, kde nehrozí nebezpečí poškození
 aktuálně používaných dat, a je tedy vhodný i pro využití v rámci
-realizace této práce. Služba validátoru studentských prací je napsána
-v jazyce Java a je spouštěna ve webovém serveru Tomcat 8 na serveru s OS
+realizace této práce. Služba validátoru studentských prací je napsána v
+jazyce Java a je spouštěna ve webovém serveru Tomcat 8 na serveru s OS
 Linux [25](#_toc_25)[26](#_toc_26)\[, \].
 
 ### Validační domény
@@ -663,7 +692,10 @@ přijata, či vrácena studentovi. Domény jsou uloženy na validačním
 serveru, kde je má vyučující možnost libovolně přidávat, upravovat a
 odebírat. Každá je uložena pod vlastním názvem -- pomocí něj ji lze
 následně nastavit v rámci portletu pro odevzdávání prací a tím zajistit
-validaci odevzdaných prací[25](#_toc_25)[27](#_toc_27) \[, \].
+validaci odevzdaných prací. Na serveru je pro každou doménu vytvořen
+adresář s konfigurací, kam lze umístit další soubory potřebné pro
+validaci (např. referenční řešení, pomocné programy,
+atp.)[25](#_toc_25)[27](#_toc_27) \[, \].
 
 Jednotlivé kroky validace představují konkrétní akce, které se mají
 provést. V rámci domény mají unikátní název a volitelný popis. Pro každý
@@ -680,8 +712,8 @@ krok lze určit podmínku, za které se má akce provést[27](#_toc_27) \[\]:
     skončil chybou.
 
 -   *Vlastní skript* -- lze napsat vlastní skript v jazyce JavaScript,
-    > který například vyhodnotí výsledek předchozího kroku a určí, zda
-    > se má krok provést.
+    > který například vyhodnotí výsledek předchozí akce a určí, zda se
+    > má krok provést.
 
 Akce lze rozdělit do několika kategorií[28](#_toc_28) \[\]:
 
@@ -707,8 +739,7 @@ Akce lze rozdělit do několika kategorií[28](#_toc_28) \[\]:
     > Java[27](#_toc_27)[26](#_toc_26) \[, \].
 
 -   *Skok na jiný krok validace* a *ukončení validace* -- ve spojení s
-    > podmínkami lze takto řídit průběh validace.[]{#_Toc512982348
-    > .anchor}
+    > podmínkami lze takto řídit průběh validace.
 
 ### Princip validace práce
 
@@ -739,7 +770,7 @@ stručně jej lze popsat následovně (viz též diagram na obrázku 3.1)
 ![](media/image5.png){width="5.252404855643045in"
 height="5.377358923884515in"}
 
-Obrázek . -- diagram znázorňující proces validace práce odevzdané
+Obrázek . -- diagram znázorňující proces validace práce odevzdané
 studentem[26](#_toc_26) \[\].
 
 Analýza řešení kontroly prací
@@ -755,8 +786,8 @@ Požadavky na řešení
 -------------------
 
 Požadavky na řešení systému byly stanoveny s ohledem na využití
-vyučujícími, s důrazem na intuitivní použití výsledného systému a
-snadnou konfiguraci ve spojení s validátorem studentských prací.
+vyučujícími, s důrazem na intuitivní použití výsledného systému a
+snadnou konfiguraci ve spojení s validátorem studentských prací.
 
 Hlavní části požadovaného systému je aplikace umožňující *validaci
 Access databází* -- tedy kontrolu databází s ohledem na splnění zadání.
@@ -768,12 +799,12 @@ kontroly bude označení zadaného databázového souboru jako *vyhovujícího*
 poskytnout informaci o pravidle, které „selhalo" (a zapříčinilo tedy
 vyhodnocení databáze jako *nevyhovující*).
 
-Pravidla musí umožňovat kontrolu existence tabulek a relací mezi nimi,
-případně i dalších objektů uložených v databázi. Dále musí být možné
-prověřit strukturu tabulek -- existenci sloupců konkrétního názvu či
-datového typu, atp. Bude možné i ověřit počet řádků v tabulce či
-tabulkách (zejména v podobě kontroly, zda všechny tabulky obsahují
-alespoň určitý počet řádků).
+Pravidla musí umožňovat kontrolu existence tabulek, relací mezi
+tabulkami různých typů, případně i dalších objektů uložených v databázi.
+Dále musí být možné prověřit strukturu tabulek -- existenci sloupců
+konkrétního názvu či datového typu, atp. Bude možné i ověřit počet řádků
+v tabulce či tabulkách (zejména v podobě kontroly, zda všechny tabulky
+obsahují alespoň určitý počet řádků).
 
 Další částí aplikace bude detekce plagiarismu, respektive vyhledávání
 podobností mezi databázovými soubory. Pro databáze může být obtížné
@@ -800,33 +831,33 @@ konfigurační soubor nebo textový řetězec.
 Případy užití
 -------------
 
-Diagram na obrázku 4.1 (strana 20) znázorňuje případy užití celého
-systému z pohledu uživatele i validátoru studentských prací.
+Diagram na obrázku 4.1 znázorňuje případy užití celého systému z pohledu
+uživatele i validátoru studentských prací.
 
 Popis diagramu:
 
--   *Import validačních pravidel* -- uživatel může načíst dříve
+-   *Import validačních pravidel* -- uživatel může načíst dříve
     > vytvořenou sadu pravidel pro validaci databázových souborů ve
     > formátu ACCDB. Stejnou funkcionalitu využívá i část adaptovaná pro
     > validátor studentských prací, které jsou automatizovaně předávány
     > odevzdané studentské práce.
 
--   *Export validačních pravidel* -- uživatel může exportovat vytvořenou
+-   *Export validačních pravidel *-- uživatel může exportovat vytvořenou
     > konfiguraci validace, tedy sadu aktivních validačních pravidel.
 
--   *Nakonfigurování validačních pravidel* -- uživatel může vytvořit
+-   *Nakonfigurování validačních pravidel *-- uživatel může vytvořit
     > sadu pravidel ověřující, zda jsou zadané databáze vyhovující.
-    > Bližší popis konfigurace je uveden v kapitole 4.3.
+    > Bližší popis konfigurace je uveden v kapitole 4.3.
 
--   *Validace jednoho či více databázových souborů ­*-- uživatel může
+-   *Validace jednoho či více databázových souborů ­*-- uživatel může
     > pomocí aplikace provést validaci databázových souborů. Výstupem
     > akce je informace, zda jednotlivé soubory vyhovují aktuálně
     > nakonfigurovaným pravidlům.
 
--   *Detekce plagiarismu mezi datovými soubory* -- uživatel může při
+-   *Detekce plagiarismu mezi datovými soubory* -- uživatel může při
     > zadání více databázových souborů spustit vyhledání plagiátů.
 
--   *Validace jednoho databázového souboru* -- komunikace se systémem ze
+-   *Validace jednoho databázového souboru *-- komunikace se systémem ze
     > strany validátoru studentských prací; do systému je předán
     > databázový soubor a konfigurace validačních pravidel. Výstupem je
     > opět informace, zda je soubor vyhovující pravidlům.
@@ -834,63 +865,253 @@ Popis diagramu:
 ![](media/image6.emf){width="5.904440069991251in"
 height="4.644444444444445in"}
 
-Obrázek . -- diagram případů užití systému pro kontrolu samostatných
+Obrázek . -- diagram případů užití systému pro kontrolu samostatných
 prací.
 
 Metoda čtení databázových souborů
 ---------------------------------
 
-Jak již bylo probráno v kapitole 2.4, existuje několik možností pro
+Jak již bylo probráno v kapitole 2.4, existuje několik možností pro
 čtení databázových souborů ve formátu ACCDB. Na základě požadavků na
-řešení systému lze stanovit kritéria pro výběr metody čtení souborů
-v podobě následujících vyžadovaných schopností:
+řešení systému lze stanovit kritéria pro výběr metody čtení souborů v
+podobě následujících vyžadovaných schopností:
 
--   Vypsání názvů tabulek v databázi.
+-   Vypsání názvů tabulek v databázi.
 
--   Vypsání struktury tabulky -- zjištění názvů a datových typů sloupců,
+-   Vypsání struktury tabulky -- zjištění názvů a datových typů sloupců,
     > informace o primárních klíčích.
 
--   Zjištění počtu řádků v tabulce, případně získání všech dat z
+-   Zjištění počtu řádků v tabulce, případně získání všech dat z
     > tabulky.
 
--   Nalezení relací mezi tabulkami v podobě, aby bylo možné určit typ.
+-   Nalezení relací mezi tabulkami v podobě, aby bylo možné určit typ.
 
--   Vypsání dotazů uložených v databázi včetně druhu.
+-   Vypsání dotazů uložených v databázi včetně druhu.
 
 Dalšími omezujícími kritérii jsou funkční požadavky na výsledný systém:
 
--   Spustitelnost na osobních počítačích s OS Microsoft Windows.
+-   Spustitelnost na osobních počítačích s OS Microsoft Windows.
 
 -   Spustitelnost části adaptované pro validátor na validačním serveru,
-    > tj. kompatibilita se službou napsanou v jazyce Java na serveru
-    > s OS Linux.
+    > tj. kompatibilita se službou napsanou v jazyce Java na serveru s
+    > OS Linux.
 
 Některé nalezené metody pro čtení souborů ve formátu ACCDB (konkrétně
 ODBC, Microsoft Office Interop, částečně JDBC) je nutné na základě
 stanovených kritérií vyřadit. Nesplňují zejména poslední zmíněný bod,
-tedy spustitelnost na serveru s OS Linux (na kterém není dostupný
+tedy spustitelnost na serveru s OS Linux (na kterém není dostupný
 Microsoft Access ani ODBC ovladače). U metod přístupu prostřednictvím
-API ODBC a JDBC je navíc problematické pracovat s relacemi a dotazy
-uloženými v databázích.
+API ODBC a JDBC je navíc problematické pracovat s relacemi a dotazy
+uloženými v databázích.
 
-Ze zbývajících se jako ideální metoda jeví knihovna *Jackcess* pro
-platformu Java SE. Vývoj systému v jazyce Java přinese výhodu
-v multiplatformnosti a bude možné vyvíjet obě části (hlavní aplikaci a
-část adaptovanou pro validátor) nad společnými základy. Ze všech metod
-navíc knihovna Jackcess poskytuje nejucelenější přístup k Access
-databázím a rovněž podporu nejnovějších verzí díky aktivnímu vývoji.
+Ze zbývajících metod je ideální volbou knihovna *Jackcess* pro platformu
+Java SE. Vývoj systému v jazyce Java přinese výhodu v multiplatformnosti
+a bude tak možné vyvíjet obě části (hlavní aplikaci a část adaptovanou
+pro validátor) nad společnými základy. Oproti ostatním metodám navíc
+knihovna Jackcess poskytuje nejucelenější přístup k Access databázím,
+podporu i nejnovějších verzí díky aktivnímu vývoji a podrobnou
+dokumentaci použití.
 
 Validace databázových souborů
 -----------------------------
 
-\<TODO: popsat jednotlivé vyžadované schopnosti a jak se toho docílí v
-jackcessu\>
+Validace databází bude spočívat ve vyhodnocení sady nakonfigurovaných
+pravidel kontrolujících obsah a strukturu. Pokud budou všechna pravidla
+splněna, označí se databáze jako *vyhovující*, v opačném případě jako
+*nevyhovující*.
+
+Na základě požadavků na řešení lze nyní definovat základní validační
+pravidla potřebná pro kontrolu prací se zaměřením na splnění zadání a
+možný princip jejich funkčnosti (zohledňující možnosti knihovny
+Jackcess):
+
+-   *Kontrola počtu tabulek v databázi *-- získání seznamu všech tabulek
+    > v databázi (například jejich názvů) a ověření počtu vůči
+    > požadovanému.
+
+-   *Kontrola existence tabulky dle názvu *-- získání názvů všech
+    > tabulek v databázi a ověření, že je mezi nimi hledaná tabulka.
+
+-   *Kontrola počtu řádků v každé tabulce *-- získání seznamu všech
+    > tabulek v databázi a pro každou z nich ověření počtu řádků vůči
+    > požadovanému.
+
+-   *Kontrola počtu sloupců v každé tabulce *-- získání seznamu všech
+    > tabulek v databázi, pro každou z nich získání seznamu sloupců;
+    > následně ověření počtu vůči požadovanému.
+
+-   *Kontrola existence sloupce dle zadaných kritérií v každé tabulce
+    > (kritériem může být název, datový typ nebo příslušnost k
+    > primárnímu klíči) *-- získání seznamu všech tabulek v databázi,
+    > pro každou z nich získání seznamu sloupců; následně ověření
+    > existence sloupce dle zadaných kritérií.
+
+-   *Kontrola počtu sloupců dle zadaných kritérií v každé
+    > tabulce *-- získání seznamu všech tabulek v databázi, pro každou z
+    > nich získání seznamu sloupců; následně ověření počtu sloupců
+    > vyhovujících zadaným kritériím. Jedná se pouze o zobecnění
+    > předchozího pravidla.
+
+-   *Kontrola počtu tabulek obsahujících sloupec dle zadaných
+    > kritérií *-- získání seznamu všech tabulek v databázi, pro každou
+    > z nich získání seznamu sloupců; odebrání tabulek neobsahujích
+    > sloupec dle zadaných kritérií; ověření počtu zbylých tabulek v
+    > seznamu vůči požadovanému počtu.
+
+-   *Kontrola počtu relací typu 1:1 *-- získání seznamu všech relací
+    > mezi tabulkami v databázi, vyfiltrování relací označených jako
+    > 1:1; ověření počtu vůči požadovanému.
+
+-   *Kontrola počtu relací typu 1:N *-- získání všech relací mezi
+    > tabulkami v databázi, odebrání relací označených jako 1:1; ověření
+    > počtu vůči požadovanému. Tento postup zahrne do počtu i všechny
+    > relace s rozkladovými tabulkami, které v důsledku tvořící relace
+    > M:N.
+
+-   *Kontrola počtu relací typu M:N* -- získání seznamu všech tabulek v
+    > databázi, vyfiltrování rozkladových tabulek; ověření počtu zbylých
+    > tabulek vůči požadovanému. Postup pro nalezení rozkladových
+    > tabulek může spočívat v hledání tabulek, které mají cizí klíče
+    > odkazující se na právě 2 další tabulky.
+
+-   *Kontrola počtu dotazů dle zadaného druhu* -- získání seznamu všech
+    > dotazů v databázi, vyfiltrování dle druhu a ověření počtu dle
+    > požadovaného.
+
+Kontroly na existenci či počty objektů v databázi lze zobecnit na
+hledání počtu pomocí porovnávacích operátorů (tedy „rovná se", „větší
+než" a „menší než"). Uživatel by měl možnost nakonfigurovat pravidla
+například v následující podobě:
+
+-   Databáze obsahuje právě jednu tabulku s názvem „články".
+
+-   Databáze obsahuje méně než dvě tabulky obsahující méně než 5 řádků.
+
+-   Databáze obsahuje nula relací typu 1:1.
+
+-   Databáze obsahuje více než jednu relaci typu 1:N.
 
 Vyhodnocení plagiarismu
 -----------------------
 
+Za plagiátorství lze označit úmyslné kopírování nebo celkové
+napodobování prací jiných autorů a vydávání za vlastní. To platí i v
+případě samostatných prací vytvořených v Microsoft Access, vzhledem k
+automatizaci je však nutné najít spolehlivý a důvěryhodný postup pro
+označování prací jako plagiátů.
+
+Samotné vyhodnocení plagiarismu mezi několika databázovými soubory může
+spočívat v hledání různých společných „prvků podobnosti", přičemž každý
+takovýto prvek může přispívat určitou „váhou" k označení dvou souborů
+jako plagiátů (konkrétní rozlišení originálu a plagiátu je ponecháno na
+posouzení uživatele). Příkladem takových prvků jsou:
+
+-   Názvy a struktura tabulek (názvy sloupců, datové typy, ...).
+
+-   Názvy a typy dotazů uložených v databázi.
+
+-   Názvy dalších objektů (formulářů a sestav).
+
+-   Metadata databázového souboru:
+
+    -   Údaje o autorovi databáze (jméno a název organizace).
+
+    -   Datum a čas vytvoření/poslední úpravy jednotlivých objektů.
+
+    -   Datum a čas vytvoření/poslední úpravy databázového souboru.
+
+    -   Nastavení uživatelského rozhraní.
+
+    -   Grafické rozvržení relací mezi tabulkami (viz obrázek 2.4).
+
+Z těchto prvků lze pro jednoznačné určení plagiátu využít zejména
+grafické rozvržení relací mezi tabulkami, které je typicky pro každou
+databázi unikátní.
+
+Knihovna Jackcess podporuje získání některých metadat pomocí vlastních
+funkcí v podobě hashovacích tabulek (jedná se právě o různé údaje typu
+autor a název databáze, nastavení uživatelského rozhraní, informace o
+formátu), další údaje je nutné získat ze skrytých systémových tabulek,
+ke kterým knihovna umožňuje přistupovat stejně jako k uživatelským
+tabulkám. Již zmíněné grafické rozvržení relací je uloženo v systémové
+tabulce MSysObjects (záznam s typem -32758, sloupec LvExtra) v binární
+podobě, díky reverznímu inženýrství je znám i formát těchto dat[^9].
+
+Grafické rozhraní
+-----------------
+
+Grafické rozhraní hlavní aplikace bude rozděleno do několika částí,
+přičemž všechny mohou být součástí jednoho okna:
+
+-   Seznam dostupných validačních pravidel.
+
+-   Seznam právě aktivních konfigurovatelných pravidel.
+
+-   Konfigurační panel právě vybraného pravidla.
+
+-   Seznam databázových souborů ke kontrole.
+
+-   Nástrojová lišta s tlačítky pro ovládání programu.
+
+Databázové soubory ke kontrole mohou být zobrazeny ve stromové
+struktuře, přičemž v první úrovni stromu budou zobrazeny názvy souborů a
+ve druhé informace o výsledcích kontroly. Jednotlivé položky stromu je
+rovněž vhodné rozlišit pomocí různých ikon pro vyhovující a nevyhovující
+databáze a dále takové, které byly vyhodnoceny jako plagiáty.
+
+Adaptace pro validátor studentských prací
+-----------------------------------------
+
+Patrně nejjednodušší způsob adaptace vytvářeného systému pro validátor
+studentských prací spočívá ve využití vlastní akce validátoru pro
+spuštění Java programu zabaleného v souboru formátu JAR. K tomu je
+zapotřebí vytvořit aplikaci s konzolovým rozhraním, která bude nahrána
+na validační server do složky příslušné validační domény. Aplikace se
+bude ovládat pouze pomocí parametrů -- jedním z nich bude název
+odevzdaného souboru (tj. studentské práce nahrané na portál), druhým pak
+název souboru s validačními pravidly pro kontrolu správnosti zadání.
+Tento soubor bude vyexportovaný z hlavní aplikace tvořeného systému.
+Výstupem aplikace bude textová informace o výsledku validace, v případě
+neúspěchu dále vypíše podrobnosti o příčinách (neboli popis validačního
+pravidla, které selhalo) na standardní chybový výstup.
+
 Návrh struktury systému
 -----------------------
+
+Systém pro kontrolu samostatných prací bude napsán v jazyce
+Java -- důvodem je volba knihovny Jackcess pro čtení souborů ve formátu
+ACCDB (která je vytvořena právě na platformě Java SE), výhodou pak
+výsledná multiplatformnost a snadné začlenění do validátoru studentských
+prací (který rovněž využívá platformu Java SE). Jazyk Java podporuje
+rozdělení kódu do oddělených jmenných prostorů nazývaných *balíky*,
+případně vytvoření oddělených projektů. Lze tak dosáhnout rozdělení kódu
+na volně spojené zapouzdřené části či komponenty.
+
+Navrhovaný systém lze rozdělit do několika vzájemně propojených částí:
+
+-   *Práce s daty obsaženými v databázi *-- zprostředkovává rozhraní pro
+    > získávání údajů o tabulkách, relacích, atd., prostřednictvím
+    > knihovny Jackcess.
+
+-   *Validace databáze* -- obsahuje seznam dostupných validačních
+    > pravidel a poskytuje rozhraní k nástroji na validaci databázových
+    > souborů.
+
+-   *Kontrola plagiarismu *-- poskytuje rozhraní k nástroji na
+    > vyhodnocení plagiarismu mezi více databázovými soubory.
+
+-   *Grafické rozhraní *-- slouží pro konfiguraci validačních pravidel,
+    > jejich export, spouštění validace a kontroly plagiarismu nad
+    > zadanými databázovými soubory.
+
+-   *Konzolové rozhraní *-- umožňuje spustit validaci jedné databáze
+    > pomocí validačních pravidel uložených v souboru.
+
+Výsledný systém bude rozdělen do projektů tak, aby aplikace používaná na
+validačním serveru obsahovala minimum dalších závislostí. Možným
+způsobem je rozdělení na projekt obsahující logiku systému (tedy vše
+potřebné pro kontrolu prací) spolu s konzolovým rozhraním a projekt
+obsahující pouze grafické rozhraní.
 
 Implementace systému pro automatickou kontrolu prací
 ====================================================
@@ -919,14 +1140,17 @@ Adaptace pro validátor portálu ZČU
 Testování vytvořeného systému
 =============================
 
-Konzolová aplikace pro validátor portálu ZČU
---------------------------------------------
+Validace a validační pravidla
+-----------------------------
+
+Detekce plagiarismu
+-------------------
 
 Grafické rozhraní 
 ------------------
 
-Validační pravidla
-------------------
+Konzolové rozhraní pro validátor portálu ZČU
+--------------------------------------------
 
 Závěr
 =====
@@ -999,57 +1223,57 @@ Reference {#reference .ListParagraph}
 perspectives on Microsoft Access 2013: comprehensive.* Stamford, CT:
 Cengage Learning, 2014. ISBN 978-1-285-09920-0.\[2\] Introduction to the
 Access 2007 file format. *Microsoft Office help and training - Office
-Support.* \[Online\] \[Citace: 20. 3. 2018\]. Dostupné z: \[3\] Data
+Support.* \[Online\] \[Citace: 20. 3. 2018\]. Dostupné z: \[3\] Data
 types for Access desktop databases. *Microsoft Office help and training
-- Office Support.* \[Online\] \[Citace: 22. 3. 2018\]. Dostupné z: \[4\]
+- Office Support.* \[Online\] \[Citace: 22. 3. 2018\]. Dostupné z: \[4\]
 CONNOLLY, Thomas; BEGG, Carolyn. *A Practical Approach to Design,
 Implementation, and Management.* 6. Harlow: Pearson Education Limited,
 2014. ISBN 978-1-292-06118-4.\[5\] BRUNS, Brian. HACKING. *MDB Tools
-repository.* \[Online\] \[Citace: 20. 4. 2018\]. Dostupné z: \[6\]
+repository.* \[Online\] \[Citace: 20. 4. 2018\]. Dostupné z: \[6\]
 Microsoft Access ACCDB File Format Family. *Digital Preservation at the
-Library of Congress.* \[Online\] \[Citace: 20. 3. 2018\]. Dostupné z:
+Library of Congress.* \[Online\] \[Citace: 20. 3. 2018\]. Dostupné z:
 \[7\] Which Access file format should I use? *Microsoft Office help and
-training - Office Support.* \[Online\] \[Citace: 20. 3. 2018\]. Dostupné
+training - Office Support.* \[Online\] \[Citace: 20. 3. 2018\]. Dostupné
 z: \[8\] KYLE, Geiger. *Inside ODBC.* Redmond, WA: Microsoft Press,
 1995. ISBN 978-1556158155.\[9\] ROFF, Jason T. *ADO: ActiveX Data
 Objects.* místo neznámé: O\'Reilly Media, 2001. ISBN
 9781491935576.\[10\] Office Primary Interop Assemblies. *Microsoft
-Developer Network.* \[Online\] \[Citace: 02. 04. 2017\]. Dostupné z:
-\[11\] BRUNS, Brian. *MDB Tools repository.* \[Online\] \[Citace:
-20. 4. 2018\]. Dostupné z: \[12\] ---. Access 2013 support. *MDB Tools
-repository.* \[Online\] \[Citace: 20. 4. 2018\]. Dostupné z: \[13\]
+Developer Network.* \[Online\] \[Citace: 02. 04. 2017\]. Dostupné z:
+\[11\] BRUNS, Brian. *MDB Tools repository.* \[Online\] \[Citace: 20. 4.
+2018\]. Dostupné z: \[12\] ---. Access 2013 support. *MDB Tools
+repository.* \[Online\] \[Citace: 20. 4. 2018\]. Dostupné z: \[13\]
 SMITH, Calvin R. mdbtools is being ported to java. *MDB Tools
-Discussion.* \[Online\] 2. 5. 2004 \[Citace: 20. 4. 2018\]. Dostupné z:
+Discussion.* \[Online\] 2. 5. 2004 \[Citace: 20. 4. 2018\]. Dostupné z:
 \[14\] Open Microscopy Environment. *OME MDB Tools.* \[Online\]
-\[Citace: 20. 4. 2018\]. Dostupné z: \[15\] ---. ColumnTest source code
-(ukázka použití). *OME MDB Tools.* \[Online\] \[Citace: 20. 4. 2018\].
-Dostupné z: \[16\] *Jackcess.* \[Online\] Health Market Science,
-31. 3. 2018 \[Citace: 20. 4. 2018\]. Dostupné z: \[17\] Frequently Asked
-Questions. *Jackcess.* \[Online\] Health Market Science, 31. 3. 2018
-\[Citace: 20. 4. 2018\]. Dostupné z: \[18\] Cookbook. *Jackcess.*
-\[Online\] Health Market Science, 31. 3. 2018 \[Citace: 20. 4. 2018\].
+\[Citace: 20. 4. 2018\]. Dostupné z: \[15\] ---. ColumnTest source code
+(ukázka použití). *OME MDB Tools.* \[Online\] \[Citace: 20. 4. 2018\].
+Dostupné z: \[16\] *Jackcess.* \[Online\] Health Market Science, 31. 3.
+2018 \[Citace: 20. 4. 2018\]. Dostupné z: \[17\] Frequently Asked
+Questions. *Jackcess.* \[Online\] Health Market Science, 31. 3. 2018
+\[Citace: 20. 4. 2018\]. Dostupné z: \[18\] Cookbook. *Jackcess.*
+\[Online\] Health Market Science, 31. 3. 2018 \[Citace: 20. 4. 2018\].
 Dostupné z: \[19\] *Jackcess Encrypt.* \[Online\] Health Market Science,
-9. 10. 2017 \[Citace: 20. 4. 2018\]. Dostupné z: \[20\] MAYDENE FISHER,
+9. 10. 2017 \[Citace: 20. 4. 2018\]. Dostupné z: \[20\] MAYDENE FISHER,
 Jon Ellis, Jonathan Bruce. *JDBC™ API Tutorial and Reference.* Boston,
 MA: Addison Wesley, 2003. ISBN 0-321-17384-8.\[21\] ORACLE. JDBC-ODBC
-Bridge. *Java SE Documentation.* \[Online\] \[Citace: 20. 4. 2018\].
-Dostupné z: \[22\] AMADEI, Marco. *UCanAccess.* \[Online\] \[Citace:
-20. 4. 2018\]. Dostupné z: \[23\] Centrum informatizace a výpočetní
+Bridge. *Java SE Documentation.* \[Online\] \[Citace: 20. 4. 2018\].
+Dostupné z: \[22\] AMADEI, Marco. *UCanAccess.* \[Online\] \[Citace: 20.
+4. 2018\]. Dostupné z: \[23\] Centrum informatizace a výpočetní
 techniky. *Referenční příručka portálového rozhraní IS/STAG.* Plzeň:
 Západočeská univerzita, 2009. ISBN 978-80-7043-807-7.\[24\] ---.
 Aplikace pro správu semestrálních prací, jejich odevzdávání a hodnocení.
-*IS/STAG - Helpcentrum.* \[Online\] Západočeská univerzita \[Citace:
-23. 4. 2018\]. Dostupné z: \[25\] HEROUT, Pavel. *Validační server pro
-studentské projekty.* \[Online\] \[Interní dokument\] \[Citace:
-20. 4. 2018\]. Dostupné z: \[26\] VALENTA, Lukáš; DUDOVÁ, Veronika.
-*Validační server - manuál.* \[Online\] \[Citace: 20. 4. 2018\].
-Dostupné z: \[27\] DUDOVÁ, Veronika. *Webová konfigurace validačního
-serveru.* Plzeň, 2010. Bakalářská práce. Západočeská univerzita. Fakulta
-aplikovaných věd. Katedra informatiky a výpočetní techniky. Vedoucí
-práce Pavel HEROUT.\[28\] *Testovací validační server pro studentské
-projekty.* \[Online\] \[Citace: 20. 4. 2018\]. Dostupné z: \[29\] *Wiki
-- Validační server a jeho moduly - Redmine.* \[Online\] \[Citace:
-20. 4. 2018\]. Dostupné z:
+*IS/STAG - Helpcentrum.* \[Online\] Západočeská univerzita \[Citace: 23.
+4. 2018\]. Dostupné z: \[25\] HEROUT, Pavel. *Validační server pro
+studentské projekty.* \[Online\] \[Interní dokument\] \[Citace: 20. 4.
+2018\]. Dostupné z: \[26\] VALENTA, Lukáš; DUDOVÁ, Veronika. *Validační
+server - manuál.* \[Online\] \[Citace: 20. 4. 2018\]. Dostupné z: \[27\]
+DUDOVÁ, Veronika. *Webová konfigurace validačního serveru.* Plzeň, 2010.
+Bakalářská práce. Západočeská univerzita. Fakulta aplikovaných věd.
+Katedra informatiky a výpočetní techniky. Vedoucí práce Pavel
+HEROUT.\[28\] *Testovací validační server pro studentské projekty.*
+\[Online\] \[Citace: 20. 4. 2018\]. Dostupné z: \[29\] *Wiki - Validační
+server a jeho moduly - Redmine.* \[Online\] \[Citace: 20. 4. 2018\].
+Dostupné z:
 
 Přílohy {#přílohy .ListParagraph}
 =======
@@ -1101,3 +1325,6 @@ též v repozitáři projektu v rámci služby GitHub na adrese:
 [^7]: Viz WWW: <https://validator.zcu.cz/>
 
 [^8]: Viz WWW: <https://validator-test.zcu.cz/>
+
+[^9]: Viz kód nástroje z webu
+    http://www.lebans.com/saverelationshipview.htm
