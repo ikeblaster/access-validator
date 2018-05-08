@@ -83,27 +83,14 @@ public class Accdb {
 
         this.checkSimilarRelationsLayout(other, similarities);
         this.checkSimilarSummaryProperties(other, similarities);
-        this.checkSimilarDate(other, similarities, "Tables", "DateUpdate");
+        //this.checkSimilarDate(other, similarities, "Tables", "DateUpdate");
         this.checkSimilarDate(other, similarities, "MSysDb", "DateUpdate");
         this.checkSimilarDate(other, similarities, "Admin", "DateUpdate");
         //this.checkSimilarDate(other, similarities, "Tables", "DateCreate");
-        //this.checkSimilarDate(other, similarities, "MSysDb", "DateCreate");
-        //this.checkSimilarDate(other, similarities, "Admin", "DateCreate");
-        //this.checkSimilarFilesize(other, similarities);
+        this.checkSimilarDate(other, similarities, "MSysDb", "DateCreate");
+        this.checkSimilarDate(other, similarities, "Admin", "DateCreate");
 
         return similarities;
-    }
-
-    /**
-     * Checks similarity using filesize.
-     *
-     * @param that Other database.
-     * @param similarities Set of similarity elements for adding new similarity.
-     */
-    private void checkSimilarFilesize(Accdb that, Set<SimilarityElement> similarities) {
-        if(this.file.length() == that.file.length() && (this.file.length() % 16000) != 0) {
-            similarities.add(new SimilarityElement("Velikost souborů (" + this.file.length() + " B)"));
-        }
     }
 
     /**
@@ -180,15 +167,15 @@ public class Accdb {
 
     /**
      * Checks similarity using layout of relations designer.
-     * Layout is found in MSysObjects table, row with {@code Name=Admin}, column {@code LvExtra} without first 64 bytes.
+     * Layout is found in MSysObjects table, row with {@code Type=-32758}, column {@code LvExtra}.
      *
      * @param that Other database.
      * @param similarities Set of similarity elements for adding new similarity.
      */
     private void checkSimilarRelationsLayout(Accdb that, Set<SimilarityElement> similarities) {
         try {
-            Row row1 = CursorBuilder.findRow(this.db.getSystemTable("MSysObjects"), Collections.singletonMap("Name", "Admin"));
-            Row row2 = CursorBuilder.findRow(that.db.getSystemTable("MSysObjects"), Collections.singletonMap("Name", "Admin"));
+            Row row1 = CursorBuilder.findRow(this.db.getSystemTable("MSysObjects"), Collections.singletonMap("Type", "-32758"));
+            Row row2 = CursorBuilder.findRow(that.db.getSystemTable("MSysObjects"), Collections.singletonMap("Type", "-32758"));
 
             if(row1 == null || row2 == null) {
                 return;
@@ -197,7 +184,26 @@ public class Accdb {
             byte[] data1 = row1.getBytes("LvExtra");
             byte[] data2 = row2.getBytes("LvExtra");
 
-            int offset = 64; // skip first 64 bytes
+            /*
+            First 68 Bytes are the Header
+            This is followed by (NumWindows + 1) * 284 bytes per record
+            Last record seems to be padding
+
+            Each record:
+                RelWinX1            long         4 B
+                RelWinY1            long         4 B
+                RelWinX2            long         4 B
+                RelWinY2            long         4 B
+                Junk                long         4 B
+                WinName             string     128 B
+                Junk                long         4 B
+                WinNameMaster       string     128 B
+                Junk                long         4 B
+
+            source: http://www.lebans.com/saverelationshipview.htm
+            */
+
+            int offset = 68; // skip header
 
             if(data1 == null || data2 == null || data1.length < offset || data1.length != data2.length) {
                 return;
