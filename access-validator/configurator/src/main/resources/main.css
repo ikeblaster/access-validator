@@ -57,11 +57,11 @@
 	-fx-background-image: url("/icons/if_sign-add_299068_32.png");
 }
 .icon-valid.icon-similar {
-	-fx-background-image: url("/icons/if_sign-check_299110_32.png"), url("/icons/if_sign-add_error_32.png");
+	-fx-background-image: url("/icons/plagiarism_32.png"), url("/icons/if_sign-check_299110_32.png");
 	-fx-background-position: 94% center, 98% center;
 }
 .icon-invalid.icon-similar {
-	-fx-background-image: url("/icons/if_sign-error_299045_32.png"), url("/icons/if_sign-add_error_32.png");
+	-fx-background-image: url("/icons/plagiarism_32.png"), url("/icons/if_sign-error_299045_32.png");
 	-fx-background-position: 94% center, 98% center;
 }
 .cls-plagiarism {

@@ -15,6 +15,11 @@ import java.util.*;
 public class Accdb {
 
     /**
+     * Layout is found in MSysObjects table, row with {@code Type=-32758}, column {@code LvExtra}.
+     */
+    private static final String RELATIONSHIPS_LAYOUT_RECORD_TYPE = "-32758";
+
+    /**
      * File with database.
      */
     private File file;
@@ -174,8 +179,8 @@ public class Accdb {
      */
     private void checkSimilarRelationsLayout(Accdb that, Set<SimilarityElement> similarities) {
         try {
-            Row row1 = CursorBuilder.findRow(this.db.getSystemTable("MSysObjects"), Collections.singletonMap("Type", "-32758"));
-            Row row2 = CursorBuilder.findRow(that.db.getSystemTable("MSysObjects"), Collections.singletonMap("Type", "-32758"));
+            Row row1 = CursorBuilder.findRow(this.db.getSystemTable("MSysObjects"), Collections.singletonMap("Type", RELATIONSHIPS_LAYOUT_RECORD_TYPE));
+            Row row2 = CursorBuilder.findRow(that.db.getSystemTable("MSysObjects"), Collections.singletonMap("Type", RELATIONSHIPS_LAYOUT_RECORD_TYPE));
 
             if(row1 == null || row2 == null) {
                 return;
