@@ -3835,27 +3835,18 @@
 			
 			
 			<xsl:when test="b:Bibliography">
-				<html xmlns:o="urn:schemas-microsoft-com:office:office"
-				xmlns:w="urn:schemas-microsoft-com:office:word"
-				xmlns="http://www.w3.org/TR/REC-html40">
+
+			
+				<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:w="urn:schemas-microsoft-com:office:word" xmlns="http://www.w3.org/TR/REC-html40">
 					<head>
-						
-						<style>
-							p.MsoBibliography, li.MsoBibliography, div.MsoBibliography
-						</style>
 					</head>
-					
 					<body>
-						
-						
 						
 						<xsl:variable name="ListPopulatedWithMain">
 							<xsl:call-template name="populateMain">
 								<xsl:with-param name="Type">b:Bibliography</xsl:with-param>
 							</xsl:call-template>
 						</xsl:variable>
-						
-						
 						
 						<xsl:variable name="SortedList">
 							<xsl:call-template name="sortedList">
@@ -3865,10 +3856,10 @@
 								
 							</xsl:call-template>
 						</xsl:variable>
-						
-						
+
 						
 						<xsl:for-each select="msxsl:node-set($SortedList)/b:Bibliography/b:Source">
+								
 							<xsl:element name="p">
 								<xsl:variable name="LCID">
 									<xsl:choose>
@@ -3880,6 +3871,7 @@
 										</xsl:otherwise>
 									</xsl:choose>
 								</xsl:variable>
+								
 								<xsl:attribute name="lang">
 									<xsl:value-of select="/*/b:Locals/b:Local[@LCID=$LCID]/@Culture"/>
 								</xsl:attribute>
@@ -3889,7 +3881,6 @@
 								<xsl:attribute name="class">
 									<xsl:value-of select="'MsoBibliography'"/>
 								</xsl:attribute>
-								
 								
 								
 								<xsl:variable name="prevBook">
@@ -4112,7 +4103,6 @@
 									</xsl:if>
 								</xsl:variable>
 								
-								
 								<xsl:variable name="pages" select="b:Pages"/>
 								
 								<xsl:variable name ="Pages">
@@ -4167,7 +4157,6 @@
 									<xsl:if test="string-length(b:Issue)>0">
 										<xsl:value-of select ="b:Issue"/>
 										<xsl:call-template name="templ_prop_ListSeparator"/>
-										
 									</xsl:if>
 								</xsl:variable>
 								
@@ -4177,6 +4166,7 @@
 									</xsl:if>
 								</xsl:variable>
 								
+								<!-- unused, pouziva se BibDisplayURL -->
 								<xsl:variable name ="URL">
 									<xsl:if test="string-length(b:URL)>0">
 										<!-- <xsl:call-template name="templ_prop_Space"/> -->
@@ -4218,15 +4208,14 @@
 									</xsl:if>
 								</xsl:variable>
 								
-								<xsl:variable name ="InternetSiteTitle">
-									<xsl:if test ='string-length(b:InternetSiteTitle)>0'>
-										<xsl:call-template name = "ApplyItalicTitleNS">
-											<xsl:with-param name = "data">
+								<xsl:variable name="InternetSiteTitle">
+									<xsl:if test='string-length(b:InternetSiteTitle)>0'>
+										<xsl:call-template name="ApplyItalicTitleNS">
+											<xsl:with-param name="data">
 												<xsl:call-template name="appendField_Dot">
 													<xsl:with-param name="field" select="b:InternetSiteTitle"/>
 												</xsl:call-template>
 												<xsl:call-template name="templ_prop_Space"/>
-												
 											</xsl:with-param>
 										</xsl:call-template>
 									</xsl:if>
@@ -4244,7 +4233,6 @@
 													<xsl:with-param name="field" select="b:PublicationTitle"/>
 												</xsl:call-template>
 												<xsl:call-template name="templ_prop_Space"/>
-												
 											</xsl:with-param>
 										</xsl:call-template>
 									</xsl:if>
@@ -4258,18 +4246,15 @@
 													<xsl:with-param name="field" select="b:BookTitle"/>
 												</xsl:call-template>
 												<xsl:call-template name="templ_prop_Space"/>
-												
 											</xsl:with-param>
 										</xsl:call-template>
 									</xsl:if>
-									
 								</xsl:variable>
 								
 								<xsl:variable name ='JournalName'>
 									<xsl:if test="string-length(b:JournalName)>0">
 										<xsl:value-of select="b:JournalName"/>
 									</xsl:if>
-									
 								</xsl:variable>
 								
 								<xsl:variable name ='PeriodicalTitle'>
@@ -4280,19 +4265,15 @@
 													<xsl:with-param name="field" select="b:PeriodicalTitle"/>
 												</xsl:call-template>
 												<xsl:call-template name="templ_prop_Space"/>
-												
 											</xsl:with-param>
 										</xsl:call-template>
 									</xsl:if>
-									
 								</xsl:variable>
 								
 								<xsl:variable name ='Edition'>
 									<xsl:if test="string-length(b:Edition)>0">
 										<xsl:value-of select ="b:Edition"/>
-										
 									</xsl:if>
-									
 								</xsl:variable>
 								
 								<xsl:variable name ='EditionItem'>
@@ -4311,7 +4292,6 @@
 											<xsl:with-param name="field" select="b:ConferenceName"/>
 										</xsl:call-template>
 									</xsl:if>
-									
 								</xsl:variable>
 								
 								<xsl:variable name ='AlbumTitle'>
@@ -4322,11 +4302,9 @@
 													<xsl:with-param name="field" select="b:AlbumTitle"/>
 												</xsl:call-template>
 												<xsl:call-template name="templ_prop_Space"/>
-												
 											</xsl:with-param>
 										</xsl:call-template>
 									</xsl:if>
-									
 								</xsl:variable>
 								
 								<xsl:variable name ='BroadcastTitle'>
@@ -4341,42 +4319,29 @@
 								<xsl:variable name ='Medium'>
 									<xsl:if test="string-length(b:Medium)>0">
 										<xsl:call-template name="templ_prop_ISO690_GeneralOpen"/>
-										
 										<xsl:value-of select ="b:Medium"/>
 										<xsl:call-template name="templ_prop_ISO690_GeneralClose"/><xsl:call-template name="templ_prop_Space"/>
-										
-										
 									</xsl:if>
-									
 								</xsl:variable>
 								
 								<xsl:variable name ='MediumDot'>
 									<xsl:if test="string-length(b:Medium)>0">
 										<xsl:call-template name="templ_prop_ISO690_GeneralOpen"/>
-										
-										
 										<xsl:value-of select ="b:Medium"/>
 										<xsl:call-template name="templ_prop_ISO690_GeneralClose"/>
 										<xsl:call-template name="templ_prop_Dot"/>
 										<xsl:call-template name="templ_prop_Space"/>
-										
-										
-										
 									</xsl:if>
-									
 								</xsl:variable>
 								
 								<xsl:variable name ='Version'>
 									<xsl:if test="string-length(b:Version)>0">
 										<xsl:value-of select ="b:Version"/>
 										<xsl:call-template name="templ_prop_Space"/>
-										
 									</xsl:if>
-									
 								</xsl:variable>
 								
 								<xsl:variable name ="VersionAndDayMonthYear">
-									
 									<xsl:call-template name="templateJ">
 										<xsl:with-param name="first" select="b:Version"/>
 										<xsl:with-param name="second">
@@ -4411,16 +4376,13 @@
 											</xsl:with-param>
 										</xsl:call-template>
 									</xsl:if>
-									
 								</xsl:variable>
 								
 								<xsl:variable name ='CaseNumber'>
 									<xsl:if test="string-length(b:CaseNumber)">
 										<xsl:value-of select ="b:CaseNumber"/>
 										<xsl:call-template name="templ_prop_ListSeparator"/>
-										
 									</xsl:if>
-									
 								</xsl:variable>
 								
 								<xsl:variable name ='AbbreviatedCaseNumber'>
@@ -4428,13 +4390,10 @@
 										<xsl:value-of select ="b:AbbreviatedCaseNumber"/>
 										<xsl:call-template name="templ_prop_Dot"/>
 										<xsl:call-template name="templ_prop_Space"/>
-										
 									</xsl:if>
-									
 								</xsl:variable>
 								
 								<xsl:variable name ='Title'>
-									
 									<xsl:choose>
 										<xsl:when test="string-length(b:Chapter) > 0">
 											<xsl:call-template name = "ApplyItalicFieldNS">
@@ -4463,20 +4422,14 @@
 															<xsl:with-param name="field" select="b:Title"/>
 														</xsl:call-template>
 														<xsl:call-template name="templ_prop_Space"/>
-														
-														
 													</xsl:with-param>
 												</xsl:call-template>
-												
-												
 											</xsl:if>
 										</xsl:otherwise>
 									</xsl:choose>
 								</xsl:variable>
 								
 								<xsl:variable name ='TitleOfMonographParts'>
-									
-									
 									<xsl:choose>
 										<xsl:when test="string-length(b:Chapter) > 0">
 											<xsl:call-template name="appendField_Dot">
@@ -4488,33 +4441,29 @@
 											<xsl:if test="string-length(b:TitlePrefix) > 0">
 												<xsl:value-of select="b:TitlePrefix"/>
 												<xsl:call-template name="templ_prop_Space"/>
-												
 											</xsl:if>
 											<xsl:if test="string-length(b:Title) >0">
 												<xsl:call-template name="appendField_Dot">
 													<xsl:with-param name="field" select="b:Title"/>
 												</xsl:call-template>
 												<xsl:call-template name="templ_prop_Space"/>
-												
-												
 											</xsl:if>
 										</xsl:otherwise>
 									</xsl:choose>
 								</xsl:variable>
-								
-								
-								
-								
-								
+									
+								<span style='mso-tab-count:1'></span>
+						
 								<xsl:call-template name="templ_prop_ISO690_GeneralOpen"/>
-								<a>
+								<xsl:element name="a">
 									<xsl:attribute name="name">_toc_<xsl:value-of select="b:RefOrder"/></xsl:attribute>
 									<xsl:value-of select="b:RefOrder"/>
-							    </a>
+							    </xsl:element>
                                 <xsl:call-template name="templ_prop_ISO690_GeneralClose"/>
 								
-								<!--<xsl:call-template name="templ_prop_Dot"/>--> <!-- ike -->
-                                <xsl:call-template name="templ_prop_Space"/>
+								<!--<xsl:call-template name="templ_prop_Dot"/>-->
+                                <!-- <xsl:call-template name="templ_prop_Space"/> -->
+								<span style='mso-tab-count:1'></span> <!-- ike -->
 								
 								<xsl:if test="b:SourceType='ConferenceProceedings' or b:SourceType='JournalArticle'">
 									<xsl:call-template name = "ApplyItalicTitleNS">
@@ -4559,8 +4508,10 @@
 										</xsl:if>
 									</xsl:when>
 									<xsl:otherwise>
-										<xsl:copy-of select="$MainDot"/> <!-- ike - removed <b> -->
-										<xsl:call-template name="templ_prop_Space"/>
+										<xsl:if test="string-length($MainDot) > 0">
+											<xsl:copy-of select="$MainDot"/> <!-- ike - removed <b> -->
+											<xsl:call-template name="templ_prop_Space"/>
+										</xsl:if>
 									</xsl:otherwise>
 								</xsl:choose>
 								
@@ -4828,7 +4779,6 @@
 										<xsl:value-of select ="$DayMonthYearAccessed"/>
 										<xsl:value-of select ="$Comments"/>
 										<xsl:call-template name ="BibDisplayURL"/>
-										<!--<xsl:value-of select ="$URL"/></br> ike -->
 										<xsl:value-of select ="$StandardNumber"/>
 									</xsl:when>
 									
@@ -4839,7 +4789,6 @@
 										<xsl:value-of select ="$DayMonthYearAccessed"/>
 										<xsl:value-of select ="$Comments"/>
 										<xsl:call-template name ="BibDisplayURL"/>
-										<!--<xsl:value-of select ="$URL"/></br> ike -->
 										<xsl:value-of select ="$StandardNumber"/>
 									</xsl:when>
 									
@@ -7163,7 +7112,7 @@
 				</xsl:choose>
 			</xsl:when>
 			<xsl:otherwise>
-				<i xmlns="http://www.w3.org/TR/REC-html40">
+				<i>
 					<xsl:copy-of select="msxsl:node-set($data)" />
 				</i>
 			</xsl:otherwise>
@@ -7182,7 +7131,7 @@
 				<xsl:copy-of select="msxsl:node-set($data)" />
 			</xsl:when>
 			<xsl:otherwise>
-				<i xmlns="http://www.w3.org/TR/REC-html40">
+				<i>
 					<xsl:copy-of select="msxsl:node-set($data)" />
 				</i>
 			</xsl:otherwise>
