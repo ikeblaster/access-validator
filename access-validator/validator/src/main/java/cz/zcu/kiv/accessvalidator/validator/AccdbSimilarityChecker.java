@@ -11,7 +11,7 @@ import java.util.*;
 /**
  * Provides a tool for batch checking multiple files for similarities.
  *
- * @author ike
+ * @author Vojtech Kinkor
  */
 public class AccdbSimilarityChecker {
 

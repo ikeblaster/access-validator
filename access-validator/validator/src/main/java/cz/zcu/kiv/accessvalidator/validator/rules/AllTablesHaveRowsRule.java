@@ -9,7 +9,7 @@ import cz.zcu.kiv.accessvalidator.validator.rules.properties.Property;
 /**
  * Rule which checks whether all tables in the database have a desired number of rows.
  *
- * @author ike
+ * @author Vojtech Kinkor
  */
 public class AllTablesHaveRowsRule extends Rule {
 

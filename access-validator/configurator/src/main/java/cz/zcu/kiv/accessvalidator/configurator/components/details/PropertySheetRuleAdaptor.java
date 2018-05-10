@@ -1,4 +1,4 @@
-package cz.zcu.kiv.accessvalidator.components.details;
+package cz.zcu.kiv.accessvalidator.configurator.components.details;
 
 import cz.zcu.kiv.accessvalidator.validator.rules.properties.ChoiceProperty;
 import cz.zcu.kiv.accessvalidator.validator.rules.properties.Property;
@@ -12,7 +12,7 @@ import java.util.Optional;
 /**
  * {@code rules.properties.Property} adaptor for use as {@code PropertySheet.Item}.
  *
- * @author ike
+ * @author Vojtech Kinkor
  */
 public class PropertySheetRuleAdaptor implements PropertySheet.Item {
 

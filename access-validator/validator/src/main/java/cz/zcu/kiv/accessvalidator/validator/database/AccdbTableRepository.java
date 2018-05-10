@@ -12,7 +12,7 @@ import java.util.stream.Collectors;
 /**
  * Represents a repository for searching tables in ACCDB database.
  *
- * @author ike
+ * @author Vojtech Kinkor
  */
 public class AccdbTableRepository {
 

@@ -10,7 +10,7 @@ import java.util.*;
 /**
  * Represents a rule for checking ACCDB databse.
  *
- * @author ike
+ * @author Vojtech Kinkor
  */
 public abstract class Rule {
 

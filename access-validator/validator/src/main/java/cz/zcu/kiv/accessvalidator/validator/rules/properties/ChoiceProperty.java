@@ -5,7 +5,7 @@ import java.util.Collection;
 /**
  * Property with predefined choices.
  *
- * @author ike
+ * @author Vojtech Kinkor
  */
 public class ChoiceProperty<T> extends Property<T> {
 

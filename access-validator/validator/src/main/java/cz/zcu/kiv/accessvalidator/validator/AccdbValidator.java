@@ -12,7 +12,7 @@ import java.util.Set;
 /**
  * Provides a tool for validating a single database file against a rule.
  *
- * @author ike
+ * @author Vojtech Kinkor
  */
 public class AccdbValidator {
 

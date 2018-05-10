@@ -8,7 +8,7 @@ import java.util.Objects;
 /**
  * Generic property.
  *
- * @author ike
+ * @author Vojtech Kinkor
  */
 public class Property<T> {
 

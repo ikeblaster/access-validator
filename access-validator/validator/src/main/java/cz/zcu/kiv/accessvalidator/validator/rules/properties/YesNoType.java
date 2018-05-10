@@ -6,7 +6,7 @@ import java.util.List;
 /**
  * Represents simple ANY/YES/NO value type.
  *
- * @author ike
+ * @author Vojtech Kinkor
  */
 public enum YesNoType {
     _ANY(""), YES("Ano"), NO("Ne");

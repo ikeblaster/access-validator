@@ -10,7 +10,7 @@ import java.io.IOException;
 import java.util.*;
 
 /**
- * @author ike
+ * @author Vojtech Kinkor
  */
 @SuppressWarnings("Duplicates")
 public class TestBench {

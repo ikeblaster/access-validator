@@ -6,7 +6,7 @@ import java.util.List;
 /**
  * Represents comparison operator, typically used for comparing two integers.
  *
- * @author ike
+ * @author Vojtech Kinkor
  */
 public enum ComparisonOperator {
     GTE("≥"), EQ("="), LTE("≤");

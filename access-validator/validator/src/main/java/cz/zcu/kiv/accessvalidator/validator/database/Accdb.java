@@ -10,7 +10,7 @@ import java.util.*;
  * Represents a single ACCDB database, provides repositories
  * and interface for checking similarity to other databases.
  *
- * @author ike
+ * @author Vojtech Kinkor
  */
 public class Accdb {
 

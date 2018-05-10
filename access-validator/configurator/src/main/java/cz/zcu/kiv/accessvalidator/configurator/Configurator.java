@@ -11,6 +11,8 @@ import javafx.stage.Stage;
 /**
  * Heart of the application where every necessary variable is initialized,
  * including GUI. The application starts from here.
+ *
+ * @author Vojtech Kinkor
  */
 public class Configurator extends Application {
 

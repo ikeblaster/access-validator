@@ -3,6 +3,10 @@ package cz.zcu.kiv.accessvalidator.validator.rules;
 import cz.zcu.kiv.accessvalidator.validator.database.Accdb;
 import cz.zcu.kiv.accessvalidator.validator.rules.properties.Property;
 
+
+/**
+ * @author Vojtech Kinkor
+ */
 public class _RuleWithUnsupportedProperty extends Rule {
 
     public _RuleWithUnsupportedProperty() {

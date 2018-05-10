@@ -13,7 +13,7 @@ import java.util.Arrays;
 import static org.junit.jupiter.api.Assertions.*;
 
 /**
- * @author ike
+ * @author Vojtech Kinkor
  */
 class QueryTypeTest extends BaseTestClass {
 

@@ -8,7 +8,7 @@ import java.util.List;
 /**
  * Represents type of query saved in database.
  *
- * @author ike
+ * @author Vojtech Kinkor
  */
 public enum QueryType {
     _ANY(null),

@@ -1,12 +1,12 @@
-package cz.zcu.kiv.accessvalidator.components.validator;
+package cz.zcu.kiv.accessvalidator.configurator.components.validator;
 
-import cz.zcu.kiv.accessvalidator.components.validator.treeobjects.TreeObject;
+import cz.zcu.kiv.accessvalidator.configurator.components.validator.treeobjects.TreeObject;
 import javafx.scene.control.TreeItem;
 
 /**
  * {@code TreeObject} adaptor for use as {@code TreeItem}.
  *
- * @author ike
+ * @author Vojtech Kinkor
  */
 public class TreeItemObjectAdaptor extends TreeItem<TreeObject> {
 

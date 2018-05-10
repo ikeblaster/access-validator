@@ -7,7 +7,7 @@ import java.io.File;
 import java.net.URISyntaxException;
 
 /**
- * @author ike
+ * @author Vojtech Kinkor
  */
 public class BaseTestClass {
 

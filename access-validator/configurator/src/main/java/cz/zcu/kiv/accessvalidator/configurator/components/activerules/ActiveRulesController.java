@@ -1,8 +1,8 @@
-package cz.zcu.kiv.accessvalidator.components.activerules;
+package cz.zcu.kiv.accessvalidator.configurator.components.activerules;
 
-import cz.zcu.kiv.accessvalidator.common.Dialogs;
-import cz.zcu.kiv.accessvalidator.common.FileChooserEx;
-import cz.zcu.kiv.accessvalidator.components.details.DetailsController;
+import cz.zcu.kiv.accessvalidator.configurator.common.Dialogs;
+import cz.zcu.kiv.accessvalidator.configurator.common.FileChooserEx;
+import cz.zcu.kiv.accessvalidator.configurator.components.details.DetailsController;
 import cz.zcu.kiv.accessvalidator.validator.rules.GroupRule;
 import cz.zcu.kiv.accessvalidator.validator.rules.Rule;
 import cz.zcu.kiv.accessvalidator.validator.rules.serialization.RulesSerializer;
@@ -24,7 +24,7 @@ import java.util.Optional;
  * Controller for ActiveRules pane in JavaFX GUI.
  * Contains a tree with currently active set of rules.
  *
- * @author ike
+ * @author Vojtech Kinkor
  */
 public class ActiveRulesController {
 

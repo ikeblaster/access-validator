@@ -1,6 +1,6 @@
-package cz.zcu.kiv.accessvalidator.components.library;
+package cz.zcu.kiv.accessvalidator.configurator.components.library;
 
-import cz.zcu.kiv.accessvalidator.components.activerules.ActiveRulesController;
+import cz.zcu.kiv.accessvalidator.configurator.components.activerules.ActiveRulesController;
 import cz.zcu.kiv.accessvalidator.validator.RulesRepository;
 import javafx.fxml.FXML;
 import javafx.scene.control.ListView;
@@ -11,7 +11,7 @@ import javafx.stage.Stage;
  * Controller for Library pane in JavaFX UI.
  * Contains a listview of all accessible rules.
  *
- * @author ike
+ * @author Vojtech Kinkor
  */
 public class LibraryController {
 

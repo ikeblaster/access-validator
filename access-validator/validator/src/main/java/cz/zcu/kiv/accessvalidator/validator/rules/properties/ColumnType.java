@@ -9,7 +9,7 @@ import java.util.List;
 /**
  * Represents type of database table column.
  *
- * @author ike
+ * @author Vojtech Kinkor
  */
 public enum ColumnType {
     _ANY(""),

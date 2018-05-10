@@ -10,7 +10,7 @@ import java.util.Set;
 /**
  * Represents a repository for searching relationships in ACCDB database.
  *
- * @author ike
+ * @author Vojtech Kinkor
  */
 public class AccdbRelationRepository {
 

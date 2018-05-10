@@ -9,7 +9,7 @@ import java.util.Set;
 /**
  * Rule which checks the number of tables having column defined by criteria in database.
  *
- * @author ike
+ * @author Vojtech Kinkor
  */
 public class CountTablesWithColumnRule extends Rule {
 

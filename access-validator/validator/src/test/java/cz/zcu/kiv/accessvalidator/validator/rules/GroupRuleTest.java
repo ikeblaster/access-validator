@@ -13,7 +13,7 @@ import org.mockito.Mockito;
 import static org.junit.jupiter.api.Assertions.*;
 
 /**
- * @author ike
+ * @author Vojtech Kinkor
  */
 class GroupRuleTest extends BaseRulesTestClass {
 

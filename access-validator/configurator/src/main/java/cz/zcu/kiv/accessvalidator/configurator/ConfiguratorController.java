@@ -1,9 +1,9 @@
 package cz.zcu.kiv.accessvalidator.configurator;
 
-import cz.zcu.kiv.accessvalidator.components.activerules.ActiveRulesController;
-import cz.zcu.kiv.accessvalidator.components.details.DetailsController;
-import cz.zcu.kiv.accessvalidator.components.library.LibraryController;
-import cz.zcu.kiv.accessvalidator.components.validator.ValidatorController;
+import cz.zcu.kiv.accessvalidator.configurator.components.activerules.ActiveRulesController;
+import cz.zcu.kiv.accessvalidator.configurator.components.details.DetailsController;
+import cz.zcu.kiv.accessvalidator.configurator.components.library.LibraryController;
+import cz.zcu.kiv.accessvalidator.configurator.components.validator.ValidatorController;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -14,7 +14,7 @@ import javafx.stage.Stage;
  * Controller for main window.
  * Contains a menu, toolbar and four panes.
  *
- * @author ike
+ * @author Vojtech Kinkor
  */
 public class ConfiguratorController {
 

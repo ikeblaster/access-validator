@@ -15,7 +15,7 @@ import java.util.Collection;
  * Provides interface for serializing and deserializing rules (see {@code Rule}).
  * Uses XML format.
  *
- * @author ike
+ * @author Vojtech Kinkor
  */
 public class RulesSerializer {
 

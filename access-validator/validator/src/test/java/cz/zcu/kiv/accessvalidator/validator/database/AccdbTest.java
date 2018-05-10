@@ -17,7 +17,7 @@ import java.util.Set;
 import static org.junit.jupiter.api.Assertions.*;
 
 /**
- * @author ike
+ * @author Vojtech Kinkor
  */
 public class AccdbTest extends BaseTestClass {
 

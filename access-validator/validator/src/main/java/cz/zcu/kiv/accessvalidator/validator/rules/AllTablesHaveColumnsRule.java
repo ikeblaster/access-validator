@@ -7,7 +7,7 @@ import cz.zcu.kiv.accessvalidator.validator.rules.properties.*;
 /**
  * Rule which checks whether all tables in the database have a column defined by criteria.
  *
- * @author ike
+ * @author Vojtech Kinkor
  */
 public class AllTablesHaveColumnsRule extends Rule {
 

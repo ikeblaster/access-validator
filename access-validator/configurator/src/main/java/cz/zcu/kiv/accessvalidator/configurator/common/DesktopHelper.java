@@ -1,4 +1,4 @@
-package cz.zcu.kiv.accessvalidator.common;
+package cz.zcu.kiv.accessvalidator.configurator.common;
 
 import java.awt.*;
 import java.io.File;
@@ -7,7 +7,7 @@ import java.io.IOException;
 /**
  * Helper class for opening file explorer.
  *
- * @author ike
+ * @author Vojtech Kinkor
  */
 public class DesktopHelper {
 

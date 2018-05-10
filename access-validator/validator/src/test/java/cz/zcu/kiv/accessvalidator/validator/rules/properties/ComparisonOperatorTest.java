@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 /**
- * @author ike
+ * @author Vojtech Kinkor
  */
 class ComparisonOperatorTest extends BaseTestClass {
 

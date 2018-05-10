@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
- * @author ike
+ * @author Vojtech Kinkor
  */
 class RulesRepositoryTest extends BaseTestClass {
 

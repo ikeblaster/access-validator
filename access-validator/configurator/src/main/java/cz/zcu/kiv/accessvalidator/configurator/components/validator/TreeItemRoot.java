@@ -1,7 +1,7 @@
-package cz.zcu.kiv.accessvalidator.components.validator;
+package cz.zcu.kiv.accessvalidator.configurator.components.validator;
 
-import cz.zcu.kiv.accessvalidator.components.validator.treeobjects.FileTreeObject;
-import cz.zcu.kiv.accessvalidator.components.validator.treeobjects.TreeObject;
+import cz.zcu.kiv.accessvalidator.configurator.components.validator.treeobjects.FileTreeObject;
+import cz.zcu.kiv.accessvalidator.configurator.components.validator.treeobjects.TreeObject;
 import javafx.scene.control.TreeItem;
 
 import java.io.File;
@@ -11,7 +11,7 @@ import java.util.stream.Collectors;
 /**
  * Validator pane root item for files.
  *
- * @author ike
+ * @author Vojtech Kinkor
  */
 public class TreeItemRoot extends TreeItem<TreeObject> {
 

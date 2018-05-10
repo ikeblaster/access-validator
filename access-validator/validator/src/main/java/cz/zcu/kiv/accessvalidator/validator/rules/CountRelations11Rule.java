@@ -12,7 +12,7 @@ import java.util.Set;
 /**
  * Rule which checks the number of 1:1 relations in database.
  *
- * @author ike
+ * @author Vojtech Kinkor
  */
 public class CountRelations11Rule extends Rule {
 

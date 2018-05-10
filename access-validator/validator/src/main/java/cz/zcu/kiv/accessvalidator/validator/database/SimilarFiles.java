@@ -6,7 +6,7 @@ import java.util.*;
 /**
  * Represents a file together with all files similar to it.
  *
- * @author ike
+ * @author Vojtech Kinkor
  */
 public class SimilarFiles {
 

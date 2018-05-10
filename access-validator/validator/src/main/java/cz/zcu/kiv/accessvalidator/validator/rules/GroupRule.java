@@ -8,7 +8,7 @@ import java.util.*;
 /**
  * Represents a parent rule for group of rules.
  *
- * @author ike
+ * @author Vojtech Kinkor
  */
 public class GroupRule extends Rule {
 

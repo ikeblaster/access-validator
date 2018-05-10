@@ -13,7 +13,7 @@ import java.util.HashSet;
 import static org.junit.jupiter.api.Assertions.*;
 
 /**
- * @author ike
+ * @author Vojtech Kinkor
  */
 class AllTablesHaveColumnsRuleTest extends BaseRulesTestClass {
 

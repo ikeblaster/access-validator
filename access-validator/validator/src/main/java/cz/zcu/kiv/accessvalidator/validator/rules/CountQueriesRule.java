@@ -13,7 +13,7 @@ import java.util.Set;
 /**
  * Rule which checks the number of queries in database.
  *
- * @author ike
+ * @author Vojtech Kinkor
  */
 public class CountQueriesRule extends Rule {
 

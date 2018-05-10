@@ -8,7 +8,7 @@ import java.util.Collection;
 /**
  * Provides a repository of all accessible rules.
  *
- * @author ike
+ * @author Vojtech Kinkor
  */
 public class RulesRepository {
 

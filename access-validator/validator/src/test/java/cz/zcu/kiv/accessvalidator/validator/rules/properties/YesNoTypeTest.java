@@ -10,7 +10,7 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 /**
- * @author ike
+ * @author Vojtech Kinkor
  */
 class YesNoTypeTest extends BaseTestClass {
 

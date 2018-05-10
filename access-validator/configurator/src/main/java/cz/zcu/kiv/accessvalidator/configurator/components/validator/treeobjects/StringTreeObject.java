@@ -1,10 +1,10 @@
-package cz.zcu.kiv.accessvalidator.components.validator.treeobjects;
+package cz.zcu.kiv.accessvalidator.configurator.components.validator.treeobjects;
 
 /**
  * Represents basic object in a tree view.
  * Contains only text (label).
  *
- * @author ike
+ * @author Vojtech Kinkor
  */
 public class StringTreeObject extends TreeObject {
 

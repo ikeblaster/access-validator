@@ -21,7 +21,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 /**
- * @author ike
+ * @author Vojtech Kinkor
  */
 class AccdbTableRepositoryTest extends BaseTestClass {
 

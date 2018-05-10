@@ -1,6 +1,6 @@
-package cz.zcu.kiv.accessvalidator.components.activerules;
+package cz.zcu.kiv.accessvalidator.configurator.components.activerules;
 
-import cz.zcu.kiv.accessvalidator.components.details.PropertySheetRuleAdaptor;
+import cz.zcu.kiv.accessvalidator.configurator.components.details.PropertySheetRuleAdaptor;
 import cz.zcu.kiv.accessvalidator.validator.rules.GroupRule;
 import cz.zcu.kiv.accessvalidator.validator.rules.Rule;
 import cz.zcu.kiv.accessvalidator.validator.rules.properties.Property;
@@ -15,7 +15,7 @@ import java.util.Collections;
 /**
  * {@code Rule} adaptor for use as {@code TreeItem}.
  *
- * @author ike
+ * @author Vojtech Kinkor
  */
 public class TreeItemRuleAdaptor extends TreeItem<Rule> {
 

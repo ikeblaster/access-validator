@@ -11,7 +11,7 @@ import java.util.Set;
 /**
  * Represents a repository for searching queries in ACCDB database.
  *
- * @author ike
+ * @author Vojtech Kinkor
  */
 public class AccdbQueryRepository {
 

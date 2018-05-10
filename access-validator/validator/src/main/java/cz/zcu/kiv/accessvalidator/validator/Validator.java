@@ -10,7 +10,7 @@ import java.io.FileInputStream;
  * Entry point for console based application for validating
  * a single database against a XML file with serialized rule(s).
  *
- * @author ike
+ * @author Vojtech Kinkor
  */
 public class Validator {
 

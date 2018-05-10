@@ -1,4 +1,4 @@
-package cz.zcu.kiv.accessvalidator.components.details;
+package cz.zcu.kiv.accessvalidator.configurator.components.details;
 
 import javafx.fxml.FXML;
 import javafx.stage.Stage;
@@ -10,7 +10,7 @@ import java.util.Collection;
  * Controller for Details pane in JavaFX UI.
  * Contains a property sheet with properties for currently highlighted rule.
  *
- * @author ike
+ * @author Vojtech Kinkor
  */
 public class DetailsController {
 

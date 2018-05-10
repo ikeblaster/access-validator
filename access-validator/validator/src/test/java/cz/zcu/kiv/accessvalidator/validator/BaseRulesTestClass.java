@@ -10,7 +10,7 @@ import org.mockito.Mockito;
 import java.util.HashSet;
 
 /**
- * @author ike
+ * @author Vojtech Kinkor
  */
 public class BaseRulesTestClass extends BaseTestClass {
 

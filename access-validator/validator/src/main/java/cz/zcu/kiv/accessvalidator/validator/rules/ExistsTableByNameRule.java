@@ -7,7 +7,7 @@ import cz.zcu.kiv.accessvalidator.validator.rules.properties.Property;
 /**
  * Rule which checks whether a table with specified name exists in database.
  *
- * @author ike
+ * @author Vojtech Kinkor
  */
 public class ExistsTableByNameRule extends Rule {
 

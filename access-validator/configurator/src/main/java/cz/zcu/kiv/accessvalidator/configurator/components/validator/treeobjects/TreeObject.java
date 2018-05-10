@@ -1,6 +1,6 @@
-package cz.zcu.kiv.accessvalidator.components.validator.treeobjects;
+package cz.zcu.kiv.accessvalidator.configurator.components.validator.treeobjects;
 
-import cz.zcu.kiv.accessvalidator.components.validator.TreeItemObjectAdaptor;
+import cz.zcu.kiv.accessvalidator.configurator.components.validator.TreeItemObjectAdaptor;
 import javafx.collections.ObservableList;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.TreeItem;
@@ -11,7 +11,7 @@ import java.util.Collections;
 /**
  * Represents a general object in a tree view.
  *
- * @author ike
+ * @author Vojtech Kinkor
  */
 public abstract class TreeObject {
 

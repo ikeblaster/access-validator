@@ -8,7 +8,7 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 /**
- * @author ike
+ * @author Vojtech Kinkor
  */
 class RuleTest extends BaseRulesTestClass {
 

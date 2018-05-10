@@ -1,6 +1,6 @@
-package cz.zcu.kiv.accessvalidator.components.validator.treeobjects;
+package cz.zcu.kiv.accessvalidator.configurator.components.validator.treeobjects;
 
-import cz.zcu.kiv.accessvalidator.common.DesktopHelper;
+import cz.zcu.kiv.accessvalidator.configurator.common.DesktopHelper;
 import cz.zcu.kiv.accessvalidator.validator.database.SimilarFiles;
 import cz.zcu.kiv.accessvalidator.validator.database.SimilarityElement;
 import cz.zcu.kiv.accessvalidator.validator.rules.Rule;
@@ -15,7 +15,7 @@ import java.util.function.Consumer;
 /**
  * Represents a file object in a tree view.
  *
- * @author ike
+ * @author Vojtech Kinkor
  */
 public class FileTreeObject extends TreeObject {
 

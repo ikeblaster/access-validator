@@ -11,7 +11,7 @@ import java.util.Set;
 /**
  * Rule which checks the number of M:N relations in database (i.e. number of junction tables in database).
  *
- * @author ike
+ * @author Vojtech Kinkor
  */
 public class CountRelationsMNRule extends Rule {
 

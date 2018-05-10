@@ -16,7 +16,7 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
- * @author ike
+ * @author Vojtech Kinkor
  */
 class ColumnTypeTest extends BaseTestClass {
 

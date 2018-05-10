@@ -1,9 +1,9 @@
-package cz.zcu.kiv.accessvalidator.components.validator;
+package cz.zcu.kiv.accessvalidator.configurator.components.validator;
 
-import cz.zcu.kiv.accessvalidator.common.Dialogs;
-import cz.zcu.kiv.accessvalidator.common.FileChooserEx;
-import cz.zcu.kiv.accessvalidator.components.validator.treeobjects.FileTreeObject;
-import cz.zcu.kiv.accessvalidator.components.validator.treeobjects.TreeObject;
+import cz.zcu.kiv.accessvalidator.configurator.common.Dialogs;
+import cz.zcu.kiv.accessvalidator.configurator.common.FileChooserEx;
+import cz.zcu.kiv.accessvalidator.configurator.components.validator.treeobjects.FileTreeObject;
+import cz.zcu.kiv.accessvalidator.configurator.components.validator.treeobjects.TreeObject;
 import cz.zcu.kiv.accessvalidator.validator.AccdbSimilarityChecker;
 import cz.zcu.kiv.accessvalidator.validator.AccdbValidator;
 import cz.zcu.kiv.accessvalidator.validator.database.SimilarFiles;
@@ -24,7 +24,7 @@ import java.util.*;
  * Contains a treeview with files and nested details (failed
  * rules and/or similar files together with their similarities).
  *
- * @author ike
+ * @author Vojtech Kinkor
  */
 public class ValidatorController {
 

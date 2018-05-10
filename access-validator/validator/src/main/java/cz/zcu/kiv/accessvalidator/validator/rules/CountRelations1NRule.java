@@ -14,7 +14,7 @@ import java.util.Set;
  * Rule which checks the number of 1:N relations in database.
  * Excludes relations to junction tables (M:N relations).
  *
- * @author ike
+ * @author Vojtech Kinkor
  */
 public class CountRelations1NRule extends Rule {
 

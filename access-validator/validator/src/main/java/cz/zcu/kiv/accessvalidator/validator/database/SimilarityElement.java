@@ -9,7 +9,7 @@ import java.util.Set;
 /**
  * Single element of similarity which is shared across files.
  *
- * @author ike
+ * @author Vojtech Kinkor
  */
 public class SimilarityElement {
 

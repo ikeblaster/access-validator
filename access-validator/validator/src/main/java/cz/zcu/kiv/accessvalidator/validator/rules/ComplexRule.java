@@ -9,7 +9,7 @@ import java.util.Set;
 /**
  * Rule which does complex table search in database using multiple criteria.
  *
- * @author ike
+ * @author Vojtech Kinkor
  */
 public class ComplexRule extends Rule {
 
