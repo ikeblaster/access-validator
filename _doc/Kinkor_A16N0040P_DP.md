@@ -147,45 +147,49 @@ Obsah
 [5.2 Struktura implementovaného systému
 28](#struktura-implementovaného-systému)
 
-[5.2.1 Modul validator 28](#modul-validator)
+[5.2.1 Modul validator 29](#modul-validator)
 
-[5.3 Validace databáze 29](#validace-databáze)
+[5.2.2 Modul configurator 31](#modul-configurator)
 
-[5.3.1 Implementovaná validační pravidla
-29](#implementovaná-validační-pravidla)
+[5.3 Čtení databázových souborů 32](#čtení-databázových-souborů)
 
-[5.4 Hledání podobností a detekce plagiarismu
-29](#hledání-podobností-a-detekce-plagiarismu)
+[5.4 Validace databáze 32](#validace-databáze)
 
-[5.5 Grafické rozhraní 29](#grafické-rozhraní-1)
+[5.4.1 Implementovaná validační pravidla
+32](#implementovaná-validační-pravidla)
 
-[5.6 Adaptace pro validátor portálu ZČU
-29](#adaptace-pro-validátor-portálu-zču)
+[5.5 Hledání podobností a detekce plagiarismu
+32](#hledání-podobností-a-detekce-plagiarismu)
 
-[6 Testování vytvořeného systému 30](#testování-vytvořeného-systému)
+[5.6 Grafické rozhraní 32](#grafické-rozhraní-1)
 
-[6.1 Validace a validační pravidla 30](#validace-a-validační-pravidla)
+[5.7 Adaptace pro validátor portálu ZČU
+32](#adaptace-pro-validátor-portálu-zču)
 
-[6.2 Detekce plagiarismu 30](#detekce-plagiarismu)
+[6 Testování vytvořeného systému 33](#testování-vytvořeného-systému)
 
-[6.3 Grafické rozhraní 30](#grafické-rozhraní-2)
+[6.1 Validace a validační pravidla 33](#validace-a-validační-pravidla)
+
+[6.2 Detekce plagiarismu 33](#detekce-plagiarismu)
+
+[6.3 Grafické rozhraní 33](#grafické-rozhraní-2)
 
 [6.4 Konzolové rozhraní pro validátor portálu ZČU
-30](#konzolové-rozhraní-pro-validátor-portálu-zču)
+33](#konzolové-rozhraní-pro-validátor-portálu-zču)
 
-[7 Závěr 31](#závěr)
+[7 Závěr 34](#závěr)
 
-[Reference 32](#reference)
+[Reference 35](#reference)
 
-[Přílohy 35](#přílohy)
+[Přílohy 38](#přílohy)
 
-[A Uživatelská příručka 35](#a-uživatelská-příručka)
+[A Uživatelská příručka 38](#a-uživatelská-příručka)
 
-[Spuštění a kompilace nástroje 35](#spuštění-a-kompilace-nástroje)
+[Spuštění a kompilace nástroje 38](#spuštění-a-kompilace-nástroje)
 
-[Obsluha nástroje 35](#obsluha-nástroje)
+[Obsluha nástroje 38](#obsluha-nástroje)
 
-[B Obsah přiloženého média 35](#b-obsah-přiloženého-média)
+[B Obsah přiloženého média 38](#b-obsah-přiloženého-média)
 
 Úvod
 ====
@@ -844,7 +848,7 @@ o plagiát jedná, budou tak takové soubory označeny.
 Aplikace bude uživatelům nabízet přívětivé grafické rozhraní, pomocí
 kterého bude moci spravovat aktuální konfiguraci validace -- tedy
 nastavení jednotlivých pravidel. Validaci musí být možné spustit
-hromadně na více databázemi, výsledek poté bude pro každou z nich určený
+hromadně nad více databázemi, výsledek poté bude pro každou z nich určen
 zvlášť.
 
 Součástí systému bude dále aplikace přizpůsobená pro použití v rámci
@@ -858,7 +862,7 @@ konfigurační soubor nebo textový řetězec.
 Případy užití
 -------------
 
-Diagram na obrázku 4.1znázorňuje případy užití celého systému z pohledu
+Diagram na obrázku 4.1 znázorňuje případy užití celého systému z pohledu
 uživatele i validátoru studentských prací.
 
 Popis diagramu:
@@ -1167,13 +1171,117 @@ Struktura implementovaného systému
 ----------------------------------
 
 Systém je rozdělen do dvou projektů či *modulů* (v terminologie nástroje
-Apache Maven) dle návrhu v kapitole 4.8:
+Apache Maven) dle návrhu v kapitole 4.8. Rozvržení je rovněž vidět na
+obrázku 5.1, který zachycuje moduly a vnořené balíky. Konkrétní názvy
+balíků a tříd v tomto i následujících diagramech tříd jsou uvedeny bez
+nadřazeného balíku cz.zcu.kiv.accessvalidator.
+
+![](media/image7.png){width="5.904861111111111in"
+height="4.149305555555555in"}
+
+Obrázek . -- diagram modulů a balíku implementované systému.
 
 ### Modul validator
 
-První modul je nazvaný *validator* a obsahuje tzv. aplikační logiku --
-neboli vše potřebné pro kontrolu samostatných prací. Je členěn do 5
-balíků
+První modul nazvaný *validator* obsahuje tzv. aplikační logiku -- neboli
+vše potřebné pro kontrolu samostatných prací. Dále je do tohoto modulu
+začleněno konzolové rozhraní aplikace (viz kapitola 5.6). Modul je
+členěn do 28 tříd rozdělených do 5 balíků, dále následuje popis
+nejdůležitějších z nich. Rozvržení je vidět na obrázku 5.2.
+
+![](media/image7.png){width="5.904861111111111in"
+height="4.149305555555555in"}
+
+Obrázek . -- diagram tříd v modulu validator.
+
+Balík validator
+
+Hlavní balík validator obsahuje dvě třídy reprezentující klíčové
+nástroje pro kontrolu samostatných prací vytvořených v aplikaci
+Microsoft Access:
+
+-   Třída AccdbValidator -- slouží pro validaci databázových souborů
+    neboli kontrolu se zaměřením na splnění zadání. Podrobnosti
+    implementace jsou uvedeny v kapitole 5.4.
+
+-   Třída AccdbSimilarityChecker -- slouží pro kontrolu samostatných
+    prací se zaměřením na plagiarismus. Podrobnosti implementace jsou
+    uvedeny v kapitole 5.5.
+
+Balík dále obsahuje třídu s konzolovým rozhraním aplikace adaptovaným
+pro validátor portálu ZČU (podrobnosti viz kapitola 5.7) a třídu
+poskytující seznam se všemi validačními pravidly.
+
+Balík database
+
+Třídy obsažené v balíku database poskytují funkce pro práci
+s databázovými soubory. Pro svoji funkčnost využívají knihovnu Jackcess
+a oddělují tak použití této knihovny od zbytku systému.
+
+Balík rules
+
+Součástí balíku rules je deset tříd reprezentujících různá validační
+pravidla. Každé pravidlo má definovaný obecný název (např. „Existence
+tabulky dle názvu"), metodu vracející popis aktuální konfigurace
+(„Existence tabulky s názvem ‚studenti'") a v neposlední řadě obsahuje
+kolekci různých vlastností, prostřednictvím nichž lze pravidlo
+nakonfigurovat (pro zmíněné pravidlo půjde o vlastnost „Název tabulky").
+Podrobnosti o jednotlivých implementovaných pravidlech jsou uvedeny
+v kapitole 5.4.1.
+
+Vnořený balík properties obsahuje právě třídy používané pro realizaci
+vlastností validačních pravidel. Připraveny jsou dva typy vlastností --
+jeden umožňuje uživatelům zadání libovolné hodnoty, druhý pak pouze
+výběr jedné možnosti z několika předem definovaných. Součástí balíku je
+několik výčtových tříd obsahujících např. seznam datových typů sloupců
+používaných v databázích aplikace Microsoft Access. Tyto třídy se
+používají právě ve zmíněném druhém typu vlastností.
+
+Druhý vnořený balík serialization obsahuje jedinou třídu, která, jak již
+název balíku napovídá, slouží k serializaci a deserializaci
+nakonfigurovaných pravidel do souborů. Pro realizaci byl použit formát
+XML.
+
+### Modul configurator
+
+Modul s názvem *configurator* obsahuje aplikaci s grafickým uživatelským
+rozhraním, pomocí kterého mohou uživatelé spouštět a konfigurovat
+kontrolu samostatných prací a prohlížet výsledky těchto kontrol. Dále
+umožňuje exportovat (ukládat) a opět načítat konfiguraci validačních
+pravidel ze souborů. Podrobnosti o implementaci rozhraní jsou uvedeny
+v kapitole 5.6.
+
+Balík configurator
+
+V balíku configurator je umístěna třída s hlavní metodou programu, která
+spouští zmíněné grafické uživatelské rozhraní. Cílem této metody je
+pouze inicializovat JavaFX aplikaci, jejíž obsluhu poté zajišťuje druhá
+třída tohoto balíku, tzv. *controller*.
+
+Balík common
+
+Součástí balíku common jsou tři pomocné třídy. První z nich slouží
+k otevírání souborů v asociovaném programu, respektive nadřazené složky
+daného souboru v průzkumníku souborů. Druhá třída obsahuje metodu pro
+zobrazení chybového dialogového okna. Poslední třída obaluje funkčnost
+třídy FileChooser, která slouží pro výběr souborů pomocí dialogového
+okna, a přidává schopnost pamatovat si poslední použitý adresář i po
+restartu aplikace.
+
+Balík components
+
+Balík components je rozdělen na čtyři další balíky, z nichž každý
+představuje jednu část uživatelského rozhraní zaměřenou na specifickou
+oblast výsledné funkčnosti. Jedná se o panel se seznamem dostupných
+validačních pravidel, panel s právě aktivní sadou validačních pravidel,
+panel sloužící ke konfiguraci vybraného pravidla a panel s databázovými
+soubory určenými k validaci. Každá část má svůj vlastní controller,
+který zajišťuje funkčnost a definuje veřejné akce pro ovládání daného
+panelu. Ty se využívají jako reakce na stisknutí tlačítka v grafickém
+rozhraní, případně se přímo volají z jiných panelů.
+
+Čtení databázových souborů 
+---------------------------
 
 Validace databáze
 -----------------
