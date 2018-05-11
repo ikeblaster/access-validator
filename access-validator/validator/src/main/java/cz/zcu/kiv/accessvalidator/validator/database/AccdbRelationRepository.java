@@ -14,8 +14,6 @@ import java.util.Set;
  */
 public class AccdbRelationRepository {
 
-    private static final String INTERNAL_PREFIX = "~";
-
     /**
      * Database instance.
      */
@@ -35,7 +33,7 @@ public class AccdbRelationRepository {
         this.db = db;
         try {
             this.relations = new HashSet<>(db.getRelationships());
-            this.relations.removeIf(relation -> relation.getName().startsWith(INTERNAL_PREFIX)); // exclude internal relations
+            this.relations.removeIf(relation -> relation.getName().startsWith(Accdb.INTERNAL_OBJECTS_PREFIX)); // exclude internal relations
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

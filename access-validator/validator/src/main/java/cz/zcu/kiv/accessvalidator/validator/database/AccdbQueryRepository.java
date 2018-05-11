@@ -15,8 +15,6 @@ import java.util.Set;
  */
 public class AccdbQueryRepository {
 
-    private static final String INTERNAL_PREFIX = "~";
-
     /**
      * Database instance.
      */
@@ -36,7 +34,7 @@ public class AccdbQueryRepository {
         this.db = db;
         try {
             this.queries = new HashSet<>(this.db.getQueries());
-            this.queries.removeIf(query -> query.getName().startsWith(INTERNAL_PREFIX)); // exclude internal queries (e.g. form queries)
+            this.queries.removeIf(query -> query.getName().startsWith(Accdb.INTERNAL_OBJECTS_PREFIX)); // exclude internal queries (e.g. form queries)
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

@@ -35,7 +35,7 @@ public class AccdbTableRepository {
         this.db = db;
         try {
             this.tables = new HashSet<>(db.getTableNames());
-            this.tables.removeIf(table -> table.startsWith("~"));
+            this.tables.removeIf(table -> table.startsWith(Accdb.INTERNAL_OBJECTS_PREFIX)); // exclude internal tables (e.g. forms)
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

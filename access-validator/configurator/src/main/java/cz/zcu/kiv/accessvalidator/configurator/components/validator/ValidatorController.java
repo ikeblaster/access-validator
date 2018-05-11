@@ -210,9 +210,10 @@ public class ValidatorController {
             try {
 
                 AccdbValidator validator = new AccdbValidator(treeFile.getFile(), rule);
+                boolean valid = validator.validate();
 
                 treeFile.resetState();
-                treeFile.setValid(validator.validate());
+                treeFile.setValid(valid);
                 treeFile.setFailedRules(validator.getFailedRules());
                 treeFile.setSimilarFiles(similarFiles.get(treeFile.getFile()));
 

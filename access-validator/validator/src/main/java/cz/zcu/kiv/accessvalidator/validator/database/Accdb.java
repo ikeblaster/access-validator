@@ -15,6 +15,11 @@ import java.util.*;
 public class Accdb {
 
     /**
+     * Internal objects (like queries embedded into forms) have this prefix.
+     */
+    static final String INTERNAL_OBJECTS_PREFIX = "~";
+
+    /**
      * Layout is found in MSysObjects table, row with {@code Type=-32758}, column {@code LvExtra}.
      */
     private static final String RELATIONSHIPS_LAYOUT_RECORD_TYPE = "-32758";
