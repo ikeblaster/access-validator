@@ -151,45 +151,48 @@ Obsah
 
 [5.2.2 Modul configurator 31](#modul-configurator)
 
-[5.3 Čtení databázových souborů 32](#čtení-databázových-souborů)
+[5.3 Čtení databázových souborů 33](#čtení-databázových-souborů)
 
-[5.4 Validace databáze 32](#validace-databáze)
+[5.4 Validace databáze 35](#validace-databáze)
 
 [5.4.1 Implementovaná validační pravidla
-32](#implementovaná-validační-pravidla)
+36](#implementovaná-validační-pravidla)
+
+[5.4.2 Ukládání nakonfigurovaných pravidel do souborů
+37](#ukládání-nakonfigurovaných-pravidel-do-souborů)
 
 [5.5 Hledání podobností a detekce plagiarismu
-32](#hledání-podobností-a-detekce-plagiarismu)
+38](#hledání-podobností-a-detekce-plagiarismu)
 
-[5.6 Grafické rozhraní 32](#grafické-rozhraní-1)
+[5.6 Grafické rozhraní 38](#grafické-rozhraní-1)
 
 [5.7 Adaptace pro validátor portálu ZČU
-32](#adaptace-pro-validátor-portálu-zču)
+38](#adaptace-pro-validátor-portálu-zču)
 
-[6 Testování vytvořeného systému 33](#testování-vytvořeného-systému)
+[6 Testování vytvořeného systému 39](#testování-vytvořeného-systému)
 
-[6.1 Validace a validační pravidla 33](#validace-a-validační-pravidla)
+[6.1 Validace a validační pravidla 39](#validace-a-validační-pravidla)
 
-[6.2 Detekce plagiarismu 33](#detekce-plagiarismu)
+[6.2 Detekce plagiarismu 39](#detekce-plagiarismu)
 
-[6.3 Grafické rozhraní 33](#grafické-rozhraní-2)
+[6.3 Grafické rozhraní 39](#grafické-rozhraní-2)
 
 [6.4 Konzolové rozhraní pro validátor portálu ZČU
-33](#konzolové-rozhraní-pro-validátor-portálu-zču)
+39](#konzolové-rozhraní-pro-validátor-portálu-zču)
 
-[7 Závěr 34](#závěr)
+[7 Závěr 40](#závěr)
 
-[Reference 35](#reference)
+[Reference 41](#reference)
 
-[Přílohy 38](#přílohy)
+[Přílohy 44](#přílohy)
 
-[A Uživatelská příručka 38](#a-uživatelská-příručka)
+[A Uživatelská příručka 44](#a-uživatelská-příručka)
 
-[Spuštění a kompilace nástroje 38](#spuštění-a-kompilace-nástroje)
+[Spuštění a kompilace nástroje 44](#spuštění-a-kompilace-nástroje)
 
-[Obsluha nástroje 38](#obsluha-nástroje)
+[Obsluha nástroje 44](#obsluha-nástroje)
 
-[B Obsah přiloženého média 38](#b-obsah-přiloženého-média)
+[B Obsah přiloženého média 44](#b-obsah-přiloženého-média)
 
 Úvod
 ====
@@ -216,7 +219,7 @@ Objekty uložené v databázi
 --------------------------
 
 V následujících podkapitolách jsou uvedeny různé objekty, které mohou
-být uloženy v Microsoft Access databázích.
+být uloženy v databázích vytvořených aplikací Microsoft Access.
 
 ### Tabulky
 
@@ -762,12 +765,12 @@ Akce lze rozdělit do několika kategorií[29](#_toc_29) \[\]:
     > souboru, nalezení souboru v adresáři, porovnání PNG souborů, ...
     > Validátor lze rozšířit o další vlastní akce naprogramováním a
     > nahráním tzv. *validačních modulů* na validační
-    > server[30](#_toc_30)[27](#_toc_27) \[, \].
+    > server[27](#_toc_27)[30](#_toc_30) \[, \].
 
 -   *Vlastní skript* -- opět lze napsat vlastní skript v jazyce
     > JavaScript. Pro spouštění skriptů se používá knihovna Rhino, která
     > umožňuje přistupovat i k běžným funkcím platformy
-    > Java[28](#_toc_28)[27](#_toc_27) \[, \].
+    > Java[27](#_toc_27)[28](#_toc_28) \[, \].
 
 -   *Skok na jiný krok validace* a *ukončení validace* -- ve spojení s
     > podmínkami lze takto řídit průběh validace.
@@ -821,14 +824,15 @@ vyučujícími, s důrazem na intuitivní použití výsledného systému a
 snadnou konfiguraci ve spojení s validátorem studentských prací.
 
 Hlavní části požadovaného systému je aplikace umožňující *validaci
-Access databází* -- tedy kontrolu databází s ohledem na splnění zadání.
-Vzhledem k různorodosti jednotlivých zadání musí aplikace umožnit
-pohodlnou konfiguraci této kontroly. To bude spočívat v možnosti
-zahrnout do kontroly různá pravidla testující obsah databází. Výsledkem
-kontroly bude označení zadaného databázového souboru jako *vyhovujícího*
-či *nevyhovujícího*; v druhém případě by měla aplikace zároveň
-poskytnout informaci o pravidle, které „selhalo" (a zapříčinilo tedy
-vyhodnocení databáze jako *nevyhovující*).
+databázových souborů vytvořených v aplikaci Microsoft Access* -- neboli
+kontrolu databází s ohledem na splnění zadání. Vzhledem k různorodosti
+jednotlivých zadání musí aplikace umožnit pohodlnou konfiguraci této
+kontroly. To bude spočívat v možnosti zahrnout do kontroly různá
+pravidla testující obsah databází (dále též *validační pravidla*).
+Výsledkem kontroly bude označení zadaného databázového souboru jako
+*vyhovujícího* či *nevyhovujícího*; v druhém případě by měla aplikace
+zároveň poskytnout informaci o pravidle, které „selhalo" (a zapříčinilo
+tedy vyhodnocení databáze jako nevyhovující).
 
 Pravidla musí umožňovat kontrolu existence tabulek, relací mezi
 tabulkami různých typů, případně i dalších objektů uložených v databázi.
@@ -1028,9 +1032,9 @@ Vyhodnocení plagiarismu
 
 Za plagiátorství lze označit úmyslné kopírování nebo celkové
 napodobování prací jiných autorů a vydávání za vlastní. To platí i v
-případě samostatných prací vytvořených v Microsoft Access, vzhledem
-k automatizaci kontroly je však nutné najít spolehlivý a důvěryhodný
-postup pro označování prací jako plagiátů.
+případě samostatných prací vytvořených v aplikaci Microsoft Access,
+vzhledem k automatizaci kontroly je však nutné najít spolehlivý
+a důvěryhodný postup pro označování prací jako plagiátů.
 
 Samotné vyhodnocení plagiarismu mezi několika databázovými soubory může
 spočívat v hledání různých společných „prvků podobnosti", přičemž každý
@@ -1095,8 +1099,8 @@ Adaptace pro validátor studentských prací
 -----------------------------------------
 
 Patrně nejjednodušší způsob adaptace vytvářeného systému pro validátor
-studentských prací spočívá ve využití vlastní akce validátoru pro
-spuštění Java programu zabaleného v souboru formátu JAR. K tomu je
+studentských prací spočívá ve využití již existující akce validátoru pro
+spuštění Java programu zabaleného do souboru formátu JAR. K tomu je
 zapotřebí vytvořit aplikaci s konzolovým rozhraním, která bude nahrána
 na validační server do složky příslušné validační domény. Aplikace se
 bude ovládat pouze pomocí parametrů -- jedním z nich bude název
@@ -1179,20 +1183,21 @@ nadřazeného balíku cz.zcu.kiv.accessvalidator.
 ![](media/image7.png){width="5.904861111111111in"
 height="4.149305555555555in"}
 
-Obrázek . -- diagram modulů a balíku implementované systému.
+Obrázek . -- diagram modulů a balíku implementované systému. \<TODO:
+obrázek\>
 
 ### Modul validator
 
 První modul nazvaný *validator* obsahuje tzv. aplikační logiku -- neboli
 vše potřebné pro kontrolu samostatných prací. Dále je do tohoto modulu
-začleněno konzolové rozhraní aplikace (viz kapitola 5.6). Modul je
+začleněno konzolové rozhraní aplikace (viz kapitola 5.7). Modul je
 členěn do 28 tříd rozdělených do 5 balíků, dále následuje popis
 nejdůležitějších z nich. Rozvržení je vidět na obrázku 5.2.
 
 ![](media/image7.png){width="5.904861111111111in"
 height="4.149305555555555in"}
 
-Obrázek . -- diagram tříd v modulu validator.
+Obrázek . -- diagram tříd v modulu validator. \<TODO: obrázek\>
 
 Balík validator
 
@@ -1223,11 +1228,10 @@ Balík rules
 Součástí balíku rules je deset tříd reprezentujících různá validační
 pravidla. Každé pravidlo má definovaný obecný název (např. „Existence
 tabulky dle názvu"), metodu vracející popis aktuální konfigurace
-(„Existence tabulky s názvem ‚studenti'") a v neposlední řadě obsahuje
-kolekci různých vlastností, prostřednictvím nichž lze pravidlo
-nakonfigurovat (pro zmíněné pravidlo půjde o vlastnost „Název tabulky").
-Podrobnosti o jednotlivých implementovaných pravidlech jsou uvedeny
-v kapitole 5.4.1.
+(„Existence tabulky s názvem ‚studenti'") a v neposlední řadě kolekci
+různých vlastností, prostřednictvím nichž lze pravidlo nakonfigurovat
+(pro zmíněné pravidlo půjde o vlastnost „Název tabulky"). Podrobnosti o
+jednotlivých implementovaných pravidlech jsou uvedeny v kapitole 5.4.1.
 
 Vnořený balík properties obsahuje právě třídy používané pro realizaci
 vlastností validačních pravidel. Připraveny jsou dva typy vlastností --
@@ -1249,7 +1253,13 @@ rozhraním, pomocí kterého mohou uživatelé spouštět a konfigurovat
 kontrolu samostatných prací a prohlížet výsledky těchto kontrol. Dále
 umožňuje exportovat (ukládat) a opět načítat konfiguraci validačních
 pravidel ze souborů. Podrobnosti o implementaci rozhraní jsou uvedeny
-v kapitole 5.6.
+v kapitole 5.6. Na obrázku 5.3 je opět znázorněno rozvržení tříd v
+rámci modulu.
+
+![](media/image7.png){width="5.904861111111111in"
+height="4.149305555555555in"}
+
+Obrázek . -- diagram tříd v modulu configurator. \<TODO: obrázek\>
 
 Balík configurator
 
@@ -1280,22 +1290,303 @@ který zajišťuje funkčnost a definuje veřejné akce pro ovládání daného
 panelu. Ty se využívají jako reakce na stisknutí tlačítka v grafickém
 rozhraní, případně se přímo volají z jiných panelů.
 
-Čtení databázových souborů 
----------------------------
+Čtení databázových souborů
+--------------------------
+
+Čtení databázových souborů vytvořených v aplikaci Microsoft Access je
+zajištěno knihovnou Jackcess. Pro oddělení závislosti na této knihovně
+(a usnadnění případné výměny za jinou metodu čtení) bylo její použití
+„zabaleno" do čtyř tříd.
+
+Knihovna poskytuje plně objektové rozhraní pro práci s databázemi.
+Instance třídy Database představují jednotlivé otevřené databázové
+soubory, veškeré operace nad nimi, jako například získání seznamu
+tabulek či relací, pak probíhají pomocí metod.
+
+Třída reprezentující databázový soubor
+
+Každý načtený databázový soubor je v rámci systému reprezentován
+instancí třídy Accdb. Ta slouží zejména jako tzv. *továrna* pro
+následující tři třídy, které zprostředkovávají přístup k objektům
+uloženým v databázi. Dále třída obsahuje metodu pro porovnání s druhou
+databází, která se využívá pro vyhodnocení podobnosti a detekci
+plagiarismu mezi databázemi.
+
+Repozitář tabulek uložených v databázi
+
+Repozitáře v rámci programů obecně slouží pro oddělení přístupu k datům
+od vlastní logiky aplikace. Obvykle poskytují rozhraní pro získávání dat
+včetně možnosti vyhledávání konkrétním záznamů (resp. filtrování všech
+dostupných) a rozhraní pro ukládání nových či aktualizovaných záznamů.
+
+Implementovaná třída AccdbTableRepository slouží jako repozitář
+zprostředkovávající uživatelské tabulky uložené v databázi. Při prvotní
+inicializaci repozitáře se z databáze získá seznam názvů všech tabulek,
+který je následně možné zavoláním příslušných metod filtrovat. Výsledný
+seznam lze získat metodou getTables. Implementovány jsou například
+následující možnosti filtrování:
+
+-   *Dle názvu tabulky.* Ponechána je pouze tabulka, jejíž název se
+    > přesně shoduje s parametrem filtru. V případě, že hledaná tabulka
+    > neexistuje, zůstane seznam nalezených tabulek prázdný.
+
+-   *Dle počtu sloupců vyhovujících parametrům.* Parametry jsou
+    > porovnávací operátor[^15], požadovaný počet sloupců, název
+    > sloupce, datový typ a údaj, zda sloupec má či nemá být součástí
+    > primárního klíče. V případě, že je parametr názvu prázdný, pak se
+    > pro filtrování neuplatňuje; obdobně lze vynechat i další dva
+    > parametry.\
+    > Interně tento filtr rovněž funguje jako malý repozitář. Pro každou
+    > tabulku v seznamu jsou nejprve nalezeny údaje o všech sloupcích,
+    > následně se provede filtrování dle názvu, poté dle datového typu a
+    > nakonec dle příslušnosti k primárnímu klíči. Pokud zbylý počet
+    > sloupců odpovídá požadovanému, je tabulka v seznamu ponechána.
+    > V opačném případně dojde k odstranění.
+
+-   *Nalezení rozkladových tabulek pro relace M:N.* Princip činnosti je
+    > podobný předchozímu filtru, pouze místo sloupců se pracuje
+    > s relacemi tabulky. Vyfiltrování rozkladových tabulek spočívá
+    > v ověření, že má daná tabulka cizí klíče tvořící vazbu 1:N
+    > s dalšími dvěma tabulkami (princip byl již zmíněn v analýze, viz
+    > kapitola 4.4).
+
+Repozitář relací mezi tabulkami
+
+Druhý repozitář, implementovaný třídou AccdbRelationRepository, slouží
+k získávání informací o relacích mezi tabulkami uloženými v databázi.
+Funguje na stejném principu jako repozitář tabulek, neboli získání všech
+relací při inicializaci a poté možnost jejich filtrování. K dispozici
+jsou následující filtry:
+
+-   *Vyhledání relací typu 1:1*. Ponechány jsou pouze relace označené
+    > knihovnou Jackcess jako typ 1:1. Knihovna interně využívá příznak
+    > uložený v objektu relace.
+
+-   *Vyhledání relací typu 1:N*. Funguje na stejném principu jako
+    > předchozí filtr, pouze v seznamu zachovává takové relace, které
+    > zmíněný příznak nemají. Do výsledného seznamu jsou zahrnuty i
+    > relace s rozkladovými tabulkami, které ve výsledku tvoří relace
+    > typu M:N, neboť *de facto* jsou relacemi typu 1:N.
+
+Filtrování relací typu M:N není do tohoto repozitáře zahrnuto, neboť se
+jedná o vazbu, která vzniká až v důsledku aplikace jiných vazeb
+(konkrétně dvou relací 1:N). Pokud chceme takové relace nalézt, lze
+použít repozitář tabulek a filtr pro nalezení rozkladových tabulek,
+které právě relaci M:N zajišťují.
+
+Repozitář dotazů uložených v databázi
+
+Poslední implementovaný repozitář ve třídě AccdbQueryRepository slouží
+pro vyhledávání dotazů uložených v databázi. Opět je postaven na stejném
+principu jako předchozí dva repozitáře, ale je z nich nejjednodušší,
+neboť poskytuje pouze jednu „filtrační metodu":
+
+-   *Vyhledání dotazu dle typu*. Ve výsledném seznamu jsou zachovány
+    > pouze ty dotazy, které přesně odpovídají typu zadanému parametrem.
+    > Informace o typu je opět zprostředkována knihovnou Jackcess.
 
 Validace databáze
 -----------------
 
+Kontrola databází s ohledem na splnění zadání, neboli *validace
+databází*, je realizována prostřednictvím různých validačních pravidel.
+Každé pravidlo obsahuje metodu check, která přejímá referenci na objekt
+reprezentující databází a vyhodnocuje, zda je pro danou databázi
+splněno. Konkrétní implementace této metody se tedy samozřejmě u každého
+pravidla liší, navíc je výsledek ovlivněn i aktuální konfigurací
+pravidla. Ta je dána nastavením *vlastností*, které jsou součástí
+pravidla.
+
+Jedním z implementovaných pravidel je *skupinové pravidlo*, do kterého
+lze „vnořit" další pravidla. Pro vyhodnocení pravidla se poté ověřují i
+všechna vnořená. Pravidla tak ve výsledku tvoří stromovou strukturu.
+Validace databáze ve výsledku tedy spočívá ve spuštění kontroly v
+kořenovém pravidle.
+
+Nástroj pro validaci poskytuje seznam pravidel, které nebyly během
+validace splněné. Validace databáze ovšem obvykle běží pouze do prvního
+pravidla, které „selže", výstupem tedy bývá pouze toto jedno pravidlo.
+
 ### Implementovaná validační pravidla
+
+Implementováno bylo celkem deset různých validačních pravidel, přičemž
+všechny jsou potomky abstraktní třídy Rule, která definuje jejich
+základní podobu. Většina z nich byla navrhnuta v rámci analýzy řešení
+(viz kapitola 4.4), omezíme se proto jen na jejich výčet a možnosti
+konfigurace:
+
+-   *Skupinové pravidlo* umožňující zanoření dalších pravidel.
+    > Vyhodnocení pravidla je závislé na režimu, který lze zvolit: AND
+    > -- je nutné splnit všechna vnořená pravidla. OR -- je nutné splnit
+    > alespoň jedno vnořené pravidlo.
+
+-   *Kontrola existence tabulky dle názvu.* Nakonfigurovat lze název
+    > tabulky.
+
+-   *Kontrola počtu sloupců v každé tabulce.* Nakonfigurovat lze
+    > porovnávací operátor, požadovaný počet sloupců, filtr dle názvu
+    > sloupce, filtr dle datového typu a filtr dle příslušnosti sloupce
+    > k primárnímu klíči.
+
+-   *Kontrola počtu řádků v každé tabulce*. Nakonfigurovat lze
+    > porovnávací operátor a požadovaný počet řádků.
+
+-   *Kontrola počtu tabulek, které obsahují sloupec dle zadaných
+    > kritérií*. Nakonfigurovat lze porovnávací operátor, požadovaný
+    > počet tabulek, datový typ sloupce, název sloupce a příslušnost
+    > k primárnímu klíči.
+
+-   *Komplexní kontrola počtu tabulek.* Nakonfigurovat lze porovnávací
+    > operátor, požadovaný počet tabulek, filtr dle názvu sloupce, filtr
+    > dle počtu sloupců (opět lze nastavit porovnávací operátor a
+    > požadovaný počet) a filtr dle existence sloupce (dle názvu,
+    > datového typu a příslušnosti k primárnímu klíči).\
+    > Pravidlo umožňuje ověřit, že v databázi existuje požadovaný počet
+    > tabulek, které mají určitý počet sloupců (libovolných vlastností)
+    > a které obsahují sloupec dle požadovaných vlastností.
+
+-   *Kontrola počtu dotazů dle zadaného druhu*. Nakonfigurovat lze
+    > porovnávací operátor, požadovaný počet dotazů a druh dotazů. Lze
+    > vybrat jeden z devíti druhů.
+
+-   *Kontrola počtu relací typu 1:1*. Nakonfigurovat lze porovnávací
+    > operátor a požadovaný počet relací.
+
+-   *Kontrola počtu relací typu 1:N*. Detto.
+
+-   *Kontrola počtu relací typu M:N*. Detto.
+
+Validační pravidla využívají implementovaných repozitářů, uplatňuje se
+zde tedy stejné chování jako u filtračních metod -- tj. v případě
+nevyplnění vlastností *název*, *datový typ*, *typ dotazu*, apod. nebudou
+tyto vlastnosti pro filtrování použity.
+
+### Ukládání nakonfigurovaných pravidel do souborů
+
+Systém uživatelům nabízí možnost ukládání a načítání nakonfigurovaných
+validačních pravidel z/do souborů. Tím je uživatelům umožněno zálohovat
+si jednotlivé konfigurace validace a používat je opakovaně. S ohledem na
+využití dané konfigurace aplikací adaptovanou pro validátor portálu ZČU
+mluvíme též o *exportování pravidel*.
+
+Ukládání pravidel je implementováno jako tzv. *serializace* pravidel do
+souborů. Serializace obecně představuje proces převodu objektů do
+podoby, kterou lze uložit do paměti, souboru, nebo např. poslat po síti
+-- striktně vzato lze říci, že se jedná o převod na posloupnost bytů.
+Opačným procesem je pak deserializace, jejímž cílem je zpětně
+rekonstruovat původní objekt (resp. vytvořit jeho identickou kopii).
+
+V rámci realizovaného systému se pro serializaci využívá formát XML.
+Každé pravidlo je ve výstupním souboru zastoupenou jedním elementem,
+jehož atributy představují vlastnosti daného pravidla. Třída zajišťující
+serializaci přejímá pouze jedno pravidlo, pro uložení více pravidel se
+předpokládá využití skupinového pravidla. Vnořená pravidla se
+zpracovávají rekurzivně a výsledný dokument tedy tvoří stromovou
+strukturu ve stejné podobě, jako jsou validační pravidla.
+
+Uložení konfigurace validátoru spočívá v serializaci kořenového
+skupinového pravidla. Příklad konfigurace serializované do formátu XML
+je uveden v ukázce 5.1.
+
+**1** \<?xml version=\"1.0\" ?\>
+
+**2** \<GroupRule mode=\"AND\"\>
+
+**3** \<AllTablesHaveRowsRule count\_op=\"GTE\" count=\"5\" /\>
+
+**4** \<AllTablesHaveColumnsRule count\_op=\"EQ\" count=\"1\"
+column\_type=\"AUTO\_NUMBER\"
+
+**5** column\_name=\"\" column\_primary=\"\_ANY\" /\>
+
+**6** \<CountRelations11Rule count\_op=\"EQ\" count=\"0\" /\>
+
+**7** \<ExistsTableByNameRule name=\"student\" /\>
+
+**8** \</GroupRule\>
+
+Ukázka . -- pět pravidla uložených do formátu XML.
 
 Hledání podobností a detekce plagiarismu
 ----------------------------------------
+
+Další důležitou částí systému je detekce plagiarismu mezi databázovými
+soubory vytvořenými v aplikaci Microsoft Access. Způsob detekce
+implementovaný v systému je založen na hledání stejných či podobných
+částí mezi napříč všemi zadanými databázemi.
+
+Třída zodpovědná za detekci plagiarismu přejímá seznam souborů určených
+ke kontrole. Samotná kontrola probíhá v několika krocích:
+
+1.  Vzájemné porovnání všech databází -- zavolání implementované metody,
+    > která vrací množinu „prvků podobnosti".
+
+2.  Zařazení souborů do skupin dle nalezených podobností. V každé
+    > skupině tak jsou alespoň dva soubory mající právě jednu společnou
+    > část, postupně do ní ale mohou být zařazovány i další soubory.
+
+3.  Získání výsledků ve dvou různých podobách:
+
+    -   Mapa, kde klíčem je databázový soubor (dále „hlavní") a hodnotou
+        je třída spravující seznam jemu podobných souborů. Pro každý
+        podobný soubor je dále k dispozici seznam podobností s hlavním
+        souborem.
+
+    -   Mapa, kde klíčem je databázový soubor a hodnotou kolekce „prvků
+        podobnosti". Každý tento prvek pak v sobě nese seznam dalších
+        souborů mající tento prvek.
+
+Mezi databázemi se vyhledávají podobnosti pouze v rámci následujících
+metadat:
+
+-   Datum a čas poslední vytvoření systémové tabulky MSysDb. Odpovídá
+    datu vytvoření samotného databázového souboru.
+
+-   Datum a čas poslední úpravy systémové tabulky MSysDb. Odpovídá datu
+    posledního uložení databáze.
+
+-   Datum a čas poslední vytvoření systémové tabulky Admin. Odpovídá
+    datu vytvoření relací mezi tabulkami v databázi.
+
+-   Datum a čas poslední úpravy systémové tabulky Admin. Odpovídá datu
+    poslední úpravy relací mezi tabulkami v databázi.
+
+-   Údaje o autorovi databáze (jméno a název organizace). Vynechávají se
+    údaje, které jsou v systémech často jako výchozí -- databáze
+    s názvem „Database", jména autorů obsahující slovo „Windows" a jména
+    organizací obsahující „Univer" (přidáno na základě testování).
+
+-   Grafické rozvržení relací mezi tabulkami. Způsob získání byl popsán
+    v závěru kapitoly 4.5.
+
+Na základě testování bylo potvrzeno, že nalezení stejného grafického
+rozvržení relací mezi tabulkami je dostatečně průkazný prvek pro
+označení databáze jako plagiátu. Všechna ostatní pravidla způsobí pouze
+upozornění uživatele na podobnost mezi databázemi, má tedy možnost
+dodatečně zkontrolovat i další „podezřelé" databáze. Interně je
+rozlišení mezi plagiátem a podobným souborem docíleno ohodnocením
+nalezených prvků podobnosti, přičemž již zmíněné grafické rozvržení
+relací je ohodnoceno číslem 100, zbylé číslem 1. Aplikace s grafickým
+rozhraním pak označuje za plagiáty takové soubory, jejichž suma
+podobnosti je větší nebo rovna hodnotě 100.
+
+V případě testování většího množství databází se může objevit některý
+prvek podobnosti, který způsobuje označení databáze jako podobné nebo
+plagiátu, ale může být očekávaný a není tedy žádoucí jej vyhodnocovat.
+Typicky může jít o databáze vytvořené v rámci jedné organizace a tedy
+mající shodné údaje o autorovi. Dalším příkladem mohou být samostatné
+práce v rámci výuky, u nichž je součástí zadání předpřipravený
+databázový soubor. V tomto případě systém poskytuje možnost do nástroje
+pro kontrolu předat seznam prvků podobnosti, které se mají ignorovat.
+Při dalších kontrolách pak již nejsou součástí výsledků.
 
 Grafické rozhraní
 -----------------
 
 Adaptace pro validátor portálu ZČU
 ----------------------------------
+
+### Konfigurace validátoru
 
 Testování vytvořeného systému
 =============================
@@ -1306,8 +1597,8 @@ Validace a validační pravidla
 Detekce plagiarismu
 -------------------
 
-Grafické rozhraní 
-------------------
+Grafické rozhraní
+-----------------
 
 Konzolové rozhraní pro validátor portálu ZČU
 --------------------------------------------
@@ -1446,7 +1737,8 @@ Bakalářská práce. Západočeská univerzita. Fakulta aplikovaných věd.
 Katedra informatiky a výpočetní techniky. Vedoucí práce Pavel HEROUT.
 \[29\] *Testovací validační server pro studentské projekty.* \[Online\]
 \[Citace: 20. 4. 2018\]. Dostupné z: \[30\] *Wiki - Validační server a
-jeho moduly - Redmine.* \[Online\] \[Citace: 20. 4. 2018\]. Dostupné z:
+jeho moduly - Redmine KIV ZČU.* \[Online\] \[Citace: 20. 4. 2018\].
+Dostupné z:
 
 Přílohy {#přílohy .ListParagraph}
 =======
@@ -1513,3 +1805,6 @@ též v repozitáři projektu v rámci služby GitHub na adrese:
 
 [^14]: Viz web vývojového prostředí IntelliJ IDEA:
     <https://www.jetbrains.com/idea/>
+
+[^15]: Podporované operátory jsou „rovná se", „větší nebo rovno" a
+    „menší nebo rovno".
