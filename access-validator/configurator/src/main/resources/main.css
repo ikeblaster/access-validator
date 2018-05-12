@@ -44,6 +44,7 @@
 	-fx-background-repeat: no-repeat;
 	-fx-background-size: auto 16;
 	-fx-background-position: 98% center;
+	-fx-padding: 3 4em 3 3;
 }
 
 .icon-valid {
