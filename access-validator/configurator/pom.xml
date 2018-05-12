@@ -16,6 +16,18 @@
         <controlsfx.version>8.40.14</controlsfx.version>
     </properties>
 
+    <profiles>
+        <profile>
+            <id>jdk9gt</id>
+            <activation>
+                <jdk>9</jdk>
+            </activation>
+            <properties>
+                <controlsfx.version>9.0.0</controlsfx.version>
+            </properties>
+        </profile>
+    </profiles>
+
     <dependencies>
         <dependency>
             <groupId>cz.zcu.kiv.accessvalidator</groupId>

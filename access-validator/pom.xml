@@ -24,6 +24,19 @@
         <mockito.version>2.16.0</mockito.version>
     </properties>
 
+    <profiles>
+        <profile>
+            <id>jdk9gt</id>
+            <activation>
+                <jdk>[9</jdk>
+            </activation>
+            <properties>
+                <maven.compiler.target>9</maven.compiler.target>
+                <maven.compiler.source>9</maven.compiler.source>
+            </properties>
+        </profile>
+    </profiles>
+
 
     <dependencies>
         <!--<dependency>-->

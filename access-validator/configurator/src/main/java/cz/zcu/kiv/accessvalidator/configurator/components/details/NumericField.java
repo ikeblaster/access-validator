@@ -154,7 +154,7 @@ class NumericField extends TextField {
         Integer toNumber(String s) {
             if (s != null && !s.trim().isEmpty()) {
                 String d = s.trim();
-                return new Integer(d);
+                return Integer.valueOf(d);
             } else {
                 return 0;
             }
