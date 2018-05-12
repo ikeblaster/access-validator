@@ -114,7 +114,8 @@ public class ActiveRulesController {
             RulesSerializer serializer = new RulesSerializer();
             Rule root = serializer.deserialize(new FileInputStream(this.rulesFileChooser.getFile()));
             this.loadRules(root);
-        } catch (XMLStreamException | IOException e) {
+        } catch (Exception e) {
+            Dialogs.showErrorBox("Soubor se nepodařilo načíst", e.getLocalizedMessage());
             e.printStackTrace();
         }
     }

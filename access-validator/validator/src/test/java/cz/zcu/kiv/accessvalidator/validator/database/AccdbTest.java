@@ -21,7 +21,7 @@ import static org.junit.jupiter.api.Assertions.*;
  */
 public class AccdbTest extends BaseTestClass {
 
-    public static int FIND_SIMILARITIES_CHECKS_COUNT = 8;
+    public static int FIND_SIMILARITIES_CHECKS_COUNT = 6;
 
     private Accdb accdb;
     private File file;

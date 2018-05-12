@@ -15,6 +15,7 @@ import javax.xml.stream.XMLStreamException;
 import java.io.*;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
@@ -94,12 +95,7 @@ class RulesSerializerTest extends BaseTestClass {
 
         InputStream inputStream = new ByteArrayInputStream(outputStream.toByteArray());
 
-        ByteArrayOutputStream errContent = new ByteArrayOutputStream();
-        System.setErr(new PrintStream(errContent));
-
-        this.serializer.deserialize(inputStream);
-
-        assertTrue(errContent.toString().contains("_RuleWithoutDefaultConstructor"));
+        assertThrows(RuntimeException.class, () -> this.serializer.deserialize(inputStream));
     }
 
 

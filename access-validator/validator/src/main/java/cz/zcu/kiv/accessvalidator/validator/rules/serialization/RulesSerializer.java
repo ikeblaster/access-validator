@@ -177,7 +177,7 @@ public class RulesSerializer {
                 }
             }
         } catch (IllegalAccessException | InstantiationException | ClassNotFoundException | NoSuchMethodException | InvocationTargetException e) {
-            System.err.println("Deserialization: Rule '" + ruleClassName + "' not found or doesn't have default constructor, skipping");
+            throw new RuntimeException("Deserialization: Rule '" + ruleClassName + "' not found or doesn't have default constructor, skipping");
         }
 
         return rule;

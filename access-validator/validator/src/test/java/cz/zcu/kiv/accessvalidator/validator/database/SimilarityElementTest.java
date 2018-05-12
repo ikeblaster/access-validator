@@ -48,9 +48,8 @@ class SimilarityElementTest extends BaseTestClass {
     }
 
     @Test
-    void toString__ContainsLabelAndValue() {
+    void toString__ContainsLabel() {
         assertTrue(this.similarityElement.toString().contains("label"));
-        assertTrue(this.similarityElement.toString().contains("value"));
     }
 
     @Test
