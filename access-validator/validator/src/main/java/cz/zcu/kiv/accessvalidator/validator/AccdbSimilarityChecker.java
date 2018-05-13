@@ -118,27 +118,14 @@ public class AccdbSimilarityChecker {
      * Compares all databases between each other.
      */
     private void process() {
-        for(int i = 0; i < this.dbs.size(); i++) {
-            for(int j = i + 1; j < this.dbs.size(); j++) {
-                this.compare(this.dbs.get(i), this.dbs.get(j));
+        for (Accdb db : this.dbs) {
+            Set<SimilarityElement> similarities = db.findSimilarityElements();
+
+            for(SimilarityElement similarity : similarities) {
+                SimilarityElement group = this.similarityGroups.computeIfAbsent(similarity, k -> similarity);
+
+                group.add(db.getFile());
             }
-        }
-    }
-
-    /**
-     * Compares two databases.
-     *
-     * @param db1 First database.
-     * @param db2 Second database.
-     */
-    private void compare(Accdb db1, Accdb db2) {
-        Set<SimilarityElement> similarities = db1.findSimilarities(db2);
-
-        for(SimilarityElement similarity : similarities) {
-            SimilarityElement group = this.similarityGroups.computeIfAbsent(similarity, k -> similarity);
-
-            group.add(db1.getFile());
-            group.add(db2.getFile());
         }
     }
 
