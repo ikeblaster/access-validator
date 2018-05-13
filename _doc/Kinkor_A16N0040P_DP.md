@@ -132,7 +132,7 @@ Obsah
 
 [4.5 Vyhodnocení plagiarismu 24](#vyhodnocení-plagiarismu)
 
-[4.6 Grafické rozhraní 25](#grafické-uživatelské-rozhraní)
+[4.6 Grafické uživatelské rozhraní 25](#grafické-uživatelské-rozhraní)
 
 [4.7 Adaptace pro validátor studentských prací
 26](#adaptace-pro-validátor-studentských-prací)
@@ -164,34 +164,42 @@ Obsah
 [5.5 Hledání podobností a detekce plagiarismu
 38](#hledání-podobností-a-detekce-plagiarismu)
 
-[5.6 Grafické rozhraní 38](#grafické-uživatelské-rozhraní-1)
+[5.6 Grafické uživatelské rozhraní 40](#grafické-uživatelské-rozhraní-1)
 
 [5.7 Adaptace pro validátor portálu ZČU
-38](#adaptace-pro-validátor-portálu-zču)
+41](#adaptace-pro-validátor-portálu-zču)
 
-[6 Testování vytvořeného systému 39](#testování-vytvořeného-systému)
+[5.7.1 Konfigurace validátoru 43](#konfigurace-validátoru)
 
-[6.1 Validace a validační pravidla 39](#validace-a-validační-pravidla)
+[6 Testování vytvořeného systému 46](#testování-vytvořeného-systému)
 
-[6.2 Detekce plagiarismu 39](#detekce-plagiarismu)
+[6.1 Čtení databázových souborů 46](#čtení-databázových-souborů-1)
 
-[6.3 Grafické rozhraní 39](#grafické-uživatelské-rozhraní-2)
+[6.2 Validace a validační pravidla 47](#validace-a-validační-pravidla)
 
-[6.4 Konzolové rozhraní pro validátor portálu ZČU 39](#_Toc513826506)
+[6.3 Detekce plagiarismu 47](#detekce-plagiarismu)
 
-[7 Závěr 40](#závěr)
+[6.4 Grafické uživatelské rozhraní 48](#grafické-uživatelské-rozhraní-2)
 
-[Reference 41](#reference)
+[6.5 Aplikace adaptovaná pro validátor portálu ZČU
+49](#aplikace-adaptovaná-pro-validátor-portálu-zču)
 
-[Přílohy 44](#přílohy)
+[6.6 Testování systému na množině reálných dat
+49](#testování-systému-na-množině-reálných-dat)
 
-[A Uživatelská příručka 44](#a-uživatelská-příručka)
+[7 Závěr 51](#závěr)
 
-[Spuštění a kompilace nástroje 44](#spuštění-a-kompilace-nástroje)
+[Reference 52](#reference)
 
-[Obsluha nástroje 44](#obsluha-nástroje)
+[Přílohy 55](#přílohy)
 
-[B Obsah přiloženého média 44](#b-obsah-přiloženého-média)
+[A Uživatelská příručka 55](#a-uživatelská-příručka)
+
+[Spuštění a kompilace nástroje 55](#spuštění-a-kompilace-nástroje)
+
+[Obsluha nástroje 55](#obsluha-nástroje)
+
+[B Obsah přiloženého média 55](#b-obsah-přiloženého-média)
 
 Úvod
 ====
@@ -206,8 +214,7 @@ Microsoft Access je nástroj řadící se mezi takzvané systémy řízení báz
 dat (SŘBD či DBMS -- database management system). Jedná se o software,
 který umožňuje práci s relačními databázemi. Je součástí kancelářského
 balíku Microsoft Office, případně prodáván i samostatně. Pro vytváření a
-správu databáze nabízí uživatelům přehledné grafické rozhraní
-[1](#_toc_1)\[\].
+správu databáze nabízí uživatelům přehledné grafické rozhraní \[1\].
 
 Aplikace používá pro ukládání dat technologii Microsoft Jet Database
 Engine, v novějších verzích poté nazývanou Access Database Engine.
@@ -1183,11 +1190,10 @@ Pozn.: Konkrétní názvy balíků a tříd v následujících diagramech modul�
 balíků a tříd jsou uvedeny bez nadřazeného balíku
 cz.zcu.kiv.accessvalidator.
 
-![](media/image7.png){width="5.904861111111111in"
-height="4.149305555555555in"}
+![](media/image7.emf){width="4.945291994750656in"
+height="4.584905949256343in"}
 
-Obrázek . -- diagram modulů a balíku implementované systému. \<TODO:
-obrázek\>
+Obrázek . -- diagram modulů a balíku implementované systému.
 
 ### Modul validator
 
@@ -1196,11 +1202,6 @@ vše potřebné pro kontrolu samostatných prací. Dále je do tohoto modulu
 začleněno konzolové rozhraní aplikace (viz kapitola 5.7). Modul je
 členěn do 28 tříd rozdělených do 5 balíků, dále následuje popis
 nejdůležitějších z nich. Rozvržení je vidět na obrázku 5.2.
-
-![](media/image7.png){width="5.904861111111111in"
-height="4.149305555555555in"}
-
-Obrázek . -- diagram tříd v modulu validator. \<TODO: obrázek\>
 
 Balík validator
 
@@ -1219,6 +1220,11 @@ Microsoft Access:
 Balík dále obsahuje třídu s konzolovým rozhraním aplikace adaptovaným
 pro validátor portálu ZČU (podrobnosti viz kapitola 5.7) a třídu
 poskytující seznam se všemi validačními pravidly.
+
+![](media/image8.emf){width="5.933962160979878in"
+height="6.7807195975503065in"}
+
+Obrázek 5.2 -- zjednodušený diagram tříd v modulu validator.
 
 Balík database
 
@@ -1259,10 +1265,9 @@ pravidel ze souborů. Podrobnosti o implementaci rozhraní jsou uvedeny v
 kapitole 5.6. Na obrázku 5.3 je opět znázorněno rozvržení tříd v rámci
 modulu.
 
-![](media/image7.png){width="5.904861111111111in"
-height="4.149305555555555in"}
+![](media/image9.emf){width="5.2in" height="6.867919947506562in"}
 
-Obrázek . -- diagram tříd v modulu configurator. \<TODO: obrázek\>
+Obrázek . -- zjednodušený diagram tříd v modulu configurator.
 
 Balík configurator
 
@@ -1967,8 +1972,6 @@ podoby srozumitelné pro čtenáře):
 
 7.  Přidání dalšího libovolného pravidla nyní způsobí jeho zařazení
     > „dovnitř" skupinového pravidla.
-
-[]{#_Toc513826506 .anchor}
 
 Aplikace adaptovaná pro validátor portálu ZČU
 ---------------------------------------------
