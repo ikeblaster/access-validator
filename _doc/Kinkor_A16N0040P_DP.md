@@ -204,6 +204,34 @@ Obsah
 Úvod
 ====
 
+V rámci výuky práce s aplikací Microsoft Access na Západočeské
+univerzitě odevzdávají studenti samostatné práce prostřednictvím
+speciálního portletu na portálu ZČU. Vyučující pak musí všechny tyto
+práce ručně zkontrolovat, což bývá časově velmi náročné. Navíc v
+případě, že práce nesplňuje požadavky dané zadáním, vrací ji studentovi
+k opravě. Pro studenty to znamená, že odevzdáním začíná čekání na
+informaci, zda je jejich práce vyhovující.
+
+Portlet pro odevzdávání samostatných prací již v současné době může být
+napojen na validátor studentských prací, který zajišťuje automatickou
+kontrolu odevzdaných souborů dle pravidel nastavených vyučujícím.
+Student se po nahrání své práce okamžitě dozví, zda je či není
+vyhovující. Validátor byl původně vyvíjen pro potřeby předmětu Počítače
+a programování 1 (PPA1), od té doby byl ale rozšířen a použit i v mnoha
+dalších předmětech, ale doposud neumožňuje kontrolu souborů vytvořených
+v aplikaci Microsoft Access.
+
+Cílem této práce je prozkoumat možnosti programového čtení souborů ve
+formátu ACCDB, tedy formátu používeného právě v aplikaci Microsoft
+Access. Na základě získaných poznatků bude implementován systém pro
+automatické kontrolování těchto souborů dle pravidel určených
+uživatelem. Smyslem je automaticky vyhodnocovat, zda studentské práce
+splňují zadání, a tedy usnadnit jejich hodnocení. Tato část systému bude
+dále adaptována pro použití v rámci validátoru portálu ZČU, díky čemuž
+se k vyučujícím dostanou pouze práce na určité úrovni kvality. Nad rámec
+zmíněné kontroly s ohledem na zadání bude dále v systému implementována
+detekce plagiarismu mezi samostatnými pracemi.
+
 Databázový software Microsoft Access
 ====================================
 
@@ -214,7 +242,8 @@ Microsoft Access je nástroj řadící se mezi takzvané systémy řízení báz
 dat (SŘBD či DBMS -- database management system). Jedná se o software,
 který umožňuje práci s relačními databázemi. Je součástí kancelářského
 balíku Microsoft Office, případně prodáván i samostatně. Pro vytváření a
-správu databáze nabízí uživatelům přehledné grafické rozhraní \[1\].
+správu databáze nabízí uživatelům přehledné grafické rozhraní
+[1](#_toc_1)\[\].
 
 Aplikace používá pro ukládání dat technologii Microsoft Jet Database
 Engine, v novějších verzích poté nazývanou Access Database Engine.
@@ -311,7 +340,7 @@ str. AC A5-A8, str. 419\]:
 ![](media/image1.emf){width="3.622047244094488in"
 height="1.3385826771653544in"}
 
-Obrázek . -- model relace 1:1 využívající v obou tabulkách primární
+Obrázek 2.1 -- model relace 1:1 využívající v obou tabulkách primární
 klíč.
 
 -   *Relace typu 1:N* -- k více záznamům v tabulce A lze přiřadit jeden
@@ -322,7 +351,8 @@ klíč.
 ![](media/image2.emf){width="3.622047244094488in"
 height="1.5708661417322836in"}
 
-Obrázek . -- model relace 1:N; cizí klíč *Kolej ID* v tabulce *Student*\
+Obrázek 2.2 -- model relace 1:N; cizí klíč *Kolej ID* v tabulce
+*Student*\
 referencuje primární klíč tabulky *Kolej*.
 
 -   *Relace typu M:N* -- k M záznamům v tabulce A lze přiřadit N záznamů
@@ -333,7 +363,7 @@ referencuje primární klíč tabulky *Kolej*.
 ![](media/image3.emf){width="5.744094488188976in"
 height="1.5708661417322836in"}
 
-Obrázek . -- model relace M:N, která je tvořena dvěma\
+Obrázek 2.3 -- model relace M:N, která je tvořena dvěma\
 relacemi 1:N na spojovou tabulku *StudentPředmět*.
 
 Relace mezi tabulkami mohou zajišťovat *referenčním integritu*. Cílem je
@@ -450,7 +480,7 @@ metadata[5](#_toc_5)[6](#_toc_6) \[, \]:
 ![](media/image4.png){width="5.658333333333333in"
 height="3.622642169728784in"}
 
-Obrázek . -- grafické rozvržení relací mezi tabulkami v aplikaci
+Obrázek 2.4 -- grafické rozvržení relací mezi tabulkami v aplikaci
 Microsoft Access 2016,\
 které lze rovněž považovat za metadata uložená v databázi.
 
@@ -810,7 +840,7 @@ stručně jej lze popsat následovně (viz též diagram na obrázku 3.1)
 ![](media/image5.png){width="5.252404855643045in"
 height="5.377358923884515in"}
 
-Obrázek . -- diagram znázorňující proces validace práce odevzdané
+Obrázek 3.1 -- diagram znázorňující proces validace práce odevzdané
 studentem. Převzato z[27](#_toc_27) \[\].
 
 Analýza řešení kontroly prací
@@ -849,7 +879,7 @@ obsahují alespoň určitý počet řádků).
 
 Další částí aplikace bude detekce plagiarismu, respektive vyhledávání
 podobností mezi databázovými soubory. Pro databáze může být obtížné
-definovat, kdy se již jedná o plagiát -- například dvě databáze
+definovat, kdy se již jedná o plagiát -- například dvě databáze
 obsahující stejně pojmenované tabulky mohou, ale nemusí být plagiátem. V
 takovém případě může aplikace pouze upozorňovat na podobnost; pokud se
 ale podaří na základě dalších informací jednoznačně určit, že se
@@ -906,7 +936,7 @@ Popis diagramu:
 ![](media/image6.emf){width="5.904440069991251in"
 height="4.644444444444445in"}
 
-Obrázek . -- diagram případů užití systému pro kontrolu samostatných
+Obrázek 4.1 -- diagram případů užití systému pro kontrolu samostatných
 prací.
 
 Metoda čtení databázových souborů
@@ -1076,7 +1106,7 @@ autor a název databáze, nastavení uživatelského rozhraní, informace o
 formátu), další údaje je nutné získat ze skrytých systémových tabulek,
 ke kterým knihovna umožňuje přistupovat stejně jako k uživatelským
 tabulkám. Již zmíněné grafické rozvržení relací je uloženo v systémové
-tabulce MSysObjects (záznam s typem -32758, sloupec LvExtra) v binární
+tabulce MSysObjects (záznam s typem -32758, sloupec LvExtra) v binární
 podobě, díky reverznímu inženýrství je znám i formát těchto dat[^9].
 
 Grafické uživatelské rozhraní
@@ -1114,8 +1144,8 @@ název odevzdaného souboru (tj. studentské práce nahrané na portál),
 druhým pak název souboru s validačními pravidly pro kontrolu správnosti
 zadání. Výstupem aplikace bude textová informace o výsledku validace, v
 případě neúspěchu dále vypíše podrobnosti o příčinách (neboli popis
-validačního pravidla, které selhalo) na standardní chybový výstup -- ten
-je následně zobrazen studentům, kteří tak získají informace, z jakého
+validačního pravidla, které selhalo) na standardní chybový výstup -- ten
+je následně zobrazen studentům, kteří tak získají informace, z jakého
 důvodu je odevzdaná práce nevyhovující.
 
 Návrh struktury systému
@@ -1183,7 +1213,7 @@ Struktura implementovaného systému
 ----------------------------------
 
 Systém je rozdělen do dvou projektů či *modulů* (v terminologie nástroje
-Apache Maven) dle návrhu z kapitoly 4.8. Rozvržení je rovněž vidět na
+Apache Maven) dle návrhu z kapitoly 4.8. Rozvržení je rovněž vidět na
 obrázku 5.1, který zachycuje moduly a vnořené balíky.
 
 Pozn.: Konkrétní názvy balíků a tříd v následujících diagramech modulů,
@@ -1193,7 +1223,7 @@ cz.zcu.kiv.accessvalidator.
 ![](media/image7.emf){width="4.945291994750656in"
 height="4.584905949256343in"}
 
-Obrázek . -- diagram modulů a balíku implementované systému.
+Obrázek 5.1 -- diagram modulů a balíku implementované systému.
 
 ### Modul validator
 
@@ -1267,7 +1297,7 @@ modulu.
 
 ![](media/image9.emf){width="5.2in" height="6.867919947506562in"}
 
-Obrázek . -- zjednodušený diagram tříd v modulu configurator.
+Obrázek 5.3 -- zjednodušený diagram tříd v modulu configurator.
 
 Balík configurator
 
@@ -1514,7 +1544,7 @@ column\_type=\"AUTO\_NUMBER\"
 
 8 \</GroupRule\>
 
-Ukázka . -- pět pravidla serializovaných do formátu XML.
+Ukázka 5.1 -- pět pravidla serializovaných do formátu XML.
 
 Hledání podobností a detekce plagiarismu
 ----------------------------------------
@@ -1598,7 +1628,7 @@ připraveného v rámci analýzy řešení (viz kapitola 4.6), tj. je rozděleno
 do čtyř částí:
 
 -   Panel *Knihovna pravidel* obsahuje seznam všech dostupných
-    validačních pravidel. Je umístěn v levé části okna a zobrazuje
+    validačních pravidel. Je umístěn v levé části okna a zobrazuje
     pravidla automaticky načtených ze třídy RulesRepository.
 
 -   Panel *Aktivní pravidla* se všemi validačními pravidly, které jsou
@@ -1612,91 +1642,90 @@ do čtyř částí:
     > vlastnosti právě označeného aktivního pravidla.
 
 -   Panel *Databáze ke kontrole* obsahuje uživatelem přidané databáze
-    > určené ke kontrole s ohledem na splnění zadání a detekci
+    > určené ke kontrole s ohledem na splnění zadání a detekci
     > plagiarismu. Každý přidaný soubor tvoří kořen stromu, vnořené
     > listy pak představují různé dodatečné informace.
 
-Pro kontrolu aplikace dále slouží nástrojová lišta a menu. Panel
-s aktivními pravidly lze ovládat tlačítky a akcemi pro načtení
-konfigurace ze souboru, uložení aktuální konfigurace do souboru a
-vytvoření nového souboru (neboli odstranění všech aktuálně aktivních
-pravidel).
+Pro kontrolu aplikace dále slouží nástrojová lišta a menu. Panel s
+aktivními pravidly lze ovládat tlačítky a akcemi pro načtení konfigurace
+ze souboru, uložení aktuální konfigurace do souboru a vytvoření nového
+souboru (neboli odstranění všech aktuálně aktivních pravidel).
 
-Pokud chce uživatel přidat validační pravidlo z knihovny pravidel mezi
+Pokud chce uživatel přidat validační pravidlo z knihovny pravidel mezi
 aktivní, může tak učinit dvojklikem, nebo označením a stisknutím
 tlačítka na liště. Pokud chce naopak aktivní pravidlo odstranit, opět
 jej jen označí a stiskne příslušné tlačítko na liště. Aktivní pravidla
-mají v rámci panelu popisky skládající se z názvu a zjednodušeného
+mají v rámci panelu popisky skládající se z názvu a zjednodušeného
 popisu jejich konfigurace, uživatel tak vždy vidí, jak pravidla
 nakonfiguroval.
 
 Po označení aktivního pravidla jsou zobrazeny všechny dostupné
 vlastnosti, které má uživatel možnost upravit. Vlastnosti jsou pro
 některá pravidla seskupena do souvisejících bloků, panel ale umožňuje
-toto seskupení vypnout a zobrazit vše v „ploché" struktuře.
+toto seskupení vypnout a zobrazit vše v „ploché" struktuře.
 
 Přidat či odebrat databázové soubory ke kontrole lze opět tlačítky na
-liště či v menu. Přidání souborů je rovněž možné přetažením příslušných
-souborů z průzkumníka souborů na panel se soubory ke kontrole. Přidány
+liště či v menu. Přidání souborů je rovněž možné přetažením příslušných
+souborů z průzkumníka souborů na panel se soubory ke kontrole. Přidány
 jsou pouze podporované soubory ve formátech ACCDB a MDB. Po přidání do
-panelu má uživatel možnost otevřít kontextovou nabídku s možnostmi pro
-otevření souboru v asociované aplikaci (tedy typicky v aplikaci
+panelu má uživatel možnost otevřít kontextovou nabídku s možnostmi pro
+otevření souboru v asociované aplikaci (tedy typicky v aplikaci
 Microsoft Access) a pro otevření nadřazeného adresáře v průzkumníku
 souborů (na platformě Microsoft Windows bude navíc příslušný soubor
 vybrán).
 
 Kontrolu databázových souborů může uživatel spustit tlačítkem *Otestovat
 databáze*. Ve výchozím stavu zahrnuje jak validaci, tak detekci
-plagiarismu -- tu může uživatel pomocí položky v menu vypnout či opět
-zapnout. Výsledkem kontroly je označení každého databázového souboru
-v panelu ikonou dle toho, zda databáze vyhovuje aktivním pravidlům, či
-nikoliv. V případě detekování plagiarismu je daný soubor označen
+plagiarismu -- tu může uživatel pomocí položky v menu vypnout či opět
+zapnout. Výsledkem kontroly je označení každého databázového souboru v
+panelu ikonou dle toho, zda databáze vyhovuje aktivním pravidlům, či
+nikoliv. V případě detekování plagiarismu je daný soubor označen
 červenou barvou, ikonou a textovým popiskem; jak již bylo uvedeno,
 systém může najít pouhou podobnost mezi databázemi, kterou ale nelze
-jednoznačně vyhodnotit jako plagiarismus -- takové soubory jsou pak
+jednoznačně vyhodnotit jako plagiarismus -- takové soubory jsou pak
 označeny pouze ikonou.
 
 Souborům, které nevyhovují aktivní pravidlům nebo u nich byla detekována
-podobnost s jinými soubory (tj. i plagiarismus), jsou po kontrole
-přidány vnořené položky s informacemi o příčinách daného stavu. Tj.
+podobnost s jinými soubory (tj. i plagiarismus), jsou po kontrole
+přidány vnořené položky s informacemi o příčinách daného stavu. Tj.
 pravidlo, které při validaci „selhalo", respektive seznam podobných
 databází a prvky podobnosti, které sdílejí. Zde má uživatel možnost
 konkrétní podobnosti pro následující kontroly skrýt prostřednictvím
 kontextového menu.
 
-Pokud se během kontroly vyskytne chyba (například z důvodu poškozeného
-souboru), je uživateli upozorněn dialogovým oknem s popisem problému.
+Pokud se během kontroly vyskytne chyba (například z důvodu poškozeného
+souboru), je uživateli upozorněn dialogovým oknem s popisem problému.
 
 Adaptace pro validátor portálu ZČU
 ----------------------------------
 
-Cílem vytvářeného systému je i použití v rámci validátoru studentských
-prací portálu ZČU, který je v některých vyučovaných předmětech využívaný
-pro odevzdávání samostatných prací vytvořených v aplikaci Microsoft
+Cílem vytvářeného systému je i použití v rámci validátoru studentských
+prací portálu ZČU, který je v některých vyučovaných předmětech využívaný
+pro odevzdávání samostatných prací vytvořených v aplikaci Microsoft
 Access. Smyslem je zajistit prvotní základní kontrolu „správnosti"
-databázového souboru s ohledem na zadání práce, zejména ověřit formální
+databázového souboru s ohledem na zadání práce, zejména ověřit formální
 správnost struktury databáze.
 
-Jako způsob propojení validátoru s vytvářeným systémem byla vybrána již
-existující možnost spouštět vlastní Java programy v souborech formátu
-JAR přímo z validační domény. Pro tento účel byla vytvořena druhá
+Jako způsob propojení validátoru s vytvářeným systémem byla vybrána již
+existující možnost spouštět vlastní Java programy v souborech formátu
+JAR přímo z validační domény. Pro tento účel byla vytvořena druhá
 aplikace mající pouze konzolové rozhraní. Aplikace je ovládána pomocí
 dvou parametrů:
 
--   Cesta k souboru s exportovanou konfigurací validačních pravidel ve
-    formátu XML. Jedná se o soubor vzniklý uložením aktivních pravidel
-    v hlavní aplikaci s grafickým rozhraním.
+-   Cesta k souboru s exportovanou konfigurací validačních pravidel ve
+    formátu XML. Jedná se o soubor vzniklý uložením aktivních pravidel v
+    hlavní aplikaci s grafickým rozhraním.
 
 -   Cesta k souboru ve formátu ACCDB nebo MDB. Typicky se jedná o soubor
     odevzdaný studentem prostřednictvím portálu ZČU.
 
-Výstup programu je různý v závislosti na situaci:
+Výstup programu je různý v závislosti na situaci:
 
--   Na standardní výstup je vypsáno slovo VALID v případě, že validace
+-   Na standardní výstup je vypsáno slovo VALID v případě, že validace
     proběhla úspěšně a zadaný databázový soubor *vyhovuje* validačním
     pravidlům. Návratovým kódem aplikace je 0.
 
--   Na chybový výstup je vypsáno slovo INVALID -- validace databázového
+-   Na chybový výstup je vypsáno slovo INVALID -- validace databázového
     souboru proběhla, nicméně zadaný soubor *nevyhovuje* validačním
     pravidlům. Dále je na chybový výstup vypsán důvod negativního
     vyhodnocení databáze oddělený jedním prázdným řádkem, viz ukázka
@@ -1704,50 +1733,50 @@ Výstup programu je různý v závislosti na situaci:
 
 -   Na chybový výstup je vypsáno slovo ERROR, pokud nastane během
     otevírání souborů nebo procesu validace chyba (je „vyhozena
-    výjimka"). Může se tak stát v případě poškozených nebo
+    výjimka"). Může se tak stát v případě poškozených nebo
     nepodporovaných souborů. Na chybový výstup je na dalších řádcích
     vypsán tzv. *stack trace* odchycené výjimky a návratovým kódem je
     hodnota 101.
 
-Validátor portálu ZČU soubor přijme v případě, že není nic vypsáno na
-chybový výstup a zároveň je návratovým kódem hodnota 0. V opačném
-případě je odevzdaná práce odmítnuta a v záznamu validace (který je
+Validátor portálu ZČU soubor přijme v případě, že není nic vypsáno na
+chybový výstup a zároveň je návratovým kódem hodnota 0. V opačném
+případě je odevzdaná práce odmítnuta a v záznamu validace (který je
 dostupný studentům) je uveden výstup aplikace [29](#_toc_29)\[\].
 
 1 INVALID
 
 2
 
-3 Databáze nesplňuje pravidlo: Počet řádků v každé tabulce \>= 5
+3 Databáze nesplňuje pravidlo: Počet řádků v každé tabulce \>= 5
 
-Ukázka . -- výstup konzolové aplikace v případě kontroly databáze,\
+Ukázka 5.2 -- výstup konzolové aplikace v případě kontroly databáze,\
 která nevyhovuje validačním pravidlům.
 
 ### Konfigurace validátoru
 
-Aby bylo možné v rámci validátoru studentských prací kontrolovat práce
+Aby bylo možné v rámci validátoru studentských prací kontrolovat práce
 vytvořené v aplikaci Microsoft Access, je nutné jej nakonfigurovat tak,
-aby využíval připravenou aplikaci s konzolovým rozhraním.
+aby využíval připravenou aplikaci s konzolovým rozhraním.
 
 Konfiguraci je nutné provést pro každé zadání semestrálních prací[^16],
-které chceme nechat v rámci odevzdávání prací na portálu ZČU automaticky
+které chceme nechat v rámci odevzdávání prací na portálu ZČU automaticky
 kontrolovat. Navržený postup konfigurace lze shrnout do následujících
 kroků:
 
-1.  Vytvoření nové validační domény v rámci validátoru studentských
+1.  Vytvoření nové validační domény v rámci validátoru studentských
     > prací, typicky prostřednictvím webového rozhraní.
 
 2.  Vytvoření a exportování validačních pravidel do souboru
     > prostřednictvím hlavní aplikace s grafickým rozhraním. Soubor
     > můžeme pojmenovat např. rules.xml.
 
-3.  Vytvoření adresáře validator v rámci adresáře vytvořené validační
+3.  Vytvoření adresáře validator v rámci adresáře vytvořené validační
     > domény na validačním serveru.
 
 4.  Zkopírování vytvořené aplikace (validator.jar) a exportovaných
-    > pravidel (rules.xml) do adresáře vytvořeného v kroku 4.
+    > pravidel (rules.xml) do adresáře vytvořeného v kroku 4.
 
-5.  Vytvoření dvou kroků validace v rámci validační domény:
+5.  Vytvoření dvou kroků validace v rámci validační domény:
 
     -   Krok 1 nastavený následovně:\
         Podmínka: *vždy*\
@@ -1760,16 +1789,16 @@ kroků:
         Spustitelný JAR soubor: validator/validator.jar\
         Argumenty: validator/rules.xml \$inputFile
 
-6.  V detailním nastavení validační domény upravení hodnoty
+6.  V detailním nastavení validační domény upravení hodnoty
     > max\_file\_size, která určujte maximální povolenou velikost
     > kontrolovaného souboru v kB[^17].
 
-7.  Zvolení vytvořené validační domény v rámci *aplikace pro správu
+7.  Zvolení vytvořené validační domény v rámci *aplikace pro správu
     > semestrálních prací, jejich odevzdávání a hodnocení* na portálu
     > ZČU.
 
 Alternativně lze vytvořenou validační doménu nakonfigurovat přímou
-úpravu konfiguračních souboru umístěných v adresáři validační domény na
+úpravu konfiguračních souboru umístěných v adresáři validační domény na
 validačním serveru:
 
 -   Soubor domain.xml obsahuje hodnotu max\_file\_size (viz krok 6
@@ -1779,13 +1808,13 @@ validačním serveru:
     domény, její popis a dále definici všech kroků validace.
 
 Tímto postupem lze urychlit konfiguraci nových validačních domén, neboť
-všechny obsahují totožné kroky validace a konfigurační soubory tak lze
-z velké části kopírovat. Stále je však nutné provést kroky 1 až 4, tedy
-vytvoření nové validační domény a zkopírování potřebných souborů na
+všechny obsahují totožné kroky validace a konfigurační soubory tak lze z
+velké části kopírovat. Stále je však nutné provést kroky 1 až 4, tedy
+vytvoření nové validační domény a zkopírování potřebných souborů na
 validační server.
 
 Podoba souboru webmodule.xml domény nakonfigurované dle zmíněného
-postupu je vidět v rámci ukázky 5.3.
+postupu je vidět v rámci ukázky 5.3.
 
  1 \<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?\>
 
@@ -1848,15 +1877,15 @@ postupu je vidět v rámci ukázky 5.3.
 
 30 \</domena\>
 
-Ukázka . -- soubor webmodule.xml validační domény nakonfigurované\
-pro validaci prací vytvořených v aplikaci Microsoft Access.
+Ukázka 5.3 -- soubor webmodule.xml validační domény nakonfigurované\
+pro validaci prací vytvořených v aplikaci Microsoft Access.
 
 Testování vytvořeného systému
 =============================
 
 Úkolem testování je ověřit robustnost a správnou funkčnost vyvíjeného
 systému. Tato kapitola se zabývá testováním vytvořeného systému
-skládajícího se z několika částí. Testování bylo prováděno převážně
+skládajícího se z několika částí. Testování bylo prováděno převážně
 automatickými jednotkovými testy a doplněno ručním testování.
 
 Pro realizaci jednotkových testů byl využit nástroj JUnit 5 včetně
@@ -1864,44 +1893,44 @@ možnosti tvořit parametrizované testy. Dále byla využita knihovna
 Mockito 2 umožňující tvorbu tzv. *mock objektů*, které simulují chování
 reálného objektu, na kterém právě testovaná část závisí. Všechny
 jednotkové testy byly pojmenovávány a psány sebevysvětlujícím způsobem,
-komentáře tak byly připsány pouze v komplikovanějších úsecích kódu.
+komentáře tak byly připsány pouze v komplikovanějších úsecích kódu.
 
-V rámci implementovaného systému je tzv. aplikační logika oddělena do
+V rámci implementovaného systému je tzv. aplikační logika oddělena do
 samostatného modulu nazvaného *validator*. Po vyhotovení všech testů
 bylo pokryto 100 % řádků tohoto modulu. Popis způsobu a výsledky
-testování této i dalších častí systému je obsažen v následujících
+testování této i dalších častí systému je obsažen v následujících
 podkapitolách.
 
 Čtení databázových souborů
 --------------------------
 
 „Základním kamenem" celého systému je schopnost číst databázové soubory
-vytvořené v aplikaci Microsoft Access. K tomu je využita knihovna
-Jackcess v rámci čtyř implementovaných tříd.
+vytvořené v aplikaci Microsoft Access. K tomu je využita knihovna
+Jackcess v rámci čtyř implementovaných tříd.
 
-Vývoj samotné knihovny je velmi dobře dokumentovaný a její kód je
-z velké části pokryt testy[^18], není tedy nutné provádět detailní
+Vývoj samotné knihovny je velmi dobře dokumentovaný a její kód je z
+velké části pokryt testy[^18], není tedy nutné provádět detailní
 testování schopnosti číst data z databázových souborů.
 
 Zmíněné čtyři třídy se podílejí na reprezentaci zpracovávaných databází
-v rámci systému, respektive na získávání informací a dat z databáze. Pro
+v rámci systému, respektive na získávání informací a dat z databáze. Pro
 ně bylo vytvořeno celkem 52 jednotkových testů pokrývajících kód daných
-tříd. Otestována je jak základní funkčnost kódu, tak integrace
-s knihovnou Jackcess a je tedy v důsledku testována i základní funkčnost
+tříd. Otestována je jak základní funkčnost kódu, tak integrace s
+knihovnou Jackcess a je tedy v důsledku testována i základní funkčnost
 této knihovny na reálných databázových souborech.
 
 Validace a validační pravidla
 -----------------------------
 
-Jak již bylo v této práci mnohokrát uvedeno, validace či kontrola
+Jak již bylo v této práci mnohokrát uvedeno, validace či kontrola
 databázových souborů spočívá ve vyhodnocení validačních pravidel
 definovaných uživatelem, které ověřují strukturu a obsah dané databáze.
 Jedná se o nejdůležitější část systému.
 
-V rámci práce se čistě na validaci podílí 19 různých tříd (nástroje
+V rámci práce se čistě na validaci podílí 19 různých tříd (nástroje
 obsluhující validaci, validační pravidel, vlastností pravidel a nástroj
 pro serializaci konfigurace). Pro ně bylo vytvořeno celkem 153
-jednotkových testů, z nichž 7 komplexně testuje validaci pomocí reálného
+jednotkových testů, z nichž 7 komplexně testuje validaci pomocí reálného
 databázového souboru. Funkčnost validace byla rovněž testována na
 množině reálných dat, viz kapitola 6.6.
 
@@ -1909,31 +1938,31 @@ Detekce plagiarismu
 -------------------
 
 Další důležitou částí testování detekce plagiarismu. Zde je nutné
-testovat zvlášť správnost algoritmů, které slouží k hledání podobností
--- tedy zda systém dokáže nalézt prvky podobností mezi databázemi a
-správně vytvořit množiny podobných souborů. Za tímto účelem bylo
-vytvořeno 19 jednotkových testů zaměřených na algoritmickou správnost
-příslušných tříd.
+testovat zvlášť správnost algoritmů, které slouží k hledání
+podobností -- tedy zda systém dokáže nalézt prvky podobností mezi
+databázemi a správně vytvořit množiny podobných souborů. Za tímto účelem
+bylo vytvořeno 19 jednotkových testů zaměřených na algoritmickou
+správnost příslušných tříd.
 
 Druhá část testování má za cíl ověřit, zda vybraný způsob detekce
-plagiarismu je spolehlivý a dostačující. Zde bylo přistoupeno k ručnímu
-testování v následující podobě:
+plagiarismu je spolehlivý a dostačující. Zde bylo přistoupeno k ručnímu
+testování v následující podobě:
 
-1.  Použití aplikace k otestování množiny databázových souborů, mezi
+1.  Použití aplikace k otestování množiny databázových souborů, mezi
     > nimiž bylo několik předem známých plagiátů (různé podobnosti).
 
 2.  Ověření, že byly plagiáty správně označeny.
 
 3.  Posouzení, zda případné další soubory označené jako plagiáty (předem
-    > neznámé) splňují kritéria pro dané označení -- neboli že
+    > neznámé) splňují kritéria pro dané označení -- neboli že
     > kopírující částečně či zcela jinou práci.
 
 Pro testování byla použita sada deseti ručně připravených souborů a poté
 množina reálných dat. Testování potvrdilo, že vybraná metoda detekce
 plagiarismu je zcela vyhovující a rozdělení souborů na „plagiáty" a
 „podobné" je rozumný kompromis z hlediska spolehlivosti. Zjevné plagiáty
-(kopie souborů s jen málo pozměněným obsahem) byly správně označeny.
-Pokud došlo i k základním úpravám struktury databáze (přejmenování
+(kopie souborů s jen málo pozměněným obsahem) byly správně označeny.
+Pokud došlo i k základním úpravám struktury databáze (přejmenování
 tabulek, pozměnění relací), jsou takové soubory označeny jako podobné.
 
 Grafické uživatelské rozhraní
@@ -1951,19 +1980,19 @@ bylo nakonec upuštěno.
 Grafické rozhraní bylo ručně testováno pomocí připravených scénářů
 použití, během nichž se ověřovalo chování aplikace. Scénáře jsou
 koncipovány způsobem, kdy jakýkoliv rozpor mezi popsaným očekávaným
-chováním a realitou znamená chybu v aplikaci. Příklad scénáře pro
+chováním a realitou znamená chybu v aplikaci. Příklad scénáře pro
 otestování přidávání validačních pravidel mezi aktivní (upraveno do
 podoby srozumitelné pro čtenáře):
 
 1.  Spusťte aplikaci.
 
-2.  V části „Knihovna pravidel" jsou vidět pojmenovaná pravidla. V části
+2.  V části „Knihovna pravidel" jsou vidět pojmenovaná pravidla. V části
     > „Aktivní pravidla" je umístěno pouze jedno pravidlo.
 
-3.  Dvojklikem na pravidlo v knihovně pravidel je pravidlo přidáno mezi
+3.  Dvojklikem na pravidlo v knihovně pravidel je pravidlo přidáno mezi
     > aktivní.
 
-4.  Označením pravidla v knihovně a stisknutím tlačítka „Přidat
+4.  Označením pravidla v knihovně a stisknutím tlačítka „Přidat
     > pravidlo" je vybrané pravidlo přidáno mezi aktivní.
 
 5.  Přidejte mezi aktivní pravidla 3 skupinová pravidla.
@@ -1976,37 +2005,37 @@ podoby srozumitelné pro čtenáře):
 Aplikace adaptovaná pro validátor portálu ZČU
 ---------------------------------------------
 
-Testování funkčnosti samotné aplikace s konzolovým rozhraním probíhalo
-nejprve lokálně, tedy spuštěním s různými databázovými soubory a soubory
-s pravidly a ověřování správnosti výsledků.
+Testování funkčnosti samotné aplikace s konzolovým rozhraním probíhalo
+nejprve lokálně, tedy spuštěním s různými databázovými soubory a soubory
+s pravidly a ověřování správnosti výsledků.
 
-Následně bylo prováděno i testování v rámci testovacího validátoru
+Následně bylo prováděno i testování v rámci testovacího validátoru
 studentských prací[^20], který byl nakonfigurován dle postupu uvedeného
-v kapitole 5.7.1. Validátor poskytuje v rámci webového rozhraní možnost
+v kapitole 5.7.1. Validátor poskytuje v rámci webového rozhraní možnost
 jednoduše testovat vytvořenou validační doménu nahráním testovacího
-souboru. Tímto způsobem byla ověřena funkčnost i v rámci validátoru.
+souboru. Tímto způsobem byla ověřena funkčnost i v rámci validátoru.
 
-Pro otestování v rámci portálu ZČU je nutné validační doménu přesunout
-z testovacího validačního server na tzv. ostrý server. To nebylo v rámci
+Pro otestování v rámci portálu ZČU je nutné validační doménu přesunout
+z testovacího validačního server na tzv. ostrý server. To nebylo v rámci
 práce bohužel možné realizovat, funkčnost tedy není ověřena. Není znám
-nicméně žádný důvod, který by vedl k nefunkčnosti systému.
+nicméně žádný důvod, který by vedl k nefunkčnosti systému.
 
 Testování systému na množině reálných dat
 -----------------------------------------
 
 Funkčnost celého systému na kontrolu samostatných prací bylo možné
-vyzkoušet na množině reálných dat. K dispozici bylo 36 samostatných
+vyzkoušet na množině reálných dat. K dispozici bylo 36 samostatných
 prací vytvořených studenty v rámci předmětu vyučovaného na Západočeské
-univerzitě v Plzni[^21].
+univerzitě v Plzni[^21].
 
 Práce byly použity pro ruční otestování systému zejména prostřednictvím
-vytvořené aplikace s grafickým rozhraním. Systém v průběhu závěrečného
+vytvořené aplikace s grafickým rozhraním. Systém v průběhu závěrečného
 testování nevykazoval žádné problémy ani při použití vyššího počtu
-validačních pravidel (v řádu desítek) a reakce na prováděné akce lze
+validačních pravidel (v řádu desítek) a reakce na prováděné akce lze
 považovat za akceptovatelné (okolo jedné sekundy při prvním běhu) až
 prakticky okamžité (zlomek sekundy při opakovaném běhu)[^22]. I při
 testování na množině 300 souborů (vytvořených pouhou duplikací původních
-36) byly reakce aplikace akceptovatelné; v případně vypnutí detekce
+36) byly reakce aplikace akceptovatelné; v případně vypnutí detekce
 plagiarismu pak byly okamžité.
 
 Na základě profilování kódu bylo zjištěno největší zdržení v metodě
@@ -2020,113 +2049,84 @@ Závěr
 =====
 
 Cílem této práce bylo navrhnout a implementovat systém pro kontrolu
-samostatných prací vytvořených v aplikaci Microsoft Access, tj.
+samostatných prací vytvořených v aplikaci Microsoft Access, tj.
 databázových souborů ve formátu ACCDB, a následně jej adaptovat pro
-použití v rámci validátoru studentských prací na portálu ZČU. Cílem
-kontroly je zejména formální ověření struktury databází s ohledem na
+použití v rámci validátoru studentských prací na portálu ZČU. Cílem
+kontroly je zejména formální ověření struktury databází s ohledem na
 splnění zadání, druhou částí pak je detekce plagiarismu mezi více
 pracemi.
 
-Pro realizaci tohoto systému se bylo potřeba nejprve seznámit s formátem
+Pro realizaci tohoto systému se bylo potřeba nejprve seznámit s formátem
 souborů ACCDB a možnostmi jeho čtení. Bylo nalezeno celkem šest různých
-metod, které byly porovnány a z nichž byla jedna vybrána pro následné
-využití v rámci systému. Dále byly prozkoumány možnosti validátoru na
-portálu ZČU a nalezena možnost propojení s vytvářeným systémem. Na
-základě zjištěných poznatků byl proveden návrh a implementace.
+metod, které byly porovnány a z nichž byla jedna vybrána pro následné
+využití v rámci systému. Dále byly prozkoumány možnosti validátoru na
+portálu ZČU a nalezena možnost propojení s vytvářeným systémem. Na
+základě zjištěných poznatků byl proveden návrh a implementace.
 
-Představený systém se skládá z aplikace s přívětivým uživatelským
+Představený systém se skládá z aplikace s přívětivým uživatelským
 rozhraním, kterou mohou uživatelé využít pro konfigurování kontroly
 samostatných prací a rovněž kontrolování samotné. Druhou částí systému
-je konzolová aplikace připravená pro použití v rámci validátoru portálu
-ZČU. Obě tyto části byly pečlivě otestovány a optimalizovány z hlediska
+je konzolová aplikace připravená pro použití v rámci validátoru portálu
+ZČU. Obě tyto části byly pečlivě otestovány a optimalizovány z hlediska
 výkonnosti. Během vývoje byl kladen důraz na jednoduchou možnost
 budoucího rozšíření o nová pravidla kontroly.
 
-Aplikace byly vytvářeny s cílem poskytnout zejména vyučujícím jednoduchý
-způsob automatizace kontrol studentských prací. V případě napojení na
+Aplikace byly vytvářeny s cílem poskytnout zejména vyučujícím jednoduchý
+způsob automatizace kontrol studentských prací. V případě napojení na
 validátor bude vytvořený systém přínosem i pro studenty, kteří se tak
 během elektronického odevzdávání svých prací okamžitě dozví, zda splnili
 všechny požadované náležitosti.
 
-Zadání tedy bylo splněno v celém rozsahu a vytvořený systém je
-připravený pro použití v rámci výuky s ambicí zpříjemnit vyučujícím i
+Zadání tedy bylo splněno v celém rozsahu a vytvořený systém je
+připravený pro použití v rámci výuky s ambicí zpříjemnit vyučujícím i
 studentům kontrolování resp. odevzdávání samostatných prací.
 
 Reference {#reference .ListParagraph}
 =========
 
-[]{#_toc_1 .anchor}
+<https://support.office.com/en-us/article/Introduction-to-the-Access-2007-file-format-8cf93630-0b68-4a40-a13c-7528b9f074b6>
 
-[]{#_toc_2
-.anchor}<https://support.office.com/en-us/article/Introduction-to-the-Access-2007-file-format-8cf93630-0b68-4a40-a13c-7528b9f074b6>
+<https://support.office.com/en-us/article/data-types-for-access-desktop-databases-df2b83ba-cef6-436d-b679-3418f622e482>
 
-[]{#_toc_3
-.anchor}<https://support.office.com/en-us/article/data-types-for-access-desktop-databases-df2b83ba-cef6-436d-b679-3418f622e482>
+<https://github.com/brianb/mdbtools/blob/master/HACKING>
 
-[]{#_toc_4 .anchor}
+<https://www.loc.gov/preservation/digital/formats/fdd/fdd000462.shtml>
 
-[]{#_toc_5
-.anchor}<https://github.com/brianb/mdbtools/blob/master/HACKING>
+<https://support.office.com/en-us/article/which-access-file-format-should-i-use-012d9ab3-d14c-479e-b617-be66f9070b41>
 
-[]{#_toc_6
-.anchor}<https://www.loc.gov/preservation/digital/formats/fdd/fdd000462.shtml>
+<https://msdn.microsoft.com/en-us/library/15s06t57.aspx>
 
-[]{#_toc_7
-.anchor}<https://support.office.com/en-us/article/which-access-file-format-should-i-use-012d9ab3-d14c-479e-b617-be66f9070b41>
+<https://github.com/brianb/mdbtools/>
 
-[]{#_toc_8 .anchor}
+<https://github.com/brianb/mdbtools/issues/77>
 
-[]{#_toc_9 .anchor}
+<https://sourceforge.net/p/mdbtools/discussion/6688/thread/a543445a/>
 
-[]{#_toc_10
-.anchor}<https://msdn.microsoft.com/en-us/library/15s06t57.aspx>
+<https://github.com/ome/ome-mdbtools>
 
-[]{#_toc_11 .anchor}
+<https://github.com/ome/ome-mdbtools/blob/master/src/main/java/mdbtools/tests/ColumnTest.java>
 
-[]{#_toc_12 .anchor}<https://github.com/brianb/mdbtools/>
+<http://jackcess.sourceforge.net/>
 
-[]{#_toc_13 .anchor}<https://github.com/brianb/mdbtools/issues/77>
+<http://jackcess.sourceforge.net/faq.html>
 
-[]{#_toc_14
-.anchor}<https://sourceforge.net/p/mdbtools/discussion/6688/thread/a543445a/>
+<http://jackcess.sourceforge.net/cookbook.html>
 
-[]{#_toc_15 .anchor}<https://github.com/ome/ome-mdbtools>
+<http://jackcessencrypt.sourceforge.net/>
 
-[]{#_toc_16
-.anchor}<https://github.com/ome/ome-mdbtools/blob/master/src/main/java/mdbtools/tests/ColumnTest.java>
+<https://docs.oracle.com/javase/7/docs/technotes/guides/jdbc/bridge.html>
 
-[]{#_toc_17 .anchor}<http://jackcess.sourceforge.net/>
+<http://ucanaccess.sourceforge.net/site.html>
 
-[]{#_toc_18 .anchor}<http://jackcess.sourceforge.net/faq.html>
+<https://is-stag.zcu.cz/napoveda/stag-v-portalu/spnew-studium_odevzdavani-praci.html>
 
-[]{#_toc_19 .anchor}<http://jackcess.sourceforge.net/cookbook.html>
+<https://validator-test.zcu.cz/vs/auth/doc/doc/validacni-server-uzivatelsky-popis-2.pdf>
 
-[]{#_toc_20 .anchor}<http://jackcessencrypt.sourceforge.net/>
+<https://validator-test.zcu.cz/vs/auth/doc/index.html>
 
-[]{#_toc_21 .anchor}
+<https://validator-test.zcu.cz/>
 
-[]{#_toc_22
-.anchor}<https://docs.oracle.com/javase/7/docs/technotes/guides/jdbc/bridge.html>
-
-[]{#_toc_23 .anchor}<http://ucanaccess.sourceforge.net/site.html>
-
-[]{#_toc_24 .anchor}
-
-[]{#_toc_25
-.anchor}<https://is-stag.zcu.cz/napoveda/stag-v-portalu/spnew-studium_odevzdavani-praci.html>
-
-[]{#_toc_26
-.anchor}<https://validator-test.zcu.cz/vs/auth/doc/doc/validacni-server-uzivatelsky-popis-2.pdf>
-
-[]{#_toc_27
-.anchor}<https://validator-test.zcu.cz/vs/auth/doc/index.html>
-
-[]{#_toc_28 .anchor}
-
-[]{#_toc_29 .anchor}<https://validator-test.zcu.cz/>
-
-[]{#_toc_30
-.anchor}<https://students.kiv.zcu.cz:3443/projects/validator/wiki>
+<https://students.kiv.zcu.cz:3443/projects/validator/wiki>
 
 \[1\] ADAMSKI, Joseph J.; FINNEGAN, Kathy T. ; SCOLLARD, Sharon. *New
 perspectives on Microsoft Access 2013: comprehensive.* Stamford, CT:
@@ -2193,11 +2193,78 @@ A Uživatelská příručka {#a-uživatelská-příručka .ListParagraph}
 
 ### Spuštění a kompilace nástroje {#spuštění-a-kompilace-nástroje .ListParagraph}
 
+Vytvořený nástroj, pojmenovaný *AccessValidator*, lze spustit pomocí
+souboru configurator.jar, například z příkazové řádky následujícím
+příkazem:
+
+> java -jar configurator.jar
+
+Aplikace ke svému běhu vyžaduje Java SE Runtime Environment (JRE) ve
+verzi 8. Vzhledem k nekompatibilitě použité knihovny ControlsFX s
+novějšími verzemi JRE, byla připravena aplikace využívající novější
+verzi knihovny a lze ji spustit pomocí souboru configurator\_jre9.jar.
+Tato verze vyžaduje JRE ve verzi 9 nebo vyšší.
+
+Projekt obsahující nástroj byl spravován systémem Maven, který lze
+rovněž použít pro kompilaci. Je vyžadováno JDK (Java Development Kit) ve
+verzi 8 nebo vyšší. Pro zkompilovaný nástroj platí stejná omezení
+zmíněná v předchozím odstavci, tj. při použití JDK 8 lze nástroj spustit
+pouze v prostředí JRE 8. Kompilaci lze spustit následujícím příkazem:
+
+> mvn package
+
+Soubor JAR bude uložen v adresáři validator/target/. Současně bude
+vygenerován i JAR soubor s aplikací pro použití v rámci validátoru
+studentských prací do adresáře configurator/target/. Upozornění: v
+současné době je na validačním serveru dostupné JRE ve verzi 8, je tedy
+nutné aplikaci pro validátor kompilovat při použití JDK 8.
+
 ### Obsluha nástroje {#obsluha-nástroje .ListParagraph}
+
+Po spuštění nástroj se uživateli zobrazí jednoduché okno rozdělené na
+čtyři části:
+
+-   *Knihovna pravidel* -- obsahuje seznam validačních pravidel
+    použitelných pro kontrolu databázových souborů.
+
+-   *Aktivní pravidla* -- obsahuje seznam pravidel, která jsou aktuálně
+    > používány pro kontrolu databázových souborů.
+
+-   *Detaily pravidla* -- slouží ke konfiguraci právě označeného
+    > aktivního pravidla.
+
+-   *Databáze ke kontrole *-- obsahuje databázové soubory ve formátu
+    > ACCDB nebo MDB, které si uživatel přeje zkontrolovat.
 
 Typický postup práce s nástrojem je následující:
 
-1)  \...
+1)  Přidání pravidel z knihovny mezi aktivní. Lze tak učinit tlačítkem
+    na liště nebo dvojklikem na pravidlo.
+
+2)  Nakonfigurování všech aktivních pravidel, tj. označení a poté úprava
+    parametrů v panelu *Detaily pravidla*.
+
+3)  Přidání databázových souborů ke kontrole. Lze tak opět učitin
+    tlačítkem na liště nebo přetažením příslušných souborů z průzkumníka
+    souborů na panel *Databáze ke kontrole*.
+
+4)  Spuštění kontroly tlačítkem na liště.
+
+5)  Prozkoumání výsledků v panelu *Databáze ke kontrole*. Jednotlivé
+    soubory jsou označeny ikonami (zelená pro vyhovující soubory,
+    červený křížek pro nevyhovující, přeskrtnuté *C* pro detekované
+    plagiáty; podrobnosti o kontrole jsou případně uvedeny jako
+    podpoložky souboru).
+
+### Použití systému v rámci validátoru studentských prací {#použití-systému-v-rámci-validátoru-studentských-prací .ListParagraph}
+
+Aplikace adaptovaná pro použití v rámci validátoru je umístěna v souboru
+validator.jar. Jedná se o aplikace s konzolovým rozhraním spustitelnou
+obvyklým způsobem. Konfigurace validátoru byla součástí práce, viz
+kapitola 5.7.1, Konfigurace validátoru, na straně 43.
+
+Aplikaci lze zkompilovat stejným způsobem, jako vytvořený nástroj, viz
+první kapitola této příručky.
 
 B Obsah přiloženého média {#b-obsah-přiloženého-média .ListParagraph}
 -------------------------
@@ -2205,9 +2272,18 @@ B Obsah přiloženého média {#b-obsah-přiloženého-média .ListParagraph}
 Součástí práce je přiložené paměťové médium (DVD) obsahující tyto
 adresáře a soubory:
 
--   Project/ -- adresář obsahující projekt vytvořené aplikace,
+-   Project/ -- adresář obsahující projekt vytvořeného systému,
 
--   Kinkor\_A16N0040P\_DP.pdf -- text této práce ve formátu PDF,
+-   Binaries/ -- adresář obsahující soubor configurator.jar a
+    configurator\_jre9.jar s implementovaným nástrojem (vyžaduje JRE 8,
+    resp. JRE 9 nebo novější) a soubor validator.jar pro použití v rámci
+    validátoru portálu studentských prací portálu ZČU.
+
+-   Resources/ -- adresář obsahující další podpůrné soubory (podklady
+    vývoje, testovací sada souborů, text této práce v editovatelné
+    podobě),
+
+-   Kinkor\_A16N0040P\_DP.pdf -- text této práce ve formátu PDF,
 
 -   readme.txt -- textový soubor obsahující popis struktury DVD.
 
