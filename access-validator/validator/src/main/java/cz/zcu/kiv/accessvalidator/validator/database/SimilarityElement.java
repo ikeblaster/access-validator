@@ -34,6 +34,11 @@ public class SimilarityElement {
     private int severity = 1;
 
     /**
+     * Cached hashCode value.
+     */
+    private Integer hash = null;
+
+    /**
      * Single element of similarity which is shared across files.
      *
      * @param label Short description of similarity.
@@ -147,6 +152,9 @@ public class SimilarityElement {
      */
     @Override
     public int hashCode() {
-        return Objects.hash(this.label, this.value);
+        if(this.hash == null) {
+            this.hash = Objects.hash(this.label, this.value);
+        }
+        return this.hash;
     }
 }

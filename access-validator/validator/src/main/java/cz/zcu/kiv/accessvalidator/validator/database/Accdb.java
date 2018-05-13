@@ -225,7 +225,9 @@ public class Accdb {
                 }
             }
 
-            similarities.add(new SimilarityElement("Rozložení relací", data1, 100));
+            byte[] dataWithoutPrefix = Arrays.copyOfRange(data1, offset, data1.length);
+
+            similarities.add(new SimilarityElement("Rozložení relací", Arrays.hashCode(dataWithoutPrefix), 100));
         }
         catch(Exception e) {
             System.err.println("Error when comparing " + this.file.getName() + " and " + that.file.getName());
