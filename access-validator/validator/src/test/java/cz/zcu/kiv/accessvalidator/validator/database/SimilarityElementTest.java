@@ -8,6 +8,7 @@ import org.mockito.Mockito;
 import java.io.File;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
@@ -22,6 +23,12 @@ class SimilarityElementTest extends BaseTestClass {
         this.similarityElement = new SimilarityElement("label", "value");
     }
 
+
+    @Test
+    void newInstance_CtorWithInvalidParameter_ExceptionThrown() {
+        assertThrows(Exception.class, () -> new SimilarityElement("", "", 101));
+        assertThrows(Exception.class, () -> new SimilarityElement("", "", -1));
+    }
 
     @Test
     void getLabel__EqualsToCtorPar() {
@@ -45,6 +52,11 @@ class SimilarityElementTest extends BaseTestClass {
 
         assertEquals(1, this.similarityElement.getFiles().size());
         assertTrue(this.similarityElement.getFiles().contains(file));
+    }
+
+    @Test
+    void getSeverity_ByDefault_1() {
+        assertEquals(1, this.similarityElement.getSeverity());
     }
 
     @Test

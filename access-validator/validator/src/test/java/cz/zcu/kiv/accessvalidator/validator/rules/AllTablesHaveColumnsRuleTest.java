@@ -3,6 +3,7 @@ package cz.zcu.kiv.accessvalidator.validator.rules;
 import cz.zcu.kiv.accessvalidator.validator.BaseRulesTestClass;
 import cz.zcu.kiv.accessvalidator.validator.database.Accdb;
 import cz.zcu.kiv.accessvalidator.validator.rules.properties.ColumnType;
+import cz.zcu.kiv.accessvalidator.validator.rules.properties.YesNoType;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
@@ -84,6 +85,15 @@ class AllTablesHaveColumnsRuleTest extends BaseRulesTestClass {
         String def = this.rule.toString();
 
         this.rule.getProperty("column_name").setRawValue("col");
+
+        assertNotEquals(def, this.rule.toString());
+    }
+
+    @Test
+    void toString_PrimarySpecified_NotEqualToDefault() {
+        String def = this.rule.toString();
+
+        this.rule.getProperty("column_primary").setRawValue(YesNoType.YES);
 
         assertNotEquals(def, this.rule.toString());
     }

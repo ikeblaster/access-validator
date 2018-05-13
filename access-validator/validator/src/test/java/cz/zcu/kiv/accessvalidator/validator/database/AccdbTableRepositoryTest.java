@@ -54,8 +54,8 @@ class AccdbTableRepositoryTest extends BaseTestClass {
     }
 
     @Test
-    void getTables_UnfilteredTestDB_Found6() {
-        assertEquals(6, this.repository.getTables().size());
+    void getTables_UnfilteredTestDB_Found7() {
+        assertEquals(7, this.repository.getTables().size());
     }
 
     @Test
@@ -80,11 +80,11 @@ class AccdbTableRepositoryTest extends BaseTestClass {
 
     private static Stream<Arguments> getFilterByColumnCountArguments() {
         return Stream.of(
-                Arguments.of(1, ComparisonOperator.GTE, 6),
+                Arguments.of(1, ComparisonOperator.GTE, 7),
                 Arguments.of(8, ComparisonOperator.GTE, 1),
-                Arguments.of(3, ComparisonOperator.LTE, 2),
+                Arguments.of(3, ComparisonOperator.LTE, 3),
                 Arguments.of(5, ComparisonOperator.EQ, 1),
-                Arguments.of(2, ComparisonOperator.EQ, 1),
+                Arguments.of(2, ComparisonOperator.EQ, 2),
                 Arguments.of(0, ComparisonOperator.EQ, 0)
         );
     }
@@ -100,11 +100,11 @@ class AccdbTableRepositoryTest extends BaseTestClass {
 
     private static Stream<Arguments> getFilterByColumnCountArguments2() {
         return Stream.of(
-                Arguments.of(0, ComparisonOperator.GTE, "", ColumnType._ANY, YesNoType._ANY, 6),
+                Arguments.of(0, ComparisonOperator.GTE, "", ColumnType._ANY, YesNoType._ANY, 7),
                 Arguments.of(8, ComparisonOperator.GTE, "", ColumnType._ANY, YesNoType._ANY, 1),
-                Arguments.of(3, ComparisonOperator.LTE, "", ColumnType._ANY, YesNoType._ANY, 2),
+                Arguments.of(3, ComparisonOperator.LTE, "", ColumnType._ANY, YesNoType._ANY, 3),
                 Arguments.of(5, ComparisonOperator.EQ, "", ColumnType._ANY, YesNoType._ANY, 1),
-                Arguments.of(2, ComparisonOperator.EQ, "", ColumnType._ANY, YesNoType._ANY, 1),
+                Arguments.of(2, ComparisonOperator.EQ, "", ColumnType._ANY, YesNoType._ANY, 2),
                 Arguments.of(0, ComparisonOperator.EQ, "", ColumnType._ANY, YesNoType._ANY, 0),
                 Arguments.of(1, ComparisonOperator.GTE, "ID", ColumnType._ANY, YesNoType._ANY, 2),
                 Arguments.of(1, ComparisonOperator.GTE, "", ColumnType.AUTO_NUMBER, YesNoType._ANY, 4),
@@ -125,7 +125,7 @@ class AccdbTableRepositoryTest extends BaseTestClass {
 
     private static Stream<Arguments> getFilterByColumnExistenceArguments() {
         return Stream.of(
-                Arguments.of("", ColumnType._ANY, YesNoType._ANY, 6),
+                Arguments.of("", ColumnType._ANY, YesNoType._ANY, 7),
                 Arguments.of("ID", ColumnType._ANY, YesNoType._ANY, 2),
                 Arguments.of("", ColumnType._ANY, YesNoType.YES, 6),
                 Arguments.of("ID_doprava", ColumnType._ANY, YesNoType.YES, 1),
@@ -143,12 +143,12 @@ class AccdbTableRepositoryTest extends BaseTestClass {
 
     private static Stream<Arguments> getFilterByRowsCountArguments() {
         return Stream.of(
-                Arguments.of(0, ComparisonOperator.GTE, 6),
+                Arguments.of(0, ComparisonOperator.GTE, 7),
                 Arguments.of(4, ComparisonOperator.GTE, 4),
-                Arguments.of(4, ComparisonOperator.LTE, 3),
+                Arguments.of(4, ComparisonOperator.LTE, 4),
                 Arguments.of(4, ComparisonOperator.EQ, 1),
                 Arguments.of(1, ComparisonOperator.EQ, 1),
-                Arguments.of(0, ComparisonOperator.EQ, 1)
+                Arguments.of(0, ComparisonOperator.EQ, 2)
         );
     }
 
@@ -164,7 +164,7 @@ class AccdbTableRepositoryTest extends BaseTestClass {
     @Test
     void MultipleFilters__FoundExpectedNumberOfTables() {
         this.repository.filterByColumnCount(1, ComparisonOperator.GTE, "", ColumnType.TEXT, YesNoType._ANY);
-        assertEquals(5, this.repository.getTables().size());
+        assertEquals(6, this.repository.getTables().size());
 
         this.repository.filterByRowCount(1, ComparisonOperator.GTE);
         assertEquals(5, this.repository.getTables().size());

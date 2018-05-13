@@ -2,11 +2,11 @@ package cz.zcu.kiv.accessvalidator.validator.rules;
 
 import cz.zcu.kiv.accessvalidator.validator.BaseRulesTestClass;
 import cz.zcu.kiv.accessvalidator.validator.rules.properties.ColumnType;
+import cz.zcu.kiv.accessvalidator.validator.rules.properties.YesNoType;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * @author Vojtech Kinkor
@@ -42,4 +42,14 @@ class CountTablesWithColumnRuleTest extends BaseRulesTestClass {
         assertNotNull(this.rule.toString());
         assertFalse(this.rule.toString().isEmpty());
     }
+
+    @Test
+    void toString_PrimarySpecified_NotEqualToDefault() {
+        String def = this.rule.toString();
+
+        this.rule.getProperty("column_primary").setRawValue(YesNoType.YES);
+
+        assertNotEquals(def, this.rule.toString());
+    }
+
 }

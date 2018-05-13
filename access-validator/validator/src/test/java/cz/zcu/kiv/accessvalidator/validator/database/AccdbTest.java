@@ -1,6 +1,7 @@
 package cz.zcu.kiv.accessvalidator.validator.database;
 
 import com.healthmarketscience.jackcess.Database;
+import com.healthmarketscience.jackcess.Table;
 import cz.zcu.kiv.accessvalidator.validator.BaseTestClass;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -21,7 +22,7 @@ import static org.junit.jupiter.api.Assertions.*;
  */
 public class AccdbTest extends BaseTestClass {
 
-    public static int FIND_SIMILARITIES_CHECKS_COUNT = 6;
+    public static int FIND_SIMILARITIES_CHECKS_COUNT = 7;
 
     private Accdb accdb;
     private File file;
@@ -53,10 +54,24 @@ public class AccdbTest extends BaseTestClass {
     }
 
     @Test
-    void findSimilarities_SameDB_FoundAllExpected() throws IOException {
-        Accdb accdb2 = new Accdb(this.file);
-        Set<SimilarityElement> similarities = this.accdb.findSimilarities(accdb2);
+    void findSimilarities_SameDB_FoundAllExpected() {
+        Set<SimilarityElement> similarities = this.accdb.findSimilarityElements();
         assertEquals(FIND_SIMILARITIES_CHECKS_COUNT, similarities.size());
+    }
+
+    @Test
+    void findSimilarities_RowNotFound_OK() throws IOException, NoSuchFieldException, IllegalAccessException {
+        Accdb accdb2 = new Accdb(this.file);
+
+        Field field = accdb2.getClass().getDeclaredField("db"); // fails here
+        field.setAccessible(true);
+        Database database = Mockito.spy((Database) field.get(accdb2));
+        field.set(accdb2, database);
+
+        Table tbl = database.getSystemTable("MSysNameMap");
+        Mockito.when(database.getSystemTable("MSysObjects")).thenReturn(tbl);
+
+        accdb2.findSimilarityElements();
     }
 
     @Test
@@ -74,7 +89,7 @@ public class AccdbTest extends BaseTestClass {
         ByteArrayOutputStream errContent = new ByteArrayOutputStream();
         System.setErr(new PrintStream(errContent));
 
-        this.accdb.findSimilarities(accdb2);
+        accdb2.findSimilarityElements();
 
         assertTrue(errContent.size() > 0);
     }
