@@ -89,11 +89,16 @@ public class AccdbSimilarityChecker {
                 continue;
             }
 
-            for(File file : similarity.getFiles()) {
+            Collection<File> files = similarity.getFiles();
 
+            if(files.size() == 1) {
+                continue;
+            }
+
+            for(File file : files) {
                 SimilarFiles similarFiles = map.computeIfAbsent(file, f -> new SimilarFiles(file)); // add file to map is absent
 
-                for(File similarFile : similarity.getFiles()) {
+                for(File similarFile : files) {
                     if(file == similarFile) continue;
 
                     similarFiles.add(similarFile, similarity);
