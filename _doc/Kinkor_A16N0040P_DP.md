@@ -2272,12 +2272,14 @@ B Obsah přiloženého média {#b-obsah-přiloženého-média .ListParagraph}
 Součástí práce je přiložené paměťové médium (DVD) obsahující tyto
 adresáře a soubory:
 
--   Project/ -- adresář obsahující projekt vytvořeného systému,
-
 -   Binaries/ -- adresář obsahující soubor configurator.jar a
     configurator\_jre9.jar s implementovaným nástrojem (vyžaduje JRE 8,
     resp. JRE 9 nebo novější) a soubor validator.jar pro použití v rámci
     validátoru portálu studentských prací portálu ZČU.
+
+-   Poster/ -- adresář obsahující *poster* ve formátu PDF a PUB,
+
+-   Project/ -- adresář obsahující projekt vytvořeného systému,
 
 -   Resources/ -- adresář obsahující další podpůrné soubory (podklady
     vývoje, testovací sada souborů, text této práce v editovatelné
