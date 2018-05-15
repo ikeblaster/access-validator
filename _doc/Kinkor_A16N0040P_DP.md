@@ -45,12 +45,11 @@ This thesis describes a design and implementation of a system for
 automatic checking of database files created in Microsoft Access. The
 goal is to automatically check structure and content of databases
 against rules specified by a user. In addition, the system is also able
-to detect plagiarism amongst databases. The presented solution consists
-of an application with a graphical user interface and a tool adapted for
+to detect plagiarism among databases. The presented solution consists of
+an application with a graphical user interface and a tool adapted for
 use in cooperation with a student works validator, which is part of ZČU
 portal. This system has the ambition to reduce an amount of time needed
-for manual checking of students' works with reference to assignment
-instructions.
+for manual checking of fulfilment of students' works objectives.
 
 Abstrakt
 
@@ -217,20 +216,20 @@ napojen na validátor studentských prací, který zajišťuje automatickou
 kontrolu odevzdaných souborů dle pravidel nastavených vyučujícím.
 Student se po nahrání své práce okamžitě dozví, zda je či není
 vyhovující. Validátor byl původně vyvíjen pro potřeby předmětu Počítače
-a programování 1 (PPA1), od té doby byl ale rozšířen a použit i v mnoha
-dalších předmětech, ale doposud neumožňuje kontrolu souborů vytvořených
-v aplikaci Microsoft Access.
+a programování 1 (PPA1), od té doby byl ale rozšířen a použit i v
+několika dalších předmětech, ale doposud neumožňuje kontrolu souborů
+vytvořených v aplikaci Microsoft Access.
 
 Cílem této práce je prozkoumat možnosti programového čtení souborů ve
-formátu ACCDB, tedy formátu používeného právě v aplikaci Microsoft
+formátu ACCDB, tedy formátu používaného právě v aplikaci Microsoft
 Access. Na základě získaných poznatků bude implementován systém pro
 automatické kontrolování těchto souborů dle pravidel určených
 uživatelem. Smyslem je automaticky vyhodnocovat, zda studentské práce
 splňují zadání, a tedy usnadnit jejich hodnocení. Tato část systému bude
 dále adaptována pro použití v rámci validátoru portálu ZČU, díky čemuž
-se k vyučujícím dostanou pouze práce na určité úrovni kvality. Nad rámec
-zmíněné kontroly s ohledem na zadání bude dále v systému implementována
-detekce plagiarismu mezi samostatnými pracemi.
+se k vyučujícím dostanou pouze práce na určité úrovni kvality. Kromě
+zmíněné kontroly samostatných prací bude s ohledem na zadání v systému
+implementována detekce plagiarismu mezi pracemi.
 
 Databázový software Microsoft Access
 ====================================
@@ -335,24 +334,24 @@ str. AC A5-A8, str. 419\]:
     situaci, kdy jen málo záznamů odkazuje do druhé tabulky. Pro cizí
     klíče zde platí, že jejich hodnoty jsou v rámci tabulky unikátní.
     Alternativně lze pro referencování použít primární klíče obou
-    tabulek (viz obrázek 2.1). [4](#_toc_4)\[ str. 420\].
+    tabulek (viz obrázek 0.3). [4](#_toc_4)\[ str. 420\].
 
 ![](media/image1.emf){width="3.622047244094488in"
 height="1.3385826771653544in"}
 
-Obrázek 2.1 -- model relace 1:1 využívající v obou tabulkách primární
+Obrázek . -- model relace 1:1 využívající v obou tabulkách primární
 klíč.
 
 -   *Relace typu 1:N* -- k více záznamům v tabulce A lze přiřadit jeden
     > záznam z tabulky B. Tato vazba je vždy realizována pomocí již
     > zmíněných cizích klíčů. Jedná se o nejčastěji využívanou
-    > vazbu[4](#_toc_4) \[ str. 421\].
+    > vazbu[4](#_toc_4) \[ str. 421\]. Příklad vazby 1:N vidíme na
+    > obrázku 0.4.
 
 ![](media/image2.emf){width="3.622047244094488in"
 height="1.5708661417322836in"}
 
-Obrázek 2.2 -- model relace 1:N; cizí klíč *Kolej ID* v tabulce
-*Student*\
+Obrázek . -- model relace 1:N; cizí klíč *Kolej ID* v tabulce *Student*\
 referencuje primární klíč tabulky *Kolej*.
 
 -   *Relace typu M:N* -- k M záznamům v tabulce A lze přiřadit N záznamů
@@ -363,7 +362,7 @@ referencuje primární klíč tabulky *Kolej*.
 ![](media/image3.emf){width="5.744094488188976in"
 height="1.5708661417322836in"}
 
-Obrázek 2.3 -- model relace M:N, která je tvořena dvěma\
+Obrázek . -- model relace M:N, která je tvořena dvěma\
 relacemi 1:N na spojovou tabulku *StudentPředmět*.
 
 Relace mezi tabulkami mohou zajišťovat *referenčním integritu*. Cílem je
@@ -480,7 +479,7 @@ metadata[5](#_toc_5)[6](#_toc_6) \[, \]:
 ![](media/image4.png){width="5.658333333333333in"
 height="3.622642169728784in"}
 
-Obrázek 2.4 -- grafické rozvržení relací mezi tabulkami v aplikaci
+Obrázek . -- grafické rozvržení relací mezi tabulkami v aplikaci
 Microsoft Access 2016,\
 které lze rovněž považovat za metadata uložená v databázi.
 
@@ -840,7 +839,7 @@ stručně jej lze popsat následovně (viz též diagram na obrázku 3.1)
 ![](media/image5.png){width="5.252404855643045in"
 height="5.377358923884515in"}
 
-Obrázek 3.1 -- diagram znázorňující proces validace práce odevzdané
+Obrázek . -- diagram znázorňující proces validace práce odevzdané
 studentem. Převzato z[27](#_toc_27) \[\].
 
 Analýza řešení kontroly prací
@@ -936,7 +935,7 @@ Popis diagramu:
 ![](media/image6.emf){width="5.904440069991251in"
 height="4.644444444444445in"}
 
-Obrázek 4.1 -- diagram případů užití systému pro kontrolu samostatných
+Obrázek . -- diagram případů užití systému pro kontrolu samostatných
 prací.
 
 Metoda čtení databázových souborů
@@ -1223,7 +1222,7 @@ cz.zcu.kiv.accessvalidator.
 ![](media/image7.emf){width="4.945291994750656in"
 height="4.584905949256343in"}
 
-Obrázek 5.1 -- diagram modulů a balíku implementované systému.
+Obrázek . -- diagram modulů a balíku implementované systému.
 
 ### Modul validator
 
@@ -1254,7 +1253,7 @@ poskytující seznam se všemi validačními pravidly.
 ![](media/image8.emf){width="5.933962160979878in"
 height="6.7807195975503065in"}
 
-Obrázek 5.2 -- zjednodušený diagram tříd v modulu validator.
+Obrázek . -- zjednodušený diagram tříd v modulu validator.
 
 Balík database
 
@@ -1297,7 +1296,7 @@ modulu.
 
 ![](media/image9.emf){width="5.2in" height="6.867919947506562in"}
 
-Obrázek 5.3 -- zjednodušený diagram tříd v modulu configurator.
+Obrázek . -- zjednodušený diagram tříd v modulu configurator.
 
 Balík configurator
 
@@ -1544,7 +1543,7 @@ column\_type=\"AUTO\_NUMBER\"
 
 8 \</GroupRule\>
 
-Ukázka 5.1 -- pět pravidla serializovaných do formátu XML.
+Ukázka . -- pět pravidla serializovaných do formátu XML.
 
 Hledání podobností a detekce plagiarismu
 ----------------------------------------
@@ -1749,7 +1748,7 @@ dostupný studentům) je uveden výstup aplikace [29](#_toc_29)\[\].
 
 3 Databáze nesplňuje pravidlo: Počet řádků v každé tabulce \>= 5
 
-Ukázka 5.2 -- výstup konzolové aplikace v případě kontroly databáze,\
+Ukázka . -- výstup konzolové aplikace v případě kontroly databáze,\
 která nevyhovuje validačním pravidlům.
 
 ### Konfigurace validátoru
@@ -1877,7 +1876,7 @@ postupu je vidět v rámci ukázky 5.3.
 
 30 \</domena\>
 
-Ukázka 5.3 -- soubor webmodule.xml validační domény nakonfigurované\
+Ukázka . -- soubor webmodule.xml validační domény nakonfigurované\
 pro validaci prací vytvořených v aplikaci Microsoft Access.
 
 Testování vytvořeného systému
@@ -2084,106 +2083,136 @@ studentům kontrolování resp. odevzdávání samostatných prací.
 Reference {#reference .ListParagraph}
 =========
 
-<https://support.office.com/en-us/article/Introduction-to-the-Access-2007-file-format-8cf93630-0b68-4a40-a13c-7528b9f074b6>
+[]{#_toc_1 .anchor}
 
-<https://support.office.com/en-us/article/data-types-for-access-desktop-databases-df2b83ba-cef6-436d-b679-3418f622e482>
+[]{#_toc_2
+.anchor}<https://support.office.com/en-us/article/Introduction-to-the-Access-2007-file-format-8cf93630-0b68-4a40-a13c-7528b9f074b6>
 
-<https://github.com/brianb/mdbtools/blob/master/HACKING>
+[]{#_toc_3
+.anchor}<https://support.office.com/en-us/article/data-types-for-access-desktop-databases-df2b83ba-cef6-436d-b679-3418f622e482>
 
-<https://www.loc.gov/preservation/digital/formats/fdd/fdd000462.shtml>
+[]{#_toc_4 .anchor}
 
-<https://support.office.com/en-us/article/which-access-file-format-should-i-use-012d9ab3-d14c-479e-b617-be66f9070b41>
+[]{#_toc_5
+.anchor}<https://github.com/brianb/mdbtools/blob/master/HACKING>
 
-<https://msdn.microsoft.com/en-us/library/15s06t57.aspx>
+[]{#_toc_6
+.anchor}<https://www.loc.gov/preservation/digital/formats/fdd/fdd000462.shtml>
 
-<https://github.com/brianb/mdbtools/>
+[]{#_toc_7
+.anchor}<https://support.office.com/en-us/article/which-access-file-format-should-i-use-012d9ab3-d14c-479e-b617-be66f9070b41>
 
-<https://github.com/brianb/mdbtools/issues/77>
+[]{#_toc_8 .anchor}
 
-<https://sourceforge.net/p/mdbtools/discussion/6688/thread/a543445a/>
+[]{#_toc_9 .anchor}
 
-<https://github.com/ome/ome-mdbtools>
+[]{#_toc_10
+.anchor}<https://msdn.microsoft.com/en-us/library/15s06t57.aspx>
 
-<https://github.com/ome/ome-mdbtools/blob/master/src/main/java/mdbtools/tests/ColumnTest.java>
+[]{#_toc_11 .anchor}
 
-<http://jackcess.sourceforge.net/>
+[]{#_toc_12 .anchor}<https://github.com/brianb/mdbtools/>
 
-<http://jackcess.sourceforge.net/faq.html>
+[]{#_toc_13 .anchor}<https://github.com/brianb/mdbtools/issues/77>
 
-<http://jackcess.sourceforge.net/cookbook.html>
+[]{#_toc_14
+.anchor}<https://sourceforge.net/p/mdbtools/discussion/6688/thread/a543445a/>
 
-<http://jackcessencrypt.sourceforge.net/>
+[]{#_toc_15 .anchor}<https://github.com/ome/ome-mdbtools>
 
-<https://docs.oracle.com/javase/7/docs/technotes/guides/jdbc/bridge.html>
+[]{#_toc_16
+.anchor}<https://github.com/ome/ome-mdbtools/blob/master/src/main/java/mdbtools/tests/ColumnTest.java>
 
-<http://ucanaccess.sourceforge.net/site.html>
+[]{#_toc_17 .anchor}<http://jackcess.sourceforge.net/>
 
-<https://is-stag.zcu.cz/napoveda/stag-v-portalu/spnew-studium_odevzdavani-praci.html>
+[]{#_toc_18 .anchor}<http://jackcess.sourceforge.net/faq.html>
 
-<https://validator-test.zcu.cz/vs/auth/doc/doc/validacni-server-uzivatelsky-popis-2.pdf>
+[]{#_toc_19 .anchor}<http://jackcess.sourceforge.net/cookbook.html>
 
-<https://validator-test.zcu.cz/vs/auth/doc/index.html>
+[]{#_toc_20 .anchor}<http://jackcessencrypt.sourceforge.net/>
 
-<https://validator-test.zcu.cz/>
+[]{#_toc_21 .anchor}
 
-<https://students.kiv.zcu.cz:3443/projects/validator/wiki>
+[]{#_toc_22
+.anchor}<https://docs.oracle.com/javase/7/docs/technotes/guides/jdbc/bridge.html>
+
+[]{#_toc_23 .anchor}<http://ucanaccess.sourceforge.net/site.html>
+
+[]{#_toc_24 .anchor}
+
+[]{#_toc_25
+.anchor}<https://is-stag.zcu.cz/napoveda/stag-v-portalu/spnew-studium_odevzdavani-praci.html>
+
+[]{#_toc_26
+.anchor}<https://validator-test.zcu.cz/vs/auth/doc/doc/validacni-server-uzivatelsky-popis-2.pdf>
+
+[]{#_toc_27
+.anchor}<https://validator-test.zcu.cz/vs/auth/doc/index.html>
+
+[]{#_toc_28 .anchor}
+
+[]{#_toc_29 .anchor}<https://validator-test.zcu.cz/>
+
+[]{#_toc_30
+.anchor}<https://students.kiv.zcu.cz:3443/projects/validator/wiki>
 
 \[1\] ADAMSKI, Joseph J.; FINNEGAN, Kathy T. ; SCOLLARD, Sharon. *New
 perspectives on Microsoft Access 2013: comprehensive.* Stamford, CT:
 Cengage Learning, 2014. ISBN 978-1-285-09920-0. \[2\] Introduction to
 the Access 2007 file format. *Microsoft Office help and training -
-Office Support.* \[Online\] \[Citace: 20. 3. 2018\]. Dostupné z: \[3\]
+Office Support.* \[Online\] \[Citace: 20. 3. 2018\]. Dostupné z: \[3\]
 Data types for Access desktop databases. *Microsoft Office help and
-training - Office Support.* \[Online\] \[Citace: 22. 3. 2018\]. Dostupné
+training - Office Support.* \[Online\] \[Citace: 22. 3. 2018\]. Dostupné
 z: \[4\] CONNOLLY, Thomas; BEGG, Carolyn. *A Practical Approach to
 Design, Implementation, and Management.* 6. Harlow: Pearson Education
 Limited, 2014. ISBN 978-1-292-06118-4. \[5\] BRUNS, Brian. HACKING. *MDB
-Tools repository.* \[Online\] \[Citace: 20. 4. 2018\]. Dostupné z: \[6\]
+Tools repository.* \[Online\] \[Citace: 20. 4. 2018\]. Dostupné z: \[6\]
 Microsoft Access ACCDB File Format Family. *Digital Preservation at the
-Library of Congress.* \[Online\] \[Citace: 20. 3. 2018\]. Dostupné z:
+Library of Congress.* \[Online\] \[Citace: 20. 3. 2018\]. Dostupné z:
 \[7\] Which Access file format should I use? *Microsoft Office help and
-training - Office Support.* \[Online\] \[Citace: 20. 3. 2018\]. Dostupné
+training - Office Support.* \[Online\] \[Citace: 20. 3. 2018\]. Dostupné
 z: \[8\] KYLE, Geiger. *Inside ODBC.* Redmond, WA: Microsoft Press,
 1995. ISBN 978-1556158155. \[9\] ROFF, Jason T. *ADO: ActiveX Data
 Objects.* místo neznámé: O\'Reilly Media, 2001. ISBN 9781491935576.
 \[10\] Office Primary Interop Assemblies. *Microsoft Developer Network.*
-\[Online\] \[Citace: 02. 04. 2017\]. Dostupné z: \[11\] WHITECHAPEL,
+\[Online\] \[Citace: 02. 04. 2017\]. Dostupné z: \[11\] WHITECHAPEL,
 Andrew. *Microsoft .NET Development for Microsoft Office.* Redmond, WA:
 Microsoft Press, 2005. ISBN 0-7356-2132-2. \[12\] BRUNS, Brian. *MDB
-Tools repository.* \[Online\] \[Citace: 20. 4. 2018\]. Dostupné z:
+Tools repository.* \[Online\] \[Citace: 20. 4. 2018\]. Dostupné z:
 \[13\] ---. Access 2013 support. *MDB Tools repository.* \[Online\]
-\[Citace: 20. 4. 2018\]. Dostupné z: \[14\] SMITH, Calvin R. mdbtools is
-being ported to java. *MDB Tools Discussion.* \[Online\] 2. 5. 2004
-\[Citace: 20. 4. 2018\]. Dostupné z: \[15\] Open Microscopy Environment.
-*OME MDB Tools.* \[Online\] \[Citace: 20. 4. 2018\]. Dostupné z: \[16\]
+\[Citace: 20. 4. 2018\]. Dostupné z: \[14\] SMITH, Calvin R. mdbtools is
+being ported to java. *MDB Tools Discussion.* \[Online\] 2. 5. 2004
+\[Citace: 20. 4. 2018\]. Dostupné z: \[15\] Open Microscopy Environment.
+*OME MDB Tools.* \[Online\] \[Citace: 20. 4. 2018\]. Dostupné z: \[16\]
 ---. ColumnTest source code (ukázka použití). *OME MDB Tools.*
-\[Online\] \[Citace: 20. 4. 2018\]. Dostupné z: \[17\] *Jackcess.*
-\[Online\] Health Market Science, 31. 3. 2018 \[Citace: 20. 4. 2018\].
+\[Online\] \[Citace: 20. 4. 2018\]. Dostupné z: \[17\] *Jackcess.*
+\[Online\] Health Market Science, 31. 3. 2018 \[Citace: 20. 4. 2018\].
 Dostupné z: \[18\] Frequently Asked Questions. *Jackcess.* \[Online\]
-Health Market Science, 31. 3. 2018 \[Citace: 20. 4. 2018\]. Dostupné z:
-\[19\] Cookbook. *Jackcess.* \[Online\] Health Market Science, 31. 3.
-2018 \[Citace: 20. 4. 2018\]. Dostupné z: \[20\] *Jackcess Encrypt.*
-\[Online\] Health Market Science, 9. 10. 2017 \[Citace: 20. 4. 2018\].
-Dostupné z: \[21\] MAYDENE FISHER, Jon Ellis, Jonathan Bruce. *JDBC™ API
-Tutorial and Reference.* Boston, MA: Addison Wesley, 2003. ISBN
-0-321-17384-8. \[22\] ORACLE. JDBC-ODBC Bridge. *Java SE Documentation.*
-\[Online\] \[Citace: 20. 4. 2018\]. Dostupné z: \[23\] AMADEI, Marco.
-*UCanAccess.* \[Online\] \[Citace: 20. 4. 2018\]. Dostupné z: \[24\]
-Centrum informatizace a výpočetní techniky. *Referenční příručka
-portálového rozhraní IS/STAG.* Plzeň: Západočeská univerzita, 2009. ISBN
-978-80-7043-807-7. \[25\] ---. Aplikace pro správu semestrálních prací,
-jejich odevzdávání a hodnocení. *IS/STAG - Helpcentrum.* \[Online\]
-Západočeská univerzita \[Citace: 23. 4. 2018\]. Dostupné z: \[26\]
-HEROUT, Pavel. *Validační server pro studentské projekty.* \[Online\]
-\[Interní dokument\] \[Citace: 20. 4. 2018\]. Dostupné z: \[27\]
-VALENTA, Lukáš; DUDOVÁ, Veronika. *Validační server - manuál.*
-\[Online\] \[Citace: 20. 4. 2018\]. Dostupné z: \[28\] DUDOVÁ, Veronika.
-*Webová konfigurace validačního serveru.* Plzeň, 2010. Bakalářská práce.
-Západočeská univerzita. Fakulta aplikovaných věd. Katedra informatiky
-a výpočetní techniky. Vedoucí práce Pavel HEROUT. \[29\] *Testovací
-validační server pro studentské projekty.* \[Online\] \[Citace: 20. 4.
-2018\]. Dostupné z: \[30\] *Wiki - Validační server a jeho moduly -
-Redmine KIV ZČU.* \[Online\] \[Citace: 20. 4. 2018\]. Dostupné z:
+Health Market Science, 31. 3. 2018 \[Citace: 20. 4. 2018\]. Dostupné z:
+\[19\] Cookbook. *Jackcess.* \[Online\] Health Market Science,
+31. 3. 2018 \[Citace: 20. 4. 2018\]. Dostupné z: \[20\] *Jackcess
+Encrypt.* \[Online\] Health Market Science, 9. 10. 2017 \[Citace:
+20. 4. 2018\]. Dostupné z: \[21\] MAYDENE FISHER, Jon Ellis, Jonathan
+Bruce. *JDBC™ API Tutorial and Reference.* Boston, MA: Addison Wesley,
+2003. ISBN 0-321-17384-8. \[22\] ORACLE. JDBC-ODBC Bridge. *Java SE
+Documentation.* \[Online\] \[Citace: 20. 4. 2018\]. Dostupné z: \[23\]
+AMADEI, Marco. *UCanAccess.* \[Online\] \[Citace: 20. 4. 2018\].
+Dostupné z: \[24\] Centrum informatizace a výpočetní techniky.
+*Referenční příručka portálového rozhraní IS/STAG.* Plzeň: Západočeská
+univerzita, 2009. ISBN 978-80-7043-807-7. \[25\] ---. Aplikace pro
+správu semestrálních prací, jejich odevzdávání a hodnocení. *IS/STAG -
+Helpcentrum.* \[Online\] Západočeská univerzita \[Citace: 23. 4. 2018\].
+Dostupné z: \[26\] HEROUT, Pavel. *Validační server pro studentské
+projekty.* \[Online\] \[Interní dokument\] \[Citace: 20. 4. 2018\].
+Dostupné z: \[27\] VALENTA, Lukáš; DUDOVÁ, Veronika. *Validační server -
+manuál.* \[Online\] \[Citace: 20. 4. 2018\]. Dostupné z: \[28\] DUDOVÁ,
+Veronika. *Webová konfigurace validačního serveru.* Plzeň, 2010.
+Bakalářská práce. Západočeská univerzita. Fakulta aplikovaných věd.
+Katedra informatiky a výpočetní techniky. Vedoucí práce Pavel HEROUT.
+\[29\] *Testovací validační server pro studentské projekty.* \[Online\]
+\[Citace: 20. 4. 2018\]. Dostupné z: \[30\] *Wiki - Validační server a
+jeho moduly - Redmine KIV ZČU.* \[Online\] \[Citace: 20. 4. 2018\].
+Dostupné z:
 
 Přílohy {#přílohy .ListParagraph}
 =======
